@@ -28,7 +28,7 @@ public class Serwer {
 			}
 		} finally {
 			serwerSocket.close();
-		}
+		}//ss
 	
 	} catch(Exception e){ //zbiera blad podczas bindowania gniazda
 		System.out.println("Blad serwera");
