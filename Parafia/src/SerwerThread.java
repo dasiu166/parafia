@@ -24,7 +24,7 @@ public class SerwerThread extends Thread implements Serializable{
 	public void run() {
 		try {
 			System.out.println("Klient sie podlaczyl");
-			
+			//a
 			while (true) {// glowna petla watka
 				
 			 wiadomosc = przychodzace.readObject();
