@@ -10,7 +10,7 @@ public class Course {
 
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); //parser formatu daty
 	
-	Date birthday; //data urodzenia
+	private Date birthday; //data urodzenia
 	
 	public Course(){
 		/* mozna tez zwyklymi set ustawiac poszeczgolne pola

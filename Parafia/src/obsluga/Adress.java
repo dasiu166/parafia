@@ -3,10 +3,10 @@ package obsluga;
 public class Adress {
 	/*Zawiera dane adresowe parafianina*/
 	
-	Integer id;
-	String city;
-	String street;
-	String house_numb;
+	private Integer id;
+	private String city;
+	private String street;
+	private String house_numb;
 	
 	public Adress(){
 		id=1;
@@ -31,6 +31,21 @@ public class Adress {
 	
 	public String getHouse(){
 		return house_numb;
+	}
+	
+	public String adressAdd(){
+		String zap="";
+		
+		zap = "INSERT INTO ADRESS VALUES "+city+" "+street+" "+
+				house_numb;
+		
+		return zap;
+	}
+	
+	public static void main(String[] args){
+		/*DLA TESTOW*/
+		Adress a = new Adress();
+		System.out.println(a.adressAdd());
 	}
 
 }

@@ -12,9 +12,9 @@ public class Event {
 	
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm"); //parser formatu datu
 	
-	int id;
-	String name;
-	Date begin;
+	private int id;
+	private String name;
+	private Date begin;
 	
 	public Event(){
 		id=1;
