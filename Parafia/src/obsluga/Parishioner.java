@@ -1,8 +1,10 @@
 package obsluga;
-import java.math.BigInteger;
+
 
 public class Parishioner {
 	/*Zawiera dane o parafianinie*/
+	
+	//int kindOfQuery; //rodzaj zapytania jaki wysylamy
 	
 	String pesel; //id parafinina (numer pesel)
 	Adress adress; //pole z adresem parafianina
@@ -17,6 +19,11 @@ public class Parishioner {
 		/*probny konstruktor*/
 		restriction = 0;
 		pesel = "90122014155";
+	}
+	
+	public void setKindQuery(int val){
+		/*ustawia rodzaj zapytania*/
+		kindOfQuery = val;
 	}
 	
 	public void setRestriction(int r){
@@ -41,10 +48,15 @@ public class Parishioner {
 		surname = sn;
 	}
 	
-	public String selectParishioner(){
+	/*public String selectParishioner(String s){
+		/*jako parametr podaje sie ewentualnie zapytanie
+		 * czyli jak chcemy zeby serwer wstawil/updatnal/pobral nam cos z bazy to podajemy
+		 * rodzaj zapytania i zapytanie tutaj
 		
-		return "s";
-	}
+		String zap = s; 
+		
+		return zap;
+	}*/
 	
 	
 	

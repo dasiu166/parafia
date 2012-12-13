@@ -3,7 +3,7 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-public class Course {
+public class Course extends DataBaseElement {
 	/*Zawiera przebieg sakramentow itp w karierze parafianina;)
 	 * i np jak data bierzmowania bedzie pusta to nie bedzie mogl zamowic
 	 * slubu itp...*/
@@ -11,6 +11,11 @@ public class Course {
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); //parser formatu daty
 	
 	private Date birthday; //data urodzenia
+	private Date baptism; //data chrztu
+	private Date communion; //data komunii swietej
+	private Date confirmation; //data bierzmowania
+	private Date marriage; //data slubu
+	private Date death; //data smierci
 	
 	public Course(){
 		/* mozna tez zwyklymi set ustawiac poszeczgolne pola
@@ -23,28 +28,62 @@ public class Course {
 		}
 	}
 	
+	public boolean setQuery(String val){
+		query = val;
+		
+		return true;
+	}
+	
 	public Date getBirthDay(){
 		return birthday;
 	}
-	
-	public String courseSelect(){
-		String zap="";
-		
-		/*zap = "SELECT * FROM COURSE WHERE  birthday = "+
-				Integer.toString(birthday.getYear())+"-"+
-				Integer.toString(birthday.getMonth())+"-"+
-				Integer.toString(birthday.getDay());*/
-		
-		zap = "SELECT * FROM COURSE WHERE  birthday = "+ 
-				birthday.toLocaleString().substring(0, 10);
-				/*od 0 do 10 bo to odpowiada ilosci znakow dla daty*/
-		
-		return zap;
+	public Date getBaptism(){
+		return baptism;
 	}
+	public Date getCommunion(){
+		return communion;
+	}
+	public Date getConfirmation(){
+		return confirmation;
+	}
+	public Date getMarriage(){
+		return marriage;
+	}
+	public Date getDeath(){
+		return death;
+	}
+
+	public boolean setBirthday(Date d){
+		birthday = d;
+		return true;
+	}
+	public boolean setBaptism(Date d){
+		baptism = d;
+		return true;
+	}
+	public boolean setCommunion(Date d){
+		communion = d;
+		return true;
+	}
+	public boolean setConfirmation(Date d){
+		confirmation = d;
+		return true;
+	}
+	public boolean setMarriage(Date d){
+		marriage = d;
+		return true;
+	}
+	public boolean setDeath(Date d){
+		death = d;
+		return true;
+	}
+	
+	
+	
 	
 public static void main(String[] args){
 		/*DLA TESTOW*/
 		Course c = new Course();
-		System.out.println(c.courseSelect());
+		
 	}
 }

@@ -1,21 +1,21 @@
 package obsluga;
 
-public class Adress {
+public class Adress extends DataBaseElement{
 	/*Zawiera dane adresowe parafianina*/
 	
-	private Integer id;
-	private String city;
-	private String street;
-	private String house_numb;
+	private Integer id; //id adresu z bazy danych
+	private String city; //miasto
+	private String street; //ulica
+	private String district; //osiedle
+	private String house_numb; //numer domu/bloku
 	
 	public Adress(){
 		id=1;
 		city = "miasto_test";
 		street = "ulica_test";
+		district = "district_test";
 		house_numb = "numer_domu_test";
 	}
-	
-	
 	
 	public int getId(){
 		return id;
@@ -33,19 +33,15 @@ public class Adress {
 		return house_numb;
 	}
 	
-	public String adressAdd(){
-		String zap="";
+	public String retQuery(String val){
 		
-		zap = "INSERT INTO ADRESS VALUES "+city+" "+street+" "+
-				house_numb;
-		
-		return zap;
+		return val;
 	}
 	
 	public static void main(String[] args){
 		/*DLA TESTOW*/
 		Adress a = new Adress();
-		System.out.println(a.adressAdd());
+		
 	}
 
 }
