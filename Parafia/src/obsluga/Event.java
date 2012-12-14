@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 public class Event extends DataBaseElement {
+	/*KLASA JAK NARZIE WYLACZONA Z UZYTKU!!!!!!!!!*/
+	
 	/*Klasa zwierajaca dane zdarzenie, co do opcji jakie moga tu wystapic to 
 	 * beda one pobierane z bazy przez klienta zaraz po jego zalogowaniu
 	 * (automatycznie), a tylko proboszcz bedzie mial mozliwosc dodania/usuniecia danego

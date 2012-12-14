@@ -1,17 +1,17 @@
 package obsluga;
 
 
-public class Parishioner {
+public class Parishioner extends DataBaseElement{
 	/*Zawiera dane o parafianinie*/
 	
 	//int kindOfQuery; //rodzaj zapytania jaki wysylamy
 	
-	String pesel; //id parafinina (numer pesel)
-	Adress adress; //pole z adresem parafianina
-	Course course; //pole z przebiegiem
-	
-	String name; //imie
-	String surname; //nazwisko
+	private String pesel; //id parafinina (numer pesel)
+	private String pass; //pole z haslem
+	private Adress adress; //pole z adresem parafianina
+	private Course course; //pole z przebiegiem
+	private String name; //imie
+	private String surname; //nazwisko
 	
 	int restriction; //liczba oznaczajaca prawa dostepu
 	
@@ -21,43 +21,59 @@ public class Parishioner {
 		pesel = "90122014155";
 	}
 	
-	public void setKindQuery(int val){
-		/*ustawia rodzaj zapytania*/
-		kindOfQuery = val;
-	}
+	/*SETTERY*/
 	
+	public boolean setQuery(String val){
+		query = val;
+		return true;
+	}
 	public void setRestriction(int r){
 		/*ustawia prawa dostepu*/
 		restriction = r;
 	}
-	
 	public void setAdress(Adress a){
 		/*Ustawienie adresu*/
 		adress = a;
 	}
-	
 	public void setCourse(Course c){
 		course = c;
 	}
-	
 	public void setName(String n){
 		name = n;
 	}
-	
 	public void setSurName(String sn){
 		surname = sn;
 	}
+	public void setPesel(String p){
+		pesel = p;
+	}
+	public void setPass(String p){
+		pass = p;
+	}
 	
-	/*public String selectParishioner(String s){
-		/*jako parametr podaje sie ewentualnie zapytanie
-		 * czyli jak chcemy zeby serwer wstawil/updatnal/pobral nam cos z bazy to podajemy
-		 * rodzaj zapytania i zapytanie tutaj
-		
-		String zap = s; 
-		
-		return zap;
-	}*/
+	/*GETTERY*/
 	
+	public int getRestriction(){
+		return restriction;
+	}
+	public Adress getAdress(){
+		return adress;
+	}
+	public Course getCourse(){
+		return course;
+	}
+	public String getName(){
+		return name;
+	}
+	public String getSurName(){
+		return surname;
+	}
+	public String getPesel(){
+		return pesel;
+	}
+	public String getPass(){
+		return pass;
+	}
 	
 	
 	
