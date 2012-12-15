@@ -1,0 +1,11 @@
+>>Propozycje zapytan (kindOfQuery) //w fazie rozwoju
+0 - logowanie
+-1 - wylogowanie
+
+1 - dodanie do bazy
+2 - update w bazie
+3 - usuniecie z bazy
+4 - select z bazy
+
+
+>>

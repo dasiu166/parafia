@@ -33,9 +33,9 @@ public class Adress extends DataBaseElement{
 		return house_numb;
 	}
 	
-	public String retQuery(String val){
-		
-		return val;
+	public boolean setQuery(String val){
+		query = val;
+		return true;
 	}
 	
 	public static void main(String[] args){

@@ -1,7 +1,8 @@
 package obsluga;
 import java.util.*;
+import java.io.*;
 
-public class Order extends DataBaseElement{
+public class Order extends DataBaseElement implements Serializable{
 	/*Zawiera tresc zamowienia (przystosowane dozlozenia jak narazie!)*/
 	
 	private Parishioner sender; //ten co nadal zamowienie

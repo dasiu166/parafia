@@ -1,3 +1,5 @@
+import obsluga.*;
+import pomoce.Pomoc;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -58,6 +60,7 @@ public class Client {
 	{	/*odbiera przesylke i zwraca jako zwykly obiekt
 	 	trzeba sobie samemu zrzutowac pozniej;
 	 	JEST TO FUNKCJA BLOKUJACA, dopoki nie otrzyma zwrotu to reszta stoi*/
+		//przesylka=null;
 		try{
 		ObjectInputStream przychodzacy = new ObjectInputStream(socket.getInputStream());
 			
@@ -70,6 +73,7 @@ public class Client {
 		
 		} catch (IOException e){
 			System.out.println("Blad odbioru wiadomosci");
+			e.setStackTrace(null);
 			return false;
 		}//koniec try dla odbierania przesylki
 		
@@ -80,25 +84,50 @@ public class Client {
 	
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException{
 		Client k = new Client();
-		Logowanie l;
 		
-		l = new Logowanie();
-		l.setName("ALa");
-		l.setPass("111");
+		/*Ponizej jest symulacja logowania - zlozenia zamowienia - wylogowania
+		 * dziala jak zloto jak narazie, trza dolaczyc baze i formatke i bedzie mam
+		 * nadzieje, Panowie musimy przyspieszyc to troche bo inaczej...*/
+		
 		
 		k.isConnected = k.connect(Serwer.PORT);
 		if (k.isConnected==false) System.out.println("Klient - niepolaczony");
 			else System.out.println("Klient - polaczony");
 		
-		k.sendObject(l); //wysyla sie bo wszsytkie obiekty dziedzicza po Object
-		k.sendObject(l);
-		
+		/*!!Poczatek logowania!!*/
+		Parishioner p = new Parishioner();
+		p.setPesel("100");
+		p.setPass("haslo");
+		p.setKindQuery(0); //przyjmijmy ze zero oznacza probe logowania
+		k.sendObject(p); //wysyla sie bo wszsytkie obiekty dziedzicza po Object
 		k.reciveObject();/*tu uwaga panowie bo sie blokuje az nie otrzyma jakiejs przesylki*/
 		
-		if (k.getPackage() instanceof Logowanie){//ponizej przyklad rzutowania obiektu na konkretna klase
-			if (((Logowanie)k.getPackage()).acces) System.out.println("Jestem zalogowany");
-			else  System.out.println("Nie zalogowano mnie");
-		}
+		p = (Parishioner)k.getPackage();
+		
+		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
+				" Adres: "+p.getAdress().getCity());
+		
+		
+		/*Poczatek zlozenia zamowienia*/
+		Order o = new Order();
+		o.setSenderPesel(p.getPesel());
+		o.setExecutorPesel("999");
+		o.setBeginDate(Pomoc.podajDate("2012-12-15"));
+		o.setEvent("MSZA");
+		
+		k.sendObject(o);
+		k.reciveObject();
+		o = (Order)k.getPackage();
+		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
+		
+		/*Poczatek wylogowania*/
+		p.setKindQuery(-1);
+		k.sendObject(p);
+		k.reciveObject();
+		
+		p = (Parishioner)k.getPackage();
+		System.out.println("KLIENT:  (otrzymana odpowiedz)"+p.getData());
+		
 	}
 	
 	
