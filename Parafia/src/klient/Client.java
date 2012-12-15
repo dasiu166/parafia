@@ -1,3 +1,5 @@
+package klient;
+import serwer.Serwer;
 import obsluga.*;
 import pomoce.Pomoc;
 import java.io.IOException;
@@ -17,7 +19,7 @@ public class Client {
 	private boolean isConnected = false; //informuje czy klient jest polaczony
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
 	
-	boolean connect(int port) throws UnknownHostException, IOException
+	public boolean connect(int port) throws UnknownHostException, IOException
 	{	/*laczy sie na podstawie podanego portu na localhoscie (pozniej do zmiany ofcoz)
 	 		pobiera informacje o hoscie i binduje socket;
 	 		zwraca true jezeli sie polaczyl;
@@ -38,11 +40,19 @@ public class Client {
 			else return true;
 	}
 	
-	Object getPackage(){ //zwraca nasza przesylke
+	public Object getPackage(){ //zwraca nasza przesylke
 		return przesylka;
 	}
 	
-	boolean sendObject(Object object) throws IOException{
+	public boolean getIsConnected(){
+		return isConnected;
+	}
+	public void setIsConnected(boolean val){
+		isConnected = val;
+	}
+	
+
+	public boolean sendObject(Object object) throws IOException{
 		/*wysyla obiekt wykorzystujac socket*/
 		try{
 		ObjectOutputStream wychodzacy = new ObjectOutputStream(socket.getOutputStream());
@@ -56,7 +66,7 @@ public class Client {
 		return true;
 	}
 	
-	boolean reciveObject() throws IOException, ClassNotFoundException
+	public boolean reciveObject() throws IOException, ClassNotFoundException
 	{	/*odbiera przesylke i zwraca jako zwykly obiekt
 	 	trzeba sobie samemu zrzutowac pozniej;
 	 	JEST TO FUNKCJA BLOKUJACA, dopoki nie otrzyma zwrotu to reszta stoi*/

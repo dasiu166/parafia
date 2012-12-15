@@ -1,3 +1,4 @@
+package serwer;
 import obsluga.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,7 +30,7 @@ public class SerwerThread extends Thread implements Serializable{
 		return przesylka;
 	}
 	
-	boolean sendObject(Object object) throws IOException{
+	public boolean sendObject(Object object) throws IOException{
 		/*wysyla obiekt wykorzystujac socket*/
 		try{
 		ObjectOutputStream wychodzacy = new ObjectOutputStream(socket.getOutputStream());
@@ -43,7 +44,7 @@ public class SerwerThread extends Thread implements Serializable{
 		return true;
 	}
 	
-	boolean reciveObject() throws IOException, ClassNotFoundException
+	public boolean reciveObject() throws IOException, ClassNotFoundException
 	{	/*odbiera przesylke i zwraca jako zwykly obiekt
 	 	trzeba sobie samemu zrzutowac pozniej;
 	 	JEST TO FUNKCJA BLOKUJACA, dopoki nie otrzyma zwrotu to reszta stoi*/

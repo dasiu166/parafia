@@ -1,3 +1,5 @@
+package serwer;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -5,8 +7,11 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.util.Random;
 
+import pomoce.ReadFromFile;
+
+
 public class Serwer {
-	static final int PORT = 2000;	
+	public static final int PORT = 2000;	
 
 	public static void main (String args[]) throws IOException{
 		System.out.print(ReadFromFile.loadFromFile("serwer.ini","PORT"));
