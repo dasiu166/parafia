@@ -11,6 +11,7 @@ import java.net.*;
 import javax.swing.JOptionPane;
 import java.util.*;
 import java.io.*;
+import pomoce.Pomoc;
 
 public class Client {
 	//probaStart
@@ -19,14 +20,14 @@ public class Client {
 	private boolean isConnected = false; //informuje czy klient jest polaczony
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
 	
-	public boolean connect(int port) throws UnknownHostException, IOException
+	public boolean connect(String adres, int port) throws UnknownHostException, IOException
 	{	/*laczy sie na podstawie podanego portu na localhoscie (pozniej do zmiany ofcoz)
 	 		pobiera informacje o hoscie i binduje socket;
 	 		zwraca true jezeli sie polaczyl;
 	 		zbieranie wyjatkow dziala;*/
 		
 		try{
-		addr = InetAddress.getByName("localhost");
+		addr = InetAddress.getByName(adres);
 		
 		socket = new Socket(addr,port);
 		} catch (UnknownHostException e){
@@ -99,8 +100,10 @@ public class Client {
 		 * dziala jak zloto jak narazie, trza dolaczyc baze i formatke i bedzie mam
 		 * nadzieje, Panowie musimy przyspieszyc to troche bo inaczej...*/
 		
+		String adr = Pomoc.loadFromFile("client.ini", "SERWERADRES"); //pobranie adresu
+		int portt = Integer.parseInt(Pomoc.loadFromFile("client.ini", "PORT")); //pobranie portu
 		
-		k.isConnected = k.connect(2000);
+		k.isConnected = k.connect(adr,portt);
 		if (k.isConnected==false) System.out.println("Klient - niepolaczony");
 			else System.out.println("Klient - polaczony");
 		

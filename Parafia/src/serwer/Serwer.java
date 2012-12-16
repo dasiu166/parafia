@@ -22,9 +22,11 @@ public class Serwer {
 		PORT = Integer.parseInt(Pomoc.loadFromFile("serwer.ini","PORT")); //zczytanie portu z ini
 		LOGDIRECTORY = Pomoc.loadFromFile("serwer.ini", "LOGDIRECTORY");
 		
+		//LOG
 		Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
 				d.toLocaleString().substring(0, 10), d.toLocaleString()+
 				" -> Serwer uruchomiony na porcie : "+PORT);
+		//LOG_END
 		
 		
 		try{
@@ -37,13 +39,16 @@ public class Serwer {
 				
 				try {
 				
+				//LOG
 				Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
 						d.toLocaleString().substring(0, 10), d.toLocaleString()+
 						" -> Nowy watek dla klienta");
-					
+				//LOG_END
+				
 				new SerwerThread(socket);// utworzenie watka serwera
 				
 			} catch (IOException e) {
+				
 				//LOG
 				Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
 						d.toLocaleString().substring(0, 10), d.toLocaleString()+

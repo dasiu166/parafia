@@ -1,0 +1,105 @@
+2012-12-16 02:09:41 -> Klient sie polaczyl : Watek:Thread-0
+2012-12-16 02:09:41 -> Klient sie proboje zalogowac : Watek:Thread-0
+2012-12-16 02:09:41 -> Klient sie zalogowal (wyslano) : Watek:Thread-0
+2012-12-16 02:09:48 -> Klient sie polaczyl : Watek:Thread-1
+2012-12-16 02:09:41 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-0
+2012-12-16 02:09:49 -> Klient sie polaczyl : Watek:Thread-2
+2012-12-16 02:09:48 -> Klient sie proboje zalogowac : Watek:Thread-1
+2012-12-16 02:09:50 -> Klient sie polaczyl : Watek:Thread-3
+2012-12-16 02:09:50 -> Klient sie polaczyl : Watek:Thread-4
+2012-12-16 02:09:41 -> Klient sie wylogowal (wyslano) : Watek:Thread-0
+2012-12-16 02:09:49 -> Klient sie proboje zalogowac : Watek:Thread-2
+2012-12-16 02:09:48 -> Klient sie zalogowal (wyslano) : Watek:Thread-1
+2012-12-16 02:09:50 -> Klient sie proboje zalogowac : Watek:Thread-3
+2012-12-16 02:09:50 -> Klient sie proboje zalogowac : Watek:Thread-4
+2012-12-16 02:09:49 -> Klient sie zalogowal (wyslano) : Watek:Thread-2
+2012-12-16 02:09:50 -> Klient sie zalogowal (wyslano) : Watek:Thread-3
+2012-12-16 02:09:54 -> Klient sie polaczyl : Watek:Thread-5
+2012-12-16 02:09:50 -> Klient sie zalogowal (wyslano) : Watek:Thread-4
+2012-12-16 02:09:54 -> Klient sie polaczyl : Watek:Thread-6
+2012-12-16 02:09:55 -> Klient sie polaczyl : Watek:Thread-7
+2012-12-16 02:09:48 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-1
+2012-12-16 02:09:54 -> Klient sie proboje zalogowac : Watek:Thread-5
+2012-12-16 02:09:54 -> Klient sie proboje zalogowac : Watek:Thread-6
+2012-12-16 02:09:55 -> Klient sie proboje zalogowac : Watek:Thread-7
+2012-12-16 02:09:49 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-2
+2012-12-16 02:09:48 -> Klient sie wylogowal (wyslano) : Watek:Thread-1
+2012-12-16 02:09:50 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-3
+2012-12-16 02:09:54 -> Klient sie zalogowal (wyslano) : Watek:Thread-5
+2012-12-16 02:09:50 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-4
+2012-12-16 02:09:54 -> Klient sie zalogowal (wyslano) : Watek:Thread-6
+2012-12-16 02:09:55 -> Klient sie zalogowal (wyslano) : Watek:Thread-7
+2012-12-16 02:09:49 -> Klient sie wylogowal (wyslano) : Watek:Thread-2
+2012-12-16 02:10:00 -> Klient sie polaczyl : Watek:Thread-8
+2012-12-16 02:09:50 -> Klient sie wylogowal (wyslano) : Watek:Thread-3
+2012-12-16 02:10:00 -> Klient sie polaczyl : Watek:Thread-9
+2012-12-16 02:10:00 -> Klient sie polaczyl : Watek:Thread-10
+2012-12-16 02:09:50 -> Klient sie wylogowal (wyslano) : Watek:Thread-4
+2012-12-16 02:10:01 -> Klient sie polaczyl : Watek:Thread-11
+2012-12-16 02:10:01 -> Klient sie polaczyl : Watek:Thread-12
+2012-12-16 02:10:02 -> Klient sie polaczyl : Watek:Thread-13
+2012-12-16 02:10:00 -> Klient sie proboje zalogowac : Watek:Thread-8
+2012-12-16 02:10:00 -> Klient sie proboje zalogowac : Watek:Thread-9
+2012-12-16 02:10:02 -> Klient sie polaczyl : Watek:Thread-14
+2012-12-16 02:09:54 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-5
+2012-12-16 02:10:02 -> Klient sie polaczyl : Watek:Thread-15
+2012-12-16 02:10:00 -> Klient sie proboje zalogowac : Watek:Thread-10
+2012-12-16 02:09:54 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-6
+2012-12-16 02:10:01 -> Klient sie proboje zalogowac : Watek:Thread-11
+2012-12-16 02:09:55 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-7
+2012-12-16 02:10:03 -> Klient sie polaczyl : Watek:Thread-16
+2012-12-16 02:10:01 -> Klient sie proboje zalogowac : Watek:Thread-12
+2012-12-16 02:10:03 -> Klient sie polaczyl : Watek:Thread-17
+2012-12-16 02:10:04 -> Klient sie polaczyl : Watek:Thread-18
+2012-12-16 02:10:02 -> Klient sie proboje zalogowac : Watek:Thread-13
+2012-12-16 02:10:00 -> Klient sie zalogowal (wyslano) : Watek:Thread-8
+2012-12-16 02:10:00 -> Klient sie zalogowal (wyslano) : Watek:Thread-9
+2012-12-16 02:10:02 -> Klient sie proboje zalogowac : Watek:Thread-14
+2012-12-16 02:09:54 -> Klient sie wylogowal (wyslano) : Watek:Thread-5
+2012-12-16 02:10:02 -> Klient sie proboje zalogowac : Watek:Thread-15
+2012-12-16 02:10:00 -> Klient sie zalogowal (wyslano) : Watek:Thread-10
+2012-12-16 02:09:54 -> Klient sie wylogowal (wyslano) : Watek:Thread-6
+2012-12-16 02:10:01 -> Klient sie zalogowal (wyslano) : Watek:Thread-11
+2012-12-16 02:09:55 -> Klient sie wylogowal (wyslano) : Watek:Thread-7
+2012-12-16 02:10:03 -> Klient sie proboje zalogowac : Watek:Thread-16
+2012-12-16 02:10:01 -> Klient sie zalogowal (wyslano) : Watek:Thread-12
+2012-12-16 02:10:03 -> Klient sie proboje zalogowac : Watek:Thread-17
+2012-12-16 02:10:04 -> Klient sie proboje zalogowac : Watek:Thread-18
+2012-12-16 02:10:02 -> Klient sie zalogowal (wyslano) : Watek:Thread-13
+2012-12-16 02:10:02 -> Klient sie zalogowal (wyslano) : Watek:Thread-14
+2012-12-16 02:10:02 -> Klient sie zalogowal (wyslano) : Watek:Thread-15
+2012-12-16 02:10:03 -> Klient sie zalogowal (wyslano) : Watek:Thread-16
+2012-12-16 02:10:03 -> Klient sie zalogowal (wyslano) : Watek:Thread-17
+2012-12-16 02:10:04 -> Klient sie zalogowal (wyslano) : Watek:Thread-18
+2012-12-16 02:10:00 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-8
+2012-12-16 02:10:00 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-9
+2012-12-16 02:10:00 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-10
+2012-12-16 02:10:01 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-11
+2012-12-16 02:10:01 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-12
+2012-12-16 02:10:02 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-13
+2012-12-16 02:10:00 -> Klient sie wylogowal (wyslano) : Watek:Thread-8
+2012-12-16 02:10:00 -> Klient sie wylogowal (wyslano) : Watek:Thread-9
+2012-12-16 02:10:02 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-14
+2012-12-16 02:10:02 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-15
+2012-12-16 02:10:00 -> Klient sie wylogowal (wyslano) : Watek:Thread-10
+2012-12-16 02:10:01 -> Klient sie wylogowal (wyslano) : Watek:Thread-11
+2012-12-16 02:10:03 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-16
+2012-12-16 02:10:01 -> Klient sie wylogowal (wyslano) : Watek:Thread-12
+2012-12-16 02:10:04 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-18
+2012-12-16 02:10:03 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-17
+2012-12-16 02:10:02 -> Klient sie wylogowal (wyslano) : Watek:Thread-13
+2012-12-16 02:10:02 -> Klient sie wylogowal (wyslano) : Watek:Thread-14
+2012-12-16 02:10:02 -> Klient sie wylogowal (wyslano) : Watek:Thread-15
+2012-12-16 02:10:03 -> Klient sie wylogowal (wyslano) : Watek:Thread-16
+2012-12-16 02:10:04 -> Klient sie wylogowal (wyslano) : Watek:Thread-18
+2012-12-16 02:10:03 -> Klient sie wylogowal (wyslano) : Watek:Thread-17
+2012-12-16 02:19:03 -> Klient sie polaczyl : Watek:Thread-0
+2012-12-16 02:19:03 -> Klient sie proboje zalogowac : Watek:Thread-0
+2012-12-16 02:19:03 -> Klient sie zalogowal (wyslano) : Watek:Thread-0
+2012-12-16 02:19:03 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-0
+2012-12-16 02:19:03 -> Klient sie wylogowal (wyslano) : Watek:Thread-0
+2012-12-16 02:19:19 -> Klient sie polaczyl : Watek:Thread-1
+2012-12-16 02:19:19 -> Klient sie proboje zalogowac : Watek:Thread-1
+2012-12-16 02:19:19 -> Klient sie zalogowal (wyslano) : Watek:Thread-1
+2012-12-16 02:19:19 -> Klient zlozyl zamowienie (wyslano) : Watek:Thread-1
+2012-12-16 02:19:19 -> Klient sie wylogowal (wyslano) : Watek:Thread-1

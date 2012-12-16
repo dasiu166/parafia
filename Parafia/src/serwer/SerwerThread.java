@@ -6,19 +6,24 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.io.*;
 import java.util.*;
+import pomoce.Pomoc;
+
+import pomoce.Pomoc;
 
 public class SerwerThread extends Thread implements Serializable{
 	private Socket socket;
 	private ObjectInputStream przychodzace;
 	private ObjectOutputStream wychodzace;
-	Object wiadomosc;
-	private LinkedList<Object> kolejka;
-	int clientRestriction=0; //przetrzymuje uprawnienia, moze a nie musi sie przydac
+	Object wiadomosc; //zmienna zabezpieczajaca (na niej wykonywane sa informacje)
+	//private LinkedList<Object> kolejka;
 	
+	int clientRestriction=0; //przetrzymuje uprawnienia, moze a nie musi sie przydac
+	Date d = new Date(); //data dla logow
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
 	
 	public SerwerThread(Socket s) throws IOException {
 		socket = s;
+		d.getTime();//pobranie daty i czasu
 		// utworzenie strumieni
 		//przychodzace = new ObjectInputStream(socket.getInputStream());
 		//wychodzace = new ObjectOutputStream(socket.getOutputStream());
@@ -74,6 +79,12 @@ public class SerwerThread extends Thread implements Serializable{
 		try {
 			System.out.println("Klient sie podlaczyl");
 			
+			//LOG
+			Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+					d.toLocaleString().substring(0, 10), d.toLocaleString()+
+					" -> Klient sie polaczyl : Watek:"+this.getName());
+			//LOG_END
+			
 			while (true) {// glowna petla watka
 				
 			 //wiadomosc = przychodzace.readObject();
@@ -87,6 +98,12 @@ public class SerwerThread extends Thread implements Serializable{
 				 
 				 System.out.println("Przyszla wiadomosc 1");
 				 if (((Parishioner) wiadomosc).getKindQuery()==0){
+					 
+					//LOG
+						Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+								d.toLocaleString().substring(0, 10), d.toLocaleString()+
+								" -> Klient sie proboje zalogowac : Watek:"+this.getName());
+					//LOG_END
 					 
 					 if (((Parishioner) wiadomosc).getPesel().equals("100")){
 						 
@@ -102,6 +119,11 @@ public class SerwerThread extends Thread implements Serializable{
 							 Thread.sleep(2000);
 							 //wychodzace.writeObject(wiadomosc);
 							 this.sendObject(wiadomosc);
+							//LOG
+								Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+										d.toLocaleString().substring(0, 10), d.toLocaleString()+
+										" -> Klient sie zalogowal (wyslano) : Watek:"+this.getName());
+								//LOG_END
 						 }
 					 }
 				 }// koniec logowania
@@ -111,6 +133,12 @@ public class SerwerThread extends Thread implements Serializable{
 					 ((Parishioner) wiadomosc).setRestriction(0);
 					 ((Parishioner) wiadomosc).setData("Wylogowano CIE");
 					 this.sendObject(wiadomosc);
+					 
+					//LOG
+						Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+								d.toLocaleString().substring(0, 10), d.toLocaleString()+
+								" -> Klient sie wylogowal (wyslano) : Watek:"+this.getName());
+					//LOG_END
 				 
 				 }//koniec wylogowywania
 			 
@@ -130,6 +158,12 @@ public class SerwerThread extends Thread implements Serializable{
 				 //String p = new String("Zamowienie zlozone");
 				 //wychodzace.writeObject(wiadomosc);
 				 this.sendObject(wiadomosc);
+				 
+				//LOG
+					Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+							d.toLocaleString().substring(0, 10), d.toLocaleString()+
+							" -> Klient zlozyl zamowienie (wyslano) : Watek:"+this.getName());
+				//LOG_END
 				
 				 //koniec skladania zamowienia
 			} else System.out.println("Nie rozpoznano");
