@@ -100,7 +100,7 @@ public class Client {
 		 * nadzieje, Panowie musimy przyspieszyc to troche bo inaczej...*/
 		
 		
-		k.isConnected = k.connect(Serwer.PORT);
+		k.isConnected = k.connect(2000);
 		if (k.isConnected==false) System.out.println("Klient - niepolaczony");
 			else System.out.println("Klient - polaczony");
 		
