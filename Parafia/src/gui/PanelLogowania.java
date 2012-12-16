@@ -11,13 +11,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import obsluga.Parishioner;
+
 public class PanelLogowania extends JPanel {
 
 	private static final long serialVersionUID = 1L;
     private CardLayout cl;
-    private boolean loggedUser = false;
     private DialogLogowania dialogLogowania;
-    private String userName;
+    private Events event = new Events();
 	/**
 	 * Create the panel.
 	 */
@@ -54,9 +55,12 @@ public class PanelLogowania extends JPanel {
         // akcja po wciœniêciu przycisku WYLOGUJ
         bLogOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		loggedUser = false;
-        		cl.show(ja, "unlogged");
-        		JOptionPane.showMessageDialog(null, "Wylogowano");
+        		if(event.wyloguj()){
+	        		cl.show(ja, "unlogged");
+	        		JOptionPane.showMessageDialog(null, "Wylogowano");
+        		} else {
+        			JOptionPane.showMessageDialog(null, "B³¹d wylogowania", "B³¹d", JOptionPane.ERROR_MESSAGE);
+        		}
         	}
         });
         bLogOut.setBounds(329, 0, 89, 20);
@@ -71,12 +75,10 @@ public class PanelLogowania extends JPanel {
         		dialogLogowania.setFocus();
         		
         		if(dialogLogowania.isOK()){
-        			//JOptionPane.showMessageDialog(null, "Login: "+dialogLogowania.getLogin()+"\nHas³o: "+dialogLogowania.getPassword());
-        			userName = dialogLogowania.getLogin();
-        			String password = dialogLogowania.getPassword();
-        			if(userName.equals("user") && password.equals("user")){
-        				loggedUser = true;
-        				lblUserName.setText(userName);
+        			
+        			if(event.zaloguj(dialogLogowania.getLogin(), dialogLogowania.getPassword())){
+        				Parishioner p = event.getParishioner();
+        				lblUserName.setText(p.getName()+" "+p.getSurName());
         				cl.show(ja, "logged");
         			}
         		}
