@@ -139,7 +139,7 @@ public class CardLayoutExp extends JFrame {
 				}
 				else if(o == mnPomocOProgramie)
 				{
-					JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Cz³onek 4", "O Programie",JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Piotr Ewiak", "O Programie",JOptionPane.PLAIN_MESSAGE);
 				}else if(o == menuPlikPanel1)
 				{
 					//JOptionPane.showMessageDialog(null, "Panel1");
