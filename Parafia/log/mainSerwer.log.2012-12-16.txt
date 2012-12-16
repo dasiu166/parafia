@@ -23,3 +23,7 @@
 2012-12-16 02:18:58 -> Serwer uruchomiony na porcie : 2000
 2012-12-16 02:18:58 -> Nowy watek dla klienta
 2012-12-16 02:18:58 -> Nowy watek dla klienta
+2012-12-16 18:33:33 -> Serwer uruchomiony na porcie : 2000
+2012-12-16 18:33:33 -> Nowy watek dla klienta
+2012-12-16 18:33:33 -> Nowy watek dla klienta
+2012-12-16 18:33:33 -> Nowy watek dla klienta

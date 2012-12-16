@@ -31,13 +31,13 @@ public class DialogLogowania extends JDialog implements ActionListener{
 		getContentPane().setLayout(null);
 
 		tLogin = new JTextField();
-		tLogin.setText("user");
+		tLogin.setText("100");
 		tLogin.setBounds(117, 38, 110, 23);
 		tLogin.setColumns(10);
 		getContentPane().add(tLogin);		
 		
 		pwdPassword = new JPasswordField();
-		pwdPassword.setText("user");
+		pwdPassword.setText("haslo");
 		pwdPassword.setToolTipText("");
 		pwdPassword.setBounds(117, 67, 110, 23);
 		getContentPane().add(pwdPassword);

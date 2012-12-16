@@ -45,7 +45,7 @@ public class CardLayoutExp extends JFrame {
 		} catch (ClassNotFoundException e1) {e1.printStackTrace();} catch (InstantiationException e1){e1.printStackTrace();}catch(IllegalAccessException e1){e1.printStackTrace();}catch(UnsupportedLookAndFeelException e1){e1.printStackTrace();}
 		SwingUtilities.updateComponentTreeUI(this);
 				
-        setTitle("Card Layout Example");
+        setTitle("System zarz¹dzania parafi¹");
         
         
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
