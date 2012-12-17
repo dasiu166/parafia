@@ -94,10 +94,10 @@ public class SerwerThread extends Thread implements Serializable{
 			
 			
 			 System.out.println("Sprawdzam parafianina");
-			 if (wiadomosc instanceof Parishioner) {
+			 if (wiadomosc instanceof User) {
 				 
 				 System.out.println("Przyszla wiadomosc 1");
-				 if (((Parishioner) wiadomosc).getKindQuery()==0){
+				 if (((User) wiadomosc).getKindQuery()==0){
 					 
 					//LOG
 						Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
@@ -105,21 +105,25 @@ public class SerwerThread extends Thread implements Serializable{
 								" -> Klient sie proboje zalogowac : Watek:"+this.getName());
 					//LOG_END
 					 
-					 if (((Parishioner) wiadomosc).getPesel().equals("100")){
+					 if (((User) wiadomosc).getLogin().equals("Login")){
 						 
-						 if (((Parishioner) wiadomosc).getPass().equals("haslo")){
+						 if (((User) wiadomosc).getPassword().equals("Pass")){
 							 
-							 ((Parishioner) wiadomosc).setRestriction(1);
+							 ((User) wiadomosc).setRestriction(1);
 							 clientRestriction=1;
 							 
-							 ((Parishioner) wiadomosc).setName("BOLEK");
-							 ((Parishioner) wiadomosc).setSurName("DEKIEL");
-							 ((Parishioner) wiadomosc).setAdress(new Adress());
+							 this.sendObject(wiadomosc); //odpowiedz klas¹ user
+							 
+							 Parishioner p = new Parishioner();
+							 p.setName("BOLEK");
+							 p.setSurName("DEKIEL");
+							 p.setAdress(new Adress());
+							 p.setRestriction(clientRestriction);
 							 
 							 Thread.sleep(2000);
-							 //wychodzace.writeObject(wiadomosc);
-							 this.sendObject(wiadomosc);
-							//LOG
+							 this.sendObject(p); //odpowiedz klas¹ parishioner
+							
+							 //LOG
 								Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 										d.toLocaleString().substring(0, 10), d.toLocaleString()+
 										" -> Klient sie zalogowal (wyslano) : Watek:"+this.getName());
@@ -127,6 +131,9 @@ public class SerwerThread extends Thread implements Serializable{
 						 }
 					 }
 				 }// koniec logowania
+			 } else //konice usera
+				
+				if (wiadomosc instanceof Parishioner){
 				 
 				 if (((Parishioner) wiadomosc).getKindQuery()==-1){
 					 
@@ -141,9 +148,7 @@ public class SerwerThread extends Thread implements Serializable{
 					//LOG_END
 				 
 				 }//koniec wylogowywania
-			 
-				 //koniec parafianina
-			 } else
+			}else
 			 
 			 if (wiadomosc instanceof Order){
 				 System.out.println("Przyszla wiadomosc 2");

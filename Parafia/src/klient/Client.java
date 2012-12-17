@@ -109,12 +109,22 @@ public class Client {
 		
 		/*!!Poczatek logowania!!*/
 		Parishioner p = new Parishioner();
-		p.setPesel("100");
-		p.setPass("haslo");
-		p.setKindQuery(0); //przyjmijmy ze zero oznacza probe logowania
-		k.sendObject(p); //wysyla sie bo wszsytkie obiekty dziedzicza po Object
+		User u = new User();
+		u.setKindQuery(0); //zapytanie = logowanie
+		u.setLogin("Login");
+		u.setPassword("Pass");
+		
+		//p.setPesel("100");
+		//p.setPass("haslo");
+		//p.setKindQuery(0); 
+		k.sendObject(u); //wysyla sie bo wszsytkie obiekty dziedzicza po Object
 		k.reciveObject();/*tu uwaga panowie bo sie blokuje az nie otrzyma jakiejs przesylki*/
 		
+		u = (User)k.getPackage();
+		
+		System.out.println("Prawa dostepu: "+u.getRestriction()+" Ranaga: "+u.getRange());
+		
+		k.reciveObject();
 		p = (Parishioner)k.getPackage();
 		
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
