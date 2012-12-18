@@ -1,0 +1,25 @@
+/* 
+ * myślę że jak nam coś w międzyczasie przyjdzie do głowy to można uzupełniać
+ * 
+*/ 
+
+Gość
+- wyświetlanie liacend. //nie mogę się doczytać
+- wyświetlanie aktualności
+- zal.
+
+client
+- wyloguj
+- szczególy dnia
+- złożenie zamówień (msza) _prze kalendarz
+- pobierz dane
+- zmien nr tel.
+
+ksządz
+- akceptuje i odrzuca
+- wyświetlenie jego zamówienia
+
+proboszcz
+- podgląd wszystkich grafików i edycja
+- edycja danych
+- dodawnie / usówanie kont
