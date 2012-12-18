@@ -8,8 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JLayeredPane;
+import javax.swing.JTextField;
 
-public class Panel1 extends JPanel implements ActionListener {
+public class PAktualnosci extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -20,13 +23,13 @@ public class Panel1 extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public Panel1(JFrame owner) {
+	public PAktualnosci(JFrame owner) {
 		this.owner = owner;
 		setLayout(null);
 		
 		JButton bLogowania = new JButton("Logowanie");
 		bLogowania.addActionListener(this);
-		bLogowania.setBounds(143, 119, 89, 23);
+		bLogowania.setBounds(83, 46, 89, 23);
 		add(bLogowania);
 
 	}
@@ -40,7 +43,6 @@ public class Panel1 extends JPanel implements ActionListener {
 		
 		if(dialogLogowania.isOK()){
 			JOptionPane.showMessageDialog(owner, "Login: "+dialogLogowania.getLogin()+"\nHas³o: "+dialogLogowania.getPassword());
-		}
-		
+		}		
 	}
 }

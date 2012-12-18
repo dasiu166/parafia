@@ -23,7 +23,7 @@ public class PanelLogowania extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelLogowania(final JFrame owner) {
-        setSize(424, 20);        
+        setSize(150, 70);        
         cl = new CardLayout();
         setLayout(cl);
         final JPanel ja = this;
@@ -33,7 +33,7 @@ public class PanelLogowania extends JPanel {
         unlogged.setLayout(null);
         
         JButton bZaloguj = new JButton("Zaloguj");
-        bZaloguj.setBounds(10, 0, 70, 20);
+        bZaloguj.setBounds(40, 23, 70, 24);
         unlogged.add(bZaloguj);
         
         							// Panel po zalogowaniu
@@ -42,13 +42,13 @@ public class PanelLogowania extends JPanel {
         logged.setLayout(null);
         
         JLabel lblJesteZalogowany = new JLabel("Jeste\u015B zalogowany jako:");
-        lblJesteZalogowany.setHorizontalAlignment(SwingConstants.LEFT);
-        lblJesteZalogowany.setBounds(6, 2, 139, 14);
+        lblJesteZalogowany.setHorizontalAlignment(SwingConstants.CENTER);
+        lblJesteZalogowany.setBounds(0, 4, 150, 14);
         logged.add(lblJesteZalogowany);
         
         final JLabel lblUserName = new JLabel("Nazwa U\u017Cytkownika");
-        lblUserName.setHorizontalAlignment(SwingConstants.LEFT);
-        lblUserName.setBounds(146, 2, 146, 14);
+        lblUserName.setHorizontalAlignment(SwingConstants.CENTER);
+        lblUserName.setBounds(0, 24, 150, 14);
         logged.add(lblUserName);
         
         JButton bLogOut = new JButton("Wyloguj");
@@ -63,7 +63,7 @@ public class PanelLogowania extends JPanel {
         		}
         	}
         });
-        bLogOut.setBounds(329, 0, 89, 20);
+        bLogOut.setBounds(31, 44, 90, 20);
         logged.add(bLogOut);
         
         // akcja po wciœniêciu przycisku ZALOGUJ
