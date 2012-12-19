@@ -82,7 +82,8 @@ public class SerwerThread extends Thread implements Serializable{
 			//LOG
 			Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 					d.toLocaleString().substring(0, 10), d.toLocaleString()+
-					" -> Klient sie polaczyl : Watek:"+this.getName());
+					": Watek:"+this.getName()+" "+
+					" -> Klient sie podlaczyl");
 			//LOG_END
 			
 			while (true) {// glowna petla watka
@@ -94,24 +95,27 @@ public class SerwerThread extends Thread implements Serializable{
 			
 			
 			 System.out.println("Sprawdzam parafianina");
+			 
+			 
 			 if (wiadomosc instanceof User) {
 				 
 				 System.out.println("Przyszla wiadomosc 1");
 				 if (((User) wiadomosc).getKindQuery()==0){
 					 
 					//LOG
-						Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+					 Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 								d.toLocaleString().substring(0, 10), d.toLocaleString()+
-								" -> Klient sie proboje zalogowac : Watek:"+this.getName());
+								": Watek:"+this.getName()+" "+
+								" -> Klient proboje sie zalogowac");
 					//LOG_END
 					 
-					 if (((User) wiadomosc).getLogin().equals("Login")){
-						 
-						 if (((User) wiadomosc).getPassword().equals("Pass")){
+					 if (((User) wiadomosc).getLogin().equals("Login")&& 
+							 ((User) wiadomosc).getPassword().equals("Pass") ){ //tymczasowo
 							 
 							 ((User) wiadomosc).setRestriction(1);
 							 clientRestriction=1;
 							 
+							 ((User) wiadomosc).setQuery("OK+");
 							 this.sendObject(wiadomosc); //odpowiedz klas¹ user
 							 
 							 Parishioner p = new Parishioner();
@@ -119,16 +123,21 @@ public class SerwerThread extends Thread implements Serializable{
 							 p.setSurName("DEKIEL");
 							 p.setAdress(new Adress());
 							 p.setRestriction(clientRestriction);
+							 p.setQuery("OK+");
 							 
 							 Thread.sleep(2000);
 							 this.sendObject(p); //odpowiedz klas¹ parishioner
 							
 							 //LOG
-								Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+							 Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 										d.toLocaleString().substring(0, 10), d.toLocaleString()+
-										" -> Klient sie zalogowal (wyslano) : Watek:"+this.getName());
-								//LOG_END
-						 }
+										": Watek:"+this.getName()+" "+
+										" -> Klient sie zalogowal");
+							 //LOG_END
+						 
+					 } else {//kiedy haslo/login jest zly
+						 ((User) wiadomosc).setQuery("ERR");
+						 this.sendObject(wiadomosc);
 					 }
 				 }// koniec logowania
 			 } else //konice usera
@@ -139,45 +148,57 @@ public class SerwerThread extends Thread implements Serializable{
 					 
 					 ((Parishioner) wiadomosc).setRestriction(0);
 					 ((Parishioner) wiadomosc).setData("Wylogowano CIE");
+					 ((Parishioner) wiadomosc).setQuery("OK+");
 					 this.sendObject(wiadomosc);
 					 
 					//LOG
-						Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+					 Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 								d.toLocaleString().substring(0, 10), d.toLocaleString()+
-								" -> Klient sie wylogowal (wyslano) : Watek:"+this.getName());
+								": Watek:"+this.getName()+" "+
+								" -> Klient sie wylogowal");
 					//LOG_END
 				 
 				 }//koniec wylogowywania
 			}else
 			 
 			 if (wiadomosc instanceof Order){
-				 System.out.println("Przyszla wiadomosc 2");
 				 
+/*---------------*/if(((Order) wiadomosc).getKindQuery()==1){ //dodanie do bazy
+				 System.out.println("Przyszla wiadomosc 2"); //tymczasem
 				 System.out.println("Zamowienie zlozyl: "+((Order) wiadomosc).getSenderPesel()+
 					" "+((Order) wiadomosc).getEvent()+"\n"+
 						 "Odprawia "+((Order)wiadomosc).getExecutroPesel()+
 						 " Kiedy: "+((Order)wiadomosc).getBeginDate());
 				 
 				 ((Order) wiadomosc).setData("ZAMOWIENIE ZLOZONE");
+				 ((Order) wiadomosc).setQuery("OK+");
 				 Thread.sleep(2000);
-				 //String p = new String("Zamowienie zlozone");
-				 //wychodzace.writeObject(wiadomosc);
 				 this.sendObject(wiadomosc);
 				 
 				//LOG
 					Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 							d.toLocaleString().substring(0, 10), d.toLocaleString()+
-							" -> Klient zlozyl zamowienie (wyslano) : Watek:"+this.getName());
+							": Watek:"+this.getName()+" "+
+							" -> Klient zlozyl zamowienie (wyslano)");
 				//LOG_END
-				
-				 //koniec skladania zamowienia
-			} else System.out.println("Nie rozpoznano");
-			 
+				}//koniec skladania zamowienia
+				 
+/*--------------*/if(((Order) wiadomosc).getKindQuery()==4){ //select z bazy
+					
+					LinkedList<Order> orderList = new LinkedList<Order>();
+					
+					for (int i=0;i<50;i++) orderList.add(new Order());
+					orderList.getFirst().setQuery("OK+");
+					this.sendObject(orderList);
+					
+					Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+							d.toLocaleString().substring(0, 10), d.toLocaleString()+
+							": Watek:"+this.getName()+" "+
+							" -> Klient pobral liste zamowien");
+					
+				}//koniec wysylania listy zamowien (docelowo po odczycie z bazy)
 			
-			 
-			 //Thread.sleep(5000);
-			 
-			 
+			 } else System.out.println("Nie rozpoznano");
 			 
 			}
 		} catch (Exception e) {

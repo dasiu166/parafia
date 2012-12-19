@@ -77,6 +77,9 @@ public class Client {
 			
 				try {
 					przesylka = przychodzacy.readObject();
+					//try{ //w razie gdyby potrzebne bylo spanie
+					//Thread.sleep(0);
+					//}catch(InterruptedException e){}
 				} catch (ClassNotFoundException e){
 				System.out.println("Nie rozpoznano przesylki");
 				return false;
@@ -121,6 +124,10 @@ public class Client {
 		k.reciveObject();/*tu uwaga panowie bo sie blokuje az nie otrzyma jakiejs przesylki*/
 		
 		u = (User)k.getPackage();
+		if(u.getQuery().equals("ERR")){
+			System.out.println("Nie mozna sie zalogowac (zly login/haslo)");
+			return;
+		}
 		
 		System.out.println("Prawa dostepu: "+u.getRestriction()+" Ranaga: "+u.getRange());
 		
@@ -133,6 +140,7 @@ public class Client {
 		
 		/*Poczatek zlozenia zamowienia*/
 		Order o = new Order();
+		o.setKindQuery(1); //dodanie do bazy
 		o.setSenderPesel(p.getPesel());
 		o.setExecutorPesel("999");
 		o.setBeginDate(Pomoc.podajDate("2012-12-15"));
@@ -142,6 +150,23 @@ public class Client {
 		k.reciveObject();
 		o = (Order)k.getPackage();
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
+		
+		
+		/*Poczatek pobrania listy zamowien*/
+		o.setKindQuery(4);
+		k.sendObject(o);
+		k.reciveObject();
+		
+		LinkedList<Order> orderList = new LinkedList<Order>();
+		
+		orderList = (LinkedList<Order>)k.getPackage();
+		Iterator<Order> iterator = orderList.iterator();
+		
+		while(iterator.hasNext()){
+			System.out.println(iterator.next().getExecutroPesel());
+		}
+		System.out.println(orderList.size());
+		
 		
 		/*Poczatek wylogowania*/
 		p.setKindQuery(-1);
@@ -157,35 +182,5 @@ public class Client {
 	//probaEnd
 	
 	
-	/*
 	
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		Logowanie l;
-		
-		InetAddress addr = InetAddress.getByName("localhost"); // pobranie adresu sieciowego
-		
-		Socket socket = new Socket(addr, Serwer.PORT); // otwarcie polaczenia
-		try {
-			// utworzenie strumieni
-			//FileInputStream plikPrzychodzacy = new FileInputStream("in.ser");
-			//FileOutputStream plikWychodzacy = new FileOutputStream("out.ser");
-			
-			
-			
-			
-			ObjectOutputStream wychodzace = new ObjectOutputStream(socket.getOutputStream());
-			ObjectInputStream przychodzace = new ObjectInputStream(socket.getInputStream());
-			
-			l = new Logowanie();
-			l.setName("ALa");
-			l.setPass("111");
-			
-			
-			wychodzace.writeObject((Object)l); //rzutowanie w gore na klase bazow object
-		} finally {
-			// zamkniecie polaczenia
-			socket.close();
-		}
-	}
-	*/
 }
