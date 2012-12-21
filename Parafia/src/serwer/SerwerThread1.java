@@ -7,10 +7,16 @@ import java.net.Socket;
 import java.io.*;
 import java.util.*;
 import pomoce.Pomoc;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import pomoce.Pomoc;
 
-public class SerwerThread extends Thread implements Serializable{
+
+
+public class SerwerThread1 extends Thread implements Serializable{
 	private Socket socket;
 	private ObjectInputStream przychodzace;
 	private ObjectOutputStream wychodzace;
@@ -21,7 +27,7 @@ public class SerwerThread extends Thread implements Serializable{
 	Date d = new Date(); //data dla logow
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
 	
-	public SerwerThread(Socket s) throws IOException {
+	public SerwerThread1(Socket s) throws IOException {
 		socket = s;
 		d.getTime();//pobranie daty i czasu
 		// utworzenie strumieni
@@ -75,8 +81,18 @@ public class SerwerThread extends Thread implements Serializable{
 		return true;
 	}
 	
+	
+	
 	public void run() {
 		try {
+			
+			DbConnection.dbConn();
+//=============================================================================
+		int zalogowany=0;	
+			
+			
+			
+			
 			System.out.println("Klient sie podlaczyl");
 			
 			//LOG
@@ -109,18 +125,47 @@ public class SerwerThread extends Thread implements Serializable{
 								" -> Klient proboje sie zalogowac");
 					//LOG_END
 					 
-					 if (((User) wiadomosc).getLogin().equals("ania")&& 
-							 ((User) wiadomosc).getPassword().equals("an11") ){ //tymczasowo
+					 
+					 Statement s = null;
+						System.out.println("patrze w baze\n");
+						try {
+							s = DbConnection.conn.createStatement();   // tworzenie obiektu Statement przesylajacego zapytania do bazy conn
+						    ResultSet dane,u;				
+						    u=s.executeQuery("Select * from Userr");  // wykonanie kwerendy i przeslanie wynikow do obiektu ResultSet  
+						
+						    while (u.next()) {
+			
+				                String userr = u.getString("LOGIN"); 
+				                String passs = u.getString("PASSWORD");
+				                String userID=u.getString("id_userr");
+				                System.out.println("przyslane: "+((User) wiadomosc).getLogin()+" "+((User) wiadomosc).getPassword());
+				                System.out.println("pobrane z bazy: "+userr+" "+passs);
+					 
+				                Thread.sleep(2000);
+					 
+					 if (((User) wiadomosc).getLogin().equals(userr)&& 
+							 ((User) wiadomosc).getPassword().equals(passs) ){ //tymczasowo
 							 
+						 System.out.println("dane sie zgadzaja\n ZALOGOWANO");
+						 
 							 ((User) wiadomosc).setRestriction(1);
 							 clientRestriction=1;
 							 
 							 ((User) wiadomosc).setQuery("OK+");
 							 this.sendObject(wiadomosc); //odpowiedz klas¹ user
 							 
+							 
+							 System.out.println("pobieram dane\n");
+							 dane=s.executeQuery("Select * from Parishioner where id_userr="+userID);
+				             dane.next();
+							 String name = dane.getString("NAME");
+							 String surname = dane.getString("SURNAME");
+							 
+							 //System.out.println("pobrane dane "+name+""+surname);
+							 
 							 Parishioner p = new Parishioner();
-							 p.setName("BOLEK");
-							 p.setSurName("DEKIEL");
+							 p.setName(name);
+							 p.setSurName(surname);
 							 p.setAdress(new Adress());
 							 p.setRestriction(clientRestriction);
 							 p.setQuery("OK+");
@@ -135,10 +180,21 @@ public class SerwerThread extends Thread implements Serializable{
 										" -> Klient sie zalogowal");
 							 //LOG_END
 						 
-					 } else {//kiedy haslo/login jest zly
-						 ((User) wiadomosc).setQuery("ERR");
-						 this.sendObject(wiadomosc);
-					 }
+						 zalogowany=1;
+					 } 
+					
+				 }
+						    if(zalogowany==0) {//kiedy haslo/login jest zly
+						    	System.out.println("doszlo do konca i wysyla err");
+								 ((User) wiadomosc).setQuery("ERR");
+								 this.sendObject(wiadomosc);
+							 }
+				 }
+						catch (SQLException e) {
+						System.out.println("Blad odczytu z bazy! " +e.toString());
+						System.exit(3);
+					}	
+					 
 				 }// koniec logowania
 			 } else //konice usera
 				

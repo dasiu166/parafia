@@ -45,7 +45,7 @@ public class Serwer {
 						" -> Nowy watek dla klienta");
 				//LOG_END
 				
-				new SerwerThread(socket);// utworzenie watka serwera
+				new SerwerThread1(socket);// utworzenie watka serwera
 				
 			} catch (IOException e) {
 				

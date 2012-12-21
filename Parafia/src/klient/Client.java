@@ -114,8 +114,8 @@ public class Client {
 		Parishioner p = new Parishioner();
 		User u = new User();
 		u.setKindQuery(0); //zapytanie = logowanie
-		u.setLogin("Login");
-		u.setPassword("Pass");
+		u.setLogin("krzys");
+		u.setPassword("krz12");
 		
 		//p.setPesel("100");
 		//p.setPass("haslo");
@@ -126,6 +126,12 @@ public class Client {
 		u = (User)k.getPackage();
 		if(u.getQuery().equals("ERR")){
 			System.out.println("Nie mozna sie zalogowac (zly login/haslo)");
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return;
 		}
 		
@@ -136,10 +142,15 @@ public class Client {
 		
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
 				" Adres: "+p.getAdress().getCity());
-		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*Poczatek zlozenia zamowienia*/
-		Order o = new Order();
+		/*Order o = new Order();
 		o.setKindQuery(1); //dodanie do bazy
 		o.setSenderPesel(p.getPesel());
 		o.setExecutorPesel("999");
@@ -150,10 +161,10 @@ public class Client {
 		k.reciveObject();
 		o = (Order)k.getPackage();
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
-		
+		*/
 		
 		/*Poczatek pobrania listy zamowien*/
-		o.setKindQuery(4);
+	/*	o.setKindQuery(4);
 		k.sendObject(o);
 		k.reciveObject();
 		
@@ -167,13 +178,14 @@ public class Client {
 		}
 		System.out.println(orderList.size());
 		
-		
+		*/
 		/*Poczatek wylogowania*/
 		p.setKindQuery(-1);
 		k.sendObject(p);
 		k.reciveObject();
 		
-		p = (Parishioner)k.getPackage();
+	    p = (Parishioner)k.getPackage();
+		
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+p.getData());
 		
 	}
