@@ -1,11 +1,13 @@
 package serwer;
 import obsluga.*;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.io.*;
 import java.util.*;
+
 import pomoce.Pomoc;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -160,12 +162,14 @@ public class SerwerThread1 extends Thread implements Serializable{
 				             dane.next();
 							 String name = dane.getString("NAME");
 							 String surname = dane.getString("SURNAME");
+							 String pesel = dane.getString("PESEL");
 							 
 							 //System.out.println("pobrane dane "+name+""+surname);
 							 
 							 Parishioner p = new Parishioner();
 							 p.setName(name);
 							 p.setSurName(surname);
+							 p.setPesel(pesel);
 							 p.setAdress(new Adress());
 							 p.setRestriction(clientRestriction);
 							 p.setQuery("OK+");
@@ -225,6 +229,36 @@ public class SerwerThread1 extends Thread implements Serializable{
 					" "+((Order) wiadomosc).getEvent()+"\n"+
 						 "Odprawia "+((Order)wiadomosc).getExecutroPesel()+
 						 " Kiedy: "+((Order)wiadomosc).getBeginDate());
+				 
+				
+				 
+				 String sPesel=((Order) wiadomosc).getSenderPesel();
+				 String ePesel=((Order) wiadomosc).getExecutroPesel();
+				 String event=((Order) wiadomosc).getEvent();
+				 String describe=((Order) wiadomosc).getDescribe();
+				 Date bDate=((Order) wiadomosc).getBeginDate();
+				 Date eDate=((Order) wiadomosc).getEndDate();
+				 
+				 Statement dod = null;
+				 dod = DbConnection.conn.createStatement();
+				 //String dodaj=("insert into orderr values (6,"+event+","+ePesel+","+sPesel+","+describe+"," +
+				 	//"to_date('2003/05/03 21:02:44', 'yyyy/mm/dd hh24:mi:ss'),to_date('2003/05/04 21:02:44', 'yyyy/mm/dd hh24:mi:ss'))");
+	             
+String dodaj="INSERT INTO orderr (id_orderr,id_event,odprawiajacy_pesel,zamawiajacy_pesel,describe) VALUES"+ 
+"(4,"+event+","+ePesel+","+sPesel+",'"+describe+"')";//,to_date('2003/05/03 21:02:44', 'yyyy/mm/dd)";
+				
+				 //int nr=6;
+				 //String dodaj="Insert into test1 (id) values"+"("+nr+")";
+				 System.out.println("zapisuje dane\n");
+				 try {
+						int insertedRows = dod.executeUpdate(dodaj);
+						if (insertedRows!=0) System.out.println("dodano");
+						else
+							System.out.println("nie dodano");
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
 				 
 				 ((Order) wiadomosc).setData("ZAMOWIENIE ZLOZONE");
 				 ((Order) wiadomosc).setQuery("OK+");

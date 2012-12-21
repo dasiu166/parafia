@@ -114,8 +114,8 @@ public class Client {
 		Parishioner p = new Parishioner();
 		User u = new User();
 		u.setKindQuery(0); //zapytanie = logowanie
-		u.setLogin("krzys");
-		u.setPassword("krz12");
+		u.setLogin("ania");
+		u.setPassword("an11");
 		
 		//p.setPesel("100");
 		//p.setPass("haslo");
@@ -141,7 +141,7 @@ public class Client {
 		p = (Parishioner)k.getPackage();
 		
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
-				" Adres: "+p.getAdress().getCity());
+				" Adres: "+p.getAdress().getCity()+" Pesel: "+p.getPesel());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -150,18 +150,20 @@ public class Client {
 		}
 		
 		/*Poczatek zlozenia zamowienia*/
-		/*Order o = new Order();
+		Order o = new Order();
 		o.setKindQuery(1); //dodanie do bazy
 		o.setSenderPesel(p.getPesel());
-		o.setExecutorPesel("999");
+		o.setExecutorPesel("69010566803");
 		o.setBeginDate(Pomoc.podajDate("2012-12-15"));
-		o.setEvent("MSZA");
+		o.setEndDate(Pomoc.podajDate("2012-12-16"));
+		o.setEvent("3");//3 to msza wg Pawla bazy
+		o.setDescribe("jakis tam opis");
 		
 		k.sendObject(o);
 		k.reciveObject();
 		o = (Order)k.getPackage();
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
-		*/
+		
 		
 		/*Poczatek pobrania listy zamowien*/
 	/*	o.setKindQuery(4);
