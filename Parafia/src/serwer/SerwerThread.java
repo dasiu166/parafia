@@ -1,5 +1,6 @@
 package serwer;
 import obsluga.*;
+import database.DBManager;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +12,7 @@ import pomoce.Pomoc;
 import pomoce.Pomoc;
 
 public class SerwerThread extends Thread implements Serializable{
+	/*Watek Grzeska */
 	private Socket socket;
 	private ObjectInputStream przychodzace;
 	private ObjectOutputStream wychodzace;
@@ -18,8 +20,11 @@ public class SerwerThread extends Thread implements Serializable{
 	//private LinkedList<Object> kolejka;
 	
 	int clientRestriction=0; //przetrzymuje uprawnienia, moze a nie musi sie przydac
+	
 	Date d = new Date(); //data dla logow
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
+	
+	private LinkedList<String[]> dbReturn; //sluzy doodpioru wynikow select z bazy
 	
 	public SerwerThread(Socket s) throws IOException {
 		socket = s;
@@ -109,23 +114,37 @@ public class SerwerThread extends Thread implements Serializable{
 								" -> Klient proboje sie zalogowac");
 					//LOG_END
 					 
-					 if (((User) wiadomosc).getLogin().equals("ania")&& 
-							 ((User) wiadomosc).getPassword().equals("an11") ){ //tymczasowo
+					 DBManager db = DBManager.getInstance();
+					 dbReturn = db.execSelectQuery(((User) wiadomosc).getQuery());
+					 /*Bez zabezpieczen*/
+					 
+					 String tmp[] = dbReturn.getFirst();
+					 
+					 System.out.print("######## "+tmp[0]);
+					 
+					 if (!tmp[0].equals("ERR") ){ //jezeli znaleziono usera
+				
+				int idu = Integer.parseInt(tmp[0]);
 							 
-							 ((User) wiadomosc).setRestriction(1);
-							 clientRestriction=1;
+				((User) wiadomosc).setRestriction(Integer.parseInt(tmp[3]));
+				((User) wiadomosc).setRange(Integer.parseInt(tmp[4]));
+				clientRestriction=Integer.parseInt(tmp[3]);
+				((User) wiadomosc).setQuery("OK+");
+					this.sendObject(wiadomosc); //odpowiedz klas¹ user
 							 
-							 ((User) wiadomosc).setQuery("OK+");
-							 this.sendObject(wiadomosc); //odpowiedz klas¹ user
+				Parishioner p = new Parishioner();
+					dbReturn = db.execSelectQuery("SELECT * FROM parishioner where id_userr="+idu);
+					String tmp1[] = dbReturn.getFirst();
 							 
-							 Parishioner p = new Parishioner();
-							 p.setName("BOLEK");
-							 p.setSurName("DEKIEL");
+							 
+							 p.setPesel(tmp1[0]);
+							 p.setName(tmp1[3]);
+							 p.setSurName(tmp1[4]);
 							 p.setAdress(new Adress());
 							 p.setRestriction(clientRestriction);
 							 p.setQuery("OK+");
 							 
-							 Thread.sleep(2000);
+							 //Thread.sleep(2000);
 							 this.sendObject(p); //odpowiedz klas¹ parishioner
 							
 							 //LOG
@@ -216,3 +235,4 @@ public class SerwerThread extends Thread implements Serializable{
 	}
 
 }
+

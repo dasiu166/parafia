@@ -70,6 +70,7 @@ CREATE TABLE Orderr  (
   odprawiajacy_pesel NUMBER(11),
   zamawiajacy_pesel NUMBER(11),
   describe VARCHAR2(300),
+  status VARCHAR2(10),
   beginD DATE,
   endD DATE,
   CONSTRAINT or_ev_fk1 FOREIGN KEY (id_event) REFERENCES Event(id_event),

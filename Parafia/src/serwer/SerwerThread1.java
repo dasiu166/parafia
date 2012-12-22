@@ -17,7 +17,7 @@ import java.sql.Statement;
 import pomoce.Pomoc;
 
 
-
+/*TESTY PIOTRKA*/
 public class SerwerThread1 extends Thread implements Serializable{
 	private Socket socket;
 	private ObjectInputStream przychodzace;
@@ -134,13 +134,16 @@ public class SerwerThread1 extends Thread implements Serializable{
 							s = DbConnection.conn.createStatement();   // tworzenie obiektu Statement przesylajacego zapytania do bazy conn
 						    ResultSet dane,u;				
 						    u=s.executeQuery("Select * from Userr");  // wykonanie kwerendy i przeslanie wynikow do obiektu ResultSet  
-						
+						   
+						    
+						    
+						    System.out.println("przyslane: "+((User) wiadomosc).getLogin()+" "+((User) wiadomosc).getPassword());
 						    while (u.next()) {
 			
 				                String userr = u.getString("LOGIN"); 
 				                String passs = u.getString("PASSWORD");
-				                String userID=u.getString("id_userr");
-				                System.out.println("przyslane: "+((User) wiadomosc).getLogin()+" "+((User) wiadomosc).getPassword());
+				                String userID=u.getString("ID_USERR");
+				                
 				                System.out.println("pobrane z bazy: "+userr+" "+passs);
 					 
 				                Thread.sleep(2000);

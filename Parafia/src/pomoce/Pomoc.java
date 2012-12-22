@@ -12,7 +12,8 @@ import java.io.PrintWriter;
 public class Pomoc {
 	/*Zawiera rozne statyczne metody ulatwiajace zycie
 	 * np podawanie daty jako strong*/
-	static String formatString = "yyyy-MM-dd";
+	//static String formatString = "yyyy-MM-dd";
+	static String formatString = "MM/dd/yyyy";
 	
 	public static Date podajDate(String val){
 		Date d = new Date();
@@ -82,7 +83,8 @@ public class Pomoc {
 		}
 	
 	public static void main(String[] args){
-		Pomoc.writeToFile("log\\","log2","jakie zycie taki rap");
+		//Pomoc.writeToFile("log\\","log2","jakie zycie taki rap");
+		System.out.println(Pomoc.podajDate("12/20/2012").toLocaleString());
 		
 		
 	}

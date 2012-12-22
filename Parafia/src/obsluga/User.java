@@ -9,7 +9,7 @@ public class User extends DataBaseElement {
 	private String login;
 	private String password;
 	private int restriction; //prawa dostepu
-	private String range; /*wprowadzilem to tutaj, bo 
+	private int range; /*wprowadzilem to tutaj, bo 
 	a) bedzie potrzebne przy logowaniu jak rozbije ksiezy i parafian na osobne klasy
 	b) jak sie proboszczowi uwidzi to se sekretarke zatrudni ktora nie bedzie ksiedzem
 	ale bedzie miala takie same prawa jak ksiadz
@@ -30,7 +30,7 @@ public class User extends DataBaseElement {
 	public void setRestriction(int val){
 		restriction = val;
 	}
-	public void setRange(String r){
+	public void setRange(int r){
 		range = r;
 	}
 	
@@ -43,7 +43,7 @@ public class User extends DataBaseElement {
 	public int getRestriction(){
 		return restriction;
 	}
-	public String getRange(){
+	public int getRange(){
 		return range;
 	}
 }

@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.util.*;
+
+import database.DBManager;
 import pomoce.Pomoc;
 
 import pomoce.ReadFromFile;
@@ -28,6 +30,10 @@ public class Serwer {
 				" -> Serwer uruchomiony na porcie : "+PORT);
 		//LOG_END
 		
+		DBManager db = DBManager.getInstance();
+		db.setInfoToConnect("parafia", "abc");
+		db.connectToDB();
+		
 		
 		try{
 		ServerSocket serwerSocket = new ServerSocket(PORT); //zmienna gniazda
@@ -45,7 +51,7 @@ public class Serwer {
 						" -> Nowy watek dla klienta");
 				//LOG_END
 				
-				new SerwerThread1(socket);// utworzenie watka serwera
+				new SerwerThread(socket);// utworzenie watka serwera
 				
 			} catch (IOException e) {
 				

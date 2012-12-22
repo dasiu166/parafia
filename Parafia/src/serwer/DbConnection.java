@@ -2,6 +2,8 @@ package serwer;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class DbConnection {
 
@@ -20,8 +22,8 @@ public class DbConnection {
 		System.out.print("\nLaczenie z baza danych:\n");
 		String baza = "jdbc:oracle:thin:@localhost:1521";
 		
-		String user = "student";
-		String pass = "student";
+		String user = "parafia";
+		String pass = "abc";
 		
 		
         try {

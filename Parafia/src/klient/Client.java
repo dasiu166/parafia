@@ -87,7 +87,7 @@ public class Client {
 		
 		} catch (IOException e){
 			System.out.println("Blad odbioru wiadomosci");
-			e.setStackTrace(null);
+			e.getStackTrace();
 			return false;
 		}//koniec try dla odbierania przesylki
 		
@@ -117,6 +117,14 @@ public class Client {
 		u.setLogin("ania");
 		u.setPassword("an11");
 		
+		u.setQuery("SELECT * FROM userr WHERE login = '"+
+		 u.getLogin()+"' AND password = '"+
+		 u.getPassword()+"'");
+		
+		System.out.println("Zapytanie:");
+		System.out.println(u.getQuery());
+		
+		
 		//p.setPesel("100");
 		//p.setPass("haslo");
 		//p.setKindQuery(0); 
@@ -138,6 +146,7 @@ public class Client {
 		System.out.println("Prawa dostepu: "+u.getRestriction()+" Ranaga: "+u.getRange());
 		
 		k.reciveObject();
+		
 		p = (Parishioner)k.getPackage();
 		
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
@@ -149,7 +158,7 @@ public class Client {
 			e.printStackTrace();
 		}
 		
-		/*Poczatek zlozenia zamowienia*/
+		/*Poczatek zlozenia zamowienia
 		Order o = new Order();
 		o.setKindQuery(1); //dodanie do bazy
 		o.setSenderPesel(p.getPesel());
@@ -163,7 +172,7 @@ public class Client {
 		k.reciveObject();
 		o = (Order)k.getPackage();
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
-		
+		*/
 		
 		/*Poczatek pobrania listy zamowien*/
 	/*	o.setKindQuery(4);
@@ -181,7 +190,7 @@ public class Client {
 		System.out.println(orderList.size());
 		
 		*/
-		/*Poczatek wylogowania*/
+		/*Poczatek wylogowania
 		p.setKindQuery(-1);
 		k.sendObject(p);
 		k.reciveObject();
@@ -189,7 +198,7 @@ public class Client {
 	    p = (Parishioner)k.getPackage();
 		
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+p.getData());
-		
+		*/
 	}
 	
 	
