@@ -1,0 +1,125 @@
+2012-12-22 02:05:24 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 02:18:58 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 02:18:58 -> Nowy watek dla klienta
+2012-12-22 02:18:58 -> Nowy watek dla klienta
+2012-12-22 02:25:40 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 02:25:40 -> Nowy watek dla klienta
+2012-12-22 02:52:16 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 02:52:16 -> Nowy watek dla klienta
+2012-12-22 03:10:06 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:10:06 -> Nowy watek dla klienta
+2012-12-22 03:13:13 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:13:13 -> Nowy watek dla klienta
+2012-12-22 03:18:06 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:18:06 -> Nowy watek dla klienta
+2012-12-22 03:21:50 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:21:50 -> Nowy watek dla klienta
+2012-12-22 03:21:50 -> Nowy watek dla klienta
+2012-12-22 03:25:49 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:25:49 -> Nowy watek dla klienta
+2012-12-22 03:25:49 -> Nowy watek dla klienta
+2012-12-22 03:25:49 -> Nowy watek dla klienta
+2012-12-22 03:25:49 -> Nowy watek dla klienta
+2012-12-22 03:32:17 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:32:17 -> Nowy watek dla klienta
+2012-12-22 03:32:17 -> Nowy watek dla klienta
+2012-12-22 03:42:39 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:42:39 -> Nowy watek dla klienta
+2012-12-22 03:43:30 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:43:30 -> Nowy watek dla klienta
+2012-12-22 03:44:33 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:44:33 -> Nowy watek dla klienta
+2012-12-22 03:45:14 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:45:14 -> Nowy watek dla klienta
+2012-12-22 03:48:00 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:48:00 -> Nowy watek dla klienta
+2012-12-22 03:49:29 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:49:29 -> Nowy watek dla klienta
+2012-12-22 03:54:32 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:54:32 -> Nowy watek dla klienta
+2012-12-22 03:55:34 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 03:55:34 -> Nowy watek dla klienta
+2012-12-22 23:06:50 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 23:06:50 -> Nowy watek dla klienta
+2012-12-22 23:06:50 -> Nowy watek dla klienta
+2012-12-22 23:18:17 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 23:18:17 -> Nowy watek dla klienta
+2012-12-22 23:18:17 -> Nowy watek dla klienta
+2012-12-22 23:18:17 -> Nowy watek dla klienta
+2012-12-22 23:18:17 -> Nowy watek dla klienta
+2012-12-22 23:18:17 -> Nowy watek dla klienta
+2012-12-22 23:18:17 -> Nowy watek dla klienta
+2012-12-22 23:20:02 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 23:20:02 -> Nowy watek dla klienta
+2012-12-22 23:20:02 -> Nowy watek dla klienta
+2012-12-22 23:20:02 -> Nowy watek dla klienta
+2012-12-22 23:20:02 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Serwer uruchomiony na porcie : 2000
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta
+2012-12-22 23:35:49 -> Nowy watek dla klienta

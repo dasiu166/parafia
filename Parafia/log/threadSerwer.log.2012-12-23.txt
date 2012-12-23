@@ -1,0 +1,76 @@
+2012-12-23 00:15:53: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 00:15:53: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 00:15:53: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 00:15:53: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 00:15:53: Watek:Thread-1  -> Klient sie wylogowal
+2012-12-23 00:19:44: Watek:Thread-2  -> Klient sie podlaczyl
+2012-12-23 00:19:44: Watek:Thread-2  -> Klient proboje sie zalogowac
+2012-12-23 00:19:44: Watek:Thread-2  -> Klient sie zalogowal
+2012-12-23 00:19:44: Watek:Thread-2  -> Klient pobral liste zamowien
+2012-12-23 00:19:44: Watek:Thread-2  -> Klient sie wylogowal
+2012-12-23 01:00:08: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:00:08: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:00:08: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:00:08: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:01:42: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:01:42: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:01:42: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:01:42: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:05:54: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:05:54: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:05:54: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:05:54: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:07:08: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:07:08: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:07:08: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:07:08: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:07:46: Watek:Thread-2  -> Klient sie podlaczyl
+2012-12-23 01:07:46: Watek:Thread-2  -> Klient proboje sie zalogowac
+2012-12-23 01:07:46: Watek:Thread-2  -> Klient sie zalogowal
+2012-12-23 01:07:46: Watek:Thread-2  -> Klient pobral liste zamowien
+2012-12-23 01:08:32: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:08:32: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:08:32: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:08:32: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:08:32: Watek:Thread-1  -> Klient sie wylogowal
+2012-12-23 01:18:25: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:18:25: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:18:25: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:18:25: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:19:19: Watek:Thread-2  -> Klient sie podlaczyl
+2012-12-23 01:19:19: Watek:Thread-2  -> Klient proboje sie zalogowac
+2012-12-23 01:19:19: Watek:Thread-2  -> Klient sie zalogowal
+2012-12-23 01:19:19: Watek:Thread-2  -> Klient pobral liste zamowien
+2012-12-23 01:20:31: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:20:31: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:20:31: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:20:31: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:21:11: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:21:11: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:21:11: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:21:11: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:21:45: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:21:45: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:21:45: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:21:45: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:22:04: Watek:Thread-2  -> Klient sie podlaczyl
+2012-12-23 01:22:04: Watek:Thread-2  -> Klient proboje sie zalogowac
+2012-12-23 01:22:04: Watek:Thread-2  -> Klient sie zalogowal
+2012-12-23 01:22:04: Watek:Thread-2  -> Klient pobral liste zamowien
+2012-12-23 01:22:07: Watek:Thread-3  -> Klient sie podlaczyl
+2012-12-23 01:22:07: Watek:Thread-3  -> Klient proboje sie zalogowac
+2012-12-23 01:22:07: Watek:Thread-3  -> Klient sie zalogowal
+2012-12-23 01:22:07: Watek:Thread-3  -> Klient pobral liste zamowien
+2012-12-23 01:22:14: Watek:Thread-4  -> Klient sie podlaczyl
+2012-12-23 01:22:14: Watek:Thread-4  -> Klient proboje sie zalogowac
+2012-12-23 01:22:14: Watek:Thread-4  -> Klient sie zalogowal
+2012-12-23 01:22:14: Watek:Thread-4  -> Klient pobral liste zamowien
+2012-12-23 01:22:17: Watek:Thread-5  -> Klient sie podlaczyl
+2012-12-23 01:22:17: Watek:Thread-5  -> Klient proboje sie zalogowac
+2012-12-23 01:22:17: Watek:Thread-5  -> Klient sie zalogowal
+2012-12-23 01:22:17: Watek:Thread-5  -> Klient pobral liste zamowien
+2012-12-23 01:25:06: Watek:Thread-1  -> Klient sie podlaczyl
+2012-12-23 01:25:06: Watek:Thread-1  -> Klient proboje sie zalogowac
+2012-12-23 01:25:06: Watek:Thread-1  -> Klient sie zalogowal
+2012-12-23 01:25:06: Watek:Thread-1  -> Klient pobral liste zamowien
+2012-12-23 01:25:06: Watek:Thread-1  -> Klient sie wylogowal
