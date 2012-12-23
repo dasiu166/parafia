@@ -6,6 +6,7 @@ public class User extends DataBaseElement {
 	 * zeby nie komplikowac warunkow na serwerze (tak do wylogowani tez uzyjemy klasy 
 	 * ksiadz parafianin, dlatego zostawilem tam pole restriction)*/
 
+	private int id;
 	private String login;
 	private String password;
 	private int restriction; //prawa dostepu
@@ -21,6 +22,9 @@ public class User extends DataBaseElement {
 		return true;
 	}
 	
+	public void setId(int val){
+		id=val;
+	}
 	public void setLogin(String val){
 		login = val;
 	}
@@ -34,6 +38,9 @@ public class User extends DataBaseElement {
 		range = r;
 	}
 	
+	public int getId(){
+		return id;
+	}
 	public String getLogin(){
 		return login;
 	}

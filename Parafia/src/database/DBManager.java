@@ -57,6 +57,23 @@ public class DBManager {
 		
 	}
 	
+	public int execUpdateQuery(String q){
+		int ret=0; //wynik wykonania zapytania
+		
+		
+		try{
+		
+		ret = conn.createStatement().executeUpdate(q);
+		conn.createStatement().executeUpdate("commit");
+		}catch(SQLException e){
+			ret=0;
+			e.printStackTrace();
+			e.getMessage();
+		}
+		
+		return ret;
+	}
+	
 	public LinkedList<String[]> execSelectQuery(String q){
 		/*Metoda zwraca wynik zapytania SELECT w postaci listy tablic stringow
 		 * tablica stringow jest wierszem z bazy
@@ -105,8 +122,11 @@ public class DBManager {
 		
 		db.setInfoToConnect("parafia", "abc");
 		db.connectToDB();
+		db.execUpdateQuery("INSERT INTO userr VALUES (7,'henia','osa',0,11)");
+		
 		
 		/*przyklad przejzenia wyniku z bazy*/
+		/*
 		LinkedList<String[]> tmpList = new LinkedList<String[]>();
 		tmpList= db.execSelectQuery("SELECT * FROM parishioner where id_userr=1");
 		//tmpList= db.execSelectQuery("SELECT * FROM userr;");
@@ -118,6 +138,7 @@ public class DBManager {
 			}
 			System.out.print("\n");
 		}
+		*/
 		
 		
 		

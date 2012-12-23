@@ -36,5 +36,7 @@ public class DbConnection {
 		}
 		System.out.print(" polaczenie OK\n");
 	}
+	
+	
 
 }

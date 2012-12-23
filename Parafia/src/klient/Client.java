@@ -212,6 +212,23 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			  System.out.println(ee.getName());
 		  }
 		
+		  
+		/*Dodanie uzytkownika (userr) do bazy*/
+		  User ne = new User();
+		  ne.setPassword("TEST_ADD");
+		  ne.setLogin("TEST_LIGIN");
+		  ne.setRestriction(KindRestriction.LOGED_R);
+		  ne.setRange(KindRange.LOGG_RANG);
+		  
+		  ne.setKindQuery(KindQuery.ADD_DBASE);
+		  ne.setQuery("Insert into userr values (8,'"+ ne.getLogin() +"','"+
+				 ne.getPassword()+"',"+ne.getRestriction()+","+
+				  ne.getRange()+")");
+		  
+		  k.sendObject(ne);
+		  k.reciveObject();
+		  ne=(User)k.getPackage();
+		  System.out.println("Wynik dodania uzytkownika: "+ne.getQuery());
 		
 		/*Poczatek wylogowania--------------------------------------------*/
 		p.setKindQuery(-1);

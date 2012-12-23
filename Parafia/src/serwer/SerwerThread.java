@@ -28,6 +28,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
 	
 	private LinkedList<String[]> dbReturn; //sluzy doodpioru wynikow select z bazy
+	private int dbReturnInt=0;//odbior wynikow w postaci int
 	
 	public SerwerThread(Socket s) throws IOException {
 		socket = s;
@@ -151,6 +152,17 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 }
 				 
 				 }//##KONIEC PROBY ZALOGOWANIA
+				 
+				 if (((User) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					 	//##BLOK DODANIA UZYTKOWNIKA DO BAZY
+					 DBManager db = DBManager.getInstance();
+					 dbReturnInt = db.execUpdateQuery(((User) wiadomosc).getQuery());
+					 if (dbReturnInt!=0) ((User) wiadomosc).setQuery("OK+"); else
+						 	((User) wiadomosc).setQuery("ERR");
+					 
+					 this.sendObject(wiadomosc);
+					 
+				 }//##KONIEC DODAWANIA UZYTKOWNIKA DO BAZY
 			 
 			 } else //###KONIEC OBSLUGI KLASY USER
 				
