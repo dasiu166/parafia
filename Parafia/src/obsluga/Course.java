@@ -10,6 +10,7 @@ public class Course extends DataBaseElement {
 
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); //parser formatu daty
 	
+	private int id;
 	private Date birthday; //data urodzenia
 	private Date baptism; //data chrztu
 	private Date communion; //data komunii swietej
@@ -21,11 +22,11 @@ public class Course extends DataBaseElement {
 		/* mozna tez zwyklymi set ustawiac poszeczgolne pola
 		 * to juz Mariusz do twojej inwencji, jak ci tam wygodniej bedzie
 		 * to z formatki wyprowadzic*/
-		try{
+		/*try{
 		birthday = format.parse("1970-01-01");
 		} catch(ParseException e){
 			System.out.println("Blad konwersji daty");
-		}
+		}*/
 	}
 	
 	public boolean setQuery(String val){
@@ -34,6 +35,9 @@ public class Course extends DataBaseElement {
 		return true;
 	}
 	
+	public int getId(){
+		return id;
+	}
 	public Date getBirthDay(){
 		return birthday;
 	}
@@ -53,6 +57,9 @@ public class Course extends DataBaseElement {
 		return death;
 	}
 
+	public void setId(int val){
+		id=val;
+	}
 	public boolean setBirthday(Date d){
 		birthday = d;
 		return true;

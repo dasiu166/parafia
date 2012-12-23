@@ -10,11 +10,27 @@ public class Adress extends DataBaseElement{
 	private String house_numb; //numer domu/bloku
 	
 	public Adress(){
-		id=1;
-		city = "miasto_test";
-		street = "ulica_test";
-		district = "district_test";
-		house_numb = "numer_domu_test";
+		//id=1;
+		//city = "miasto_test";
+		//street = "ulica_test";
+		//district = "district_test";
+		//house_numb = "numer_domu_test";
+	}
+	
+	public void setId(int val){
+		id=val;
+	}
+	public void setCity(String s){
+		city=s;
+	}
+	public void setStreet(String s){
+		street=s;
+	}
+	public void setDistrict(String s){
+		district=s;
+	}
+	public void setHouseNumb(String s){
+		house_numb=s;
 	}
 	
 	public int getId(){
@@ -32,6 +48,10 @@ public class Adress extends DataBaseElement{
 	public String getHouse(){
 		return house_numb;
 	}
+	public String getDistrict(){
+		return district;
+	}
+	
 	
 	public boolean setQuery(String val){
 		query = val;

@@ -15,6 +15,16 @@ public class Parishioner extends Person{
 		//pesel = "90122014155";
 	}
 	
+	public void clean(){
+		/*Zeroje pola przy wylogowaniu*/
+		course = null;
+		this.setName(null);
+		this.setSurName(null);
+		this.setAdress(null);
+		this.setPesel(null);
+		this.setPass(null);
+	}
+	
 	/*SETTERY*/
 	
 	public boolean setQuery(String val){

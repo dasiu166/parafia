@@ -12,25 +12,34 @@ public class Event extends DataBaseElement {
 	 * zdarzenia (w sensie opcji do wyboru) 
 	 * (tylko ze to bedzie zwykly tekst i liczba mu odpowiadajaca)*/
 	
-	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm"); //parser formatu datu
+	//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm"); //parser formatu datu
 	
 	private int id; //id zdarzenia w bazie
 	private String name; //nazwa
-	private Date begin;
+	private String describe; //opis
 	
 	public Event(){
-		id=1;
-		name = "event_test";
 		
-		try{
-			begin = format.parse("1970-02-01 12:12");
-		}catch(ParseException e){
-			System.out.println("Blad konwersji daty i godziny");
-		}
 	}
 	
-	public Date getBegin(){
-		return begin;
+	public void setId(int val){
+		id=val;
+	}
+	public void setName(String val){
+		name=val;
+	}
+	public void setDescribe(String val){
+		describe=val;
+	}
+	
+	public int getId(){
+		return id;
+	}
+	public String getName(){
+		return name;
+	}
+	public String getDescribe(){
+		return describe;
 	}
 	
 	public boolean setQuery(String val){

@@ -13,7 +13,7 @@ public class Pomoc {
 	/*Zawiera rozne statyczne metody ulatwiajace zycie
 	 * np podawanie daty jako strong*/
 	//static String formatString = "yyyy-MM-dd";
-	static String formatString = "MM/dd/yyyy";
+	static String formatString = "yyyy-MM-dd";
 	
 	public static Date podajDate(String val){
 		Date d = new Date();

@@ -12,6 +12,7 @@ public abstract class DataBaseElement implements Serializable {
 	 * dzieki temu odsylam caly czas ten sam obiekt i nie musze tworzyc klasy dla odpowiedzi
 	 * serwera i dodawac niepotrzebnych warunkow do kodu klienta*/
 	
+	
 	int kindOfQuery; //rodzaj zapytania
 	String query; //tresc zapytania
 	String data; //inne informacje w razie co

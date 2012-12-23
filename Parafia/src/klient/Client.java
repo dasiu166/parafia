@@ -12,13 +12,23 @@ import javax.swing.JOptionPane;
 import java.util.*;
 import java.io.*;
 import pomoce.Pomoc;
+import stale.*;
 
-public class Client {
+public class Client implements KindQuery, KindRange, KindRestriction {
 	//probaStart
 	private InetAddress addr;
 	private Socket socket = null;
 	private boolean isConnected = false; //informuje czy klient jest polaczony
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
+	private LinkedList<Event> eventKindList = null; //przechowuje dostepne rodzaje zdarzen
+	
+	public void setEventKindList(LinkedList<Event> val){
+		eventKindList=val;
+	}
+	
+	public LinkedList<Event> getEventKindList(){
+		return eventKindList;
+	}
 	
 	public boolean connect(String adres, int port) throws UnknownHostException, IOException
 	{	/*laczy sie na podstawie podanego portu na localhoscie (pozniej do zmiany ofcoz)
@@ -110,36 +120,27 @@ public class Client {
 		if (k.isConnected==false) System.out.println("Klient - niepolaczony");
 			else System.out.println("Klient - polaczony");
 		
-		/*!!Poczatek logowania!!*/
+		/*!!Poczatek logowania!!-------------------------------------------------*/
 		Parishioner p = new Parishioner();
 		User u = new User();
-		u.setKindQuery(0); //zapytanie = logowanie
+		u.setKindQuery(KindQuery.TRY_LOGIN); //zapytanie = logowanie
 		u.setLogin("ania");
 		u.setPassword("an11");
 		
-		u.setQuery("SELECT * FROM userr WHERE login = '"+
-		 u.getLogin()+"' AND password = '"+
+		u.setQuery("SELECT * FROM userr WHERE login = '"+u.getLogin()+"' AND password = '"+
 		 u.getPassword()+"'");
 		
-		System.out.println("Zapytanie:");
-		System.out.println(u.getQuery());
 		
-		
-		//p.setPesel("100");
-		//p.setPass("haslo");
-		//p.setKindQuery(0); 
 		k.sendObject(u); //wysyla sie bo wszsytkie obiekty dziedzicza po Object
 		k.reciveObject();/*tu uwaga panowie bo sie blokuje az nie otrzyma jakiejs przesylki*/
 		
 		u = (User)k.getPackage();
+		
 		if(u.getQuery().equals("ERR")){
+			/*Gdy login/haslo bledne*/
 			System.out.println("Nie mozna sie zalogowac (zly login/haslo)");
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			u.setRestriction(KindRestriction.GUEST_R);
+			p.setRestriction(KindRestriction.GUEST_R);
 			return;
 		}
 		
@@ -150,13 +151,8 @@ public class Client {
 		p = (Parishioner)k.getPackage();
 		
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
-				" Adres: "+p.getAdress().getCity()+" Pesel: "+p.getPesel());
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				" Pesel: "+p.getPesel());
+		
 		
 		/*Poczatek zlozenia zamowienia
 		Order o = new Order();
@@ -174,8 +170,11 @@ public class Client {
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
 		*/
 		
-		/*Poczatek pobrania listy zamowien*/
-	/*	o.setKindQuery(4);
+		/*Poczatek pobrania listy zamowien---------------------------------*/
+		Order o = new Order();
+		o.setKindQuery(KindQuery.SEL_DBASE);
+		/*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)*/
+		o.setQuery("Select * from orderr where zamawiajacy_pesel="+p.getPesel());
 		k.sendObject(o);
 		k.reciveObject();
 		
@@ -185,12 +184,36 @@ public class Client {
 		Iterator<Order> iterator = orderList.iterator();
 		
 		while(iterator.hasNext()){
-			System.out.println(iterator.next().getExecutroPesel());
+			Order tmp =iterator.next();
+			System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
 		}
 		System.out.println(orderList.size());
 		
-		*/
-		/*Poczatek wylogowania
+		/*Pobranie szczegolowych danych na temat parafianina--------------*/
+		p.setKindQuery(KindQuery.SEL_DBASE);
+		p.setQuery("Select * from parishioner where pesel="+p.getPesel());
+		k.sendObject(p);
+		k.reciveObject();
+		p=(Parishioner)k.getPackage();
+		
+		System.out.println("ZAMIESZKALY: "+p.getAdress().getCity()+"    "+p.getAdress().getDistrict());
+		System.out.println("URODZONY : "+p.getCourse().getBirthDay().toLocaleString());
+		
+		/*Pobranie dostepnych rodzajow zdarzen z bazy---------------------*/
+		  Event e = new Event();
+		  e.setKindQuery(KindQuery.SEL_DBASE);
+		  e.setQuery("Select * from event");
+		  k.sendObject(e);
+		  k.reciveObject();
+		  k.setEventKindList((LinkedList<Event>)k.getPackage());
+		  Iterator<Event> it = k.getEventKindList().iterator();
+		  while(it.hasNext()){
+			  Event ee = it.next();
+			  System.out.println(ee.getName());
+		  }
+		
+		
+		/*Poczatek wylogowania--------------------------------------------*/
 		p.setKindQuery(-1);
 		k.sendObject(p);
 		k.reciveObject();
@@ -198,7 +221,7 @@ public class Client {
 	    p = (Parishioner)k.getPackage();
 		
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+p.getData());
-		*/
+		
 	}
 	
 	

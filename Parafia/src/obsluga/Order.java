@@ -20,12 +20,15 @@ public class Order extends DataBaseElement implements Serializable{
 	odrazu pojdzie zapytania kasujace taki rekord  z bazy*/
 	
 	
-	
+	private int id;
 	private String event;//zawiera rodzaj zamowienia (msza/wizyta itp)
 	private String describe;//opis wydarzenie
 	private Date beginD;//poczatek wydarzenia
 	private Date endD;//koniec wydarzenia
 	
+	public void setId(int val){
+		id = val;
+	}
 	public void setSenderPesel(String p){
 		senderPesel = p;
 	}
@@ -68,6 +71,9 @@ public class Order extends DataBaseElement implements Serializable{
 	}
 	public String getStatus(){
 		return status;
+	}
+	public int getId(){
+		return id;
 	}
 	
 	public boolean setQuery(String val){
