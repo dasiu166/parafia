@@ -154,7 +154,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 				" Pesel: "+p.getPesel());
 		
 		
-		/*Poczatek zlozenia zamowienia
+		//Poczatek zlozenia zamowienia
 		Order o = new Order();
 		o.setKindQuery(1); //dodanie do bazy
 		o.setSenderPesel(p.getPesel());
@@ -163,15 +163,26 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		o.setEndDate(Pomoc.podajDate("2012-12-16"));
 		o.setEvent("3");//3 to msza wg Pawla bazy
 		o.setDescribe("jakis tam opis");
+		o.setStatus(KindRange.NEW);
+		String q;
+		q="INSERT INTO Orderr VALUES (4,3,'"+o.getExecutroPesel()+"','"+
+		o.getSenderPesel()+"','"+o.getDescribe()+"','"+o.getStatus()+"',"+
+		"to_date('"+o.getBeginDate().toLocaleString().substring(0, 10)+
+		"','yyyy-MM-dd'),"+"to_date('"+o.getEndDate().toLocaleString().substring(0, 10)+
+		"','yyyy-MM-dd'))";
+		o.setQuery(q);
+		
+		
 		
 		k.sendObject(o);
 		k.reciveObject();
 		o = (Order)k.getPackage();
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
-		*/
+		System.out.println(q);
+		
 		
 		/*Poczatek pobrania listy zamowien---------------------------------*/
-		Order o = new Order();
+		//Order o = new Order();
 		o.setKindQuery(KindQuery.SEL_DBASE);
 		/*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)*/
 		o.setQuery("Select * from orderr where zamawiajacy_pesel="+p.getPesel());
@@ -213,7 +224,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		  }
 		
 		  
-		/*Dodanie uzytkownika (userr) do bazy*/
+		/*Dodanie uzytkownika (userr) do bazy
 		  User ne = new User();
 		  ne.setPassword("TEST_ADD");
 		  ne.setLogin("TEST_LIGIN");
@@ -231,6 +242,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		  System.out.println("Wynik dodania uzytkownika: "+ne.getQuery());
 		
 		/*Poczatek wylogowania--------------------------------------------*/
+		
 		p.setKindQuery(-1);
 		k.sendObject(p);
 		k.reciveObject();

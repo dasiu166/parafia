@@ -36,6 +36,12 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 		start();
 	}
 	
+	private void saveLog(String text){
+		Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
+				d.toLocaleString().substring(0, 10), d.toLocaleString()+
+				": Watek:"+this.getName()+" -> "+ text);
+	}
+	
 	private Object getPackage(){ //zwraca nasza przesylke
 		return przesylka;
 	}
@@ -82,10 +88,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 			System.out.println("Klient sie podlaczyl");
 			
 			//LOG
-			Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
-					d.toLocaleString().substring(0, 10), d.toLocaleString()+
-					": Watek:"+this.getName()+" "+
-					" -> Klient sie podlaczyl");
+			this.saveLog("Klient sie podlaczyl");
 			//LOG_END
 			
 			while (true) {// glowna petla watka
@@ -99,15 +102,12 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 			 
 			 if (wiadomosc instanceof User) {
 				 
-				 System.out.println("Przyszla wiadomomosc typu user");
+//**************************UZYTKOWNIK******************************************				 
 				 if (((User) wiadomosc).getKindQuery()==KindQuery.TRY_LOGIN){
 					 				//##BLOK PROBY ZALOGOWANIA
 					
 					 //LOG-------------------------------------------------------
-					 Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
-								d.toLocaleString().substring(0, 10), d.toLocaleString()+
-								": Watek:"+this.getName()+" "+
-								" -> Klient proboje sie zalogowac");
+					 this.saveLog("Proba logowania");
 					//LOG_END---------------------------------------------------
 					 
 					 DBManager db = DBManager.getInstance();
@@ -117,39 +117,48 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 String tmp[] = dbReturn.getFirst();
 					 if (!tmp[0].equals("ERR") ){ //jezeli znaleziono usera
 				
-				     int idu = Integer.parseInt(tmp[0]);
+				       int idu = Integer.parseInt(tmp[0]);
 							 
-				     ((User) wiadomosc).setRestriction(Integer.parseInt(tmp[3]));
-				     ((User) wiadomosc).setRange(Integer.parseInt(tmp[4]));
-				     clientRestriction=Integer.parseInt(tmp[3]);
-				     ((User) wiadomosc).setQuery("OK+");
+				       ((User) wiadomosc).setRestriction(Integer.parseInt(tmp[3]));
+				       ((User) wiadomosc).setRange(Integer.parseInt(tmp[4]));
+				       clientRestriction=Integer.parseInt(tmp[3]);
+				       ((User) wiadomosc).setQuery("OK+");
 					
-				     this.sendObject(wiadomosc); //odpowiedz klas¹ user
+				       this.sendObject(wiadomosc); //odpowiedz klas¹ user
 					
-				     //###KONFUGURACJA I WYSLANIE PODST. DANYCH PARAFIANINA
-				     Parishioner p = new Parishioner();
-					 dbReturn = db.execSelectQuery("SELECT * FROM parishioner where id_userr="+idu);
-					 String tmp1[] = dbReturn.getFirst();
-					 p.setPesel(tmp1[0]);
-					 p.setName(tmp1[4]);
-					 p.setSurName(tmp1[5]);
-					 //p.setAdress(new Adress());
-					 p.setRestriction(clientRestriction);
-					 p.setQuery("OK+");
-							 
-					 this.sendObject(p); //odpowiedz klas¹ parishioner
-							
+				       if(((User) wiadomosc).getRange()==KindRange.LOGG_RANG){
+				       //###KONFUGURACJA I WYSLANIE PODST. DANYCH PARAFIANINA
+				       Parishioner p = new Parishioner();
+					   dbReturn = db.execSelectQuery("SELECT * FROM parishioner where id_userr="+idu);
+					   String tmp1[] = dbReturn.getFirst();
+					   p.setPesel(tmp1[0]);
+					   p.setName(tmp1[4]);
+					   p.setSurName(tmp1[5]);
+					   p.setRestriction(clientRestriction);
+					   p.setQuery("OK+");
+					   this.sendObject(p); //odpowiedz klas¹ parishioner
+					  } else {
+						 Priest p = new Priest();
+						 dbReturn = db.execSelectQuery("SELECT * FROM priest where id_userr="+idu);
+						 String tmp1[] = dbReturn.getFirst();
+						 p.setPesel(tmp1[0]);
+						 p.setName(tmp1[3]);
+						 p.setSurName(tmp1[4]);
+						 p.setRestriction(clientRestriction);
+						 p.setQuery("OK+");
+						 this.sendObject(p); //odpowiedz klas¹ ksiadz
+					 }
 					//LOG-----------------------------------------------------
-					Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
-						d.toLocaleString().substring(0, 10), d.toLocaleString()+
-						": Watek:"+this.getName()+" "+
-						" -> Klient sie zalogowal");
+					this.saveLog("Zalogowano");
 					//LOG_END-------------------------------------------------
 						 
 					 } else {//##BLAD LOGOWANIA
 						 ((User) wiadomosc).setQuery("ERR");
 						 this.sendObject(wiadomosc);
-					 }
+						 //LOG------------------------------
+						 this.saveLog("Blad logowania");
+						 //LOG_END--------------------------
+					 }//##KONIEC BLEDU LOGOWANIA
 				 
 				 }//##KONIEC PROBY ZALOGOWANIA
 				 
@@ -161,12 +170,24 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						 	((User) wiadomosc).setQuery("ERR");
 					 
 					 this.sendObject(wiadomosc);
+					 this.saveLog("Dodano uzytkownika do bazy");
 					 
 				 }//##KONIEC DODAWANIA UZYTKOWNIKA DO BAZY
 			 
+				if (((User) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+						//##BLOK USUWANIA UZYTKOWNIKA Z BAZY
+					
+				}//##KONIEC BLOKU USUWANIA UZYTKOWNIKA
+					
+				if (((User) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+						//##BLOK UAKTUALNIENIA UZYTKOWNIA
+				
+				}//##KONIEC BLOKU UAKTUALNINIA UZYTKOWNIKA
 			 } else //###KONIEC OBSLUGI KLASY USER
 				
-				if (wiadomosc instanceof Parishioner){
+
+//**********************PARAFIANIN******************************************************				 
+			if (wiadomosc instanceof Parishioner){
 				 
 				 if (((Parishioner) wiadomosc).getKindQuery()==KindQuery.TRY_LOGOUT){
 					 			//## BLOK PROBY WYLOGOWANIA
@@ -178,10 +199,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 this.sendObject(wiadomosc);
 					 
 					//LOG-------------------------------------------------------------
-					 Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
-								d.toLocaleString().substring(0, 10), d.toLocaleString()+
-								": Watek:"+this.getName()+" "+
-								" -> Klient sie wylogowal");
+					 this.saveLog("Wylogowano");
 					//LOG_END----------------------------------------------------------
 				 
 				 }//##KONIEC BLOKU WYLOGOWANIA
@@ -225,31 +243,81 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 			//BLOK DODAWANIA DANYCH PARAFIANINA
 				 
 				 }//##KONIEC BLOKU DODAWANIA DANYCH PARAFIANINA
+				
+				 if(((Parishioner) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+					 	//##BLOK USUWANIA DANYCH UZYTKOWNIKA(parafianin)
+					 
+				 }//##KONIEC BLOKU USUWANIA DANYCH UZYTKOWNIKA(parafianin)
+				
+				 if (((Parishioner) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+					 	//##BLOK UAKTUALNIENIA DANYCH
+					 
+				 }//##KONIEC UAKTUALNIANIA DANYCH
 				 
 			}else //KONIEC OBSLUGI KLASY PARISHIONER
+
+//***********************KSIADZ**************************************************				
+			if (wiadomosc instanceof Priest){
+				
+				if (((Priest) wiadomosc).getKindQuery()==KindQuery.TRY_LOGOUT){
+		 			//## BLOK PROBY WYLOGOWANIA
+		 
+					((Priest) wiadomosc).clean();
+					((Priest) wiadomosc).setRestriction(KindRestriction.GUEST_R);
+					((Priest) wiadomosc).setData("Wylogowano CIE");
+					((Priest) wiadomosc).setQuery("OK+");
+					this.sendObject(wiadomosc);
+		 
+					//LOG-------------------------------------------------------------
+					this.saveLog("Wylogowano");
+					//LOG_END----------------------------------------------------------
+	 
+				}//##KONIEC BLOKU WYLOGOWANIA
+				
+				if (((Priest) wiadomosc).getKindQuery()==KindQuery.SEL_DBASE){
+					//## BLOK SELECTU DANYCH KSIEDZA
+				}//## KONIEC SELECTU DANYCH KSIEDZA
+				
+				if (((Priest) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					
+				}
+				
+				if (((Priest) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+					
+				}
+				
+				if (((Priest) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+					
+				}
+				
+			} else //###KONIEC OBSLUGI KLASY PRIEST
+				
+//********************ZAMOWIENIE*************************************************
 			 
 			 if (wiadomosc instanceof Order){
 				 
 				 if(((Order) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){ //dodanie do bazy
 					 		//##BLOK DODAWANIA ZAMOWIENIA DO BAZY
 					 
-				 System.out.println("Przyszla wiadomosc 2"); //tymczasem
-				 System.out.println("Zamowienie zlozyl: "+((Order) wiadomosc).getSenderPesel()+
-				  " "+((Order) wiadomosc).getEvent()+"\n"+
-				  "Odprawia "+((Order)wiadomosc).getExecutroPesel()+
-				  " Kiedy: "+((Order)wiadomosc).getBeginDate());
-				 
-				 ((Order) wiadomosc).setData("ZAMOWIENIE ZLOZONE");
-				 ((Order) wiadomosc).setQuery("OK+");
-				 
-				 this.sendObject(wiadomosc);
-				 
-				//LOG----------------------------------------------------------
-					Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
-							d.toLocaleString().substring(0, 10), d.toLocaleString()+
-							": Watek:"+this.getName()+" "+
-							" -> Klient zlozyl zamowienie (wyslano)");
-				//LOG_END------------------------------------------------------
+				DBManager db = DBManager.getInstance();
+				dbReturnInt = db.execUpdateQuery(((Order) wiadomosc).getQuery());
+				
+				
+					if (dbReturnInt!=0){
+						((Order) wiadomosc).setData("ZAMOWIENIE ZLOZONE");
+						((Order) wiadomosc).setQuery("OK+");
+						this.sendObject(wiadomosc);
+							//LOG----------------------------------------------------------
+							this.saveLog("Zlozenie zamowienia");
+							//LOG_END------------------------------------------------------
+					} else {
+						((Order) wiadomosc).setData("ZAMOWIENIE NIEZLOZONE");
+						((Order) wiadomosc).setQuery("ERR");
+						this.sendObject(wiadomosc);
+							//LOG----------------------------------------------------------
+							this.saveLog("Blad zlozenia zamowienia");
+							//LOG_END------------------------------------------------------
+					}
 				}//##KONIEC BLOKU DODAWANIA ZAMOWIENIA DO BAZY
 				 
 				if(((Order) wiadomosc).getKindQuery()==KindQuery.SEL_DBASE){
@@ -277,17 +345,54 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					this.sendObject(orderList);
 					
 					//LOG-----------------------------------------------------------
-					Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
-							d.toLocaleString().substring(0, 10), d.toLocaleString()+
-							": Watek:"+this.getName()+" "+
-							" -> Klient pobral liste zamowien");
+					this.saveLog("Pobranie zamowien");
 					//LOG_END-------------------------------------------------------
 					
 				}//##KONIEC BLOKU POIERANIA ZAMOWIEN
+				
+				if (((Order) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+					
+				}
 			
 			 }else//##KONIEC OBSLUGI KLASY ORDER
+				 
+//************************ADRESS****************************************
+				 
+			if (wiadomosc instanceof Adress){
+				
+				if (((Adress) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					
+				}
+				
+				if (((Adress) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+					
+				}
+				
+				if (((Adress) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+					
+				}
+				
+			}else //##KONIEC OBSLUGI ADRESU
+				
+//*******************PRZEBIEG*********************************************				
+			if (wiadomosc instanceof Course){
+				
+				if (((Course) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					
+				}
+				
+				if (((Course) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+					
+				}
+				
+				if (((Course) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+					
+				}
+				
+			}//##KONIEC OBSLUGI PRZEIEGU
 			 
-			 if(wiadomosc instanceof Event){
+//*****************************ZDARZENIA************************************			 
+			if(wiadomosc instanceof Event){
 				 if(((Event) wiadomosc).getKindQuery()==KindQuery.SEL_DBASE){
 					 		//##BLOK POBRANIA ZDARZEN
 					 DBManager db = DBManager.getInstance();
@@ -309,15 +414,32 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 
 				 }//##KONIEC BLOKU POBIERANIA ZDARZEN
 				 
+				 if (((Event) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+					 
+				 }
+				 
+				 if (((Event) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					 
+				 }
+				 
+				 if (((Event) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+					 
+				 }
+				 
 			 }//##KONIEC OBSLUGI KLASY EVENT
-			 else {
+			 
+			 
+//***********************INNE**********************************************			 
+			else {
 				 		//##GDY WATEK NIE ROZPOZNA KLASY/POLECENIA
 				 System.out.println("Nie rozpoznano");
+				 this.saveLog("Nieznane polecenie klienta");
 			 }
 			
 			}//#######KONIEC TRY
 		} catch (Exception e) {
 			System.out.println("Klient sie --odlaczyl");
+			this.saveLog("Klient sie rozlaczyl");
 		} finally {
 			
 			try {
@@ -327,8 +449,8 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-	}
+		}//koniec finally
+	}//koniec run
 
-}
+}//koniec klasy
 

@@ -12,6 +12,16 @@ public class Priest extends Person {
 			return true;
 		}
 		
+		public void clean(){
+			this.setName(null);
+			this.setSurName(null);
+			this.setAdress(null);
+			this.setPesel(null);
+			this.setPass(null);
+			secularityD=null;
+			arrivalD=null;
+			position=null;
+		}
 		public void setSecularityDate(Date d){
 			secularityD =d;
 		}
