@@ -6,6 +6,7 @@ import java.sql.ResultSetMetaData; //opis kolumn
 import java.sql.SQLException;
 import java.util.*;
 import obsluga.User;
+import pomoce.Pomoc;
 
 public class DBManager {
 	/*Klasa odpowiedzialna za polaczenie z baza*/
@@ -14,6 +15,8 @@ public class DBManager {
 	private java.sql.Connection conn = null; //zmienna 
 	private String pass="";
 	private String user="";
+	private String port="";
+	private String adres="";
 	
 	private DBManager(){
 		
@@ -30,10 +33,12 @@ public class DBManager {
 		pass = p;
 	}
 	
-	public void connectToDB(){
+	public boolean connectToDB(){
 		/*laczy z baza danych*/
 		System.out.print("Sprawdzanie sterownika:\n");
         try {
+        	port=Pomoc.loadFromFile("serwer.ini", "DBPORT");
+        	adres=Pomoc.loadFromFile("serwer.ini", "DBADRES");
 			Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
 		} catch (Exception e) {
 			System.out.println("Blad przy ladowaniu sterownika bazy!");
@@ -43,7 +48,7 @@ public class DBManager {
 		
 		// LACZENIE Z BAZA
 		System.out.print("\nLaczenie z baza danych:\n");
-		String baza = "jdbc:oracle:thin:@localhost:1521";
+		String baza = "jdbc:oracle:thin:@"+adres+":"+port;
 		
         try {
 			conn=DriverManager.getConnection(baza, user, pass);
@@ -51,9 +56,10 @@ public class DBManager {
 			//conn=DriverManager.getConnection("jdbc:mysql://olimp.if.pw.edu.pl/pojava?user=pojava&password=Java");
 		} catch (SQLException e) {
 			System.out.println("Blad przy ladowaniu sterownika bazy!");
-			System.exit(1);
+			return false;
 		}
 		System.out.print(" polaczenie OK\n");
+		return true;
 		
 	}
 	

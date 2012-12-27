@@ -16,23 +16,31 @@ import pomoce.ReadFromFile;
 public class Serwer {
 	protected static int PORT = 2000; //zawiera port serwera
 	protected static String LOGDIRECTORY = ""; //zawiera folder glowny plikow log
-
+	private static Date d = new Date();
+	
+	private static void saveLog(String text){
+		Pomoc.writeToFile(Serwer.LOGDIRECTORY, "mainSerwer.log."+
+				d.toLocaleString().substring(0, 10), d.toLocaleString()+
+				": SERWER -> "+ text);
+	}
+	
 	public static void main (String args[]) throws IOException{
-		Date d = new Date();
+		
 		d.getTime();
 		System.out.print(Pomoc.loadFromFile("serwer.ini","PORT"));
 		PORT = Integer.parseInt(Pomoc.loadFromFile("serwer.ini","PORT")); //zczytanie portu z ini
 		LOGDIRECTORY = Pomoc.loadFromFile("serwer.ini", "LOGDIRECTORY");
 		
 		//LOG
-		Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
-				d.toLocaleString().substring(0, 10), d.toLocaleString()+
-				" -> Serwer uruchomiony na porcie : "+PORT);
+		Serwer.saveLog("Serwer uruchomiony - Port: "+PORT);
 		//LOG_END
 		
 		DBManager db = DBManager.getInstance();
-		db.setInfoToConnect("parafia", "abc");
-		db.connectToDB();
+		db.setInfoToConnect(Pomoc.loadFromFile("serwer.ini","DBLOGIN"),
+				Pomoc.loadFromFile("serwer.ini","DBPASSW"));
+		
+		if (db.connectToDB()) Serwer.saveLog("Polaczono z baza danych"); else 
+			Serwer.saveLog("Blad polaczenie z baza danych");
 		
 		
 		try{
@@ -46,9 +54,7 @@ public class Serwer {
 				try {
 				
 				//LOG
-				Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
-						d.toLocaleString().substring(0, 10), d.toLocaleString()+
-						" -> Nowy watek dla klienta");
+				Serwer.saveLog("Nowy watek");
 				//LOG_END
 				
 				new SerwerThread(socket);// utworzenie watka serwera
@@ -56,33 +62,23 @@ public class Serwer {
 			} catch (IOException e) {
 				
 				//LOG
-				Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
-						d.toLocaleString().substring(0, 10), d.toLocaleString()+
-						" -> Blad watku klienta");
+				Serwer.saveLog("Blad watku");
 				//LOG_END
 				
 					socket.close(); // zamkniecie polaczenia w przypadku wystapienia bledu
 				}
 			}
 		} finally {
-			
-			//LOG
-			Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
-					d.toLocaleString().substring(0, 10), d.toLocaleString()+
-					" -> Zamkniecie serwera");
 			serwerSocket.close();
+			//LOG
+			Serwer.saveLog("Zamkniecie serwera");
 			//LOG_END
-			
-		}//ss
+		}
 	
 	} catch(Exception e){ //zbiera blad podczas bindowania gniazda
-		
 		//LOG
-		Pomoc.writeToFile(LOGDIRECTORY, "mainSerwer.log."+
-				d.toLocaleString().substring(0, 10), d.toLocaleString()+
-				" -> BLAD (zajety port) -- Zamkniecie tego serwera serwera");
+		Serwer.saveLog("Port zajety");
 		//LOG_END
-		
 		System.out.println("Blad serwera");
 	
 	}

@@ -1,0 +1,4 @@
+2012-12-26 23:19:01 -> Serwer uruchomiony na porcie : 2000
+2012-12-26 23:19:01 -> BLAD (zajety port) -- Zamkniecie tego serwera serwera
+2012-12-26 23:19:25 -> Serwer uruchomiony na porcie : 2000
+2012-12-26 23:19:25 -> Nowy watek dla klienta
