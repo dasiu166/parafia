@@ -165,7 +165,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		o.setDescribe("jakis tam opis");
 		o.setStatus(KindRange.NEW);
 		String q;
-		q="INSERT INTO Orderr VALUES (4,3,'"+o.getExecutroPesel()+"','"+
+		q="INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'"+o.getExecutroPesel()+"','"+
 		o.getSenderPesel()+"','"+o.getDescribe()+"','"+o.getStatus()+"',"+
 		"to_date('"+o.getBeginDate().toLocaleString().substring(0, 10)+
 		"','yyyy-MM-dd'),"+"to_date('"+o.getEndDate().toLocaleString().substring(0, 10)+
