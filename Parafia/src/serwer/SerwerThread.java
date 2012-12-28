@@ -218,7 +218,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 a.setCity(dbReturn.getFirst()[1]);
 					 a.setStreet(dbReturn.getFirst()[2]);
 					 a.setHouseNumb(dbReturn.getFirst()[3]);
-					 a.setDistrict(dbReturn.getFirst()[4]);
+					 a.setPostcode(dbReturn.getFirst()[4]);
 					 ((Parishioner) wiadomosc).setAdress(a); //dodanie adresu
 					 
 					 //tworze przebieg
@@ -331,6 +331,8 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					while(it.hasNext()){
 						Order o = new Order();
 						String[] tmp = it.next();
+						if(!tmp[0].equals("ERR")){
+							o.setQuery("OK+");
 						o.setId(Integer.parseInt(tmp[0]));
 						o.setEvent(tmp[1]);
 						o.setExecutorPesel(tmp[2]);
@@ -341,6 +343,11 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						o.setEndDate(Pomoc.podajDate(tmp[7].substring(0, 10)));
 						
 						orderList.add(o); //dodanie obiektu do listy
+						} else {
+							o.setQuery("ERR");
+							orderList.add(o);
+							break;
+						}
 					}
 					this.sendObject(orderList);
 					
@@ -401,14 +408,21 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					LinkedList<Event> eventList = new LinkedList<Event>();
 					Iterator<String[]> it = dbReturn.iterator();
 					
+					
 					while(it.hasNext()){
 						String[] tmp = it.next();
 						Event e = new Event();
+						if (!tmp[0].equals("ERR")){
 						e.setId(Integer.parseInt(tmp[0]));
 						e.setName(tmp[1]);
 						e.setDescribe(tmp[2]);
 						e.setQuery("OK+");
 						eventList.add(e);
+						} else {
+							e.setQuery("ERR");
+							eventList.add(e);
+							break;
+						}
 					}
 					this.sendObject(eventList);
 					 
@@ -428,6 +442,50 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 				 
 			 }//##KONIEC OBSLUGI KLASY EVENT
 			 
+//************************AKTUALNOSCI******************************************			
+			if (wiadomosc instanceof Actuals){
+				
+				if(((Actuals) wiadomosc).getKindQuery()==KindQuery.SEL_DBASE){
+					
+					LinkedList<Actuals> actualList = new LinkedList<Actuals>();
+					DBManager db = DBManager.getInstance();
+					
+					dbReturn = db.execSelectQuery(((Actuals) wiadomosc).getQuery());
+					Iterator<String[]> it = dbReturn.iterator();
+					
+					while(it.hasNext()){
+						Actuals a = new Actuals();
+						String[] tmp = it.next();
+						if(!tmp[0].equals("ERR")){
+						a.setId(Integer.parseInt(tmp[0]));
+						a.setPriestPesel(tmp[1]);
+						a.setDescribe(tmp[2]);
+						a.setAddDate(Pomoc.podajDate(tmp[3]));
+						a.setQuery("OK+");
+						actualList.add(a); //dodanie obiektu do listy
+						} else {
+							a.setQuery("ERR");
+							actualList.add(a);
+							break;
+						}
+					}
+					this.sendObject(actualList);
+				}
+				
+				if(((Actuals) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
+					
+				}
+				
+				if(((Actuals) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					
+				}
+
+				if(((Actuals) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+	
+				}
+				
+				
+			}//##KONIEC OBSLUGI KLASY ACTUALS
 			 
 //***********************INNE**********************************************			 
 			else {

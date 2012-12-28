@@ -126,8 +126,8 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		//Parishioner p = new Parishioner();
 		User u = new User();
 		u.setKindQuery(KindQuery.TRY_LOGIN); //zapytanie = logowanie
-		u.setLogin("pop_master");
-		u.setPassword("pop55");
+		u.setLogin("ania");
+		u.setPassword("an11");
 		
 		u.setQuery("SELECT * FROM userr WHERE login = '"+u.getLogin()+"' AND password = '"+
 		 u.getPassword()+"'");
@@ -151,6 +151,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		k.reciveObject();
 		
 		Parishioner p = new Parishioner();
+		p=(Parishioner)k.getPackage();
 		
 		/*fragment rozrozniajacy rangi, trzeba go zaimplementowac w jakis sposob 
 		 * do formatek
@@ -220,7 +221,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		k.reciveObject();
 		p=(Parishioner)k.getPackage();
 		
-		System.out.println("ZAMIESZKALY: "+p.getAdress().getCity()+"    "+p.getAdress().getDistrict());
+		System.out.println("ZAMIESZKALY: "+p.getAdress().getCity()+"    "+p.getAdress().getPostcode());
 		System.out.println("URODZONY : "+p.getCourse().getBirthDay().toLocaleString());
 		
 		/*Pobranie dostepnych rodzajow zdarzen z bazy---------------------*/
@@ -235,7 +236,21 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			  Event ee = it.next();
 			  System.out.println(ee.getName());
 		  }
-		
+		  
+		  /*Pobranie listy aktualnosci*/
+		  Actuals act = new Actuals();
+		  act.setKindQuery(KindQuery.SEL_DBASE);
+		  act.setQuery("Select * from actuals");
+		  k.sendObject(act);
+		  
+		  k.reciveObject();
+		  LinkedList<Actuals> actL = new LinkedList<Actuals>();
+		  actL=(LinkedList<Actuals>)k.getPackage();
+		  Iterator<Actuals> itA = actL.iterator();
+		  while(itA.hasNext()){
+			  Actuals ae = itA.next();
+			  System.out.println(ae.getDescribe());
+		  }
 		  
 		/*Dodanie uzytkownika (userr) do bazy
 		  User ne = new User();
