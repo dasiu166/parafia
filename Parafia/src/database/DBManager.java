@@ -86,32 +86,36 @@ public class DBManager {
 		 * jak nie ma nic to zwraca ERR*/
 		
 		//connectToDB();
-		ResultSet data; //wynik z bazy
+		ResultSet data=null; //wynik z bazy
 		ResultSetMetaData desc;//opis wyniku
 		LinkedList<String[]> dataList = new LinkedList<String[]>();//lista wierszy
-		
+		int rows=0;
 		try{
 		data = conn.createStatement().executeQuery(q); //wykonanie zapytania w bazie
 		desc = data.getMetaData(); //zwrocenie opisu kolumn
 		
+		if(data==null) System.out.println("CATCH SQL");
+		
 		System.out.println("Laduje dane (Liczba kolumn =)"+desc.getColumnCount());
+		
 		while(data.next()){
+			rows+=1;
 		 String[] fieldArray = new String[desc.getColumnCount()]; //utworzenie tablicy
 			
 		 	for(int j=1;j<=desc.getColumnCount();j++){
 				fieldArray[j-1] = data.getString(j); //dodanie pol do tablicy
-				//System.out.println(fieldArray[j-1]);
+				
 			}
 			dataList.add(fieldArray);//dodanie tablicy z polami do listy
 		 }
 		
-		}catch(SQLException e){
-			data = null;
-			String[] fArray = new String[1];//zwrot bledy gdy brak danych
-			fArray[0]="ERR";
-			dataList.add(fArray);
+		} 
+		
+		catch(SQLException e){
+			
 			e.printStackTrace();
 			e.getMessage();
+			//return dataList;
 		}
 		
 		/*try {
@@ -119,9 +123,18 @@ public class DBManager {
 		} catch(SQLException e){
 			
 		}*/
-		
+	
+		if (rows==0){
+			data = null;
+			System.out.println("CATCH SQL");
+			String[] fArray = new String[1];//zwrot bledu gdy brak danych
+			fArray[0]="ERR";
+			dataList.add(fArray);
+			return dataList;
+		} else
 		return dataList;//zwrot listy
 	}
+
 		
 	public static void main(String[] args){
 		DBManager db = DBManager.getInstance();

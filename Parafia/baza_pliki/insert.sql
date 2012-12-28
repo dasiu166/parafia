@@ -26,10 +26,10 @@ DELETE FROM Userr;
 
 ------------Adress------------
 INSERT INTO Adress VALUES(seq_adress.nextval,'Kielce','Warszawska','15/9','25-140');
-INSERT INTO Adress VALUES(seq_adress.nextval,'Morawica','Szpitalna','33','25-073');
-INSERT INTO Adress VALUES(seq_adress.nextval,'Warszawa','Studencka','21c','25-110');
-INSERT INTO Adress VALUES(seq_adress.nextval,'Kraków','Jagiellonska','1/19','25-062');
-INSERT INTO Adress VALUES(seq_adress.nextval,'Gdynia','Powstancow','48','25-001');
+INSERT INTO Adress VALUES(seq_adress.nextval,'Kielce','Szpitalna','33','25-073');
+INSERT INTO Adress VALUES(seq_adress.nextval,'Kielce','Studencka','21c','25-110');
+INSERT INTO Adress VALUES(seq_adress.nextval,'Kielce','Jagiellonska','1/19','25-062');
+INSERT INTO Adress VALUES(seq_adress.nextval,'Kielce','Powstancow','48','25-001');
 
 ------------Course------------
 INSERT INTO Course VALUES(seq_course.nextval,to_date('12/03/2011','mm/dd/yyyy'),null,null,null,null,null);
@@ -39,12 +39,12 @@ INSERT INTO Course VALUES(seq_course.nextval,to_date('12/03/1991','mm/dd/yyyy'),
 
 
 ------------Userr------------
-INSERT INTO Userr VALUES(seq_userr.nextval,'ania','an11',0,22);
-INSERT INTO Userr VALUES(seq_userr.nextval,'krzys','krz22',0,20);
-INSERT INTO Userr VALUES(seq_userr.nextval,'mario','ma33',0,30);
-INSERT INTO Userr VALUES(seq_userr.nextval,'tadek','ta44',0,40);
-INSERT INTO Userr VALUES(seq_userr.nextval,'pop_master','pop55',2,50);
-INSERT INTO Userr VALUES(seq_userr.nextval,'pop2','pop66',1,60);
+INSERT INTO Userr VALUES(seq_userr.nextval,'ania','an11',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'krzys','krz22',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'mario','ma33',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'tadek','ta44',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'pop_master','pop55',4,44);
+INSERT INTO Userr VALUES(seq_userr.nextval,'pop2','pop66',3,33);
 
 ------------Event------------
 INSERT INTO Event VALUES(seq_event.nextval,'Chrzest','Przyjecie chrztu sw');
@@ -69,6 +69,12 @@ INSERT INTO Priest VALUES('69010566803',6,5,'Jan','Wojciechowski','Wikary',to_da
 INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chcilem zamowic chrzest;p',1,to_date('07/15/2012','mm/dd/yyyy'),to_date('07/15/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Chcilem zamowic msze',1,to_date('12/20/2012','mm/dd/yyyy'),to_date('12/20/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'59040665847','91031254875','Chcilem gregorianke',1,to_date('12/21/2012','mm/dd/yyyy'),to_date('12/21/2012','mm/dd/yyyy'));
+
+
+------------Actuals-----------
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Start parafii',to_date('09/25/2012','mm/dd/yyyy'));
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 1',to_date('12/20/2012','mm/dd/yyyy'));
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 2',to_date('01/01/2013','mm/dd/yyyy'));
 
 
 /*

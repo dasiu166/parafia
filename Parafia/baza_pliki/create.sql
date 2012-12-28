@@ -5,6 +5,7 @@ DROP TABLE Event CASCADE CONSTRAINTS;
 DROP TABLE Parishioner CASCADE CONSTRAINTS;
 DROP TABLE Priest CASCADE CONSTRAINTS;
 DROP TABLE Orderr CASCADE CONSTRAINTS;
+DROP TABLE Actuals CASCADE CONSTRAINTS;
 
 
 CREATE TABLE Adress (
@@ -76,6 +77,14 @@ CREATE TABLE Orderr  (
   CONSTRAINT or_ev_fk1 FOREIGN KEY (id_event) REFERENCES Event(id_event),
   CONSTRAINT or_pr_fk2 FOREIGN KEY(odprawiajacy_pesel) REFERENCES Priest(pesel),
   CONSTRAINT or_pa_fk3 FOREIGN KEY(zamawiajacy_pesel) REFERENCES Parishioner(pesel)
+);
+
+CREATE TABLE Actuals(
+  id_actuals NUMBER CONSTRAINT actuals_pk PRIMARY KEY,
+  pesel_priest NUMBER(11),
+  describe VARCHAR(400),
+  add_date DATE,
+  CONSTRAINT ac_pr_fk FOREIGN KEY (pesel_priest) REFERENCES Priest(pesel)
 );
 
 

@@ -38,6 +38,8 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		try{
 		addr = InetAddress.getByName(adres);
+		//addr = InetAddress. 
+		System.out.println(addr.getHostAddress());
 		
 		socket = new Socket(addr,port);
 		} catch (UnknownHostException e){
