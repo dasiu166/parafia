@@ -6,7 +6,7 @@ public class Adress extends DataBaseElement{
 	private Integer id; //id adresu z bazy danych
 	private String city; //miasto
 	private String street; //ulica
-	private String district; //osiedle
+	private String postcode; //osiedle
 	private String house_numb; //numer domu/bloku
 	
 	public Adress(){
@@ -26,8 +26,8 @@ public class Adress extends DataBaseElement{
 	public void setStreet(String s){
 		street=s;
 	}
-	public void setDistrict(String s){
-		district=s;
+	public void setPostcode(String s){
+		postcode=s;
 	}
 	public void setHouseNumb(String s){
 		house_numb=s;
@@ -48,8 +48,8 @@ public class Adress extends DataBaseElement{
 	public String getHouse(){
 		return house_numb;
 	}
-	public String getDistrict(){
-		return district;
+	public String getPostcode(){
+		return postcode;
 	}
 	
 	

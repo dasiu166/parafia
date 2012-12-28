@@ -94,12 +94,12 @@ public class DBManager {
 		data = conn.createStatement().executeQuery(q); //wykonanie zapytania w bazie
 		desc = data.getMetaData(); //zwrocenie opisu kolumn
 		
-		if(data==null) System.out.println("CATCH SQL");
+		//if(data==null) System.out.println("CATCH SQL");
 		
 		System.out.println("Laduje dane (Liczba kolumn =)"+desc.getColumnCount());
-		
+
 		while(data.next()){
-			rows+=1;
+		 rows+=1;
 		 String[] fieldArray = new String[desc.getColumnCount()]; //utworzenie tablicy
 			
 		 	for(int j=1;j<=desc.getColumnCount();j++){
@@ -132,6 +132,7 @@ public class DBManager {
 			dataList.add(fArray);
 			return dataList;
 		} else
+		System.out.println("Ilosc wierszy "+rows);
 		return dataList;//zwrot listy
 	}
 
@@ -141,7 +142,7 @@ public class DBManager {
 		
 		db.setInfoToConnect("parafia", "abc");
 		db.connectToDB();
-		db.execUpdateQuery("INSERT INTO userr VALUES (7,'henia','osa',0,11)");
+		//db.execUpdateQuery("INSERT INTO userr VALUES (7,'henia','osa',0,11)");
 		
 		
 		/*przyklad przejzenia wyniku z bazy*/

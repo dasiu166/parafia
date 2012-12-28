@@ -123,11 +123,11 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			else System.out.println("Klient - polaczony");
 		
 		/*!!Poczatek logowania!!-------------------------------------------------*/
-		Parishioner p = new Parishioner();
+		//Parishioner p = new Parishioner();
 		User u = new User();
 		u.setKindQuery(KindQuery.TRY_LOGIN); //zapytanie = logowanie
-		u.setLogin("ania");
-		u.setPassword("an11");
+		u.setLogin("pop_master");
+		u.setPassword("pop55");
 		
 		u.setQuery("SELECT * FROM userr WHERE login = '"+u.getLogin()+"' AND password = '"+
 		 u.getPassword()+"'");
@@ -142,7 +142,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			/*Gdy login/haslo bledne*/
 			System.out.println("Nie mozna sie zalogowac (zly login/haslo)");
 			u.setRestriction(KindRestriction.GUEST_R);
-			p.setRestriction(KindRestriction.GUEST_R);
+			//p.setRestriction(KindRestriction.GUEST_R);
 			return;
 		}
 		
@@ -150,7 +150,18 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		k.reciveObject();
 		
-		p = (Parishioner)k.getPackage();
+		Parishioner p = new Parishioner();
+		
+		/*fragment rozrozniajacy rangi, trzeba go zaimplementowac w jakis sposob 
+		 * do formatek
+		 * 
+		 * if(u.getRange()<KindRange.PRIEST_RANG)
+		{	Parishioner p = new Parishioner(); 
+			p = (Parishioner)k.getPackage();
+			} else{
+				Priest p = new Priest();
+				p = (Priest)k.getPackage();
+			}*/
 		
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
 				" Pesel: "+p.getPesel());
