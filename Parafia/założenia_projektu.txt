@@ -1,25 +1,25 @@
 /* 
- * myÅ›lÄ™ Å¼e jak nam coÅ› w miÄ™dzyczasie przyjdzie do gÅ‚owy to moÅ¼na uzupeÅ‚niaÄ‡
+ * myœlê ¿e jak nam coœ w miêdzyczasie przyjdzie do g³owy to mo¿na uzupe³niaæ
  * 
 */ 
 
-GoÅ›Ä‡
-- wyÅ›wietlanie liacend. //nie mogÄ™ siÄ™ doczytaÄ‡
-- wyÅ›wietlanie aktualnoÅ›ci
+Goœæ
+- wyœwietlanie liacend. //nie mogê siê doczytaæ
+- wyœwietlanie aktualnoœci
 - zal.
 
 client
 - wyloguj
-- szczegÃ³ly dnia
-- zÅ‚oÅ¼enie zamÃ³wieÅ„ (msza) _prze kalendarz
+- szczególy dnia
+- z³o¿enie zamówieñ (msza) _prze kalendarz
 - pobierz dane
 - zmien nr tel.
 
-kszÄ…dz
+ksz¹dz
 - akceptuje i odrzuca
-- wyÅ›wietlenie jego zamÃ³wienia
+- wyœwietlenie jego zamówienia
 
 proboszcz
-- podglÄ…d wszystkich grafikÃ³w i edycja
+- podgl¹d wszystkich grafików i edycja
 - edycja danych
-- dodawnie / usÃ³wanie kont
+- dodawnie / usówanie kont

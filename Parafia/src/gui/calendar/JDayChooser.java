@@ -342,12 +342,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 			days[i + n + 7].setText(Integer.toString(n + 1));
 			days[i + n + 7].setVisible(true);
 
-			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today
-					.get(Calendar.DAY_OF_YEAR))
-					&& (tmpCalendar.get(Calendar.YEAR) == today
-							.get(Calendar.YEAR))) {
+			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR))
+					&& (tmpCalendar.get(Calendar.YEAR) == today.get(Calendar.YEAR))) {
+				days[i + n + 7].setFont(new Font("Dialog", Font.BOLD, 11));
 				days[i + n + 7].setForeground(sundayForeground);
 			} else {
+				days[i + n + 7].setFont(new Font("Dialog", Font.PLAIN, 11));
 				days[i + n + 7].setForeground(foregroundColor);
 			}
 
@@ -866,7 +866,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	public void updateUI() {
 		super.updateUI();
 		setFont(Font.decode("Dialog Plain 11"));
-
+		
 		if (weekPanel != null) {
 			weekPanel.updateUI();
 		}
@@ -880,6 +880,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 				setDecorationBackgroundVisible(decorationBackgroundVisible);
 				setDecorationBordersVisible(decorationBordersVisible);
 			}
+			drawDays();
 		}
 	}
 
