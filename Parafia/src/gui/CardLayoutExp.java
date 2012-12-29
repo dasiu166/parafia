@@ -1,6 +1,5 @@
 package gui;
 
-
 import gui.calendar.JCalendar;
 
 import java.awt.CardLayout;
@@ -39,19 +38,24 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import stale.KindRestriction;
+
 import com.jgoodies.looks.FontPolicies;
 import com.jgoodies.looks.FontPolicy;
 import com.jgoodies.looks.FontSet;
 import com.jgoodies.looks.FontSets;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
+import java.awt.Dimension;
 
 public class CardLayoutExp extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JPanel panelContent;
+	private JMenuBar menuBar;
 	private CardLayout cl;
-	private JFrame frame = this;
-	//private Client c;
+	private CardLayoutExp frame = this;
+	private Events events = Events.getInstance();
 	
 	/*
 	 * Aby dzia³a³ nowy wygl¹d który doda³em nale¿y dodaæ biblioteki z folderu lib do Bildera
@@ -61,58 +65,64 @@ public class CardLayoutExp extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * ############# COSTRUCTOR ############
 	 */
 	public CardLayoutExp() {
+		setMinimumSize(new Dimension(700, 520));
+		setPreferredSize(new Dimension(700, 520));
 		
-		// Set the JGoodies Plastic 3D look and feel
-				initializeLookAndFeels();
-		
-		//ustawienie wygl¹du okienek na typ Nimbus
-		//try {
-	//		UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-	//	} catch (ClassNotFoundException e1) {e1.printStackTrace();} catch (InstantiationException e1){e1.printStackTrace();}catch(IllegalAccessException e1){e1.printStackTrace();}catch(UnsupportedLookAndFeelException e1){e1.printStackTrace();}
-		//SwingUtilities.updateComponentTreeUI(this);
+		// Inicjalizacja i ustawienie nowego wygl¹du: JGoodies Plastic 3D look and feel
+		initializeLookAndFeels();
 				
         setTitle("System zarz¹dzania parafi¹");
-        
-        
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 700, 500);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+                
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 	// ustawienie akcji dla przycisku X
+		setBounds(100, 100, 700, 520);						  	// ustwienie rozmieru okna
+		contentPane = new JPanel();								// stworzenie panelu g³ównego formatki
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));			// ustawienie obramowania
+		setContentPane(contentPane);								// ustawienie panelu g³ównego dla formatki
 		
 		//#################### PANEL LOGOWANIA ####################
-		JPanel panelLogowania = new PanelLogowania(this);
+		PanelLogowania panelLogowania = new PanelLogowania(frame); 
 		
+		//#################### PANEL CZASU ####################
+		JPanel panelTime = new JPanel();
+		JLabel lblTime = new JLabel("15:38");
+		lblTime.setBounds(57, 0, 43, 15);
+		lblTime.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		panelTime.add(lblTime);
+		
+		//#################### PANEL INFORMACJI DODATKOWYCH ####################
+		JScrollPane scrollPaneInfo = new JScrollPane();
+		JTextPane txtpnInfo = new JTextPane();
+		txtpnInfo.setText("fdsfgvsdfgvsdf");
+		scrollPaneInfo.setViewportView(txtpnInfo);
+		
+		//#################### PANEL KALENDARZA ####################
+		JPanel panelCalendar =  new JCalendar();
 		
 		//#################### PANEL CONTENT ####################
-		final JPanel panelContent = new JPanel();
-		cl = new CardLayout();
-		panelContent.setLayout(cl);
+		panelContent = new JPanel();				// stworzenie panelu logowania
+		cl = new CardLayout();									// stworzenie zarz¹dcy faormatki
+		panelContent.setLayout(cl);								// ustawienie zarz¹dcy formatki dla panelu z zawartoœci¹
 		
-		JPanel jpAktualnosci = new PAktualnosci(this);
-        panelContent.add(jpAktualnosci, "login");
+		PanelNews jpNews = new PanelNews(this);
+        panelContent.add(jpNews, "news");
+        //jpNews.addNews("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>");
         
-		JPanel jp2 = new Panel2(this);
-        panelContent.add(jp2, "tab");
+        final PanelUserData jpUserData = new PanelUserData(this);
+        panelContent.add(jpUserData, "userData");
         
-        JPanel jp3 = new DateChooserPanel();
+        PanelNewOrder jpnewOrder = new PanelNewOrder();
        // JLabel jl3 = new JLabel("Card3");
         //jp3.add(jl3);
-        panelContent.add(jp3, "panel3");
+        panelContent.add(jpnewOrder, "newOrder");
         
         JPanel jp4 = new JPanel();        
         JLabel jl4 = new JLabel("Card4");
         jp4.add(jl4);
         panelContent.add(jp4, "panel4");
-		
-		JPanel panelCalendar = new JCalendar();
-		
-		JScrollPane scrollPaneInfo = new JScrollPane();
-		
-		JPanel panelTime = new JPanel();
-		
+        
 		//#################### CONTENT PANEL ####################
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -140,59 +150,51 @@ public class CardLayoutExp extends JFrame {
 		);
 		panelTime.setLayout(null);
 		
-		JLabel lblTime = new JLabel("15:38");
-		lblTime.setBounds(57, 0, 43, 15);
-		lblTime.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-		panelTime.add(lblTime);
-		
-		JTextPane txtpnInfo = new JTextPane();
-		txtpnInfo.setText("fdsfgvsdfgvsdf");
-		scrollPaneInfo.setViewportView(txtpnInfo);
 		contentPane.setLayout(gl_contentPane);
-		
-		
 		
 		//#################### MENU BAR ####################
 			//utworzenie paska menu
-        final JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         
         	// menu Plik
         JMenu menuPlik = new JMenu("Plik");
         menuPlik.setMnemonic('P'); //po wciœniêciu p otworzy siê menu je¿eli jest aktywne aktualnie trzeba wybraæ alt+p;
         menuBar.add(menuPlik); // dodanie menu plik do paska menu
 	       
-        	final JMenuItem menuPlikPanel1 = new JMenuItem("Panel1",'1');
-	        menuPlikPanel1.addActionListener(new ActionListener() {				
+        	JMenuItem menuPlikPanelNews = new JMenuItem("Aktualno\u015Bci",'1');
+	        menuPlikPanelNews.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					cl.show(panelContent, "login");
+					cl.show(panelContent, "news");
 				}
 			});
-	        menuPlik.add(menuPlikPanel1);	        
-			final JMenuItem menuPlikPanel2 = new JMenuItem("Panel2",'2');
+	        menuPlik.add(menuPlikPanelNews);
+			JMenuItem menuPlikPanel2 = new JMenuItem("user/dane",'2');
 			menuPlikPanel2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cl.show(panelContent, "tab");
+					//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner());
+					if(events.getLogged()) jpUserData.setUserData(events.getParishioner());					
+					cl.show(panelContent, "userData");
 				}
 			});
-			menuPlik.add(menuPlikPanel2);			
-			final JMenuItem menuPlikPanel3 = new JMenuItem("Panel3",'3');
+			menuPlik.add(menuPlikPanel2);
+			JMenuItem menuPlikPanel3 = new JMenuItem("user/noweZamowienie",'3');
 			menuPlikPanel3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cl.show(panelContent, "panel" + 3);
+					cl.show(panelContent, "newOrder");
 				}
 			});
-			menuPlik.add(menuPlikPanel3);			
-			final JMenuItem menuPlikPanel4 = new JMenuItem("Panel4",'4');
+			menuPlik.add(menuPlikPanel3);
+			JMenuItem menuPlikPanel4 = new JMenuItem("Panel4",'4');
 			menuPlikPanel4.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cl.show(panelContent, "panel" + 4);
 				}
 			});
-			menuPlik.add(menuPlikPanel4);			
+			menuPlik.add(menuPlikPanel4);
 			JSeparator separator = new JSeparator(); // tworzy linie poziom¹ w menu plik taki separator
 			menuPlik.add(separator);
-			final JMenuItem menuPlikClose = new JMenuItem("Close");
+			JMenuItem menuPlikClose = new JMenuItem("Close");
 			menuPlikClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// wys³anie chêci zamkniêcia aplikacji do systemu (symulowanie wciœniêcia X)
@@ -246,6 +248,27 @@ public class CardLayoutExp extends JFrame {
 			}
 		}
 		
+		JMenu menuUser = new JMenu("U\u017Cytkownik");
+		menuBar.add(menuUser);
+		
+		JMenuItem menuUserDane = new JMenuItem("Dane");
+		menuUserDane.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner().getName());
+				if(events.getLogged()) jpUserData.setUserData(events.getParishioner());
+				cl.show(panelContent, "userData");
+			}
+		});
+		menuUser.add(menuUserDane);
+		
+		JMenuItem mntmZamowienie = new JMenuItem("Zamowienie");
+		mntmZamowienie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl.show(panelContent, "newOrder");
+			}
+		});
+		menuUser.add(mntmZamowienie);
+		
 		Component horizontalGlue = Box.createHorizontalGlue(); // dziêki temu menuPomoc jest po prawej stronie
 		menuBar.add(horizontalGlue);
 		
@@ -265,6 +288,19 @@ public class CardLayoutExp extends JFrame {
         
 		
 		setJMenuBar(menuBar);
+		
+		events.getNewsList().addNewsListToPanel(jpNews);
+		resetSettings();
+	}
+	
+	public void resetSettings(){
+		menuBar.getComponent(2).setVisible(false);
+		cl.show(panelContent, "news");
+	}
+	
+	public void loginUser(){
+		if(events.getRestriction() == KindRestriction.LOGED_R)
+			menuBar.getComponent(2).setVisible(true);
 	}
 	
 	/**
@@ -315,10 +351,11 @@ public class CardLayoutExp extends JFrame {
 			public void run() {
 				WindowListener l = new WindowAdapter() {
 					public void windowClosing(WindowEvent e) {
+						//JOptionPane.showMessageDialog(null, e.getSource());
 						int odt = JOptionPane.showConfirmDialog(null, "Czy na pewno Chcesz wyjœæ?","Wyjœcie",JOptionPane.YES_NO_OPTION);
 						if(odt == JOptionPane.YES_OPTION){
 							System.exit(0);
-						}							
+						}
 					}
 				};
 				

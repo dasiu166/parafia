@@ -1,11 +1,11 @@
 package gui;
 
 import java.awt.CardLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,12 +18,12 @@ public class PanelLogowania extends JPanel {
 	private static final long serialVersionUID = 1L;
     private CardLayout cl;
     private DialogLogowania dialogLogowania;
-    private Events event = new Events();
+    private Events event = Events.getInstance();
 	/**
 	 * Create the panel.
 	 */
-	public PanelLogowania(final JFrame owner) {
-        setSize(150, 70);        
+	public PanelLogowania(final CardLayoutExp owner) {
+        setSize(150, 70);
         cl = new CardLayout();
         setLayout(cl);
         final JPanel ja = this;
@@ -47,15 +47,17 @@ public class PanelLogowania extends JPanel {
         logged.add(lblJesteZalogowany);
         
         final JLabel lblUserName = new JLabel("Nazwa U\u017Cytkownika");
+        lblUserName.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblUserName.setHorizontalAlignment(SwingConstants.CENTER);
         lblUserName.setBounds(0, 24, 150, 14);
         logged.add(lblUserName);
         
         JButton bLogOut = new JButton("Wyloguj");
-        // akcja po wciœniêciu przycisku WYLOGUJ
+        // akcja po wciœniêciu przycisku ### WYLOGUJ ###
         bLogOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		if(event.wyloguj()){
+        			owner.resetSettings();
 	        		cl.show(ja, "unlogged");
 	        		JOptionPane.showMessageDialog(null, "Wylogowano");
         		} else {
@@ -66,11 +68,11 @@ public class PanelLogowania extends JPanel {
         bLogOut.setBounds(31, 44, 90, 20);
         logged.add(bLogOut);
         
-        // akcja po wciœniêciu przycisku ZALOGUJ
+        // akcja po wciœniêciu przycisku ### ZALOGUJ ###
         bZaloguj.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		if(dialogLogowania==null)
-        			dialogLogowania = new DialogLogowania(owner);
+        			dialogLogowania = new DialogLogowania(null);
         		dialogLogowania.setVisible(true);
         		dialogLogowania.setFocus();
         		
@@ -79,6 +81,8 @@ public class PanelLogowania extends JPanel {
         			if(event.zaloguj(dialogLogowania.getLogin(), dialogLogowania.getPassword())){
         				Parishioner p = event.getParishioner();
         				lblUserName.setText(p.getName()+" "+p.getSurName());
+        				//JOptionPane.showMessageDialog(null, "Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\nAdres: "+p.getAdress().getCity()+"\nPesel: "+p.getPesel());
+        				owner.loginUser();
         				cl.show(ja, "logged");
         			}
         		}
