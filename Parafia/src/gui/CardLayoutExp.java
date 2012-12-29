@@ -46,6 +46,7 @@ import com.jgoodies.looks.FontSet;
 import com.jgoodies.looks.FontSets;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import java.awt.Dimension;
+import java.io.IOException;
 
 public class CardLayoutExp extends JFrame {
 
@@ -66,8 +67,10 @@ public class CardLayoutExp extends JFrame {
 	/**
 	 * Create the frame.
 	 * ############# COSTRUCTOR ############
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 */
-	public CardLayoutExp() {
+	public CardLayoutExp() throws ClassNotFoundException, IOException {
 		setMinimumSize(new Dimension(700, 520));
 		setPreferredSize(new Dimension(700, 520));
 		
@@ -173,7 +176,18 @@ public class CardLayoutExp extends JFrame {
 			menuPlikPanel2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner());
-					if(events.getLogged()) jpUserData.setUserData(events.getParishioner());					
+					if(events.getLogged()){ 
+						try {
+							events.pobierzDane();
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						jpUserData.setUserData(events.getParishioner());	
+					}
 					cl.show(panelContent, "userData");
 				}
 			});
@@ -255,7 +269,18 @@ public class CardLayoutExp extends JFrame {
 		menuUserDane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner().getName());
-				if(events.getLogged()) jpUserData.setUserData(events.getParishioner());
+				if(events.getLogged()) {
+					try {
+						events.pobierzDane();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					jpUserData.setUserData(events.getParishioner());
+				}
 				cl.show(panelContent, "userData");
 			}
 		});

@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ListIterator;
 
 import javax.swing.GroupLayout;
@@ -21,6 +24,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 
+
+
+import obsluga.Actuals;
+import obsluga.Priest;
+import pomoce.Pomoc;
+import stale.KindQuery;
+
+import klient.Client;
+
 import net.miginfocom.swing.MigLayout;
 
 public class PanelNews extends JPanel implements ActionListener {
@@ -32,6 +44,7 @@ public class PanelNews extends JPanel implements ActionListener {
 	private JFrame owner;
 	JPanel panel;
 	int newsNumber = 0;
+
 
 	/**
 	 * Create the panel.
@@ -222,6 +235,7 @@ class News{
 }
 
 class NewsList{
+	
 	public NewsList() {
 		super();
 	}
@@ -231,14 +245,44 @@ class NewsList{
 		this.lista = lista;
 	}
 	
-	public void generateNewsList(int num) {
-		for(int i=1 ;i<=((num<=5)?num:5);i++){
+	public void generateNewsList(int num) throws IOException, ClassNotFoundException {
+		/*for(int i=1 ;i<=((num<=5)?num:5);i++){
 			if(i==1)addNews(new News("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>"));
 			if(i==2)addNews(new News("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>"));
 			if(i==3)addNews(new News("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>"));
 			if(i==4)addNews(new News("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>"));
 			if(i==5)addNews(new News("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>"));
-		}
+		}*/
+		
+		//Starsznie przekombionowane tutaj jest poniewaz nie wiem w ktorym momencie Ma³ysz ³aczy sie z serwerem
+		//wiec po³aczy³em sie tutaj
+		Client k = new Client();
+		 Actuals act = new Actuals();
+		 String adr = Pomoc.loadFromFile("client.ini", "SERWERADRES"); //pobranie adresu
+			int portt = Integer.parseInt(Pomoc.loadFromFile("client.ini", "PORT")); //pobranie portu
+		 k.connect(adr,portt);
+		  //Priest pr=new Priest();
+		 int i=0;
+		  act.setKindQuery(KindQuery.SEL_DBASE);
+		  act.setQuery("Select * from actuals");
+		  k.sendObject(act);
+		  
+		  k.reciveObject();
+		  LinkedList<Actuals> actL = new LinkedList<Actuals>();
+		  actL=(LinkedList<Actuals>)k.getPackage();
+		  Iterator<Actuals> itA = actL.iterator();
+		  while(itA.hasNext()){
+			  i++;
+			  Actuals ae = itA.next();
+			  System.out.println(ae.getDescribe());
+			  System.out.println(ae.getAddDate());
+			  System.out.println(ae.getPriestPesel());
+			  System.out.println(ae.getName());
+			  System.out.println(ae.getSurName());
+			 addNews(new News("Aktualnosc "+i, ae.getAddDate(),ae.getName()+ae.getSurName() , 56,
+	"<p style=\"color:orange; margin:0px; padding:0px;\">"+ae.getDescribe() +"</p>"));
+		  }
+		
 	}
 
 	ArrayList<News> lista = new ArrayList<News>();

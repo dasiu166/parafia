@@ -7,6 +7,8 @@ public class Actuals extends DataBaseElement{
 	private String priestPesel;
 	private String describe;
 	private Date addDate;
+	private String name; //moje zmiany(VeLoOx)
+	private String surName;//moje zmiany(VeLoOx)
 	
 	public boolean setQuery(String val){
 		query = val;
@@ -37,5 +39,21 @@ public class Actuals extends DataBaseElement{
 	}
 	public Date getAddDate(){
 		return addDate;
+	}
+	//moje zmiany(VeLoOx)
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurName() {
+		return surName;
+	}
+
+	public void setSurName(String surName) {
+		this.surName = surName;
 	}
 }

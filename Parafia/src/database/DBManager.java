@@ -140,16 +140,17 @@ public class DBManager {
 	public static void main(String[] args){
 		DBManager db = DBManager.getInstance();
 		
-		db.setInfoToConnect("parafia", "abc");
+		db.setInfoToConnect("student", "student");
 		db.connectToDB();
 		//db.execUpdateQuery("INSERT INTO userr VALUES (7,'henia','osa',0,11)");
 		
 		
 		/*przyklad przejzenia wyniku z bazy*/
-		/*
+		
 		LinkedList<String[]> tmpList = new LinkedList<String[]>();
-		tmpList= db.execSelectQuery("SELECT * FROM parishioner where id_userr=1");
-		//tmpList= db.execSelectQuery("SELECT * FROM userr;");
+		//tmpList= db.execSelectQuery("SELECT * FROM parishioner where id_userr=1");
+		//tmpList= db.execSelectQuery("SELECT * FROM userr WHERE login ='ania' AND password = 'an11'");
+		tmpList= db.execSelectQuery("SELECT * FROM actuals");
 		Iterator<String[]> iteratorData = tmpList.iterator();
 		while(iteratorData.hasNext()){
 			String[] tmp = iteratorData.next();
@@ -158,7 +159,7 @@ public class DBManager {
 			}
 			System.out.print("\n");
 		}
-		*/
+		
 		
 		
 		

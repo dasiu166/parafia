@@ -57,10 +57,12 @@ public class Events {
 	
 	/**
 	 * @return <b>NewsList</b> - liste Aktualnoœci
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 */
-	public NewsList getNewsList(){
+	public NewsList getNewsList() throws ClassNotFoundException, IOException{
 		newsList.generateNewsList(5); //pobranie przyk³adowej listy aktualnoœci
-		newsList.generateNewsList(5);
+		//newsList.generateNewsList(5);
 		return newsList;
 	}
 	
@@ -137,6 +139,18 @@ public class Events {
 		p = new Parishioner();
 		logged = false;
 		return true;
+	}
+	
+	public void pobierzDane() throws IOException, ClassNotFoundException{
+		p.setKindQuery(KindQuery.SEL_DBASE);
+		p.setQuery("Select * from parishioner where pesel="+p.getPesel());
+		k.sendObject(p);
+		k.reciveObject();
+		p=(Parishioner)k.getPackage();
+		
+		System.out.println("ZAMIESZKALY: "+p.getAdress().getCity()+"    "+p.getAdress().getPostcode());
+		System.out.println("URODZONY : "+p.getCourse().getBirthDay().toLocaleString());
+		
 	}
 	
 	

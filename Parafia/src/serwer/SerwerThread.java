@@ -28,6 +28,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
 	
 	private LinkedList<String[]> dbReturn; //sluzy doodpioru wynikow select z bazy
+	private LinkedList<String[]> dbReturn1;
 	private int dbReturnInt=0;//odbior wynikow w postaci int
 	
 	public SerwerThread(Socket s) throws IOException {
@@ -113,6 +114,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 DBManager db = DBManager.getInstance();
 					 
 					 //### KONFUGURACJA USERA ###
+					 System.out.println("\n"+((User) wiadomosc).getQuery());
 					 dbReturn = db.execSelectQuery(((User) wiadomosc).getQuery());
 					 String tmp[] = dbReturn.getFirst();
 					 if (!tmp[0].equals("ERR") ){ //jezeli znaleziono usera
@@ -276,6 +278,16 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 				
 				if (((Priest) wiadomosc).getKindQuery()==KindQuery.SEL_DBASE){
 					//## BLOK SELECTU DANYCH KSIEDZA
+					//MOJE PROBY MAM NADZIEJE ZE OWOCNE
+					Priest pr = new Priest();
+					 DBManager db = DBManager.getInstance();
+					 dbReturn = db.execSelectQuery(((Priest) wiadomosc).getQuery());
+					 String tmp1[] = dbReturn.getFirst();
+					   pr.setPesel(tmp1[0]);
+					   pr.setName(tmp1[3]);
+					   pr.setSurName(tmp1[4]);
+					   pr.setQuery("OK+");
+						 this.sendObject(pr); 
 				}//## KONIEC SELECTU DANYCH KSIEDZA
 				
 				if (((Priest) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
@@ -461,6 +473,13 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						a.setPriestPesel(tmp[1]);
 						a.setDescribe(tmp[2]);
 						a.setAddDate(Pomoc.podajDate(tmp[3]));
+						//moje zmiany(VeLoOx)
+						//Priest pr = new Priest();
+						   dbReturn1 = db.execSelectQuery("SELECT * FROM priest where pesel="+tmp[1]);
+						   String tmp2[] = dbReturn1.getFirst();
+						   a.setName(tmp2[3]);
+						   a.setSurName(tmp2[4]);
+						//----------------------
 						a.setQuery("OK+");
 						actualList.add(a); //dodanie obiektu do listy
 						} else {
