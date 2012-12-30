@@ -77,7 +77,7 @@ public class CardLayoutExp extends JFrame {
 		// Inicjalizacja i ustawienie nowego wygl¹du: JGoodies Plastic 3D look and feel
 		initializeLookAndFeels();
 				
-        setTitle("System zarz¹dzania parafi¹");
+        setTitle("System zarz¹dzania uroczystosciami");
                 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 	// ustawienie akcji dla przycisku X
 		setBounds(100, 100, 700, 520);						  	// ustwienie rozmieru okna
@@ -178,7 +178,7 @@ public class CardLayoutExp extends JFrame {
 					//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner());
 					if(events.getLogged()){ 
 						try {
-							events.pobierzDane();
+							events.pobierzDane(events.getRestriction());
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -271,7 +271,7 @@ public class CardLayoutExp extends JFrame {
 				//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner().getName());
 				if(events.getLogged()) {
 					try {
-						events.pobierzDane();
+						events.pobierzDane(events.getRestriction());
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -279,7 +279,15 @@ public class CardLayoutExp extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					if (events.getRestriction()==KindRestriction.LOGED_R)
+					{
 					jpUserData.setUserData(events.getParishioner());
+					}
+					if (events.getRestriction()>KindRestriction.LOGED_R)
+					{
+					//jpUserData.setUserData(events.getPriest());
+					}
+					
 				}
 				cl.show(panelContent, "userData");
 			}

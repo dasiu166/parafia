@@ -42,6 +42,10 @@ public class Events {
 		//if(!k.getIsConnected()){ JOptionPane.showMessageDialog(null, "B³¹d po³¹czenia z serverem", "Error connect", JOptionPane.ERROR_MESSAGE); }
 	}
 	
+	public User getUser(){
+		return u;
+	}
+	
 	/**
 	 * @return <b>Events</b> - SINGLETON<br />
 	 * 			Zwraca instancje siebie lub tworzy naw¹ je¿eli nie istnieje
@@ -106,12 +110,14 @@ public class Events {
 			if(!k.reciveObject()) return false;
 		} catch (ClassNotFoundException e){e.printStackTrace();}catch(IOException e){e.printStackTrace();}
 		
+		System.out.println("%%%%%%%%%%%%%%%  "+u.getRestriction());
+		
 		if(u.getRestriction() == KindRestriction.LOGED_R){
 			p = (Parishioner)k.getPackage();
 			System.out.println("Parishioner Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n"+" Pesel: "+p.getPesel());
 		}else if(u.getRestriction() == KindRestriction.WORKS_R || u.getRestriction() == KindRestriction.GOD_R){
 			priest = (Priest)k.getPackage();
-			System.out.println("Priest Zalogowano jako: "+priest.getName()+" "+priest.getSurName()+"\n"+" Adres: "+priest.getAdress().getCity()+" Pesel: "+priest.getPesel());
+			System.out.println("Priest Zalogowano jako: "+priest.getName()+" "+priest.getSurName()+"\n"+" Adres: "+" Pesel: "+priest.getPesel());
 		}else{
 			System.out.println("B£¹d logowania");
 			return false;
@@ -126,7 +132,8 @@ public class Events {
 	 * 			<b>false</b> - je¿eli wylogowanie siê nie powiod³o<br /><br />
 	 * 		ustawia takrze obiekty klasy do stanu pocz¹tkowego w³aœciwego dla urzytkownika bez uprawnieñ
 	 */
-	public boolean wyloguj(){
+	public boolean wyloguj(int restriction){
+		if(restriction==KindRestriction.LOGED_R){
 		p.setKindQuery(KindQuery.TRY_LOGOUT);
 		try {
 			if(!k.sendObject(p)) return false;
@@ -137,20 +144,40 @@ public class Events {
 		
 		p = (Parishioner)k.getPackage();
 		p = new Parishioner();
+		} else {
+			priest.setKindQuery(KindQuery.TRY_LOGOUT);
+			try {
+				if(!k.sendObject(priest)) return false;
+			} catch (IOException e) {e.printStackTrace();}
+			try {
+				if(!k.reciveObject()) return false;
+			} catch (ClassNotFoundException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();}
+			
+			priest = (Priest)k.getPackage();
+			priest = new Priest();
+		}
 		logged = false;
 		return true;
 	}
 	
-	public void pobierzDane() throws IOException, ClassNotFoundException{
+	public void pobierzDane(int restriction) throws IOException, ClassNotFoundException{
 		p.setKindQuery(KindQuery.SEL_DBASE);
-		p.setQuery("Select * from parishioner where pesel="+p.getPesel());
-		k.sendObject(p);
-		k.reciveObject();
-		p=(Parishioner)k.getPackage();
+		if (restriction==KindRestriction.LOGED_R){
+			p.setQuery("Select * from parishioner where pesel="+p.getPesel());
+			k.sendObject(p);
+			k.reciveObject();
+			p=(Parishioner)k.getPackage();
 		
-		System.out.println("ZAMIESZKALY: "+p.getAdress().getCity()+"    "+p.getAdress().getPostcode());
-		System.out.println("URODZONY : "+p.getCourse().getBirthDay().toLocaleString());
+		//System.out.println("ZAMIESZKALY: "+p.getAdress().getCity()+"    "+p.getAdress().getPostcode());
+		//System.out.println("URODZONY : "+p.getCourse().getBirthDay().toLocaleString());
+		}
 		
+		if (restriction>=KindRestriction.WORKS_R){
+			priest.setQuery("Select * from priest where pesel="+priest.getPesel());
+			k.sendObject(priest);
+			k.reciveObject();
+			priest=(Priest)k.getPackage();
+		}
 	}
 	
 	

@@ -139,6 +139,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					   p.setRestriction(clientRestriction);
 					   p.setQuery("OK+");
 					   this.sendObject(p); //odpowiedz klas¹ parishioner
+					   System.out.println("---------------------------------Wyslano parafianina");
 					  } else {
 						 Priest p = new Priest();
 						 dbReturn = db.execSelectQuery("SELECT * FROM priest where id_userr="+idu);
@@ -149,6 +150,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						 p.setRestriction(clientRestriction);
 						 p.setQuery("OK+");
 						 this.sendObject(p); //odpowiedz klas¹ ksiadz
+						 System.out.println("--------------------------------Wyslano Ksiedza");
 					 }
 					//LOG-----------------------------------------------------
 					this.saveLog("Zalogowano");

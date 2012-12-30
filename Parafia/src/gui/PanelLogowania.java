@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import obsluga.Parishioner;
+import obsluga.Priest;
+import stale.KindRestriction;
 
 public class PanelLogowania extends JPanel {
 
@@ -56,7 +58,7 @@ public class PanelLogowania extends JPanel {
         // akcja po wciœniêciu przycisku ### WYLOGUJ ###
         bLogOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		if(event.wyloguj()){
+        		if(event.wyloguj(event.getRestriction())){
         			owner.resetSettings();
 	        		cl.show(ja, "unlogged");
 	        		JOptionPane.showMessageDialog(null, "Wylogowano");
@@ -79,8 +81,16 @@ public class PanelLogowania extends JPanel {
         		if(dialogLogowania.isOK()){
         			
         			if(event.zaloguj(dialogLogowania.getLogin(), dialogLogowania.getPassword())){
+        				
+        				if(event.getRestriction()==KindRestriction.LOGED_R){
         				Parishioner p = event.getParishioner();
         				lblUserName.setText(p.getName()+" "+p.getSurName());
+        				}
+        				
+        				if (event.getRestriction()>=KindRestriction.WORKS_R){
+        					Priest pr = event.getPriest();
+        					lblUserName.setText(pr.getName()+" "+pr.getSurName());
+        				}
         				//JOptionPane.showMessageDialog(null, "Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\nAdres: "+p.getAdress().getCity()+"\nPesel: "+p.getPesel());
         				owner.loginUser();
         				cl.show(ja, "logged");
