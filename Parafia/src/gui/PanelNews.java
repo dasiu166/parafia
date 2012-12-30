@@ -24,16 +24,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 
-
-
 import obsluga.Actuals;
 import obsluga.Priest;
 import pomoce.Pomoc;
 import stale.KindQuery;
-
 import klient.Client;
-
 import net.miginfocom.swing.MigLayout;
+
 
 public class PanelNews extends JPanel implements ActionListener {
 	/**

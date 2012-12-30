@@ -13,9 +13,10 @@ public class Pomoc {
 	/*Zawiera rozne statyczne metody ulatwiajace zycie
 	 * np podawanie daty jako strong*/
 	//static String formatString = "yyyy-MM-dd";
-	static String formatString = "yyyy-MM-dd";
+	static String formatString = "yyyy-MM-dd HH:mm";
 	
 	public static Date podajDate(String val){
+		//if(val.length()<19) val=val+":00";
 		Date d = new Date();
 		SimpleDateFormat format = new SimpleDateFormat(formatString); //parser formatu daty
 		
@@ -84,7 +85,7 @@ public class Pomoc {
 	
 	public static void main(String[] args){
 		//Pomoc.writeToFile("log\\","log2","jakie zycie taki rap");
-		System.out.println(Pomoc.podajDate("12/20/2012").toLocaleString());
+		System.out.println(Pomoc.podajDate("2012-12-20 12:00").toLocaleString());
 		
 		
 	}

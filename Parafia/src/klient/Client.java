@@ -173,7 +173,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		o.setKindQuery(1); //dodanie do bazy
 		o.setSenderPesel(p.getPesel());
 		o.setExecutorPesel("69010566803");
-		o.setBeginDate(Pomoc.podajDate("2012-12-15"));
+		o.setBeginDate(Pomoc.podajDate("2020-06-30 12:00"));
 		o.setEndDate(Pomoc.podajDate("2012-12-16"));
 		o.setEvent("3");//3 to msza wg Pawla bazy
 		o.setDescribe("jakis tam opis");
@@ -181,8 +181,8 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		String q;
 		q="INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'"+o.getExecutroPesel()+"','"+
 		o.getSenderPesel()+"','"+o.getDescribe()+"','"+o.getStatus()+"',"+
-		"to_date('"+o.getBeginDate().toLocaleString().substring(0, 10)+
-		"','yyyy-MM-dd'),"+"to_date('"+o.getEndDate().toLocaleString().substring(0, 10)+
+		"to_date('"+o.getBeginDate().toLocaleString().substring(0, 16)+
+		"','yyyy-MM-dd HH24:MI'),"+"to_date('"+o.getEndDate().toLocaleString().substring(0, 10)+
 		"','yyyy-MM-dd'))";
 		o.setQuery(q);
 		
@@ -199,7 +199,13 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		//Order o = new Order();
 		o.setKindQuery(KindQuery.SEL_DBASE);
 		/*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)*/
-		o.setQuery("Select * from orderr where zamawiajacy_pesel="+p.getPesel());
+		o.setQuery("Select id_orderr,id_event," +
+				"odprawiajacy_pesel,zamawiajacy_pesel," +
+				"describe,status ,"+
+				"to_char(beginD,'yyyy-MM-dd HH24:MI')," +
+				"to_char(endD, 'yyyy-MM-dd HH24:MI') " +
+				"from orderr where zamawiajacy_pesel="+p.getPesel());
+		System.out.println(o.getQuery());
 		k.sendObject(o);
 		k.reciveObject();
 		

@@ -351,8 +351,9 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						o.setSenderPesel(tmp[3]);
 						o.setDescribe(tmp[4]);
 						o.setStatus(tmp[5]);
-						o.setBeginDate(Pomoc.podajDate(tmp[6].substring(0, 10)));
-						o.setEndDate(Pomoc.podajDate(tmp[7].substring(0, 10)));
+						o.setBeginDate(Pomoc.podajDate(tmp[6].substring(0, 16)));
+						//System.out.println("WYNIK::: "+tmp[6].substring(0, 16));
+						o.setEndDate(Pomoc.podajDate(tmp[7].substring(0, 16)));
 						
 						orderList.add(o); //dodanie obiektu do listy
 						} else {
