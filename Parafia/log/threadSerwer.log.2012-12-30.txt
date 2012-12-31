@@ -323,3 +323,55 @@
 2012-12-30 21:23:19: Watek:Thread-3 -> Nieznane polecenie klienta
 2012-12-30 21:23:20: Watek:Thread-4 -> Klient sie rozlaczyl
 2012-12-30 21:23:19: Watek:Thread-3 -> Klient sie rozlaczyl
+2012-12-30 23:31:42: Watek:Thread-1 -> Klient sie podlaczyl
+2012-12-30 23:31:42: Watek:Thread-1 -> Proba logowania
+2012-12-30 23:31:42: Watek:Thread-1 -> Zalogowano
+2012-12-30 23:31:42: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:31:42: Watek:Thread-1 -> Wylogowano
+2012-12-30 23:31:42: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:31:42: Watek:Thread-1 -> Klient sie rozlaczyl
+2012-12-30 23:38:02: Watek:Thread-1 -> Klient sie podlaczyl
+2012-12-30 23:38:02: Watek:Thread-1 -> Proba logowania
+2012-12-30 23:38:02: Watek:Thread-1 -> Zalogowano
+2012-12-30 23:38:02: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:38:02: Watek:Thread-1 -> Wylogowano
+2012-12-30 23:38:02: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:38:02: Watek:Thread-1 -> Klient sie rozlaczyl
+2012-12-30 23:38:36: Watek:Thread-2 -> Klient sie podlaczyl
+2012-12-30 23:38:36: Watek:Thread-2 -> Proba logowania
+2012-12-30 23:38:36: Watek:Thread-2 -> Zalogowano
+2012-12-30 23:38:36: Watek:Thread-2 -> Nieznane polecenie klienta
+2012-12-30 23:38:36: Watek:Thread-2 -> Wylogowano
+2012-12-30 23:38:36: Watek:Thread-2 -> Nieznane polecenie klienta
+2012-12-30 23:38:36: Watek:Thread-2 -> Klient sie rozlaczyl
+2012-12-30 23:42:17: Watek:Thread-3 -> Klient sie podlaczyl
+2012-12-30 23:42:17: Watek:Thread-3 -> Proba logowania
+2012-12-30 23:42:17: Watek:Thread-3 -> Zalogowano
+2012-12-30 23:42:17: Watek:Thread-3 -> Nieznane polecenie klienta
+2012-12-30 23:45:47: Watek:Thread-1 -> Klient sie podlaczyl
+2012-12-30 23:45:47: Watek:Thread-1 -> Proba logowania
+2012-12-30 23:45:47: Watek:Thread-1 -> Zalogowano
+2012-12-30 23:45:47: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:50:35: Watek:Thread-1 -> Klient sie podlaczyl
+2012-12-30 23:50:35: Watek:Thread-1 -> Proba logowania
+2012-12-30 23:50:35: Watek:Thread-1 -> Zalogowano
+2012-12-30 23:50:35: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:50:35: Watek:Thread-1 -> Zmiana w uzytkowniku w bazie
+2012-12-30 23:50:35: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:50:35: Watek:Thread-1 -> Wylogowano
+2012-12-30 23:50:35: Watek:Thread-1 -> Nieznane polecenie klienta
+2012-12-30 23:50:35: Watek:Thread-1 -> Klient sie rozlaczyl
+2012-12-30 23:51:40: Watek:Thread-2 -> Klient sie podlaczyl
+2012-12-30 23:51:40: Watek:Thread-2 -> Proba logowania
+2012-12-30 23:51:40: Watek:Thread-2 -> Blad logowania
+2012-12-30 23:51:40: Watek:Thread-2 -> Nieznane polecenie klienta
+2012-12-30 23:51:40: Watek:Thread-2 -> Klient sie rozlaczyl
+2012-12-30 23:51:58: Watek:Thread-3 -> Klient sie podlaczyl
+2012-12-30 23:51:58: Watek:Thread-3 -> Proba logowania
+2012-12-30 23:51:58: Watek:Thread-3 -> Zalogowano
+2012-12-30 23:51:58: Watek:Thread-3 -> Nieznane polecenie klienta
+2012-12-30 23:51:58: Watek:Thread-3 -> Zmiana w uzytkowniku w bazie
+2012-12-30 23:51:58: Watek:Thread-3 -> Nieznane polecenie klienta
+2012-12-30 23:51:58: Watek:Thread-3 -> Wylogowano
+2012-12-30 23:51:58: Watek:Thread-3 -> Nieznane polecenie klienta
+2012-12-30 23:51:58: Watek:Thread-3 -> Klient sie rozlaczyl

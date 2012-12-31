@@ -30,6 +30,10 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		return eventKindList;
 	}
 	
+	private void setNullPackage(){
+		przesylka=null;
+	}
+	
 	public boolean connect(String adres, int port) throws UnknownHostException, IOException
 	{	/*laczy sie na podstawie podanego portu na localhoscie (pozniej do zmiany ofcoz)
 	 		pobiera informacje o hoscie i binduje socket;
@@ -127,7 +131,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		User u = new User();
 		u.setKindQuery(KindQuery.TRY_LOGIN); //zapytanie = logowanie
 		u.setLogin("ania");
-		u.setPassword("an11");
+		u.setPassword("ania");
 		
 		u.setQuery("SELECT * FROM userr WHERE login = '"+u.getLogin()+"' AND password = '"+
 		 u.getPassword()+"'");
@@ -167,8 +171,106 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
 				" Pesel: "+p.getPesel());
 		
+		/*DODANIE PARAFIANINA (Narazie sam user ale ze sprawdzeniem
+		 * czy taki juz jest, i ze zwrotem jego id po dodaniu
+		 * (wszystkim zajmuje sie serwer))*/
 		
-		//Poczatek zlozenia zamowienia
+		User newU = new User();
+		newU.setLogin("Iipii");
+		newU.setPassword("P");
+		newU.setRestriction(KindRestriction.LOGED_R);
+		newU.setRange(KindRange.LOGG_RANG);
+		newU.setKindQuery(KindQuery.ADD_DBASE);
+		newU.setQuery("INSERT INTO Userr VALUES (" +
+				"seq_userr.nextval,'"+
+				newU.getLogin()+"','"+
+				newU.getPassword()+"',"+
+				newU.getRestriction()+","+
+				newU.getRange()
+				+")");
+		System.out.println("^^^^^^^^^^^^"+newU.getQuery());
+		k.sendObject(newU);
+		k.reciveObject();
+		newU = (User)k.getPackage();
+		System.out.println("Wynik dodania uzytkownika  "+newU.getQuery());
+		
+		Adress newA = new Adress();
+		newA.setCity("Kielce");
+		newA.setHouseNumb("12A");
+		newA.setPostcode("14-111");
+		newA.setStreet("Wieczorna");
+		newA.setKindQuery(KindQuery.ADD_DBASE);
+		newA.setQuery("INSERT INTO Adress VALUES (" +
+				"seq_adress.nextval,'" +
+				newA.getCity()+"','"+
+				newA.getStreet()+"','"+
+				newA.getHouse()+"','"+
+				newA.getPostcode()+
+				"')");
+		k.sendObject(newA);
+		k.reciveObject();
+		newA=(Adress)k.getPackage();
+		System.out.println("Wynik dodania adresu  "+newA.getQuery()+" "+newA.getId());
+		
+		Course newC = new Course();
+		newC.setBirthday(Pomoc.podajDate("1990-12-20"));
+		newC.setBaptism(Pomoc.podajDate("1991-01-11"));
+		newC.setKindQuery(KindQuery.ADD_DBASE);
+		newC.setQuery("INSERT INTO Course VALUES (" +
+				"seq_course.nextval," +
+				"to_date('"+newC.getBirthDay().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')"+
+				",to_date('"+newC.getBaptism().toLocaleString().substring(0, 10)+"','yyyy-MM-dd'),"+
+				"null,null,null,null)");
+		
+		System.out.println(newC.getQuery());
+		
+		k.sendObject(newC);
+		k.setNullPackage();
+		k.reciveObject();
+		newC = (Course)k.getPackage();
+		System.out.println("Wynik dodania przebiegu  "+newC.getQuery()+" "+newC.getId());
+
+		
+		if (newU.getRestriction()==KindRestriction.LOGED_R){
+			Parishioner newP = new Parishioner();
+			newP.setPesel("900");
+			newP.setName("Adam");
+			newP.setSurName("Milk");
+			newP.setKindQuery(KindQuery.ADD_DBASE);
+			newP.setQuery("INSERT INTO Parishioner VALUES (" +
+					newP.getPesel()+","+
+					newC.getId()+","+
+					newU.getId()+","+
+					newA.getId()+",'"+
+					newP.getName()+"','"+
+					newP.getSurName()+"'"+
+					")");
+			System.out.println(newP.getQuery());
+			
+			k.sendObject(newP);
+			k.setNullPackage();
+			k.reciveObject();
+			
+			newP = (Parishioner)k.getPackage();
+			System.out.println("Wynik dodania parafianina"+newP.getQuery());
+}
+		
+		
+		/*UPDATE UZYTKOWNIKA------------------------
+		u.setKindQuery(KindQuery.UPD_DBASE);
+		String newPass="ania";
+		u.setQuery("UPDATE Userr SET password='"+newPass+"' WHERE id_userr="+u.getId());
+		System.out.println(u.getQuery());
+		k.setNullPackage();
+		k.sendObject(u);
+		k.reciveObject();
+		u=(User)k.getPackage();
+		if(u.getQuery().equals("OK+")) System.out.println("Update hasla ok"); else
+			System.out.println("Blad updatu hasla");
+		*/
+		
+		
+		/*Poczatek zlozenia zamowienia
 		Order o = new Order();
 		o.setKindQuery(1); //dodanie do bazy
 		o.setSenderPesel(p.getPesel());
@@ -193,12 +295,12 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		o = (Order)k.getPackage();
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
 		System.out.println(q);
+		*/
 		
-		
-		/*Poczatek pobrania listy zamowien---------------------------------*/
+		/*Poczatek pobrania listy zamowien---------------------------------
 		//Order o = new Order();
 		o.setKindQuery(KindQuery.SEL_DBASE);
-		/*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)*/
+		//*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)
 		o.setQuery("Select id_orderr,id_event," +
 				"odprawiajacy_pesel,zamawiajacy_pesel," +
 				"describe,status ,"+
@@ -219,8 +321,10 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
 		}
 		System.out.println(orderList.size());
+		*/
 		
-		/*Pobranie szczegolowych danych na temat parafianina--------------*/
+		
+		/*Pobranie szczegolowych danych na temat parafianina--------------
 		p.setKindQuery(KindQuery.SEL_DBASE);
 		p.setQuery("Select * from parishioner where pesel="+p.getPesel());
 		k.sendObject(p);
@@ -229,8 +333,9 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		System.out.println("ZAMIESZKALY: "+p.getAdress().getCity()+"    "+p.getAdress().getPostcode());
 		System.out.println("URODZONY : "+p.getCourse().getBirthDay().toLocaleString());
+		*/
 		
-		/*Pobranie dostepnych rodzajow zdarzen z bazy---------------------*/
+		/*Pobranie dostepnych rodzajow zdarzen z bazy---------------------
 		  Event e = new Event();
 		  e.setKindQuery(KindQuery.SEL_DBASE);
 		  e.setQuery("Select * from event");
@@ -242,8 +347,9 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			  Event ee = it.next();
 			  System.out.println(ee.getName());
 		  }
-		  
-		  /*Pobranie listy aktualnosci*/
+		  */
+		
+		  /*Pobranie listy aktualnosci
 		  Actuals act = new Actuals();
 		  act.setKindQuery(KindQuery.SEL_DBASE);
 		  act.setQuery("Select * from actuals");
@@ -257,6 +363,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			  Actuals ae = itA.next();
 			  System.out.println(ae.getDescribe());
 		  }
+		  */
 		  
 		/*Dodanie uzytkownika (userr) do bazy
 		  User ne = new User();
@@ -274,6 +381,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		  k.reciveObject();
 		  ne=(User)k.getPackage();
 		  System.out.println("Wynik dodania uzytkownika: "+ne.getQuery());
+		*/
 		
 		/*Poczatek wylogowania--------------------------------------------*/
 		

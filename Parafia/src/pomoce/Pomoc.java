@@ -16,7 +16,7 @@ public class Pomoc {
 	static String formatString = "yyyy-MM-dd HH:mm";
 	
 	public static Date podajDate(String val){
-		//if(val.length()<19) val=val+":00";
+		if(val.length()==10) val=val+" 00:00";
 		Date d = new Date();
 		SimpleDateFormat format = new SimpleDateFormat(formatString); //parser formatu daty
 		
@@ -33,11 +33,11 @@ public class Pomoc {
 		if (new File(directory).mkdirs()) System.out.println("folder utworzny");
 		
 		File plik = new File(directory+fileName+".txt");
-		if(plik.isFile()) System.out.println("Plik istnieje"); else
+		if(plik.isFile()) System.out.print(""); else
 			try{
-			if(plik.createNewFile()) System.out.println("Plik utworzony");
+			if(plik.createNewFile()); //System.out.println("Plik utworzony");
 			} catch (IOException e){
-				System.out.println("Blad tworznie pliku");
+				//System.out.println("Blad tworznie pliku");
 			}
 		
 		try{

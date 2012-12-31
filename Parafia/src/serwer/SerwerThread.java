@@ -19,7 +19,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 	private Socket socket;
 	private ObjectInputStream przychodzace;
 	private ObjectOutputStream wychodzace;
-	Object wiadomosc; //zmienna zabezpieczajaca (na niej wykonywane sa informacje)
+	private Object wiadomosc; //zmienna zabezpieczajaca (na niej wykonywane sa informacje)
 	//private LinkedList<Object> kolejka;
 	
 	int clientRestriction=0; //przetrzymuje uprawnienia, moze a nie musi sie przydac
@@ -41,6 +41,11 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 		Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 				d.toLocaleString().substring(0, 10), d.toLocaleString()+
 				": Watek:"+this.getName()+" -> "+ text);
+	}
+	
+	private void setNullPackage(){
+		przesylka=null;
+		wiadomosc=null;
 	}
 	
 	private Object getPackage(){ //zwraca nasza przesylke
@@ -93,7 +98,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 			//LOG_END
 			
 			while (true) {// glowna petla watka
-				
+				//this.setNullPackage();
 			 //wiadomosc = przychodzace.readObject();
 			 this.reciveObject();
 			 
@@ -120,7 +125,8 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 if (!tmp[0].equals("ERR") ){ //jezeli znaleziono usera
 				
 				       int idu = Integer.parseInt(tmp[0]);
-							 
+						
+				       ((User) wiadomosc).setId(idu);
 				       ((User) wiadomosc).setRestriction(Integer.parseInt(tmp[3]));
 				       ((User) wiadomosc).setRange(Integer.parseInt(tmp[4]));
 				       clientRestriction=Integer.parseInt(tmp[3]);
@@ -169,9 +175,44 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 				 if (((User) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
 					 	//##BLOK DODANIA UZYTKOWNIKA DO BAZY
 					 DBManager db = DBManager.getInstance();
+					 
+					 //sprawdzenie czu user juz istnieje
+					 dbReturn = db.execSelectQuery("Select count(*) FROM Userr " +
+					 		"Where login='"+((User)wiadomosc).getLogin()+"'");
+					 
+					 System.out.println("!!!!  Select count(*) FROM Userr " +
+					 		"Where login='"+((User)wiadomosc).getLogin()+"'");
+					 
+					 String tmp3[] = dbReturn.getFirst();
+					 
+					 if (Integer.parseInt(tmp3[0])==0){
+					 
+					 //proba dodanie jezeli nie istnieje
 					 dbReturnInt = db.execUpdateQuery(((User) wiadomosc).getQuery());
-					 if (dbReturnInt!=0) ((User) wiadomosc).setQuery("OK+"); else
-						 	((User) wiadomosc).setQuery("ERR");
+					 
+					 if (dbReturnInt!=0) {
+						 ((User) wiadomosc).setQuery("OK+");
+						 
+						 //zwrot id_usera dodanego usera
+						 dbReturn = db.execSelectQuery("SELECT id_userr FROM Userr WHERE login='"+
+								 						((User)wiadomosc).getLogin()+"'");
+						
+						 System.out.println("@@@@@   SELECT id_userr FROM Userr WHERE login='"+
+			 						((User)wiadomosc).getLogin()+"'");
+						 
+						 String tmp[] = dbReturn.getFirst();
+						 
+						 if(!tmp[0].equals("ERR")){
+							 ((User) wiadomosc).setId(Integer.parseInt(tmp[0]));
+						 } else ((User) wiadomosc).setQuery("ERR");
+					 
+					 
+					 } else ((User) wiadomosc).setQuery("ERR");
+					 
+					 } else {
+						 ((User) wiadomosc).setQuery("ERR");
+						 System.out.println("Taki uzytkownik juz jest");
+					 } 
 					 
 					 this.sendObject(wiadomosc);
 					 this.saveLog("Dodano uzytkownika do bazy");
@@ -185,6 +226,15 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					
 				if (((User) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
 						//##BLOK UAKTUALNIENIA UZYTKOWNIA
+					
+					 DBManager db = DBManager.getInstance();
+					 System.out.println("&&&&&& "+((User) wiadomosc).getQuery());
+					 dbReturnInt = db.execUpdateQuery(((User) wiadomosc).getQuery());
+					 if (dbReturnInt!=0) ((User) wiadomosc).setQuery("OK+"); else
+						 	((User) wiadomosc).setQuery("ERR");
+					 
+					 this.sendObject(wiadomosc);
+					 this.saveLog("Zmiana w uzytkowniku w bazie");
 				
 				}//##KONIEC BLOKU UAKTUALNINIA UZYTKOWNIKA
 			 } else //###KONIEC OBSLUGI KLASY USER
@@ -245,6 +295,14 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 				 
 				 if (((Parishioner) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
 					 			//BLOK DODAWANIA DANYCH PARAFIANINA
+					 DBManager db =DBManager.getInstance();
+					 
+					 dbReturnInt=db.execUpdateQuery(((Parishioner) wiadomosc).getQuery());
+					 
+					 if(dbReturnInt==0) ((Parishioner) wiadomosc).setQuery("ERR"); else
+						 ((Parishioner) wiadomosc).setQuery("OK+");
+					 
+					 this.sendObject(wiadomosc);
 				 
 				 }//##KONIEC BLOKU DODAWANIA DANYCH PARAFIANINA
 				
@@ -383,7 +441,26 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 			if (wiadomosc instanceof Adress){
 				
 				if (((Adress) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					DBManager db = DBManager.getInstance();
 					
+					dbReturnInt = db.execUpdateQuery(((Adress) wiadomosc).getQuery());
+					System.out.println("^^^^^^^^^ "+((Adress) wiadomosc).getQuery());
+					
+					if(dbReturnInt!=0){
+						((Adress) wiadomosc).setQuery("OK+");
+						dbReturn = db.execSelectQuery("Select seq_adress.currval from dual");
+						
+						String tmp[] = dbReturn.getFirst();
+						
+						if (!tmp[0].equals("ERR")){
+							((Adress) wiadomosc).setId(Integer.parseInt(tmp[0]));
+						} else ((Adress) wiadomosc).setQuery("ERR");
+						
+					} else {
+						((Adress) wiadomosc).setQuery("ERR");
+					}
+					
+					this.sendObject(wiadomosc);
 				}
 				
 				if (((Adress) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
@@ -400,7 +477,22 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 			if (wiadomosc instanceof Course){
 				
 				if (((Course) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+					DBManager db = DBManager.getInstance();
 					
+					dbReturnInt = db.execUpdateQuery(((Course) wiadomosc).getQuery()); 
+					//System.out.println("^^^^^^^^^ "+((Adress) wiadomosc).getQuery());
+					
+					if(dbReturnInt!=0){
+						((Course) wiadomosc).setQuery("OK+");
+						dbReturn = db.execSelectQuery("Select seq_course.currval from dual");
+						String tmp[] = dbReturn.getFirst();
+						
+						if(!tmp[0].equals("ERR")){
+							((Course) wiadomosc).setId(Integer.parseInt(tmp[0]));
+						} else ((Course) wiadomosc).setQuery("ERR");
+					} else ((Course) wiadomosc).setQuery("ERR");
+					
+					this.sendObject(wiadomosc);
 				}
 				
 				if (((Course) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
