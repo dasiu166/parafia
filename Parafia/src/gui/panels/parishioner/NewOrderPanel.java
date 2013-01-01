@@ -37,13 +37,11 @@ public class NewOrderPanel extends JPanel {
 		lblDateStart.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JDateChooser pDateStart = new JDateChooser();
-		pDateStart.getSpinner().setEnabled(false);
 		
 		JLabel lblIlo = new JLabel("Ilo\u015B\u0107:");
 		lblIlo.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setEnabled(false);
 		spinner.setModel(new SpinnerNumberModel(1, 1, 10, 1));
 		
 		JButton btnSend = new JButton("Wy\u015Blij");

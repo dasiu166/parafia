@@ -103,7 +103,7 @@ public class Events {
 			/*Gdy login/haslo bledne*/
 			System.out.println("Nie mozna sie zalogowac (zly login/haslo)");
 			u.setRestriction(KindRestriction.GUEST_R);
-			p.setRestriction(KindRestriction.GUEST_R);
+			//p.setRestriction(KindRestriction.GUEST_R);
 			return false;
 		}			
 		

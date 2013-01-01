@@ -15,6 +15,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import obsluga.Parishioner;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class AddNewParishionerPanel extends JPanel {
@@ -63,7 +66,7 @@ public class AddNewParishionerPanel extends JPanel {
 			JLabel lblPostCode_ = new JLabel("Kod pocztowy:");
 			lblPostCode_.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel lblCourses = new JLabel("\u015Awi\u0119cenia");
+		JLabel lblCourses = new JLabel("Przebieg");
 		lblCourses.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCourses.setFont(new Font("Tahoma", Font.BOLD, 14));		
 			JLabel lblBaptism_ = new JLabel("Chrzest:");
@@ -106,85 +109,107 @@ public class AddNewParishionerPanel extends JPanel {
 		dateConfirmation = new JDateChooser();
 		
 		JDateChooser dateMarriage = new JDateChooser();
+		
+		JButton btnDodaj = new JButton("Dodaj");
+		btnDodaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		
+		JDateChooser dateDeath = new JDateChooser();
+		
+		JLabel lblmier = new JLabel("\u015Amier\u0107:");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(65)
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(104)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblAdres, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-						.addComponent(lblDane, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+						.addComponent(lblAdres, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+						.addComponent(lblDane, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(lblName_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+							.addComponent(lblName_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textName, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(textName, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(lblSurname_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+							.addComponent(lblSurname_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textSurname, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(textSurname, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(lblCity_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+							.addComponent(lblCity_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textCity, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(textCity, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(lblStreet_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+							.addComponent(lblStreet_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textStreet, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(textStreet, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(lblHomeNumber_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+							.addComponent(lblHomeNumber_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textHomeNumber, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(textHomeNumber, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblBaptism_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+							.addComponent(lblBaptism_, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateBaptism, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+							.addComponent(dateBaptism, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
 							.addGap(1))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblCommunion_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblCommunion_, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateCommunion, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-							.addGap(1))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGap(1)
-							.addComponent(lblConfirmation_, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateConfirmation, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+							.addComponent(dateCommunion, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
 							.addGap(1))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(lblMarriage_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+							.addComponent(lblConfirmation_, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateMarriage, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+							.addComponent(dateConfirmation, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
 							.addGap(1))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblBirthday_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+									.addComponent(lblBirthday_, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(dateBirthday, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+									.addComponent(dateBirthday, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblPesel_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+									.addComponent(lblPesel_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textPesel, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))))
+									.addComponent(textPesel, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblCourses, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblPostCode_, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+									.addGap(10)
+									.addComponent(lblCourses, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblPostCode_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textPostCode, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))))
-					.addGap(67))
+									.addComponent(textPostCode, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(1)
+									.addComponent(lblMarriage_, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+								.addComponent(lblmier))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(dateDeath, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(dateMarriage, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+									.addGap(1)))))
+					.addGap(57))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(139)
+					.addComponent(btnDodaj)
+					.addContainerGap(244, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
 					.addComponent(lblDane, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -239,7 +264,13 @@ public class AddNewParishionerPanel extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblMarriage_, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(dateMarriage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(32, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(dateDeath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblmier))
+					.addPreferredGap(ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+					.addComponent(btnDodaj)
+					.addContainerGap())
 		);
 		setLayout(groupLayout);
 	}
