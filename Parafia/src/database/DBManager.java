@@ -5,7 +5,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData; //opis kolumn
 import java.sql.SQLException;
 import java.util.*;
+
+import obsluga.Adress;
 import obsluga.User;
+import obsluga.Priest;
 import pomoce.Pomoc;
 
 public class DBManager {
@@ -139,13 +142,38 @@ public class DBManager {
 		
 	public static void main(String[] args){
 		DBManager db = DBManager.getInstance();
-		
-		db.setInfoToConnect("student", "student");
+		LinkedList<String[]> dbReturn; //sluzy doodpioru wynikow select z bazy
+
+		db.setInfoToConnect("parafia", "abc");
 		db.connectToDB();
 		//db.execUpdateQuery("INSERT INTO userr VALUES (7,'henia','osa',0,11)");
 		
+		 dbReturn=db.execSelectQuery("Select * from Adress where id_adress=5");
+		 String tmp1[] = dbReturn.getFirst();
+		 Adress a = new Adress();
+		 Priest pr = new Priest();
+		 a.setId(Integer.parseInt("5"));
+		 a.setCity(dbReturn.getFirst()[1]);
+		 a.setStreet(dbReturn.getFirst()[2]);
+		 a.setHouseNumb(dbReturn.getFirst()[3]);
+		 a.setPostcode(dbReturn.getFirst()[4]);
+		 pr.setAdress(a); //dodanie adresu
+		 
+		 pr.setArrivalDate(Pomoc.podajDate(tmp1[5].substring(0, 10)));
+		 pr.setSecularityDate(Pomoc.podajDate(tmp1[6].substring(0, 10)));
+		 
+		 pr.setQuery("OK+");
+		 
+		 System.out.println(pr.getArrivalDate().toLocaleString());
 		
-		/*przyklad przejzenia wyniku z bazy*/
+		
+		
+		
+		
+		
+		
+		
+		/*przyklad przejzenia wyniku z bazy
 		
 		LinkedList<String[]> tmpList = new LinkedList<String[]>();
 		//tmpList= db.execSelectQuery("SELECT * FROM parishioner where id_userr=1");
@@ -160,7 +188,7 @@ public class DBManager {
 			System.out.print("\n");
 		}
 		
-		
+		*/
 		
 		
 		/*przyklad rozebrania wynikow

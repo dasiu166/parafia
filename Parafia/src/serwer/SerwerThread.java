@@ -339,14 +339,34 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 				if (((Priest) wiadomosc).getKindQuery()==KindQuery.SEL_DBASE){
 					//## BLOK SELECTU DANYCH KSIEDZA
 					//MOJE PROBY MAM NADZIEJE ZE OWOCNE
-					Priest pr = new Priest();
+					 Priest pr = new Priest();
 					 DBManager db = DBManager.getInstance();
 					 dbReturn = db.execSelectQuery(((Priest) wiadomosc).getQuery());
 					 String tmp1[] = dbReturn.getFirst();
-					   pr.setPesel(tmp1[0]);
-					   pr.setName(tmp1[3]);
-					   pr.setSurName(tmp1[4]);
-					   pr.setQuery("OK+");
+					 
+					 String idA = dbReturn.getFirst()[2]; //id adresu
+
+					 
+					 pr.setPesel(tmp1[0]);
+					 pr.setName(tmp1[3]);
+					 pr.setSurName(tmp1[4]);
+					 pr.setArrivalDate(Pomoc.podajDate(tmp1[6].substring(0, 10)));
+					 pr.setSecularityDate(Pomoc.podajDate(tmp1[7].substring(0, 10)));
+
+					 
+					//tworze adres
+					 dbReturn = db.execSelectQuery("Select * from Adress where id_adress="+idA);
+					 Adress a = new Adress();
+					 a.setId(Integer.parseInt(idA));
+					 a.setCity(dbReturn.getFirst()[1]);
+					 a.setStreet(dbReturn.getFirst()[2]);
+					 a.setHouseNumb(dbReturn.getFirst()[3]);
+					 a.setPostcode(dbReturn.getFirst()[4]);
+					 pr.setAdress(a); //dodanie adresu
+					 
+					 
+					 
+					 pr.setQuery("OK+");
 						 this.sendObject(pr); 
 				}//## KONIEC SELECTU DANYCH KSIEDZA
 				

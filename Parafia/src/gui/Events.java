@@ -3,9 +3,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-
 import javax.swing.JOptionPane;
-
 import klient.Client;
 import obsluga.Parishioner;
 import obsluga.Priest;
@@ -28,6 +26,7 @@ public class Events {
 	/**
 	 * CONSTRUCTOR - prywatny do SINGLETON
 	 */
+	
 	private Events(){
 		try {
 			adr = Pomoc.loadFromFile("client.ini", "SERWERADRES");
@@ -48,7 +47,6 @@ public class Events {
 	public User getUser(){
 		return u;
 	}
-	
 	/**
 	 * @return <b>Events</b> - SINGLETON<br />
 	 * 			Zwraca instancje siebie lub tworzy naw¹ je¿eli nie istnieje
@@ -167,8 +165,8 @@ public class Events {
 
 	public void pobierzDane() throws IOException, ClassNotFoundException{
 		int restriction = getRestriction();
-		p.setKindQuery(KindQuery.SEL_DBASE);
 		if (restriction==KindRestriction.LOGED_R){
+			p.setKindQuery(KindQuery.SEL_DBASE);
 			p.setQuery("Select * from parishioner where pesel="+p.getPesel());
 			k.sendObject(p);
 			k.reciveObject();
@@ -179,7 +177,8 @@ public class Events {
 		}
 		
 		if (restriction>=KindRestriction.WORKS_R){
-			priest.setQuery("Select * from priest where pesel=\""+priest.getPesel()+"\"");
+			priest.setKindQuery(KindQuery.SEL_DBASE);
+			priest.setQuery("Select * from priest where pesel="+priest.getPesel());
 			JOptionPane.showMessageDialog(null, "Select * from priest where pesel=\""+priest.getPesel()+"\"");
 			k.sendObject(priest);
 			k.reciveObject();

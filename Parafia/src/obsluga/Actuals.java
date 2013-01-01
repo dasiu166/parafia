@@ -7,6 +7,7 @@ public class Actuals extends DataBaseElement{
 	private String priestPesel;
 	private String describe;
 	private Date addDate;
+	
 	private String name; //moje zmiany(VeLoOx)
 	private String surName;//moje zmiany(VeLoOx)
 	
@@ -40,6 +41,7 @@ public class Actuals extends DataBaseElement{
 	public Date getAddDate(){
 		return addDate;
 	}
+	
 	//moje zmiany(VeLoOx)
 	public String getName() {
 		return name;
