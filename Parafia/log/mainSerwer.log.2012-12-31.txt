@@ -1,0 +1,70 @@
+2012-12-31 00:56:28: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 00:56:28: SERWER -> Polaczono z baza danych
+2012-12-31 00:56:28: SERWER -> Nowy watek
+2012-12-31 00:57:49: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 00:57:49: SERWER -> Polaczono z baza danych
+2012-12-31 00:57:49: SERWER -> Nowy watek
+2012-12-31 01:02:32: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 01:02:32: SERWER -> Polaczono z baza danych
+2012-12-31 01:02:32: SERWER -> Nowy watek
+2012-12-31 01:05:20: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 01:05:20: SERWER -> Polaczono z baza danych
+2012-12-31 01:05:20: SERWER -> Nowy watek
+2012-12-31 01:07:58: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 01:07:58: SERWER -> Polaczono z baza danych
+2012-12-31 01:07:58: SERWER -> Nowy watek
+2012-12-31 01:07:58: SERWER -> Nowy watek
+2012-12-31 01:07:58: SERWER -> Nowy watek
+2012-12-31 01:42:24: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 01:42:24: SERWER -> Polaczono z baza danych
+2012-12-31 01:42:24: SERWER -> Nowy watek
+2012-12-31 01:42:24: SERWER -> Nowy watek
+2012-12-31 02:01:56: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:01:56: SERWER -> Polaczono z baza danych
+2012-12-31 02:01:56: SERWER -> Port zajety
+2012-12-31 02:02:12: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:02:12: SERWER -> Polaczono z baza danych
+2012-12-31 02:02:12: SERWER -> Port zajety
+2012-12-31 02:03:12: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:03:12: SERWER -> Polaczono z baza danych
+2012-12-31 02:03:12: SERWER -> Nowy watek
+2012-12-31 02:03:12: SERWER -> Nowy watek
+2012-12-31 02:03:12: SERWER -> Nowy watek
+2012-12-31 02:03:12: SERWER -> Nowy watek
+2012-12-31 02:16:05: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:16:05: SERWER -> Polaczono z baza danych
+2012-12-31 02:16:05: SERWER -> Nowy watek
+2012-12-31 02:16:05: SERWER -> Nowy watek
+2012-12-31 02:16:05: SERWER -> Nowy watek
+2012-12-31 02:21:05: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:21:05: SERWER -> Polaczono z baza danych
+2012-12-31 02:21:05: SERWER -> Nowy watek
+2012-12-31 02:21:05: SERWER -> Nowy watek
+2012-12-31 02:31:14: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:31:14: SERWER -> Polaczono z baza danych
+2012-12-31 02:31:14: SERWER -> Nowy watek
+2012-12-31 02:31:14: SERWER -> Nowy watek
+2012-12-31 02:31:14: SERWER -> Nowy watek
+2012-12-31 02:31:14: SERWER -> Nowy watek
+2012-12-31 02:31:14: SERWER -> Nowy watek
+2012-12-31 02:31:14: SERWER -> Nowy watek
+2012-12-31 02:31:14: SERWER -> Nowy watek
+2012-12-31 02:40:12: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:40:12: SERWER -> Polaczono z baza danych
+2012-12-31 02:40:12: SERWER -> Nowy watek
+2012-12-31 02:40:12: SERWER -> Nowy watek
+2012-12-31 02:42:25: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:42:25: SERWER -> Polaczono z baza danych
+2012-12-31 02:42:31: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:42:31: SERWER -> Polaczono z baza danych
+2012-12-31 02:42:31: SERWER -> Port zajety
+2012-12-31 02:42:25: SERWER -> Nowy watek
+2012-12-31 02:48:55: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:48:55: SERWER -> Polaczono z baza danych
+2012-12-31 02:48:55: SERWER -> Nowy watek
+2012-12-31 02:48:55: SERWER -> Nowy watek
+2012-12-31 02:52:21: SERWER -> Serwer uruchomiony - Port: 2000
+2012-12-31 02:52:21: SERWER -> Polaczono z baza danych
+2012-12-31 02:52:21: SERWER -> Nowy watek
+2012-12-31 02:52:21: SERWER -> Nowy watek
+2012-12-31 02:52:21: SERWER -> Nowy watek

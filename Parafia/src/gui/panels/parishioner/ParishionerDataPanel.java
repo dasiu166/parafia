@@ -1,4 +1,4 @@
-package gui;
+package gui.panels.parishioner;
 import java.awt.Font;
 import java.util.Date;
 
@@ -12,9 +12,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import obsluga.Parishioner;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
-public class PanelUserData extends JPanel {
+public class ParishionerDataPanel extends JPanel {
 
 
 	private static final long serialVersionUID = 7694386932112268103L;
@@ -33,7 +34,7 @@ public class PanelUserData extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelUserData(JFrame owner) {
+	public ParishionerDataPanel(JFrame owner) {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		JLabel lblDane = new JLabel("Dane");
@@ -47,9 +48,9 @@ public class PanelUserData extends JPanel {
 			lblPesel_.setHorizontalAlignment(SwingConstants.RIGHT);		
 			JLabel lblBirthday_ = new JLabel("Data urodzenia:");
 			lblBirthday_.setHorizontalAlignment(SwingConstants.RIGHT);		
-				lblName = new JLabel("NULL_Name");		
-				lblSurname = new JLabel("NULL_Surname");		
-				lblPesel = new JLabel("NULL_pesel");		
+				lblName = new JLabel("NULL_Name");
+				lblSurname = new JLabel("NULL_Surname");
+				lblPesel = new JLabel("NULL_pesel");
 				lblBirthday = new JLabel("NULL_Birthday");
 		
 		JLabel lblAdres = new JLabel("Adres");
@@ -63,9 +64,9 @@ public class PanelUserData extends JPanel {
 			lblHomeNumber_.setHorizontalAlignment(SwingConstants.RIGHT);		
 			JLabel lblPostCode_ = new JLabel("Kod pocztowy:");
 			lblPostCode_.setHorizontalAlignment(SwingConstants.RIGHT);
-				lblCity = new JLabel("NULL_City");		
-				lblStreet = new JLabel("NULL_Street");		
-				lblHomenumber = new JLabel("NULL_HomeNumber");		
+				lblCity = new JLabel("NULL_City");
+				lblStreet = new JLabel("NULL_Street");
+				lblHomenumber = new JLabel("NULL_HomeNumber");
 				lblPostcode = new JLabel("NULL_PostCode");
 		
 		JLabel lblCourses = new JLabel("\u015Awi\u0119cenia");
@@ -73,134 +74,153 @@ public class PanelUserData extends JPanel {
 		lblCourses.setFont(new Font("Tahoma", Font.BOLD, 14));		
 			JLabel lblBaptism_ = new JLabel("Chrzest:");
 			lblBaptism_.setHorizontalAlignment(SwingConstants.RIGHT);
-			JLabel lblCommunion_ = new JLabel("Komunia \u015Bwi\u0119ta:");
-			lblCommunion_.setHorizontalAlignment(SwingConstants.RIGHT);
 			JLabel lblConfirmation_ = new JLabel("Bierzmowanie:");
 			lblConfirmation_.setHorizontalAlignment(SwingConstants.RIGHT);
 			JLabel lblMarriage_ = new JLabel("\u015Alub:");
 			lblMarriage_.setHorizontalAlignment(SwingConstants.RIGHT);			
-				lblBaptism = new JLabel("NULL_Baptism Data");		
-				lblCommunion = new JLabel("NULL_Communion Data");		
-				lblConfirmation = new JLabel("NULL_Confirmation Data");		
+				lblBaptism = new JLabel("NULL_Baptism Data");
+				lblCommunion = new JLabel("NULL_Communion Data");
+				lblConfirmation = new JLabel("NULL_Confirmation Data");
 				lblMarriage = new JLabel("NULL_Marriage Data");
 		
+		JLabel lblCommunion_ = new JLabel("Komunia \u015Awi\u0119ta:");
+		lblCommunion_.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JLabel lblDownline = new JLabel("");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(109)
+					.addGap(69)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblDane, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+						.addComponent(lblCourses, GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+						.addComponent(lblAdres, GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+						.addComponent(lblDane, GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblName_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblName, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblName_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblName, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblSurname_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblSurname, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblSurname_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblSurname, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblPesel_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblPesel, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblPesel_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblPesel, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblBirthday_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblBirthday, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-						.addComponent(lblAdres, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+							.addGap(1)
+							.addComponent(lblBirthday_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblBirthday, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCity_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblCity, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblCity_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblCity, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblStreet_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblStreet, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblStreet_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblStreet, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblHomeNumber_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblHomenumber, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblHomeNumber_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblHomenumber, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblPostCode_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblPostcode, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-						.addComponent(lblCourses, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+							.addGap(1)
+							.addComponent(lblPostCode_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblPostcode, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblBaptism_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblBaptism, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblBaptism_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblBaptism, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCommunion_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblCommunion, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblCommunion_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblCommunion, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblConfirmation_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblConfirmation, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+							.addGap(1)
+							.addComponent(lblConfirmation_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblConfirmation, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblMarriage_, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addGap(10)
-							.addComponent(lblMarriage, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
-					.addGap(105))
+							.addGap(1)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblDownline, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblMarriage_, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblMarriage, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))))
+					.addGap(64))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(25)
-					.addComponent(lblDane, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(37)
+					.addComponent(lblDane, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName_)
 						.addComponent(lblName))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSurname_)
-						.addComponent(lblSurname))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSurname)
+						.addComponent(lblSurname_))
+					.addGap(7)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPesel_)
 						.addComponent(lblPesel))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(7)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblBirthday_)
 						.addComponent(lblBirthday))
-					.addGap(11)
-					.addComponent(lblAdres, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblAdres, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCity_)
 						.addComponent(lblCity))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(7)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblStreet_)
 						.addComponent(lblStreet))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHomeNumber_)
 						.addComponent(lblHomenumber))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPostCode_)
-						.addComponent(lblPostcode))
-					.addGap(11)
-					.addComponent(lblCourses, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(7)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPostcode)
+						.addComponent(lblPostCode_))
+					.addGap(17)
+					.addComponent(lblCourses, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblBaptism_)
 						.addComponent(lblBaptism))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(9)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCommunion_)
 						.addComponent(lblCommunion))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblConfirmation_)
 						.addComponent(lblConfirmation))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblMarriage_)
 						.addComponent(lblMarriage))
-					.addContainerGap(38, Short.MAX_VALUE))
+					.addGap(5)
+					.addComponent(lblDownline, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+					.addGap(29))
 		);
 		setLayout(groupLayout);
 	}
@@ -214,7 +234,7 @@ public class PanelUserData extends JPanel {
 			lblCity.setText(parishioner.getAdress().getCity());
 			lblStreet.setText(parishioner.getAdress().getStreet());
 			lblHomenumber.setText(parishioner.getAdress().getHouse());
-			//lblPostcode.setText(parishioner.getAdress().getPostCode());
+			lblPostcode.setText(parishioner.getAdress().getPostcode());
 		} else {
 			JOptionPane.showMessageDialog(null, "parishioner.getAdress() == null", "NullException", JOptionPane.ERROR_MESSAGE);
 		}
@@ -248,6 +268,4 @@ public class PanelUserData extends JPanel {
 			JOptionPane.showMessageDialog(null, "parishioner.getCourse() == null", "NullException", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-
 }

@@ -1,4 +1,4 @@
-package gui;
+package gui.panels;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -9,8 +9,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
-public class DialogLogowania extends JDialog implements ActionListener{
+public class LoginDialog extends JDialog implements ActionListener{
 
 	/**
 	 * 
@@ -19,25 +23,31 @@ public class DialogLogowania extends JDialog implements ActionListener{
 	private JTextField tLogin;
 	private JPasswordField pwdPassword;
 	private JButton bOK, bCansel;
-	private boolean okData;
+	private boolean okData = false;
 
 	/**
 	 * Create the dialog.
 	 */
-	public DialogLogowania(JFrame owner) {
+	public LoginDialog(JFrame owner) {
 		super(owner, "Wprowadzanie has³a", true);
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				okData = false;
+			}
+		});
 		setResizable(false);
 		setBounds(100, 100, 300, 220);
 		getContentPane().setLayout(null);
 
 		tLogin = new JTextField();
-		tLogin.setText("ania");
+		tLogin.setText("user");
 		tLogin.setBounds(117, 38, 110, 23);
 		tLogin.setColumns(10);
 		getContentPane().add(tLogin);		
 		
 		pwdPassword = new JPasswordField();
-		pwdPassword.setText("an11");
+		pwdPassword.setText("user");
 		pwdPassword.setToolTipText("");
 		pwdPassword.setBounds(117, 67, 110, 23);
 		getContentPane().add(pwdPassword);
@@ -65,6 +75,39 @@ public class DialogLogowania extends JDialog implements ActionListener{
 		bCansel.setBounds(154, 114, 73, 23);
 		bCansel.setActionCommand("Cancel");
 		getContentPane().add(bCansel);
+		
+		JButton btnParishioner = new JButton("Parishioner");
+		btnParishioner.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setLoginData("user", "user");
+				okData = true;
+				setVisible(false);
+			}
+		});
+		btnParishioner.setBounds(10, 158, 89, 23);
+		getContentPane().add(btnParishioner);
+		
+		JButton btnWorker = new JButton("Worker");
+		btnWorker.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setLoginData("worker", "worker");
+				okData = true;
+				setVisible(false);
+			}
+		});
+		btnWorker.setBounds(109, 158, 76, 23);
+		getContentPane().add(btnWorker);
+		
+		JButton btnGood = new JButton("Good");
+		btnGood.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setLoginData("good", "good");
+				okData = true;
+				setVisible(false);
+			}
+		});
+		btnGood.setBounds(195, 158, 89, 23);
+		getContentPane().add(btnGood);
 		bCansel.addActionListener(this);
 	}
 
@@ -94,5 +137,10 @@ public class DialogLogowania extends JDialog implements ActionListener{
 	
 	public void setFocus(){
 		tLogin.requestFocusInWindow();
+	}
+	
+	private void setLoginData(String login, String password){
+		tLogin.setText(login);
+		pwdPassword.setText(password);
 	}
 }

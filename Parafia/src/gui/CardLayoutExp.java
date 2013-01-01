@@ -1,9 +1,17 @@
 package gui;
 
 import gui.calendar.JCalendar;
+import gui.panels.LoginPanel;
+import gui.panels.parishioner.NewOrderPanel;
+import gui.panels.parishioner.ParishionerDataPanel;
+import gui.panels.priest.AddNewParishionerPanel;
+import gui.panels.priest.AddNewPriestPanel;
+import gui.panels.priest.AddNewsPanel;
+import gui.panels.priest.PriestDataPanel;
 
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -15,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -45,8 +54,6 @@ import com.jgoodies.looks.FontPolicy;
 import com.jgoodies.looks.FontSet;
 import com.jgoodies.looks.FontSets;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
-import java.awt.Dimension;
-import java.io.IOException;
 
 public class CardLayoutExp extends JFrame {
 
@@ -86,7 +93,7 @@ public class CardLayoutExp extends JFrame {
 		setContentPane(contentPane);								// ustawienie panelu g³ównego dla formatki
 		
 		//#################### PANEL LOGOWANIA ####################
-		PanelLogowania panelLogowania = new PanelLogowania(frame); 
+		LoginPanel panelLogowania = new LoginPanel(frame); 
 		
 		//#################### PANEL CZASU ####################
 		JPanel panelTime = new JPanel();
@@ -113,18 +120,25 @@ public class CardLayoutExp extends JFrame {
         panelContent.add(jpNews, "news");
         //jpNews.addNews("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>");
         
-        final PanelUserData jpUserData = new PanelUserData(this);
-        panelContent.add(jpUserData, "userData");
+        final ParishionerDataPanel jpParishionerData = new ParishionerDataPanel(this);
+        panelContent.add(jpParishionerData, "parishionerData");
         
-        PanelNewOrder jpnewOrder = new PanelNewOrder();
+        NewOrderPanel jpNewOrder = new NewOrderPanel();
        // JLabel jl3 = new JLabel("Card3");
         //jp3.add(jl3);
-        panelContent.add(jpnewOrder, "newOrder");
+        panelContent.add(jpNewOrder, "newOrder");
         
-        JPanel jp4 = new JPanel();        
-        JLabel jl4 = new JLabel("Card4");
-        jp4.add(jl4);
-        panelContent.add(jp4, "panel4");
+        final PriestDataPanel jpPriestData = new PriestDataPanel(this);
+        panelContent.add(jpPriestData, "priestData");
+        
+     	final AddNewParishionerPanel jpAddNewParishioner = new AddNewParishionerPanel(this);
+      	panelContent.add(jpAddNewParishioner, "addNewParishioner");
+      	
+      	final AddNewsPanel jpAddNews = new AddNewsPanel(this);
+      	panelContent.add(jpAddNews, "addNews");
+      	
+      	final AddNewPriestPanel jpAddNewPriest = new AddNewPriestPanel(this);
+      	panelContent.add(jpAddNewPriest, "addNewPriest");
         
 		//#################### CONTENT PANEL ####################
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -172,23 +186,26 @@ public class CardLayoutExp extends JFrame {
 				}
 			});
 	        menuPlik.add(menuPlikPanelNews);
-			JMenuItem menuPlikPanel2 = new JMenuItem("user/dane",'2');
+			JMenuItem menuPlikPanel2 = new JMenuItem("parafianin/dane",'2');
 			menuPlikPanel2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner());
 					if(events.getLogged()){ 
-						try {
-							events.pobierzDane(events.getRestriction());
+						/*try {
+							events.pobierzDane();
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
+						}*/
+						if (events.getRestriction()==KindRestriction.LOGED_R)
+						{
+							jpParishionerData.setUserData(events.getParishioner());
 						}
-						jpUserData.setUserData(events.getParishioner());	
 					}
-					cl.show(panelContent, "userData");
+					cl.show(panelContent, "parishionerData");
 				}
 			});
 			menuPlik.add(menuPlikPanel2);
@@ -199,13 +216,52 @@ public class CardLayoutExp extends JFrame {
 				}
 			});
 			menuPlik.add(menuPlikPanel3);
-			JMenuItem menuPlikPanel4 = new JMenuItem("Panel4",'4');
+			JMenuItem menuPlikPanel4 = new JMenuItem("ksiadz/dane",'4');
 			menuPlikPanel4.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cl.show(panelContent, "panel" + 4);
+					if(events.getLogged()){ 
+						/*try {
+							events.pobierzDane();
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}*/
+						if (events.getRestriction()>KindRestriction.LOGED_R)
+						{
+							jpPriestData.setPriestData(events.getPriest());
+						}
+					}
+					cl.show(panelContent, "priestData");
 				}
 			});
 			menuPlik.add(menuPlikPanel4);
+			
+			JMenuItem mntmPanel = new JMenuItem("ksiadz/addNewParishioner");
+			mntmPanel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cl.show(panelContent, "addNewParishioner");
+				}
+			});
+			menuPlik.add(mntmPanel);
+			
+			JMenuItem mntmAddNews = new JMenuItem("ksiadz/addNews");
+			mntmAddNews.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					cl.show(panelContent, "addNews");
+				}
+			});
+			menuPlik.add(mntmAddNews);
+			
+			JMenuItem mntmAddnewpriestpanel = new JMenuItem("ksiadz/addNewPriestPanel");
+			mntmAddnewpriestpanel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cl.show(panelContent, "addNewPriest");
+				}
+			});
+			menuPlik.add(mntmAddnewpriestpanel);
 			JSeparator separator = new JSeparator(); // tworzy linie poziom¹ w menu plik taki separator
 			menuPlik.add(separator);
 			JMenuItem menuPlikClose = new JMenuItem("Close");
@@ -262,16 +318,16 @@ public class CardLayoutExp extends JFrame {
 			}
 		}
 		
-		JMenu menuUser = new JMenu("U\u017Cytkownik");
-		menuBar.add(menuUser);
+		JMenu menuParishioner = new JMenu("Parafianin");
+		menuBar.add(menuParishioner);
 		
-		JMenuItem menuUserDane = new JMenuItem("Dane");
-		menuUserDane.addActionListener(new ActionListener() {
+		JMenuItem menuParishionerDane = new JMenuItem("Dane");
+		menuParishionerDane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner().getName());
 				if(events.getLogged()) {
 					try {
-						events.pobierzDane(events.getRestriction());
+						events.pobierzDane();
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -281,26 +337,72 @@ public class CardLayoutExp extends JFrame {
 					}
 					if (events.getRestriction()==KindRestriction.LOGED_R)
 					{
-					jpUserData.setUserData(events.getParishioner());
-					}
-					if (events.getRestriction()>KindRestriction.LOGED_R)
-					{
-					//jpUserData.setUserData(events.getPriest());
+						jpParishionerData.setUserData(events.getParishioner());
 					}
 					
 				}
-				cl.show(panelContent, "userData");
+				cl.show(panelContent, "parishionerData");
 			}
 		});
-		menuUser.add(menuUserDane);
+		menuParishioner.add(menuParishionerDane);
 		
-		JMenuItem mntmZamowienie = new JMenuItem("Zamowienie");
-		mntmZamowienie.addActionListener(new ActionListener() {
+		JMenuItem mntmParishionerZamowienie = new JMenuItem("Zamowienie");
+		mntmParishionerZamowienie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cl.show(panelContent, "newOrder");
 			}
 		});
-		menuUser.add(mntmZamowienie);
+		menuParishioner.add(mntmParishionerZamowienie);
+		
+		JMenu mnKsidz = new JMenu("Ksi\u0105dz");
+		menuBar.add(mnKsidz);
+		
+		JMenuItem mntmParishionerDane = new JMenuItem("Dane");
+		mntmParishionerDane.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(events.getLogged()){ 
+					try {
+						events.pobierzDane();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					if (events.getRestriction()>KindRestriction.LOGED_R)
+					{
+						jpPriestData.setPriestData(events.getPriest());
+					}
+				}
+				cl.show(panelContent, "priestData");
+			}
+		});
+		mnKsidz.add(mntmParishionerDane);
+		
+		JMenuItem mntmAddnewparishioner = new JMenuItem("addNewParishioner");
+		mntmAddnewparishioner.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(panelContent, "addNewParishioner");
+			}
+		});
+		mnKsidz.add(mntmAddnewparishioner);
+		
+		JMenuItem mntmKsiadzAddNews = new JMenuItem("addNewsPanel");
+		mntmKsiadzAddNews.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(panelContent, "addNews");
+			}
+		});
+		mnKsidz.add(mntmKsiadzAddNews);
+		
+		JMenuItem mntmAddnewpriest = new JMenuItem("addNewPriest");
+		mntmAddnewpriest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(panelContent, "addNewPriest");
+			}
+		});
+		mnKsidz.add(mntmAddnewpriest);
 		
 		Component horizontalGlue = Box.createHorizontalGlue(); // dziêki temu menuPomoc jest po prawej stronie
 		menuBar.add(horizontalGlue);
@@ -328,12 +430,20 @@ public class CardLayoutExp extends JFrame {
 	
 	public void resetSettings(){
 		menuBar.getComponent(2).setVisible(false);
+		menuBar.getComponent(2).setEnabled(false);
+		menuBar.getComponent(3).setVisible(false);
+		menuBar.getComponent(3).setEnabled(false);
 		cl.show(panelContent, "news");
 	}
 	
 	public void loginUser(){
-		if(events.getRestriction() == KindRestriction.LOGED_R)
+		if(events.getRestriction() == KindRestriction.LOGED_R){
 			menuBar.getComponent(2).setVisible(true);
+			menuBar.getComponent(2).setEnabled(true);
+		} else if (events.getRestriction()>KindRestriction.LOGED_R){
+			menuBar.getComponent(3).setVisible(true);
+			menuBar.getComponent(3).setEnabled(true);
+		}
 	}
 	
 	/**

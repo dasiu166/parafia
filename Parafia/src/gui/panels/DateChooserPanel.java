@@ -1,4 +1,4 @@
-package gui;
+package gui.panels;
 
 /* 
  * JCommon : a free general purpose class library for the Java(tm) platform

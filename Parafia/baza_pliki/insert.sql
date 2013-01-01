@@ -69,6 +69,7 @@ INSERT INTO Priest VALUES('69010566803',6,5,'Jan','Wojciechowski','Wikary',to_da
 INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chcilem zamowic chrzest;p',1,to_date('07/15/2012','mm/dd/yyyy'),to_date('07/15/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Chcilem zamowic msze',1,to_date('12/20/2012','mm/dd/yyyy'),to_date('12/20/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'59040665847','91031254875','Chcilem gregorianke',1,to_date('12/21/2012','mm/dd/yyyy'),to_date('12/21/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chcilem zamowic chrzest;p',1,to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
 
 
 ------------Actuals-----------

@@ -1,4 +1,7 @@
-package gui;
+package gui.panels;
+
+import gui.CardLayoutExp;
+import gui.Events;
 
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -15,16 +18,16 @@ import obsluga.Parishioner;
 import obsluga.Priest;
 import stale.KindRestriction;
 
-public class PanelLogowania extends JPanel {
+public class LoginPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
     private CardLayout cl;
-    private DialogLogowania dialogLogowania;
+    private LoginDialog dialogLogowania;
     private Events event = Events.getInstance();
 	/**
 	 * Create the panel.
 	 */
-	public PanelLogowania(final CardLayoutExp owner) {
+	public LoginPanel(final CardLayoutExp owner) {
         setSize(150, 70);
         cl = new CardLayout();
         setLayout(cl);
@@ -58,7 +61,7 @@ public class PanelLogowania extends JPanel {
         // akcja po wciœniêciu przycisku ### WYLOGUJ ###
         bLogOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		if(event.wyloguj(event.getRestriction())){
+        		if(event.wyloguj()){
         			owner.resetSettings();
 	        		cl.show(ja, "unlogged");
 	        		JOptionPane.showMessageDialog(null, "Wylogowano");
@@ -74,7 +77,7 @@ public class PanelLogowania extends JPanel {
         bZaloguj.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		if(dialogLogowania==null)
-        			dialogLogowania = new DialogLogowania(null);
+        			dialogLogowania = new LoginDialog(null);
         		dialogLogowania.setVisible(true);
         		dialogLogowania.setFocus();
         		

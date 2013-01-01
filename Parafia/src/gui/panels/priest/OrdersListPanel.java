@@ -1,5 +1,4 @@
-package gui;
-
+package gui.panels.priest;
 
 
 import gui.panels.LoginDialog;
@@ -26,7 +25,7 @@ import javax.swing.border.EtchedBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-public class PanelNews extends JPanel implements ActionListener {
+public class OrdersListPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -39,7 +38,7 @@ public class PanelNews extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public PanelNews(JFrame owner) {
+	public OrdersListPanel(JFrame owner) {
 		this.owner = owner;
 
 		final JScrollPane scrollPane = new JScrollPane();
@@ -258,14 +257,14 @@ class NewsList{
 		return lista;
 	}
 	
-	public void addNewsListToPanel(PanelNews panelNews){
+	public void addNewsListToPanel(OrdersListPanel panelNews){
 		ListIterator<News> iterator = lista.listIterator();
 		while(iterator.hasNext()){
 			panelNews.addNews(iterator.next());
 		}
 	}
 	
-	public boolean addNewsToPanel(PanelNews panelNews, int index){
+	public boolean addNewsToPanel(OrdersListPanel panelNews, int index){
 		if(index<lista.size()){
 			panelNews.addNews(lista.get(index));
 			return true;

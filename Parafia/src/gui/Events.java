@@ -1,7 +1,10 @@
 package gui;
 
+
 import java.io.IOException;
 import java.net.UnknownHostException;
+
+import javax.swing.JOptionPane;
 
 import klient.Client;
 import obsluga.Parishioner;
@@ -132,7 +135,9 @@ public class Events {
 	 * 			<b>false</b> - je¿eli wylogowanie siê nie powiod³o<br /><br />
 	 * 		ustawia takrze obiekty klasy do stanu pocz¹tkowego w³aœciwego dla urzytkownika bez uprawnieñ
 	 */
-	public boolean wyloguj(int restriction){
+
+	public boolean wyloguj(){
+		int restriction = getRestriction();
 		if(restriction==KindRestriction.LOGED_R){
 		p.setKindQuery(KindQuery.TRY_LOGOUT);
 		try {
@@ -159,8 +164,9 @@ public class Events {
 		logged = false;
 		return true;
 	}
-	
-	public void pobierzDane(int restriction) throws IOException, ClassNotFoundException{
+
+	public void pobierzDane() throws IOException, ClassNotFoundException{
+		int restriction = getRestriction();
 		p.setKindQuery(KindQuery.SEL_DBASE);
 		if (restriction==KindRestriction.LOGED_R){
 			p.setQuery("Select * from parishioner where pesel="+p.getPesel());
@@ -173,7 +179,8 @@ public class Events {
 		}
 		
 		if (restriction>=KindRestriction.WORKS_R){
-			priest.setQuery("Select * from priest where pesel="+priest.getPesel());
+			priest.setQuery("Select * from priest where pesel=\""+priest.getPesel()+"\"");
+			JOptionPane.showMessageDialog(null, "Select * from priest where pesel=\""+priest.getPesel()+"\"");
 			k.sendObject(priest);
 			k.reciveObject();
 			priest=(Priest)k.getPackage();

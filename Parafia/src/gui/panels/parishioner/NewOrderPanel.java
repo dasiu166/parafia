@@ -1,4 +1,4 @@
-package gui;
+package gui.panels.parishioner;
 
 import gui.calendar.JDateChooser;
 
@@ -19,19 +19,19 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
-public class PanelNewOrder extends JPanel {
+public class NewOrderPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelNewOrder() {
+	public NewOrderPanel() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		JLabel lblOrder = new JLabel("Typ Zamowienia:");
 		lblOrder.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JComboBox cbOrder = new JComboBox();
-		cbOrder.setModel(new DefaultComboBoxModel(new String[] {"<wybierz typ>", "Chrzest", "\u015Alub", "Pogrzeb", "Msza \u015Awi\u0119ta", "Wypominki"}));
+		cbOrder.setModel(new DefaultComboBoxModel(new String[] {"<wybierz typ>", "Chrzest", "\u015Alub", "Pogrzeb", "Msza \u015Awi\u0119ta", "Wypominki", "inne"}));
 		
 		JLabel lblDateStart = new JLabel("Data Pocz\u0105tku:");
 		lblDateStart.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -39,18 +39,12 @@ public class PanelNewOrder extends JPanel {
 		JDateChooser pDateStart = new JDateChooser();
 		pDateStart.getSpinner().setEnabled(false);
 		
-		JLabel lblDateStop = new JLabel("Data Ko\u0144ca:");
-		lblDateStop.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.getSpinner().setEnabled(false);
-		
 		JLabel lblIlo = new JLabel("Ilo\u015B\u0107:");
 		lblIlo.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JSpinner spinner = new JSpinner();
 		spinner.setEnabled(false);
-		spinner.setModel(new SpinnerNumberModel(0, 0, 10, 1));
+		spinner.setModel(new SpinnerNumberModel(1, 1, 10, 1));
 		
 		JButton btnSend = new JButton("Wy\u015Blij");
 		
@@ -66,26 +60,6 @@ public class PanelNewOrder extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(73)
-							.addComponent(lblOrder, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(cbOrder, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(73)
-							.addComponent(lblDateStart, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(pDateStart, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(73)
-							.addComponent(lblDateStop, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(73)
-							.addComponent(lblIlo, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(190)
 							.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
 							.addGap(3)
@@ -93,32 +67,42 @@ public class PanelNewOrder extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(38)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
 								.addComponent(lblWiadomo, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))))
 					.addGap(40))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(65)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblOrder, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(cbOrder, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(lblIlo, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblDateStart, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(pDateStart, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+								.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(69, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(38)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblOrder, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+					.addGap(51)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblOrder, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 						.addComponent(cbOrder, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-					.addGap(10)
+					.addGap(13)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblDateStart, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 						.addComponent(pDateStart, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblDateStop, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblIlo, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
+					.addGap(43)
 					.addComponent(lblWiadomo, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
