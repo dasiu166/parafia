@@ -48,6 +48,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
 import stale.KindRestriction;
+import obsluga.*;
 
 import com.jgoodies.looks.FontPolicies;
 import com.jgoodies.looks.FontPolicy;
@@ -123,7 +124,7 @@ public class CardLayoutExp extends JFrame {
         final ParishionerDataPanel jpParishionerData = new ParishionerDataPanel(this);
         panelContent.add(jpParishionerData, "parishionerData");
         
-        NewOrderPanel jpNewOrder = new NewOrderPanel();
+        final NewOrderPanel jpNewOrder = new NewOrderPanel();
        // JLabel jl3 = new JLabel("Card3");
         //jp3.add(jl3);
         panelContent.add(jpNewOrder, "newOrder");
@@ -190,6 +191,8 @@ public class CardLayoutExp extends JFrame {
 			menuPlikPanel2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner());
+					events = Events.getInstance();
+					
 					if(events.getLogged()){ 
 						/*try {
 							events.pobierzDane();
@@ -202,7 +205,10 @@ public class CardLayoutExp extends JFrame {
 						}*/
 						if (events.getRestriction()==KindRestriction.LOGED_R)
 						{
+							
 							jpParishionerData.setUserData(events.getParishioner());
+						} else{
+							jpParishionerData.setUserData(new Parishioner());
 						}
 					}
 					cl.show(panelContent, "parishionerData");
@@ -232,6 +238,8 @@ public class CardLayoutExp extends JFrame {
 						if (events.getRestriction()>KindRestriction.LOGED_R)
 						{
 							jpPriestData.setPriestData(events.getPriest());
+						} else{
+							jpPriestData.setPriestData(new Priest());
 						}
 					}
 					cl.show(panelContent, "priestData");
@@ -349,6 +357,14 @@ public class CardLayoutExp extends JFrame {
 		JMenuItem mntmParishionerZamowienie = new JMenuItem("Zamowienie");
 		mntmParishionerZamowienie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try{
+				events.pobierzZdarzenia();
+				}catch(ClassNotFoundException e){
+					
+				}catch(IOException e){
+					
+				}
+				jpNewOrder.setOrderList(events.getClient().getEventKindList());
 				cl.show(panelContent, "newOrder");
 			}
 		});

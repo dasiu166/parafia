@@ -18,9 +18,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
+import java.util.*;
+import obsluga.*;
 
 public class NewOrderPanel extends JPanel {
-
+	JComboBox cbOrder;
 	/**
 	 * Create the panel.
 	 */
@@ -30,8 +32,11 @@ public class NewOrderPanel extends JPanel {
 		JLabel lblOrder = new JLabel("Typ Zamowienia:");
 		lblOrder.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JComboBox cbOrder = new JComboBox();
-		cbOrder.setModel(new DefaultComboBoxModel(new String[] {"<wybierz typ>", "Chrzest", "\u015Alub", "Pogrzeb", "Msza \u015Awi\u0119ta", "Wypominki", "inne"}));
+		cbOrder = new JComboBox();
+		/*Grzesiek*/
+		
+		
+		
 		
 		JLabel lblDateStart = new JLabel("Data Pocz\u0105tku:");
 		lblDateStart.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -124,4 +129,27 @@ public class NewOrderPanel extends JPanel {
 		setLayout(groupLayout);
 
 	}
+	
+	public void setOrderList(LinkedList<Event> le){
+		
+		Iterator<Event> it = le.iterator();
+		String kindOrder[] = new String[le.size()];
+		int index=0;
+		  while(it.hasNext()){
+			  Event ee = it.next();
+			  kindOrder[index] = ee.getId()+"  "+ee.getName();
+			  index++;
+		  }
+		
+		cbOrder.setModel(new DefaultComboBoxModel(kindOrder));
+		
+		
+	}
+	
+	public int getSelectedOrderItem(){
+		return cbOrder.getSelectedIndex()+1;
+	}
+	
+	
+	
 }

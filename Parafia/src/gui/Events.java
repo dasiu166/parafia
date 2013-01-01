@@ -5,12 +5,11 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import klient.Client;
-import obsluga.Parishioner;
-import obsluga.Priest;
-import obsluga.User;
+import obsluga.*;
 import pomoce.Pomoc;
-import stale.KindQuery;
-import stale.KindRestriction;
+import stale.*;
+
+import java.util.*;
 
 public class Events {
 	private static volatile Events INSTANCE;
@@ -125,6 +124,7 @@ public class Events {
 		}
 		
 		logged = true;
+		
 		return true;
 	}
 
@@ -147,6 +147,7 @@ public class Events {
 		
 		p = (Parishioner)k.getPackage();
 		p = new Parishioner();
+		u.setRestriction(KindRestriction.GUEST_R);
 		} else {
 			priest.setKindQuery(KindQuery.TRY_LOGOUT);
 			try {
@@ -158,6 +159,8 @@ public class Events {
 			
 			priest = (Priest)k.getPackage();
 			priest = new Priest();
+			u.setRestriction(KindRestriction.GUEST_R);
+
 		}
 		logged = false;
 		return true;
@@ -184,6 +187,160 @@ public class Events {
 			k.reciveObject();
 			priest=(Priest)k.getPackage();
 		}
+	}
+	
+	public void pobierzZdarzenia() throws IOException, ClassNotFoundException{
+		  Event e = new Event();
+		  e.setKindQuery(KindQuery.SEL_DBASE);
+		  e.setQuery("Select * from event");
+		  
+		  k.sendObject(e);
+		  k.reciveObject();
+		  LinkedList<Event> le = new LinkedList<Event>();
+		  le = (LinkedList<Event>)k.getPackage();
+		  k.setEventKindList(le);
+	}
+	
+	
+	public void zlozZamowienie(String prPesel, String date, String idEvent, String desc)
+			throws IOException, ClassNotFoundException{
+		int restriction = getRestriction();
+		Order o = new Order();
+		o.setKindQuery(KindQuery.ADD_DBASE); //dodanie do bazy
+		if (restriction==KindRestriction.LOGED_R) o.setSenderPesel(p.getPesel());
+		if (restriction>KindRestriction.LOGED_R) o.setSenderPesel(priest.getPesel());
+
+		o.setExecutorPesel(prPesel);
+		o.setBeginDate(Pomoc.podajDate(date));
+		o.setEndDate(Pomoc.podajDate(date));
+		o.setEvent(idEvent);//3 to msza wg Pawla bazy
+		o.setDescribe(desc);
+		o.setStatus(KindRange.NEW);
+		String q;
+		
+		q="INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'"+o.getExecutroPesel()+"','"+
+		o.getSenderPesel()+"','"+o.getDescribe()+"','"+o.getStatus()+"',"+
+		"to_date('"+o.getBeginDate().toLocaleString().substring(0, 16)+
+		"','yyyy-MM-dd HH24:MI'),"+"to_date('"+o.getEndDate().toLocaleString().substring(0, 10)+
+		"','yyyy-MM-dd HH24:MI'))";
+		o.setQuery(q);
+		
+		k.sendObject(o);
+		k.reciveObject();
+		o = (Order)k.getPackage();
+		
+		System.out.println("KLIENT:  (otrzymana odpowiedz)"+o.getData());
+		System.out.println(q);
+	
+	}
+	
+	public void dodajUzytkownika(User newU, Adress newA, Course newC, Parishioner newP)
+			throws IOException, ClassNotFoundException{
+		/*Jako arametry chyba najlepeij przekazac bedzie gotowe obiekty bo inaczej
+		 * to parametrow w ciul*/
+		/*User newU = new User();
+		newU.setLogin("Iipii");
+		newU.setPassword("P");
+		newU.setRestriction(KindRestriction.LOGED_R);
+		newU.setRange(KindRange.LOGG_RANG);*/
+		newU.setKindQuery(KindQuery.ADD_DBASE);
+		newU.setQuery("INSERT INTO Userr VALUES (" +
+				"seq_userr.nextval,'"+
+				newU.getLogin()+"','"+
+				newU.getPassword()+"',"+
+				newU.getRestriction()+","+
+				newU.getRange()
+				+")");
+		System.out.println("^^^^^^^^^^^^"+newU.getQuery());
+		k.sendObject(newU);
+		k.reciveObject();
+		newU = (User)k.getPackage();
+		System.out.println("Wynik dodania uzytkownika  "+newU.getQuery());
+		
+		/*Adress newA = new Adress();
+		newA.setCity("Kielce");
+		newA.setHouseNumb("12A");
+		newA.setPostcode("14-111");
+		newA.setStreet("Wieczorna");*/
+		newA.setKindQuery(KindQuery.ADD_DBASE);
+		newA.setQuery("INSERT INTO Adress VALUES (" +
+				"seq_adress.nextval,'" +
+				newA.getCity()+"','"+
+				newA.getStreet()+"','"+
+				newA.getHouse()+"','"+
+				newA.getPostcode()+
+				"')");
+		k.sendObject(newA);
+		k.reciveObject();
+		newA=(Adress)k.getPackage();
+		System.out.println("Wynik dodania adresu  "+newA.getQuery()+" "+newA.getId());
+		
+		/*Course newC = new Course();
+		newC.setBirthday(Pomoc.podajDate("1990-12-20"));
+		newC.setBaptism(Pomoc.podajDate("1991-01-11"));*/
+		newC.setKindQuery(KindQuery.ADD_DBASE);
+		//UWAGA zastanawiamsie nad sposobem sprwdzenia nullow w datach
+		newC.setQuery("INSERT INTO Course VALUES (" +
+				"seq_course.nextval," +
+				"to_date('"+newC.getBirthDay().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')"+
+				",to_date('"+newC.getBaptism().toLocaleString().substring(0, 10)+"','yyyy-MM-dd'),"+
+				"null,null,null,null)");
+		
+		System.out.println(newC.getQuery());
+		
+		k.sendObject(newC);
+		k.setNullPackage();
+		k.reciveObject();
+		newC = (Course)k.getPackage();
+		System.out.println("Wynik dodania przebiegu  "+newC.getQuery()+" "+newC.getId());
+
+		
+		if (newU.getRestriction()==KindRestriction.LOGED_R){
+			/*Parishioner newP = new Parishioner();
+			newP.setPesel("900");
+			newP.setName("Adam");
+			newP.setSurName("Milk");*/
+			newP.setKindQuery(KindQuery.ADD_DBASE);
+			newP.setQuery("INSERT INTO Parishioner VALUES (" +
+					newP.getPesel()+","+
+					newC.getId()+","+
+					newU.getId()+","+
+					newA.getId()+",'"+
+					newP.getName()+"','"+
+					newP.getSurName()+"'"+
+					")");
+			System.out.println(newP.getQuery());
+			
+			k.sendObject(newP);
+			k.setNullPackage();
+			k.reciveObject();
+			
+			newP = (Parishioner)k.getPackage();
+			System.out.println("Wynik dodania parafianina"+newP.getQuery());
+		}
+	}
+	
+	public void updateUzytkownik(String login, String pass)
+			throws IOException, ClassNotFoundException{
+		
+		u.setKindQuery(KindQuery.UPD_DBASE);
+		String newPass=pass;
+		String newLogin=login;
+		u.setQuery("UPDATE Userr SET "+"login='"+newLogin+"',password='"+newPass+"' WHERE id_userr="+u.getId());
+		System.out.println(u.getQuery());
+		
+		k.setNullPackage();
+		k.sendObject(u);
+		k.reciveObject();
+		u=(User)k.getPackage();
+		
+		if(u.getQuery().equals("OK+")) System.out.println("Update hasla ok"); else
+			System.out.println("Blad updatu hasla");
+	}
+	
+	
+	public Client getClient(){
+		return k;
 	}
 	
 	

@@ -30,7 +30,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		return eventKindList;
 	}
 	
-	private void setNullPackage(){
+	public void setNullPackage(){
 		przesylka=null;
 	}
 	
@@ -112,6 +112,8 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		return true;
 	}
 	
+	
+	
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException{
 		Client k = new Client();
 		
@@ -171,7 +173,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
 				" Pesel: "+p.getPesel());
 		
-		/*DODANIE PARAFIANINA (Narazie sam user ale ze sprawdzeniem
+		/*DODANIE PARAFIANINA (ze sprawdzeniem
 		 * czy taki juz jest, i ze zwrotem jego id po dodaniu
 		 * (wszystkim zajmuje sie serwer))*/
 		
@@ -281,6 +283,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		o.setDescribe("jakis tam opis");
 		o.setStatus(KindRange.NEW);
 		String q;
+		
 		q="INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'"+o.getExecutroPesel()+"','"+
 		o.getSenderPesel()+"','"+o.getDescribe()+"','"+o.getStatus()+"',"+
 		"to_date('"+o.getBeginDate().toLocaleString().substring(0, 16)+
