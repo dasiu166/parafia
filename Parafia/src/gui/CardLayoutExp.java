@@ -79,7 +79,7 @@ public class CardLayoutExp extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	public CardLayoutExp() throws ClassNotFoundException, IOException {
-		setMinimumSize(new Dimension(700, 520));
+		setMinimumSize(new Dimension(900, 700));
 		setPreferredSize(new Dimension(700, 520));
 		
 		// Inicjalizacja i ustawienie nowego wygl¹du: JGoodies Plastic 3D look and feel
@@ -523,6 +523,7 @@ public class CardLayoutExp extends JFrame {
 					frame.addWindowListener(l);
 					frame.setVisible(true);
 				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"Blad po³¹czenia z serwerem");
 					e.printStackTrace();
 				}
 			}
