@@ -76,7 +76,8 @@ INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chc
 INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Start parafii',to_date('09/25/2012','mm/dd/yyyy'));
 INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 1',to_date('12/20/2012','mm/dd/yyyy'));
 INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 2',to_date('01/01/2013','mm/dd/yyyy'));
-
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 3',to_date('06/01/2013','mm/dd/yyyy'));
+commit;
 
 /*
 ------------------------------INSERT-------------------------------------------
