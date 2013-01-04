@@ -175,7 +175,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		/*DODANIE PARAFIANINA (ze sprawdzeniem
 		 * czy taki juz jest, i ze zwrotem jego id po dodaniu
-		 * (wszystkim zajmuje sie serwer))*/
+		 * (wszystkim zajmuje sie serwer))
 		
 		User newU = new User();
 		newU.setLogin("Iipii");
@@ -255,7 +255,8 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			
 			newP = (Parishioner)k.getPackage();
 			System.out.println("Wynik dodania parafianina"+newP.getQuery());
-}
+		}
+		*/
 		
 		
 		/*UPDATE UZYTKOWNIKA------------------------
@@ -387,6 +388,54 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		*/
 		
 		/*Poczatek wylogowania--------------------------------------------*/
+		
+		
+		/*Usuwanie zamowien sterowane poprzez odpwiednie zapytanie*/
+				Order o = new Order();
+				o.setKindQuery(KindQuery.SEL_DBASE);
+				//*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)
+				o.setQuery("Select id_orderr,id_event," +
+						"odprawiajacy_pesel,zamawiajacy_pesel," +
+						"describe,status ,"+
+						"to_char(beginD,'yyyy-MM-dd HH24:MI')," +
+						"to_char(endD, 'yyyy-MM-dd HH24:MI') " +
+						"from orderr where zamawiajacy_pesel="+p.getPesel()+
+						" AND status='"+KindQuery.TODEL+"'");
+				
+				System.out.println(o.getQuery());
+				k.sendObject(o);
+				
+				k.reciveObject();
+				
+				LinkedList<Order> orderList = new LinkedList<Order>();
+				
+				orderList = (LinkedList<Order>)k.getPackage();
+				Iterator<Order> iterator = orderList.iterator();
+				
+				while(iterator.hasNext()){
+					Order tmp =iterator.next();
+					System.out.println(tmp.getDescribe()+"    "+tmp.getStatus());
+				}
+				System.out.println(orderList.size());
+				
+				Iterator<Order> iterator2 = orderList.iterator();
+				
+				while(iterator2.hasNext()){
+					Order tmp =iterator2.next();
+					tmp.setKindQuery(KindQuery.DEL_DBASE);
+					tmp.setQuery("DELETE FROM Orderr where id_orderr="+tmp.getId());
+					k.sendObject(tmp);
+					k.reciveObject();
+					Order check = (Order)k.getPackage();
+					System.out.println("Wynik usuwania "+check.getQuery());
+				}
+				
+		
+		
+		
+		
+		//----------------------------------------------------------
+		
 		
 		p.setKindQuery(-1);
 		k.sendObject(p);

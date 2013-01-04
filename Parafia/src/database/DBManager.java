@@ -100,7 +100,8 @@ public class DBManager {
 		//if(data==null) System.out.println("CATCH SQL");
 		
 		System.out.println("Laduje dane (Liczba kolumn =)"+desc.getColumnCount());
-
+		
+		
 		while(data.next()){
 		 rows+=1;
 		 String[] fieldArray = new String[desc.getColumnCount()]; //utworzenie tablicy

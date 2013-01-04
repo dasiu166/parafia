@@ -14,8 +14,5 @@ public interface KindRange {
 	int GOD_RANG = 44;
 	int ADMIN_RANG = 441;
 	
-	/*Ta czesc zawiera komendy odpowiedzi po zapytaniach do bazy*/
-	String ACK = "ACK"; //zamowienie zaakceptowane
-	String DEN = "DENIED"; //zamowienie odrzucone
-	String NEW = "NEW";//zamowienie czeka na rozpatrzenie
+	
 }

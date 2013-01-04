@@ -15,4 +15,13 @@ public interface KindQuery {
 	int DEL_DBASE = 3; //usuniecie 
 	int SEL_DBASE = 4; //select
 
+	
+	/*Ta czesc zawiera komendy odpowiedzi po zapytaniach do bazy*/
+	String ACK = "ACK"; //zamowienie zaakceptowane
+	String DEN = "DENIED"; //zamowienie odrzucone(moze byc usuniete z bazy)
+	String NEW = "NEW";//zamowienie czeka na rozpatrzenie
+	String TODEL = "TODELETE";//do usuniecia z bazy
+	
+	/*Mozliwe komunikaty*/
+	String ServErr = "SerwerError";
 }

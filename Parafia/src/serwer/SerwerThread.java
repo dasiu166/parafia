@@ -452,6 +452,26 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 				
 				if (((Order) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
 					
+					DBManager db = DBManager.getInstance();
+					dbReturnInt = db.execUpdateQuery(((Order) wiadomosc).getQuery());
+					
+					if (dbReturnInt!=0){
+						((Order) wiadomosc).setData("ZAMOWIENIE USUNIETE");
+						((Order) wiadomosc).setQuery("OK+");
+						this.sendObject(wiadomosc);
+							//LOG----------------------------------------------------------
+							this.saveLog("Zamowienie usuniete");
+							//LOG_END------------------------------------------------------
+					} else {
+						((Order) wiadomosc).setData("BLAD USUWANIA ZAMOWIENIA");
+						((Order) wiadomosc).setQuery("ERR");
+						this.sendObject(wiadomosc);
+							//LOG----------------------------------------------------------
+							this.saveLog("Blad usuwania zamowienia");
+							//LOG_END------------------------------------------------------
+					}
+					
+					
 				}
 			
 			 }else//##KONIEC OBSLUGI KLASY ORDER
