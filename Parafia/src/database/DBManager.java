@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData; //opis kolumn
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.*;
 
 import obsluga.Adress;
@@ -20,9 +21,51 @@ public class DBManager {
 	private String user="";
 	private String port="";
 	private String adres="";
+	Savepoint s;
+	
+	
 	
 	private DBManager(){
 		
+	}
+	
+	public void setAutoCommit(boolean v){
+		try{
+			
+		conn.setAutoCommit(v);
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("Blad autocommita");
+		}
+	}
+	
+	public void makeSavepoint(){
+		try{
+			s = conn.setSavepoint("SAVE");
+		}catch (SQLException e){
+			
+		}
+	}
+	
+	public boolean useSavePoint(){
+		try {
+			conn.rollback(s);
+			return true;
+		} catch (SQLException e){
+			return false;
+		}
+	}
+	
+	public void doCommit(){
+		try{
+		conn.commit();
+		}catch(SQLException e){
+			try{
+				conn.rollback();
+			}catch (SQLException e2){}
+			
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!BRAK ZMIAN");		
+		}
 	}
 	
 	public static DBManager getInstance(){
@@ -62,6 +105,7 @@ public class DBManager {
 			return false;
 		}
 		System.out.print(" polaczenie OK\n");
+		//this.setAutoCommit(false);
 		return true;
 		
 	}
@@ -73,7 +117,7 @@ public class DBManager {
 		try{
 		
 		ret = conn.createStatement().executeUpdate(q);
-		conn.createStatement().executeUpdate("commit");
+		//conn.createStatement().executeUpdate("commit");
 		}catch(SQLException e){
 			ret=0;
 			e.printStackTrace();

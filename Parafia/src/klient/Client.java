@@ -175,10 +175,10 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		/*DODANIE PARAFIANINA (ze sprawdzeniem
 		 * czy taki juz jest, i ze zwrotem jego id po dodaniu
-		 * (wszystkim zajmuje sie serwer))
+		 * (wszystkim zajmuje sie serwer))*/
 		
 		User newU = new User();
-		newU.setLogin("Iipii");
+		newU.setLogin("Xx");
 		newU.setPassword("P");
 		newU.setRestriction(KindRestriction.LOGED_R);
 		newU.setRange(KindRange.LOGG_RANG);
@@ -232,10 +232,16 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		newC = (Course)k.getPackage();
 		System.out.println("Wynik dodania przebiegu  "+newC.getQuery()+" "+newC.getId());
 
+		try{
+		System.out.println("!!!!!!!!!!!!Oczekuje");
+		Thread.sleep(10000);
+		}catch(InterruptedException e){
+			
+		}
 		
 		if (newU.getRestriction()==KindRestriction.LOGED_R){
 			Parishioner newP = new Parishioner();
-			newP.setPesel("900");
+			newP.setPesel("90012");
 			newP.setName("Adam");
 			newP.setSurName("Milk");
 			newP.setKindQuery(KindQuery.ADD_DBASE);
@@ -256,7 +262,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			newP = (Parishioner)k.getPackage();
 			System.out.println("Wynik dodania parafianina"+newP.getQuery());
 		}
-		*/
+		
 		
 		
 		/*UPDATE UZYTKOWNIKA------------------------
@@ -390,7 +396,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		/*Poczatek wylogowania--------------------------------------------*/
 		
 		
-		/*Usuwanie zamowien sterowane poprzez odpwiednie zapytanie*/
+		/*Usuwanie zamowien sterowane poprzez odpwiednie zapytanie
 				Order o = new Order();
 				o.setKindQuery(KindQuery.SEL_DBASE);
 				//*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)
@@ -428,7 +434,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 					k.reciveObject();
 					Order check = (Order)k.getPackage();
 					System.out.println("Wynik usuwania "+check.getQuery());
-				}
+				}*/
 				
 		
 		
