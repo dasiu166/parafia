@@ -64,7 +64,7 @@ public class CardLayoutExp extends JFrame {
 	private JMenuBar menuBar;
 	private CardLayout cl;
 	private CardLayoutExp frame = this;
-	private Events events = Events.getInstance();
+	private Events events;// = Events.getInstance();
 	
 	/*
 	 * Aby dzia³a³ nowy wygl¹d który doda³em nale¿y dodaæ biblioteki z folderu lib do Bildera
@@ -79,6 +79,8 @@ public class CardLayoutExp extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	public CardLayoutExp() throws ClassNotFoundException, IOException {
+		events = Events.getInstance(this);
+		
 		setMinimumSize(new Dimension(900, 700));
 		setPreferredSize(new Dimension(700, 520));
 		
@@ -500,6 +502,10 @@ public class CardLayoutExp extends JFrame {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void connectionError(){
+		JOptionPane.showMessageDialog(null, "Blad polaczenia");
 	}
 
 	/**

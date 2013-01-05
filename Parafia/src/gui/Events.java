@@ -20,6 +20,7 @@ public class Events {
 	private int portt;
 	private boolean logged = false;
 	private NewsList newsList = new NewsList();
+	private CardLayoutExp adminForm;
 
 	/**
 	 * CONSTRUCTOR - prywatny do SINGLETON
@@ -55,6 +56,12 @@ public class Events {
 		// "B³¹d po³¹czenia z serverem", "Error connect",
 		// JOptionPane.ERROR_MESSAGE); }
 	}
+	
+	//drugi konstruktor
+	private Events(CardLayoutExp val){
+		this();
+		adminForm=val;
+	}
 
 	public User getUser() {
 		return u;
@@ -64,6 +71,15 @@ public class Events {
 	 * @return <b>Events</b> - SINGLETON<br />
 	 *         Zwraca instancje siebie lub tworzy naw¹ je¿eli nie istnieje
 	 */
+	public static Events getInstance(CardLayoutExp val) {
+		if (INSTANCE == null)
+			synchronized (Events.class) {
+				if (INSTANCE == null)
+					INSTANCE = new Events(val);
+			}
+		return INSTANCE;
+	}
+	
 	public static Events getInstance() {
 		if (INSTANCE == null)
 			synchronized (Events.class) {
@@ -71,6 +87,12 @@ public class Events {
 					INSTANCE = new Events();
 			}
 		return INSTANCE;
+	}
+	
+	private void connectionError(){
+		if(adminForm!=null){
+			adminForm.connectionError();
+		}
 	}
 
 	/**
@@ -109,8 +131,10 @@ public class Events {
 		System.out.println("Zapytanie: \n" + u.getQuery());
 
 		try {
-			if (!k.sendObject(u))
-				return false;
+			if (!k.sendObject(u)){
+				this.connectionError();
+				//return false;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} // wysyla sie bo wszsytkie obiekty dziedzicza po Object
@@ -183,7 +207,8 @@ public class Events {
 			p.setKindQuery(KindQuery.TRY_LOGOUT);
 			try {
 				if (!k.sendObject(p))
-					return false;
+					//return false;
+					this.connectionError();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -233,7 +258,11 @@ public class Events {
 		if (restriction == KindRestriction.LOGED_R) {
 			p.setKindQuery(KindQuery.SEL_DBASE);
 			p.setQuery("Select * from parishioner where pesel=" + p.getPesel());
-			k.sendObject(p);
+			
+			if(!k.sendObject(p)){
+				this.connectionError();
+			}
+			
 			k.reciveObject();
 			p = (Parishioner) k.getPackage();
 
@@ -248,7 +277,9 @@ public class Events {
 			JOptionPane.showMessageDialog(null,
 					"Select * from priest where pesel=\"" + priest.getPesel()
 							+ "\"");
-			k.sendObject(priest);
+			if(!k.sendObject(priest)){
+				this.connectionError();
+			}
 			k.reciveObject();
 			priest = (Priest) k.getPackage();
 		}
@@ -271,7 +302,9 @@ public class Events {
 				+ newU.getLogin() + "','" + newU.getPassword() + "',"
 				+ newU.getRestriction() + "," + newU.getRange() + ")");
 		System.out.println("^^^^^^^^^^^^" + newU.getQuery());
-		k.sendObject(newU);
+		if(!k.sendObject(newU)){
+			this.connectionError();
+		}
 		k.reciveObject();
 		newU = (User) k.getPackage();
 		System.out.println("Wynik dodania uzytkownika  " + newU.getQuery());
@@ -285,7 +318,9 @@ public class Events {
 		newA.setQuery("INSERT INTO Adress VALUES (" + "seq_adress.nextval,'"
 				+ newA.getCity() + "','" + newA.getStreet() + "','"
 				+ newA.getHouse() + "','" + newA.getPostcode() + "')");
-		k.sendObject(newA);
+		if(!k.sendObject(newA)){
+			this.connectionError();
+		}
 		k.reciveObject();
 		newA = (Adress) k.getPackage();
 		System.out.println("Wynik dodania adresu  " + newA.getQuery() + " "
@@ -307,7 +342,9 @@ public class Events {
 
 		System.out.println(newC.getQuery());
 
-		k.sendObject(newC);
+		if(!k.sendObject(newC)){
+			this.connectionError();
+		}
 		k.setNullPackage();
 		k.reciveObject();
 		newC = (Course) k.getPackage();
@@ -326,7 +363,9 @@ public class Events {
 					+ newP.getSurName() + "'" + ")");
 			System.out.println(newP.getQuery());
 
-			k.sendObject(newP);
+			if(!k.sendObject(newP)){
+				this.connectionError();
+			}
 			k.setNullPackage();
 			k.reciveObject();
 
@@ -346,7 +385,9 @@ public class Events {
 		System.out.println(u.getQuery());
 
 		k.setNullPackage();
-		k.sendObject(u);
+		if(!k.sendObject(u)){
+			this.connectionError();
+		}
 		k.reciveObject();
 		u = (User) k.getPackage();
 
@@ -363,7 +404,9 @@ public class Events {
 		e.setKindQuery(KindQuery.SEL_DBASE);
 		e.setQuery("Select * from event");
 
-		k.sendObject(e);
+		if(!k.sendObject(e)){
+			this.connectionError();
+		}
 		k.reciveObject();
 		LinkedList<Event> le = new LinkedList<Event>();
 		le = (LinkedList<Event>) k.getPackage();
@@ -385,7 +428,9 @@ public class Events {
 				+ "to_char(endD, 'yyyy-MM-dd HH24:MI') "
 				+ "from orderr where zamawiajacy_pesel=" + p.getPesel());
 		System.out.println(o.getQuery());
-		k.sendObject(o);
+		if(!k.sendObject(o)){
+			this.connectionError();
+		}
 		k.reciveObject();
 
 		LinkedList<Order> orderList = new LinkedList<Order>();
@@ -440,7 +485,9 @@ public class Events {
 		}
 
 		System.out.println(o.getQuery());
-		k.sendObject(o);
+		if(!k.sendObject(o)){
+			this.connectionError();
+		}
 		k.reciveObject();
 
 		LinkedList<Order> orderList = new LinkedList<Order>();
@@ -493,7 +540,9 @@ public class Events {
 		o.setKindQuery(KindQuery.SEL_DBASE);
 		o.setQuery(q);
 		System.out.println(o.getQuery());
-		k.sendObject(o);
+		if(!k.sendObject(o)){
+			this.connectionError();
+		}
 		k.reciveObject();
 
 		LinkedList<Order> orderList = new LinkedList<Order>();
@@ -511,14 +560,12 @@ public class Events {
 
 		o.setKindQuery(KindQuery.DEL_DBASE);
 		o.setQuery("DELETE FROM Orderr where id_orderr=" + o.getId());
-		bigErr = k.sendObject(o);
-
-		if (!bigErr) {
-			Order check = new Order();
-			check.setQuery("ERR");
-			check.setData(KindQuery.ServErr);
-			return check;
+		
+		if(!k.sendObject(o)){
+			this.connectionError();
 		}
+
+		
 
 		k.reciveObject();
 		Order check = (Order) k.getPackage();
@@ -555,7 +602,9 @@ public class Events {
 				+ "','yyyy-MM-dd HH24:MI'))";
 		o.setQuery(q);
 
-		k.sendObject(o);
+		if(!k.sendObject(o)){
+			this.connectionError();
+		}
 		k.reciveObject();
 		o = (Order) k.getPackage();
 
