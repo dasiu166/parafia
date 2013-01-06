@@ -54,7 +54,8 @@ import javax.swing.event.ChangeListener;
  */
 public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener,
     ChangeListener {
-    protected JButton calendarButton;
+	private static final long serialVersionUID = -5114219244453904543L;
+	protected JButton calendarButton;
     protected JSpinner dateSpinner;
     protected JSpinner.DateEditor editor;
     protected JCalendar jcalendar;
@@ -149,6 +150,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		// Begin Code change by Mark Brown on 24 Aug 2004
 		setModel(model);
         dateSpinner = new JSpinner(model) {
+			private static final long serialVersionUID = 9047508146756604981L;
+
 			public void setEnabled(boolean enabled) {
 				super.setEnabled(enabled);
 				calendarButton.setEnabled(enabled);
@@ -183,7 +186,9 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 
         calendarButton.setMargin(new Insets(0, 0, 0, 0));
         popup = new JPopupMenu() {
-                    public void setVisible(boolean b) {
+			private static final long serialVersionUID = -4357317749452745878L;
+
+					public void setVisible(boolean b) {
                         Boolean isCanceled = (Boolean) getClientProperty(
                                 "JPopupMenu.firePopupMenuCanceled");
 
@@ -201,6 +206,18 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
         isInitialized = true;
     }
 
+    
+    public void setEmpty(){
+    	jcalendar.setDate(new Date());
+    	editor = new JSpinner.DateEditor(dateSpinner, "");
+        dateSpinner.setEditor(editor);
+        startEmpty = true;
+    }
+    
+    public boolean isEmpty(){
+    	return startEmpty;
+    }
+    
     /**
      * Called when the jalendar button was pressed.
      *
@@ -306,6 +323,9 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
         if (getParent() != null) {
             getParent().validate();
         }
+    	editor = new JSpinner.DateEditor(dateSpinner, dateFormatString);
+        dateSpinner.setEditor(editor);
+        startEmpty = false;
     }
 
     /**

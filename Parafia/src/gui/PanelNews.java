@@ -9,10 +9,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.ListIterator;
 
 import javax.swing.GroupLayout;
@@ -27,18 +27,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 
-import klient.Client;
-
-import obsluga.Actuals;
-import pomoce.Pomoc;
-import stale.KindQuery;
-
 import net.miginfocom.swing.MigLayout;
 
 public class PanelNews extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
+//######################### CONSTRUCTOR #########################
 	private static final long serialVersionUID = 1L;
 	private LoginDialog dialogLogowania;
 	private JFrame owner;
@@ -79,7 +72,7 @@ public class PanelNews extends JPanel implements ActionListener {
 		//JOptionPane.showMessageDialog(null, ((MigLayout)panel.getLayout()).getRowConstraints());
 
 	}
-	
+//######################### FUNCTIONS #########################
 	/**
 	 * @param constraint - ograniczenie "[[100px:]100px[,grow]]"
 	 * @return void - dodaje domyœlne rozmiary w pionie dla nowego newsu
@@ -118,45 +111,36 @@ public class PanelNews extends JPanel implements ActionListener {
 		JLabel lblTitle = new JLabel(subiect);
 		lblTitle.setFont(new Font("Adobe Caslon Pro", Font.BOLD, 18));
 		
-		JLabel lblDodano = new JLabel("Dodano:");
-		
-		@SuppressWarnings("deprecation")
-		JLabel lblDate = new JLabel(data.getDate()+"."+(data.getMonth()+1)+"."+(data.getYear()+1900)+" "+data.getHours()+":"+data.getMinutes());
+		DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+		JLabel lblDate = new JLabel(formatter.format(data)); //data.getDate()+"."+(data.getMonth()+1)+"."+(data.getYear()+1900)+" "+data.getHours()+":"+data.getMinutes()
 		
 		JLabel lblKsName = new JLabel("Ks. "+ksiadz);
 		GroupLayout gl_panel_news = new GroupLayout(panel_news);
 		gl_panel_news.setHorizontalGroup(
 			gl_panel_news.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 492, Short.MAX_VALUE)
-				.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+				.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
 				.addGroup(gl_panel_news.createSequentialGroup()
 					.addGap(5)
-					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_news.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(gl_panel_news.createSequentialGroup()
-							.addComponent(lblDodano)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblDate))
+						.addComponent(lblDate)
 						.addComponent(lblKsName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(5))
 		);
 		gl_panel_news.setVerticalGroup(
 			gl_panel_news.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 100, Short.MAX_VALUE)
 				.addGroup(gl_panel_news.createSequentialGroup()
 					.addGroup(gl_panel_news.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_news.createSequentialGroup()
-							.addGroup(gl_panel_news.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblDate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDodano, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblDate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 							.addGap(1)
 							.addComponent(lblKsName))
 						.addGroup(gl_panel_news.createSequentialGroup()
 							.addGap(10)
 							.addComponent(lblTitle)))
 					.addGap(1)
-					.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+					.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
 					.addGap(1))
 		);
 		panel_news.setLayout(gl_panel_news);
@@ -185,6 +169,14 @@ public class PanelNews extends JPanel implements ActionListener {
 }
 
 class News{
+	/**
+	 * @param subiect - Temat / Tytu³ newsu
+	 * @param data - data dodania newsu
+	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
+	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
+	 * @param content - Zawartoœæ newsu w kodzie html
+	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
+	 */
 	public News(String subiect, Date data, String ksiadz, int contentHeight, String content) {
 		super();
 		this.subiect = subiect;
@@ -200,40 +192,82 @@ class News{
 	private int contentHeight;
 	private String content;
 	
+	/**
+	 * pobiera Temat newsa
+	 * @return <b>String</b> - Temat / Tytu³ newsu
+	 */
 	public String getSubiect() {
 		return subiect;
 	}
+	/**
+	 * ustawia Temat newsa
+	 * @param subiect - Temat / Tytu³ newsu
+	 */
 	public void setSubiect(String subiect) {
 		this.subiect = subiect;
 	}
+	/**
+	 * pobiera date dodania newsu
+	 * @return <b>Date</b> - data dodania newsu
+	 */
 	public Date getData() {
 		return data;
 	}
+	/**
+	 * ustawia date dodania newsu
+	 * @param data - data dodania newsu
+	 */
 	public void setData(Date data) {
 		this.data = data;
 	}
+	/**
+	 * ustawia Imie i Nazwisko ksiêdza dodaj¹cego news
+	 * @return <b>String</b> - Imie i Nazwisko ksiêdza dodaj¹cego news
+	 */
 	public String getKsiadz() {
 		return ksiadz;
 	}
+	/**
+	 * pobiera Imie i Nazwisko ksiêdza dodaj¹cego news
+	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
+	 */
 	public void setKsiadz(String ksiadz) {
 		this.ksiadz = ksiadz;
 	}
+	/**
+	 * ustawia wysokoœæ[px] zawartoœci newsu (min 100px)
+	 * @return <b>int</b> - wysokoœæ[px] zawartoœci newsu (min 100px)
+	 */
 	public int getContentHeight() {
 		return contentHeight;
 	}
+	/**
+	 * pobiera wysokoœæ[px] zawartoœci newsu (min 100px)
+	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
+	 */
 	public void setContentHeight(int contentHeight) {
 		this.contentHeight = contentHeight;
 	}
+	/**
+	 * ustawia zawartoœæ newsu w kodzie html
+	 * @return <b>String</b> - Zawartoœæ newsu w kodzie html
+	 */
 	public String getContent() {
 		return content;
 	}
+	/**
+	 * pobiera zawartoœæ newsu w kodzie html
+	 * @param content - Zawartoœæ newsu w kodzie html
+	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
 	
 }
 
-class NewsList{
+class NewsList{	
+	ArrayList<News> lista = new ArrayList<News>();
+	
 	public NewsList() {
 		super();
 	}
@@ -243,50 +277,24 @@ class NewsList{
 		this.lista = lista;
 	}
 	
+	/**
+	 * tworzy liste newsów do testów
+	 * @param num - liczba newsów do wygenerowania
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void generateNewsList(int num) throws IOException, ClassNotFoundException {
-		/*for(int i=1 ;i<=((num<=5)?num:5);i++){
-		if(i==1)addNews(new News("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>"));
-		if(i==2)addNews(new News("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>"));
-		if(i==3)addNews(new News("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>"));
-		if(i==4)addNews(new News("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>"));
-		if(i==5)addNews(new News("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>"));
-	}*/
-	
-	//Starsznie przekombionowane tutaj jest poniewaz nie wiem w ktorym momencie Ma³ysz ³aczy sie z serwerem
-	//wiec po³aczy³em sie tutaj
-	Client k = new Client();
-	 Actuals act = new Actuals();
-	 String adr = Pomoc.loadFromFile("client.ini", "SERWERADRES"); //pobranie adresu
-		int portt = Integer.parseInt(Pomoc.loadFromFile("client.ini", "PORT")); //pobranie portu
-	 k.connect(adr,portt);
-	  //Priest pr=new Priest();
-	 int i=0;
-	  act.setKindQuery(KindQuery.SEL_DBASE);
-	  act.setQuery("Select * from actuals");
-	  k.sendObject(act);
-	  
-	  k.reciveObject();
-	  LinkedList<Actuals> actL = new LinkedList<Actuals>();
-	  actL=(LinkedList<Actuals>)k.getPackage();
-	  Iterator<Actuals> itA = actL.iterator();
-	  while(itA.hasNext()){
-		  i++;
-		  Actuals ae = itA.next();
-		  System.out.println(ae.getDescribe());
-		  System.out.println(ae.getAddDate());
-		  System.out.println(ae.getPriestPesel());
-		  System.out.println(ae.getName());
-		  System.out.println(ae.getSurName());
-		 addNews(new News("Aktualnosc "+i, ae.getAddDate(),ae.getName()+ae.getSurName() , 56,
-"<p style=\"color:orange; margin:0px; padding:0px;\">"+ae.getDescribe() +"</p>"));
-	  }
-	
-}
-
-ArrayList<News> lista = new ArrayList<News>();
+		for(int i=1 ;i<=num;i++){
+			if(i%5==1)addNews(new News("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>"));
+			if(i%5==2)addNews(new News("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>"));
+			if(i%5==3)addNews(new News("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>"));
+			if(i%5==4)addNews(new News("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>"));
+			if(i%5==0)addNews(new News("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>"));
+		}
+	}	
 	
 	public void addNews(News news){
-		lista.add(news);		
+		lista.add(news);
 	}
 	
 	public News getNews(int index){

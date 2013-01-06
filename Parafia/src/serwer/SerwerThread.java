@@ -117,6 +117,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					//LOG_END---------------------------------------------------
 					 
 					 DBManager db = DBManager.getInstance();
+					 db.setAutoCommit(true);//wlaczenie potwierdzen
 					 
 					 //### KONFUGURACJA USERA ###
 					 System.out.println("\n"+((User) wiadomosc).getQuery());
@@ -176,6 +177,13 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 	//##BLOK DODANIA UZYTKOWNIKA DO BAZY
 					 DBManager db = DBManager.getInstance();
 					 
+					 /*W RAZIE PROLEMOW NALEZY WLACZYC (true)*/
+					 db.setAutoCommit(false);//wylaczenie potwierdzen
+					 
+					 /*UTWORZENIE SAVE BAZY (jakby co wykomentowac)*/
+					 db.makeSavepoint();//
+					 
+					 
 					 //sprawdzenie czu user juz istnieje
 					 dbReturn = db.execSelectQuery("Select count(*) FROM Userr " +
 					 		"Where login='"+((User)wiadomosc).getLogin()+"'");
@@ -214,7 +222,9 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						 System.out.println("Taki uzytkownik juz jest");
 					 } 
 					 
-					 this.sendObject(wiadomosc);
+					 if (!this.sendObject(wiadomosc)) {
+						 System.out.println("UZYCIE KOPII======="+db.useSavePoint());}
+					 
 					 this.saveLog("Dodano uzytkownika do bazy");
 					 
 				 }//##KONIEC DODAWANIA UZYTKOWNIKA DO BAZY
@@ -299,10 +309,18 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 
 					 dbReturnInt=db.execUpdateQuery(((Parishioner) wiadomosc).getQuery());
 					 
-					 if(dbReturnInt==0) ((Parishioner) wiadomosc).setQuery("ERR"); else
+					 if(dbReturnInt==0) {
+						 ((Parishioner) wiadomosc).setQuery("ERR");
+						 System.out.println("UZYCIE KOPII======="+db.useSavePoint());
+						   //db.useSavePoint();
+					 	  } else{
 						 ((Parishioner) wiadomosc).setQuery("OK+");
+					 	  }
 					 
-					 this.sendObject(wiadomosc);
+					 if (!this.sendObject(wiadomosc)) {
+						 //uzycie kopii przy bledzie dodawania (cofnie sie az do usera)
+						 System.out.println("UZYCIE KOPII======="+db.useSavePoint());
+						 } else db.doCommit(); //potwierdzenie zapisu
 				 
 				 }//##KONIEC BLOKU DODAWANIA DANYCH PARAFIANINA
 				
@@ -392,6 +410,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 					 		//##BLOK DODAWANIA ZAMOWIENIA DO BAZY
 					 
 				DBManager db = DBManager.getInstance();
+				db.setAutoCommit(true);
 				dbReturnInt = db.execUpdateQuery(((Order) wiadomosc).getQuery());
 				
 				
@@ -500,7 +519,8 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						((Adress) wiadomosc).setQuery("ERR");
 					}
 					
-					this.sendObject(wiadomosc);
+					if (!this.sendObject(wiadomosc)) {
+						 System.out.println("UZYCIE KOPII======="+db.useSavePoint());}
 				}
 				
 				if (((Adress) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
@@ -532,7 +552,8 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 						} else ((Course) wiadomosc).setQuery("ERR");
 					} else ((Course) wiadomosc).setQuery("ERR");
 					
-					this.sendObject(wiadomosc);
+					if (!this.sendObject(wiadomosc)) {
+						 System.out.println("UZYCIE KOPII======="+db.useSavePoint());}
 				}
 				
 				if (((Course) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
@@ -650,7 +671,9 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 			
 			}//#######KONIEC TRY
 		} catch (Exception e) {
-			System.out.println("Klient sie --odlaczyl");
+			
+			DBManager db = DBManager.getInstance();
+			System.out.println("Klient sie --odlaczyl"+db.useSavePoint());
 			this.saveLog("Klient sie rozlaczyl");
 		} finally {
 			

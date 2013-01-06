@@ -97,6 +97,7 @@ public class LoginPanel extends JPanel {
         				//JOptionPane.showMessageDialog(null, "Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\nAdres: "+p.getAdress().getCity()+"\nPesel: "+p.getPesel());
         				owner.loginUser();
         				cl.show(ja, "logged");
+        				JOptionPane.showMessageDialog(null, "Zosta³eœ pomyœlnie zalogowany");
         			}
         		}
         	}

@@ -81,8 +81,8 @@ public class CardLayoutExp extends JFrame {
 	public CardLayoutExp() throws ClassNotFoundException, IOException {
 		events = Events.getInstance(this);
 		
-		setMinimumSize(new Dimension(900, 700));
-		setPreferredSize(new Dimension(700, 520));
+		setMinimumSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(800, 600));
 		
 		// Inicjalizacja i ustawienie nowego wygl¹du: JGoodies Plastic 3D look and feel
 		initializeLookAndFeels();
@@ -90,7 +90,7 @@ public class CardLayoutExp extends JFrame {
         setTitle("System zarz¹dzania uroczystosciami");
                 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 	// ustawienie akcji dla przycisku X
-		setBounds(100, 100, 700, 520);						  	// ustwienie rozmieru okna
+		setBounds(100, 100, 800, 600);						  	// ustwienie rozmieru okna
 		contentPane = new JPanel();								// stworzenie panelu g³ównego formatki
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));			// ustawienie obramowania
 		setContentPane(contentPane);								// ustawienie panelu g³ównego dla formatki

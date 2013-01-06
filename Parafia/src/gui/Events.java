@@ -19,7 +19,6 @@ public class Events {
 	private String adr;
 	private int portt;
 	private boolean logged = false;
-	private NewsList newsList = new NewsList();
 	private CardLayoutExp adminForm;
 
 	/**
@@ -101,8 +100,35 @@ public class Events {
 	 * @throws ClassNotFoundException
 	 */
 	public NewsList getNewsList() throws ClassNotFoundException, IOException {
+		NewsList newsList = new NewsList();
+		Actuals act = new Actuals();
 		newsList.generateNewsList(5); // pobranie przyk³adowej listy aktualnoœci
-		// newsList.generateNewsList(5);
+
+		//newsList.generateNewsList(5); //pobranie przyk³adowej listy aktualnoœci
+		
+		//Starsznie przekombionowane tutaj jest poniewaz nie wiem w ktorym momencie Ma³ysz ³aczy sie z serwerem
+		//wiec po³aczy³em sie tutaj
+		int i=0;
+		act.setKindQuery(KindQuery.SEL_DBASE);
+		act.setQuery("Select * from actuals");
+		k.sendObject(act);
+		k.reciveObject();
+		
+		LinkedList<Actuals> actL = new LinkedList<Actuals>();
+		actL=(LinkedList<Actuals>)k.getPackage();
+		if(!actL.getFirst().getQuery().equals("ERR")){
+			Iterator<Actuals> itA = actL.iterator();
+			while(itA.hasNext()){
+				i++;
+				Actuals ae = itA.next();
+				System.out.println(ae.getDescribe());
+				System.out.println(ae.getAddDate());
+				System.out.println(ae.getPriestPesel());
+				System.out.println(ae.getName());
+				System.out.println(ae.getSurName());
+				newsList.addNews(new News("Aktualnosc "+i, ae.getAddDate(),ae.getName()+ae.getSurName() , 56,	"<p style=\"color:orange; margin:0px; padding:0px;\">"+ae.getDescribe() +"</p>"));
+			}
+		}
 		return newsList;
 	}
 
@@ -283,6 +309,31 @@ public class Events {
 			k.reciveObject();
 			priest = (Priest) k.getPackage();
 		}
+	}
+	
+	
+	/**
+	 * @param editedParishioner
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * <br /><br />
+	 * aktualizuje dane podanego u¿ytkownika w bazie danych
+	 */
+	public void edytujUzytkownika(Parishioner editedParishioner) throws IOException, ClassNotFoundException{
+		
+	}
+	
+	/**
+	 * @param newU :User - dane logowania urzytkownika
+	 * @param newP :Parishioner - dane nowego urzytkownika
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * <br /><br />
+	 * dodaje nowego urzytkownika<br />
+	 * doda³em now¹ funkcje poniewarz bez sensy jest wrzucaæ w parametry obiekty Adress i Course poniewarz s¹ w klasie Parishioner
+	 */
+	public void dodajUzytkownika(User newU,	Parishioner newP) throws IOException, ClassNotFoundException{
+		dodajUzytkownika(newU, newP.getAdress(), newP.getCourse(), newP);
 	}
 
 	public void dodajUzytkownika(User newU, Adress newA, Course newC,

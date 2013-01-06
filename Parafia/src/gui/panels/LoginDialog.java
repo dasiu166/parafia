@@ -79,7 +79,7 @@ public class LoginDialog extends JDialog implements ActionListener{
 		JButton btnParishioner = new JButton("Parishioner");
 		btnParishioner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setLoginData("user", "user");
+				setLoginData("ania", "an11");
 				okData = true;
 				setVisible(false);
 			}
@@ -90,7 +90,7 @@ public class LoginDialog extends JDialog implements ActionListener{
 		JButton btnWorker = new JButton("Worker");
 		btnWorker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setLoginData("worker", "worker");
+				setLoginData("pop2", "pop66");
 				okData = true;
 				setVisible(false);
 			}
@@ -101,7 +101,7 @@ public class LoginDialog extends JDialog implements ActionListener{
 		JButton btnGood = new JButton("Good");
 		btnGood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setLoginData("good", "good");
+				setLoginData("pop_master", "pop55");
 				okData = true;
 				setVisible(false);
 			}
