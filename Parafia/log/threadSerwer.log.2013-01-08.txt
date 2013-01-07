@@ -1,0 +1,30 @@
+2013-01-08 00:02:07: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-08 00:02:07: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-08 00:02:07: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:02:07: Watek:Thread-1 -> Proba logowania
+2013-01-08 00:02:07: Watek:Thread-1 -> Zalogowano
+2013-01-08 00:02:07: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:02:07: Watek:Thread-1 -> Wylogowano
+2013-01-08 00:02:07: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:02:07: Watek:Thread-1 -> Proba logowania
+2013-01-08 00:02:07: Watek:Thread-1 -> Zalogowano
+2013-01-08 00:02:07: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:02:07: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:02:07: Watek:Thread-1 -> Wylogowano
+2013-01-08 00:02:07: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:02:07: Watek:Thread-1 -> Klient sie rozlaczyl
+2013-01-08 00:12:23: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-08 00:12:23: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-08 00:12:23: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:12:23: Watek:Thread-1 -> Proba logowania
+2013-01-08 00:12:23: Watek:Thread-1 -> Zalogowano
+2013-01-08 00:12:23: Watek:Thread-1 -> Nieznane polecenie klienta
+2013-01-08 00:12:23: Watek:Thread-1 -> Klient sie rozlaczyl
+2013-01-08 00:21:36: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-08 00:21:36: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-08 00:21:36: Watek:Thread-1 -> Proba logowania
+2013-01-08 00:21:36: Watek:Thread-1 -> Zalogowano
+2013-01-08 00:21:36: Watek:Thread-1 -> Klient sie rozlaczyl
+2013-01-08 00:49:22: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-08 00:49:22: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-08 00:49:22: Watek:Thread-1 -> Klient sie rozlaczyl
