@@ -57,7 +57,8 @@ public class Serwer {
 				Serwer.saveLog("Nowy watek");
 				//LOG_END
 				
-				new SerwerThread(socket);// utworzenie watka serwera
+				//new SerwerThread(socket);// utworzenie watka serwera
+				new SerwerThreadService(socket);// utworzenie watka serwera
 				
 			} catch (IOException e) {
 				

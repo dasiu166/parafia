@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 import java.util.Date;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import oracle.net.jdbc.TNSAddress.Address;
+//import oracle.net.jdbc.TNSAddress.Address;
 
 
 public class AddNewParishionerPanel extends JPanel implements ActionListener{
@@ -532,7 +532,10 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		Object z = e.getSource();
 		if(z == btnAdd){
 			if(workingMode == ADD_MODE)
-				;//events.addParishioner(getParishionerData());
+			
+			//events.addParishioner(getParishionerData())
+			//events.dodajUzytkownika(newU, newA, newC, newP)
+				;
 			else if(workingMode == EDIT_MODE)
 				;//events.editParishioner(getParishionerData());
 		}else if(z == btnClear){

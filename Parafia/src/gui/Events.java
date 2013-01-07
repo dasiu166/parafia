@@ -52,7 +52,7 @@ public class Events {
 		else
 			System.out.println("Klient - polaczony");
 		// if(!k.getIsConnected()){ JOptionPane.showMessageDialog(null,
-		// "B³¹d po³¹czenia z serverem", "Error connect",
+		// "Blad polaczenia z serverem", "Error connect",
 		// JOptionPane.ERROR_MESSAGE); }
 	}
 	
@@ -68,7 +68,7 @@ public class Events {
 
 	/**
 	 * @return <b>Events</b> - SINGLETON<br />
-	 *         Zwraca instancje siebie lub tworzy naw¹ je¿eli nie istnieje
+	 *         Zwraca instancje siebie lub tworzy nawe jezeli nie istnieje
 	 */
 	public static Events getInstance(CardLayoutExp val) {
 		if (INSTANCE == null)
@@ -95,19 +95,20 @@ public class Events {
 	}
 
 	/**
-	 * @return <b>NewsList</b> - liste Aktualnoœci
+	 * @return <b>NewsList</b> - liste Aktualnosci
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
+	//############################## WYSWIETLANIE AKTULNOSCI ################################3
 	public NewsList getNewsList() throws ClassNotFoundException, IOException {
 		NewsList newsList = new NewsList();
 		Actuals act = new Actuals();
-		newsList.generateNewsList(5); // pobranie przyk³adowej listy aktualnoœci
+		newsList.generateNewsList(5); // pobranie przykladowej listy aktualnosci
 
-		//newsList.generateNewsList(5); //pobranie przyk³adowej listy aktualnoœci
+		//newsList.generateNewsList(5); //pobranie przyk;adowej listy aktualnosci
 		
-		//Starsznie przekombionowane tutaj jest poniewaz nie wiem w ktorym momencie Ma³ysz ³aczy sie z serwerem
-		//wiec po³aczy³em sie tutaj
+		//Starsznie przekombionowane tutaj jest poniewaz nie wiem w ktorym momencie Malysz laczy sie z serwerem
+		//wiec polaczysem sie tutaj
 		int i=0;
 		act.setKindQuery(KindQuery.SEL_DBASE);
 		act.setQuery("Select * from actuals");
@@ -121,27 +122,48 @@ public class Events {
 			while(itA.hasNext()){
 				i++;
 				Actuals ae = itA.next();
+				System.out.println(ae.getSubject());
 				System.out.println(ae.getDescribe());
 				System.out.println(ae.getAddDate());
 				System.out.println(ae.getPriestPesel());
 				System.out.println(ae.getName());
 				System.out.println(ae.getSurName());
-				newsList.addNews(new News("Aktualnosc "+i, ae.getAddDate(),ae.getName()+ae.getSurName() , 56,	"<p style=\"color:orange; margin:0px; padding:0px;\">"+ae.getDescribe() +"</p>"));
+				newsList.addNews(new News(ae.getSubject(), ae.getAddDate(),ae.getName()+ae.getSurName() , 56,	"<p style=\"color:orange; margin:0px; padding:0px;\">"+ae.getDescribe() +"</p>"));
 			}
 		}
 		return newsList;
 	}
-
+	//####################### DODAWANIE AKTUALNOSCI ##############################
+	public boolean dodajAktualnosc(Actuals akt) throws IOException{
+		
+		akt.setKindQuery(KindQuery.ADD_DBASE);
+		akt.setQuery("INSERT INTO Actuals VALUES (" + 
+				"seq_actuals.nextval,"+
+				akt.getPriestPesel()+",'"+
+				akt.getSubject()+"','"+
+				akt.getDescribe()+"',"+
+				"to_date('"+akt.getAddDate().toLocaleString().substring(0, 16)+"','yyyy-MM-dd HH24:MI'))");
+		System.out.println("^^^^^^^^^^^^" + akt.getQuery());
+		if(!k.sendObject(akt)){
+			this.connectionError();
+			return false;
+		}
+		
+		
+		
+		return true;
+		
+	}
 	/**
 	 * @param login
 	 *            :String
 	 * @param haslo
 	 *            :String
-	 * @return <b>true</b> - je¿eli logowanie siê powiod³o<br />
-	 *         <b>false</b> - je¿eli logowanie siê nie powiod³o<br />
+	 * @return <b>true</b> - jezeli logowanie sie powiodlo<br />
+	 *         <b>false</b> - jezeli logowanie sie nie powiodlo<br />
 	 * <br />
-	 *         uzupe³nia tekrze odpowiednie obiekty parafianina i ksiêdza w
-	 *         zale¿noœci od uprawniej urzytkownika
+	 *         uzupelnia tekrze odpowiednie obiekty parafianina i ksiedza w
+	 *         zaleznoci od uprawniej urzytkownika
 	 */
 
 	// #################### LOGOWANIE/WYLOGOWANIE ##############################
@@ -208,7 +230,7 @@ public class Events {
 					+ " " + priest.getSurName() + "\n" + " Adres: "
 					+ " Pesel: " + priest.getPesel());
 		} else {
-			System.out.println("B£¹d logowania");
+			System.out.println("Blad logowania");
 			return false;
 		}
 
@@ -219,11 +241,11 @@ public class Events {
 
 	// ---------------------------------------------------------------------
 	/**
-	 * @return <b>true</b> - je¿eli urzytkownik zosta³ wylogowany<br />
-	 *         <b>false</b> - je¿eli wylogowanie siê nie powiod³o<br />
+	 * @return <b>true</b> - jezeli urzytkownik zostal wylogowany<br />
+	 *         <b>false</b> - jezeli wylogowanie sie nie powiodlo<br />
 	 * <br />
-	 *         ustawia takrze obiekty klasy do stanu pocz¹tkowego w³aœciwego dla
-	 *         urzytkownika bez uprawnieñ
+	 *         ustawia takrze obiekty klasy do stanu poczatkowego wlasciwego dla
+	 *         urzytkownika bez uprawniem
 	 */
 
 	public boolean wyloguj() {
@@ -317,7 +339,7 @@ public class Events {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 * <br /><br />
-	 * aktualizuje dane podanego u¿ytkownika w bazie danych
+	 * aktualizuje dane podanego uzytkownika w bazie danych
 	 */
 	public void edytujUzytkownika(Parishioner editedParishioner) throws IOException, ClassNotFoundException{
 		
@@ -330,7 +352,7 @@ public class Events {
 	 * @throws ClassNotFoundException
 	 * <br /><br />
 	 * dodaje nowego urzytkownika<br />
-	 * doda³em now¹ funkcje poniewarz bez sensy jest wrzucaæ w parametry obiekty Adress i Course poniewarz s¹ w klasie Parishioner
+	 * dodalem nowa funkcje poniewarz bez sensy jest wrzucanie w parametry obiekty Adress i Course poniewarz sa w klasie Parishioner
 	 */
 	public void dodajUzytkownika(User newU,	Parishioner newP) throws IOException, ClassNotFoundException{
 		dodajUzytkownika(newU, newP.getAdress(), newP.getCourse(), newP);
@@ -676,22 +698,22 @@ public class Events {
 	}
 
 	/**
-	 * @return <b>Priest</b> - zwraca aktualnego ksiêdza
+	 * @return <b>Priest</b> - zwraca aktualnego ksiedza
 	 */
 	public Priest getPriest() {
 		return priest;
 	}
 
 	/**
-	 * @return <b>true</b> - je¿eli u¿ytkownik jest zalogowany<br />
-	 *         <b>false</b> - je¿eli u¿ytkownik jest zalogowany
+	 * @return <b>true</b> - jezeli uzytkownik jest zalogowany<br />
+	 *         <b>false</b> - jezeli uzytkownik jest zalogowany
 	 */
 	public boolean getLogged() {
 		return logged;
 	}
 
 	/**
-	 * @return zwraca poziom uprawnieñ aktualnego u¿ytkownika<br />
+	 * @return zwraca poziom uprawnien aktualnego uzytkownika<br />
 	 *         KindRestriction.GUEST_R <br \>
 	 *         KindRestriction.LOGED_R <br \>
 	 *         KindRestriction.WORKS_R <br \>

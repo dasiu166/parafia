@@ -37,7 +37,7 @@ public class SerwerThread extends Thread implements KindQuery , KindRange, KindR
 		start();
 	}
 	
-	private void saveLog(String text){
+	public void saveLog(String text){
 		Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 				d.toLocaleString().substring(0, 10), d.toLocaleString()+
 				": Watek:"+this.getName()+" -> "+ text);

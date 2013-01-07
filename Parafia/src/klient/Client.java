@@ -130,6 +130,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		/*!!Poczatek logowania!!-------------------------------------------------*/
 		//Parishioner p = new Parishioner();
+		
 		User u = new User();
 		u.setKindQuery(KindQuery.TRY_LOGIN); //zapytanie = logowanie
 		u.setLogin("ania");
@@ -175,7 +176,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		/*DODANIE PARAFIANINA (ze sprawdzeniem
 		 * czy taki juz jest, i ze zwrotem jego id po dodaniu
-		 * (wszystkim zajmuje sie serwer))*/
+		 * (wszystkim zajmuje sie serwer))
 		
 		User newU = new User();
 		newU.setLogin("Xx");
@@ -261,7 +262,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			
 			newP = (Parishioner)k.getPackage();
 			System.out.println("Wynik dodania parafianina"+newP.getQuery());
-		}
+		}*/
 		
 		
 		
@@ -307,8 +308,8 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		System.out.println(q);
 		*/
 		
-		/*Poczatek pobrania listy zamowien---------------------------------
-		//Order o = new Order();
+		//Poczatek pobrania listy zamowien---------------------------------
+		Order o = new Order();
 		o.setKindQuery(KindQuery.SEL_DBASE);
 		//*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)
 		o.setQuery("Select id_orderr,id_event," +
@@ -331,7 +332,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
 		}
 		System.out.println(orderList.size());
-		*/
+		
 		
 		
 		/*Pobranie szczegolowych danych na temat parafianina--------------
@@ -441,6 +442,33 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		
 		//----------------------------------------------------------
+		
+		//###################DODANIE AKTUALNOSCI#####################
+				Actuals akt = new Actuals();
+				akt.setKindQuery(KindQuery.ADD_DBASE);
+				akt.setSubject("jakis temat");
+				akt.setDescribe("jakis opis");
+				akt.setPriestPesel("59040665847");
+				akt.setAddDate(Pomoc.podajDate("1990-12-20"));
+				
+				akt.setQuery("INSERT INTO Actuals VALUES (" + 
+				"seq_actuals.nextval,"+
+				akt.getPriestPesel()+",'"+
+				akt.getSubject()+"','"+
+				akt.getDescribe()+"',"+
+				"to_date('"+akt.getAddDate().toLocaleString().substring(0, 16)+"','yyyy-MM-dd HH24:MI'))");
+			
+						/*q="INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'"+o.getExecutroPesel()+"','"+
+								o.getSenderPesel()+"','"+o.getDescribe()+"','"+o.getStatus()+"',"+
+								"to_date('"+o.getBeginDate().toLocaleString().substring(0, 16)+
+								"','yyyy-MM-dd HH24:MI'),"+"to_date('"+o.getEndDate().toLocaleString().substring(0, 10)+
+								"','yyyy-MM-dd'))";*/
+				
+				System.out.println("^^^^^^^^^^^^" + akt.getQuery());
+				k.sendObject(akt);
+				//if(!k.sendObject(akt)){
+					//this.connectionError();
+				//}
 		
 		
 		p.setKindQuery(-1);

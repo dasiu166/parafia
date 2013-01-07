@@ -5,6 +5,7 @@ public class Actuals extends DataBaseElement{
 
 	private int id;
 	private String priestPesel;
+	private String subject;
 	private String describe;
 	private Date addDate;
 	
@@ -57,5 +58,13 @@ public class Actuals extends DataBaseElement{
 
 	public void setSurName(String surName) {
 		this.surName = surName;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 }
