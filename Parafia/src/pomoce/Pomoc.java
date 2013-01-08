@@ -83,6 +83,19 @@ public class Pomoc {
 		  return buf;
 		}
 	
+public static String validateEventName(LinkedList<obsluga.Event> list, String type){
+		
+		Iterator<obsluga.Event> it =list.iterator();
+		while(it.hasNext()){
+			obsluga.Event ee = it.next();
+			if (ee.getId()==Integer.parseInt(type))
+					return ee.getName();
+		}
+		
+		return "Inne";
+		
+	}
+	
 	public static void main(String[] args){
 		//Pomoc.writeToFile("log\\","log2","jakie zycie taki rap");
 		System.out.println(Pomoc.podajDate("2012-12-20 12:00").toLocaleString());

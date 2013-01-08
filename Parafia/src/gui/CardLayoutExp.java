@@ -430,6 +430,15 @@ public class CardLayoutExp extends JFrame {
 		JMenuItem mntmOrderslist = new JMenuItem("ordersList");
 		mntmOrderslist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try{
+					events.pobierzZdarzenia();
+					}catch(ClassNotFoundException e){
+						
+					}catch(IOException e){
+						
+					}
+				jpOrdersList.setEventList(events.getClient().getEventKindList());
+				jpOrdersList.loadListOrder();
 				cl.show(panelContent, "ordersList");
 			}
 		});

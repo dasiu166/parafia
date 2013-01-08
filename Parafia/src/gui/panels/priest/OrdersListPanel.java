@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import stale.*;
+import pomoce.*;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -42,6 +44,8 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private JPanel panel;
 	private int orderNumber = 0;
 	private long time = System.currentTimeMillis();
+	private LinkedList<obsluga.Event> eventList;
+
 
 	/**
 	 * Create the panel.
@@ -74,7 +78,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		JLabel lblPodwujneKliknieciOtwiera = new JLabel("Podwujne kliknieci otwiera okno z zamowieniem");
 		panel_1.add(lblPodwujneKliknieciOtwiera);
 		
-		Order order = new Order();
+		/*Order order = new Order();
 		Parishioner sender = new Parishioner();
 		sender.setName("Anna");
 		sender.setSurName("Wojnar");
@@ -93,7 +97,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		order.setStatus("Do rozpatrzenia");
 		order.setBeginDate(new Date());
 		order.setDescribe("wiadomosc od usera w sprawie wypominek");
-		addOrder(order);
+		addOrder(order);*/
 		
 		setLayout(groupLayout);
 		
@@ -122,8 +126,9 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		orderNumber++;
 		addRowConstraint("[40.00px:40.00px]");
 		
-		String from = order.getSender().getName()+" "+order.getSender().getSurName();
-		String type = order.getEvent();
+		//String from = order.getSender().getName()+" "+order.getSender().getSurName();
+		String from = "empty";
+		String type = Pomoc.validateEventName(eventList, order.getEvent());
 		String status = order.getStatus();
 		Date dataTime = order.getBeginDate();
 		
@@ -200,7 +205,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		Events events = Events.getInstance();
 		LinkedList<Order> orderList = null;
 		try {
-			orderList = events.pobierzZamowieniaParafianina();
+			orderList = events.pobierzZamowieniaKsiedza(KindRange.PRIEST_RANG);
 			JOptionPane.showMessageDialog(null, "TEST");
 			JOptionPane.showMessageDialog(null, orderList.getFirst().getStatus());
 		} catch (IOException e) {	e.printStackTrace();	} catch (ClassNotFoundException e) {	e.printStackTrace();	}
@@ -208,10 +213,21 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 
 		while(iterator.hasNext()){ 
 			Order tmp =iterator.next();
-			//System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
+			System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
 			addOrder(tmp);
 		}
-		//System.out.println(orderList.size());
+		System.out.println("Wielkosc listy zamowien "+orderList.size());
+	}
+	
+	public void loadListOrder(){
+		listOrders();
+	}
+	
+	public void setEventList(LinkedList<obsluga.Event> e){
+		eventList = e;
+	}
+	public LinkedList<obsluga.Event> getEventList(){
+		return eventList;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
