@@ -82,6 +82,7 @@ CREATE TABLE Orderr  (
 CREATE TABLE Actuals(
   id_actuals NUMBER CONSTRAINT actuals_pk PRIMARY KEY,
   pesel_priest NUMBER(11),
+  subject VARCHAR(100),
   describe VARCHAR(400),
   add_date DATE,
   CONSTRAINT ac_pr_fk FOREIGN KEY (pesel_priest) REFERENCES Priest(pesel)

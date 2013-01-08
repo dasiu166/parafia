@@ -3,6 +3,8 @@ DROP SEQUENCE  seq_adress;
 DROP SEQUENCE  seq_course;
 DROP SEQUENCE  seq_event;
 DROP SEQUENCE  seq_orderr;
+DROP SEQUENCE  seq_actuals;
+
 
 
 CREATE  SEQUENCE seq_userr MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
@@ -10,6 +12,8 @@ CREATE  SEQUENCE seq_adress MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT B
 CREATE  SEQUENCE seq_course MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
 CREATE  SEQUENCE seq_event MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
 CREATE  SEQUENCE seq_orderr MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
+CREATE  SEQUENCE seq_actuals MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
+
 
 
 
@@ -73,10 +77,10 @@ INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chc
 
 
 ------------Actuals-----------
-INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Start parafii',to_date('09/25/2012','mm/dd/yyyy'));
-INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 1',to_date('12/20/2012','mm/dd/yyyy'));
-INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 2',to_date('01/01/2013','mm/dd/yyyy'));
-INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Ogloszenie 3',to_date('06/01/2013','mm/dd/yyyy'));
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','Start parafii','Dzis wystartowala nasza e parafia',to_date('09/25/2012','mm/dd/yyyy'));
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','temat 1','Ogloszenie 1',to_date('12/20/2012','mm/dd/yyyy'));
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','temat 2','Ogloszenie 2',to_date('01/01/2013','mm/dd/yyyy'));
+INSERT INTO Actuals VALUES (seq_actuals.nextval,'59040665847','temat 3','Ogloszenie 3',to_date('06/01/2013','mm/dd/yyyy'));
 commit;
 
 /*
