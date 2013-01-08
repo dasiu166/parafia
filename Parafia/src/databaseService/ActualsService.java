@@ -37,8 +37,9 @@ public class ActualsService extends ServicePart {
 				if(!tmp[0].equals("ERR")){
 				a.setId(Integer.parseInt(tmp[0]));
 				a.setPriestPesel(tmp[1]);
-				a.setDescribe(tmp[2]);
-				a.setAddDate(Pomoc.podajDate(tmp[3]));
+				a.setSubject(tmp[2]);
+				a.setDescribe(tmp[3]);
+				a.setAddDate(Pomoc.podajDate(tmp[4]));
 				//moje zmiany(VeLoOx)
 				//Priest pr = new Priest();
 				   dbReturn1 = db.execSelectQuery("SELECT * FROM priest where pesel="+tmp[1]);
