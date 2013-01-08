@@ -81,4 +81,20 @@ public class Order extends DataBaseElement implements Serializable{
 		return true;
 	}
 	
+	public Person getSender(){
+		return sender;
+	}
+	
+	public Person getExecutor(){
+		return executor;
+	}
+	
+	public void setSender(Parishioner sender){
+		this.sender = sender;
+	}
+	
+	public void setExecutor(Parishioner executor){
+		this.executor = executor;
+	}
+	
 }

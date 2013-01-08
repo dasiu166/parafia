@@ -22,12 +22,17 @@ import javax.swing.SwingConstants;
 import obsluga.Adress;
 import obsluga.Course;
 import obsluga.Parishioner;
+import obsluga.User;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Date;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 //import oracle.net.jdbc.TNSAddress.Address;
+import stale.KindRange;
+import stale.KindRestriction;
 
 
 public class AddNewParishionerPanel extends JPanel implements ActionListener{
@@ -54,14 +59,14 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 	private JDateChooser dateConfirmation;
 	private JDateChooser dateMarriage;
 	private JDateChooser dateDeath;
-	JLabel lblDataLogin;
-	JLabel lblLogin_;
-	JLabel lblPassword_;
-	JLabel lblRepeatPassword_;
-	JLabel lblDeath_;
-	JButton btnAdd;
-	JButton btnClear;
-	Events events = Events.getInstance();
+	private JLabel lblDataLogin;
+	private JLabel lblLogin_;
+	private JLabel lblPassword_;
+	private JLabel lblRepeatPassword_;
+	private JLabel lblDeath_;
+	private JButton btnAdd;
+	private JButton btnClear;
+	private Events events = Events.getInstance();
 	private JLabel label;
 
 	public AddNewParishionerPanel(JFrame owner, Parishioner parishioner){
@@ -446,7 +451,18 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		course.setDeath((!dateDeath.isEmpty())?dateDeath.getDate():null);
 		parishioner.setAdress(adress);
 		parishioner.setCourse(course);
+		parishioner.setPass(passwordPassword.getPassword().toString());
 		return parishioner;
+	}
+	
+	public User getUserData(){
+		User user = new User();
+		user.setId(0);
+		user.setLogin(textLogin.getText());
+		user.setPassword(passwordPassword.getText());
+		user.setRestriction(KindRestriction.LOGED_R);
+		user.setRange(KindRange.LOGG_RANG);		
+		return user;
 	}
 	
 	private void reset(){
@@ -531,12 +547,16 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object z = e.getSource();
 		if(z == btnAdd){
-			if(workingMode == ADD_MODE)
-			
-			//events.addParishioner(getParishionerData())
-			//events.dodajUzytkownika(newU, newA, newC, newP)
-				;
-			else if(workingMode == EDIT_MODE)
+			if(workingMode == ADD_MODE){
+				if(passwordPassword.getText().equals(passwordRepeatPassword.getText())){
+					Parishioner parishioner = getParishionerData();
+					try {
+						events.dodajUzytkownika(getUserData(), parishioner.getAdress(), parishioner.getCourse(), parishioner);
+					} catch (ClassNotFoundException e1) {e1.printStackTrace();	} catch (IOException e1) { e1.printStackTrace();}
+				} else {
+					JOptionPane.showMessageDialog(null, "Has³a musz¹ byæ takie same", "B³¹d Has³a", JOptionPane.WARNING_MESSAGE);
+				}
+			} else if(workingMode == EDIT_MODE)
 				;//events.editParishioner(getParishionerData());
 		}else if(z == btnClear){
 			if(workingMode == ADD_MODE)

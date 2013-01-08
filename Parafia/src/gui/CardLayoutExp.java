@@ -7,6 +7,7 @@ import gui.panels.parishioner.ParishionerDataPanel;
 import gui.panels.priest.AddNewParishionerPanel;
 import gui.panels.priest.AddNewPriestPanel;
 import gui.panels.priest.AddNewsPanel;
+import gui.panels.priest.OrdersListPanel;
 import gui.panels.priest.PriestDataPanel;
 
 import java.awt.CardLayout;
@@ -47,8 +48,9 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
+import obsluga.Parishioner;
+import obsluga.Priest;
 import stale.KindRestriction;
-import obsluga.*;
 
 import com.jgoodies.looks.FontPolicies;
 import com.jgoodies.looks.FontPolicy;
@@ -142,6 +144,9 @@ public class CardLayoutExp extends JFrame {
       	
       	final AddNewPriestPanel jpAddNewPriest = new AddNewPriestPanel(this);
       	panelContent.add(jpAddNewPriest, "addNewPriest");
+      	
+      	final OrdersListPanel jpOrdersList = new OrdersListPanel(this);
+      	panelContent.add(jpOrdersList, "ordersList");
         
 		//#################### CONTENT PANEL ####################
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -406,7 +411,7 @@ public class CardLayoutExp extends JFrame {
 		});
 		mnKsidz.add(mntmAddnewparishioner);
 		
-		JMenuItem mntmKsiadzAddNews = new JMenuItem("addNewsPanel");
+		JMenuItem mntmKsiadzAddNews = new JMenuItem("addNews");
 		mntmKsiadzAddNews.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(panelContent, "addNews");
@@ -421,6 +426,14 @@ public class CardLayoutExp extends JFrame {
 			}
 		});
 		mnKsidz.add(mntmAddnewpriest);
+		
+		JMenuItem mntmOrderslist = new JMenuItem("ordersList");
+		mntmOrderslist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl.show(panelContent, "ordersList");
+			}
+		});
+		mnKsidz.add(mntmOrderslist);
 		
 		Component horizontalGlue = Box.createHorizontalGlue(); // dziêki temu menuPomoc jest po prawej stronie
 		menuBar.add(horizontalGlue);

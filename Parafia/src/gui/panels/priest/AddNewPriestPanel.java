@@ -34,7 +34,7 @@ public class AddNewPriestPanel extends JPanel {
 	JDateChooser dateSecularityData;	
 	JDateChooser dateArrivalData;
 	
-	JComboBox<String> comboPosition;
+	JComboBox comboPosition;
 	/**
 	 * Create the panel.
 	 */
@@ -112,9 +112,9 @@ public class AddNewPriestPanel extends JPanel {
 		dateSecularityData = new JDateChooser();		
 		dateArrivalData = new JDateChooser();
 		
-		comboPosition = new JComboBox<String>();
+		comboPosition = new JComboBox();
 		
-		comboPosition.setModel(new DefaultComboBoxModel<String>(new String[] {"<wybierz Stanowisko>", "Ksi\u0105dz", "Proboszcz", "Sektertaka"}));
+		comboPosition.setModel(new DefaultComboBoxModel(new String[] {"<wybierz Stanowisko>", "Ksi\u0105dz", "Proboszcz", "Sektertaka"}));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)

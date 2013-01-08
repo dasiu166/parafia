@@ -1,19 +1,23 @@
 package gui.panels.priest;
 
 
+import gui.Events;
 import gui.panels.LoginDialog;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ListIterator;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +28,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 
 import net.miginfocom.swing.MigLayout;
+import obsluga.Order;
+import obsluga.Parishioner;
+import java.awt.Color;
 
 public class OrdersListPanel extends JPanel implements ActionListener {
 	/**
@@ -32,8 +39,9 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private LoginDialog dialogLogowania;
 	private JFrame owner;
-	JPanel panel;
-	int newsNumber = 0;
+	private JPanel panel;
+	private int orderNumber = 0;
+	private long time = System.currentTimeMillis();
 
 	/**
 	 * Create the panel.
@@ -58,217 +66,155 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel = new JPanel();
 		panel.setFont(new Font("Tekton Pro", Font.BOLD, 14));
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[475.00px:475.00px,grow]", "[]"));
+		panel.setLayout(new MigLayout("", "[572.00px:572.00px,grow]", "[24.00]"));
 		
-		//addNews("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>");
-		//addNews("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>");
-		//addNews("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>");
-		//addNews("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>");
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1, "cell 0 0,grow");
+		
+		JLabel lblPodwujneKliknieciOtwiera = new JLabel("Podwujne kliknieci otwiera okno z zamowieniem");
+		panel_1.add(lblPodwujneKliknieciOtwiera);
+		
+		Order order = new Order();
+		Parishioner sender = new Parishioner();
+		sender.setName("Anna");
+		sender.setSurName("Wojnar");
+		order.setSender(sender);
+		order.setEvent("Œlub");
+		order.setStatus("Do rozpatrzenia");
+		order.setBeginDate(new Date());
+		order.setDescribe("wiadomosc od usera");
+		addOrder(order);
+		order = new Order();
+		sender = new Parishioner();
+		sender.setName("Adam");
+		sender.setSurName("Konar");
+		order.setSender(sender);
+		order.setEvent("Wypominki");
+		order.setStatus("Do rozpatrzenia");
+		order.setBeginDate(new Date());
+		order.setDescribe("wiadomosc od usera w sprawie wypominek");
+		addOrder(order);
+		
 		setLayout(groupLayout);
 		
 		//JOptionPane.showMessageDialog(null, ((MigLayout)panel.getLayout()).getRowConstraints());
-
+		
+		//listOrders();
 	}
 	
 	/**
-	 * @param constraint - ograniczenie "[[100px:]100px[,grow]]"
-	 * @return void - dodaje domyœlne rozmiary w pionie dla nowego newsu
+	 * @param constraint - ograniczenie "[[40px:]40px[,grow]]"
+	 * @return void - dodaje domyœlne rozmiary w pionie dla nowego Zamówienia
 	 */
 	private synchronized void addRowConstraint(String constraint){
 		String rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
+		//JOptionPane.showMessageDialog(null, rowConstraints);
 		if(rowConstraints.equals("[]"))
 			((MigLayout)panel.getLayout()).setRowConstraints( constraint );
 		else
 			((MigLayout)panel.getLayout()).setRowConstraints( rowConstraints+constraint );
+		rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
+		JOptionPane.showMessageDialog(null, rowConstraints);
 	}
 	
-	/**
-	 * @param subiect - Temat / Tytu³ newsu
-	 * @param data - data dodania newsu
-	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @param content - Zawartoœæ newsu w kodzie html
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
-	 */
-	public void addNews(String subiect, Date data, String ksiadz, int contentHeight, String content){
-		newsNumber++;
-		addRowConstraint("[100px:"+(contentHeight+44)+"px]");
-		final JPanel panel_news = new JPanel();
-		panel_news.setMinimumSize(new Dimension(10, 100));
-		panel_news.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_news.setAutoscrolls(true);
-		panel.add(panel_news, "cell 0 "+(newsNumber-1)+",grow");
+
+	public void addOrder(final Order order){
+		orderNumber++;
+		addRowConstraint("[40.00px:40.00px]");
+		
+		String from = order.getSender().getName()+" "+order.getSender().getSurName();
+		String type = order.getEvent();
+		String status = order.getStatus();
+		Date dataTime = order.getBeginDate();
+		
+		final JPanel orderPanel = new JPanel();
+		orderPanel.setBackground(new Color(230, 230, 250));
+		orderPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.add(orderPanel, "cell 0 "+orderNumber+",grow");
+		
+		JLabel lblFrom = new JLabel("Od: "+from);
+		JLabel lblType = new JLabel("Typ: "+type);		
+		final JLabel lblStatus = new JLabel("Status: "+status);
+		DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		JLabel lblData = new JLabel("Data: "+formatter.format(dataTime));
+		
+		orderPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				long currTime = System.currentTimeMillis();
 				
-		final JEditorPane dtrpnContent = new JEditorPane();
-		dtrpnContent.setContentType("text/html");
-		dtrpnContent.setText(content);
-		dtrpnContent.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dtrpnContent.setEditable(false);		
-
-		JLabel lblTitle = new JLabel(subiect);
-		lblTitle.setFont(new Font("Adobe Caslon Pro", Font.BOLD, 18));
+				if(currTime-time < 250){
+					//System.out.println("doubleClick in: "+(currTime-time));
+					OrderDialog orderDialog = null;
+					
+					if(orderDialog==null)
+						orderDialog = new OrderDialog(null, order);
+					orderDialog.setVisible(true);
+					//orderDialog.setFocus();
+	        		
+	        		if(orderDialog.isAccepted()){
+	        			JOptionPane.showMessageDialog(null, "ACCEPT Zmiany zosta³y zaakceptowane");
+	        			lblStatus.setText("Status: "+order.getStatus());
+	        			orderPanel.setBackground(new Color(152, 251, 152));
+	        		}else if(orderDialog.isAborted()){
+	        			JOptionPane.showMessageDialog(null, "ABORT Zmiany zosta³y zaakceptowane");
+	        			lblStatus.setText("Status: "+order.getStatus());
+	        			orderPanel.setBackground(new Color(240, 230, 140));
+	        		}else{
+	        			JOptionPane.showMessageDialog(null, "Porzucono zmiany");
+	        		}
+				}
+				time = currTime;
+			}
+		});
 		
-		JLabel lblDodano = new JLabel("Dodano:");
-		
-		@SuppressWarnings("deprecation")
-		JLabel lblDate = new JLabel(data.getDate()+"."+(data.getMonth()+1)+"."+(data.getYear()+1900)+" "+data.getHours()+":"+data.getMinutes());
-		
-		JLabel lblKsName = new JLabel("Ks. "+ksiadz);
-		GroupLayout gl_panel_news = new GroupLayout(panel_news);
-		gl_panel_news.setHorizontalGroup(
-			gl_panel_news.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 492, Short.MAX_VALUE)
-				.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
-				.addGroup(gl_panel_news.createSequentialGroup()
-					.addGap(5)
-					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_news.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(gl_panel_news.createSequentialGroup()
-							.addComponent(lblDodano)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblDate))
-						.addComponent(lblKsName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(5))
+		GroupLayout gl_orderPanel = new GroupLayout(orderPanel);
+		gl_orderPanel.setHorizontalGroup(
+			gl_orderPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_orderPanel.createSequentialGroup()
+					.addGap(6)
+					.addComponent(lblFrom, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblStatus, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+					.addGap(6))
 		);
-		gl_panel_news.setVerticalGroup(
-			gl_panel_news.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 100, Short.MAX_VALUE)
-				.addGroup(gl_panel_news.createSequentialGroup()
-					.addGroup(gl_panel_news.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_news.createSequentialGroup()
-							.addGroup(gl_panel_news.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblDate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDodano, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-							.addGap(1)
-							.addComponent(lblKsName))
-						.addGroup(gl_panel_news.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblTitle)))
-					.addGap(1)
-					.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-					.addGap(1))
+		gl_orderPanel.setVerticalGroup(
+			gl_orderPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_orderPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_orderPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblFrom)
+						.addComponent(lblType)
+						.addComponent(lblStatus)
+						.addComponent(lblData))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		panel_news.setLayout(gl_panel_news);
+		orderPanel.setLayout(gl_orderPanel);
 	}
 
-	
-	/**
-	 * @param news
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
-	 */
-	public void addNews(News news){
-		addNews(news.getSubiect(), news.getData(), news.getKsiadz(), news.getContentHeight(), news.getContent());
+	public void listOrders(){
+		Events events = Events.getInstance();
+		LinkedList<Order> orderList = null;
+		try {
+			orderList = events.pobierzZamowieniaParafianina();
+			JOptionPane.showMessageDialog(null, "TEST");
+			JOptionPane.showMessageDialog(null, orderList.getFirst().getStatus());
+		} catch (IOException e) {	e.printStackTrace();	} catch (ClassNotFoundException e) {	e.printStackTrace();	}
+		Iterator<Order> iterator = orderList.iterator();
+
+		while(iterator.hasNext()){ 
+			Order tmp =iterator.next();
+			//System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
+			addOrder(tmp);
+		}
+		//System.out.println(orderList.size());
 	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(dialogLogowania==null)
-			dialogLogowania = new LoginDialog(owner);
-		dialogLogowania.setVisible(true);
-		dialogLogowania.setFocus();
 		
-		if(dialogLogowania.isOK()){
-			JOptionPane.showMessageDialog(owner, "Login: "+dialogLogowania.getLogin()+"\nHas³o: "+dialogLogowania.getPassword());
-		}		
-	}
-}
-
-class News{
-	public News(String subiect, Date data, String ksiadz, int contentHeight, String content) {
-		super();
-		this.subiect = subiect;
-		this.data = data;
-		this.ksiadz = ksiadz;
-		this.contentHeight = contentHeight;
-		this.content = content;
-	}
-	
-	private String subiect;
-	private Date data;
-	private String ksiadz;
-	private int contentHeight;
-	private String content;
-	
-	public String getSubiect() {
-		return subiect;
-	}
-	public void setSubiect(String subiect) {
-		this.subiect = subiect;
-	}
-	public Date getData() {
-		return data;
-	}
-	public void setData(Date data) {
-		this.data = data;
-	}
-	public String getKsiadz() {
-		return ksiadz;
-	}
-	public void setKsiadz(String ksiadz) {
-		this.ksiadz = ksiadz;
-	}
-	public int getContentHeight() {
-		return contentHeight;
-	}
-	public void setContentHeight(int contentHeight) {
-		this.contentHeight = contentHeight;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
-}
-
-class NewsList{
-	public NewsList() {
-		super();
-	}
-	
-	public NewsList(ArrayList<News> lista) {
-		super();
-		this.lista = lista;
-	}
-	
-	public void generateNewsList(int num) {
-		for(int i=1 ;i<=((num<=5)?num:5);i++){
-			if(i==1)addNews(new News("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>"));
-			if(i==2)addNews(new News("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>"));
-			if(i==3)addNews(new News("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>"));
-			if(i==4)addNews(new News("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>"));
-			if(i==5)addNews(new News("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>"));
-		}
-	}
-
-	ArrayList<News> lista = new ArrayList<News>();
-	
-	public void addNews(News news){
-		lista.add(news);		
-	}
-	
-	public News getNews(int index){
-		return lista.get(index);
-	}
-	
-	public ArrayList<News> getNewsList(){
-		return lista;
-	}
-	
-	public void addNewsListToPanel(OrdersListPanel panelNews){
-		ListIterator<News> iterator = lista.listIterator();
-		while(iterator.hasNext()){
-			panelNews.addNews(iterator.next());
-		}
-	}
-	
-	public boolean addNewsToPanel(OrdersListPanel panelNews, int index){
-		if(index<lista.size()){
-			panelNews.addNews(lista.get(index));
-			return true;
-		}
-		return false;
 	}
 }

@@ -41,7 +41,7 @@ public class NewOrderPanel extends JPanel {
 		JLabel lblDateStart = new JLabel("Data Pocz\u0105tku:");
 		lblDateStart.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JDateChooser pDateStart = new JDateChooser();
+		JDateChooser pDateStart = new JDateChooser(true);
 		
 		JLabel lblIlo = new JLabel("Ilo\u015B\u0107:");
 		lblIlo.setHorizontalAlignment(SwingConstants.RIGHT);

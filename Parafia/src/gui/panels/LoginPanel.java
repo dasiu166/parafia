@@ -64,7 +64,7 @@ public class LoginPanel extends JPanel {
         		if(event.wyloguj()){
         			owner.resetSettings();
 	        		cl.show(ja, "unlogged");
-	        		JOptionPane.showMessageDialog(null, "Wylogowano");
+	        		//JOptionPane.showMessageDialog(null, "Wylogowano");
         		} else {
         			JOptionPane.showMessageDialog(null, "B³¹d wylogowania", "B³¹d", JOptionPane.ERROR_MESSAGE);
         		}
@@ -97,7 +97,7 @@ public class LoginPanel extends JPanel {
         				//JOptionPane.showMessageDialog(null, "Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\nAdres: "+p.getAdress().getCity()+"\nPesel: "+p.getPesel());
         				owner.loginUser();
         				cl.show(ja, "logged");
-        				JOptionPane.showMessageDialog(null, "Zosta³eœ pomyœlnie zalogowany");
+        				//JOptionPane.showMessageDialog(null, "Zosta³eœ pomyœlnie zalogowany");
         			}
         		}
         	}

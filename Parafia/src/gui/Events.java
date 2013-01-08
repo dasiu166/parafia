@@ -103,9 +103,7 @@ public class Events {
 	public NewsList getNewsList() throws ClassNotFoundException, IOException {
 		NewsList newsList = new NewsList();
 		Actuals act = new Actuals();
-		newsList.generateNewsList(5); // pobranie przykladowej listy aktualnosci
-
-		//newsList.generateNewsList(5); //pobranie przyk;adowej listy aktualnosci
+		//newsList.generateNewsList(5); // pobranie przyk³adowej listy aktualnoœci
 		
 		//Starsznie przekombionowane tutaj jest poniewaz nie wiem w ktorym momencie Malysz laczy sie z serwerem
 		//wiec polaczysem sie tutaj
