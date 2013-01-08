@@ -67,6 +67,24 @@ public class ActualsService extends ServicePart {
 		
 		if(((Actuals) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
 			
+			DBManager db = DBManager.getInstance();
+			
+			dbReturnInt = db.execUpdateQuery(((Actuals) wiadomosc).getQuery()); 
+			System.out.println("^^^^^^^^^ "+((Actuals) wiadomosc).getQuery());
+			
+			if(dbReturnInt!=0){
+				((Actuals) wiadomosc).setQuery("OK+");
+				dbReturn = db.execSelectQuery("Select seq_actuals.currval from dual");
+				String tmp[] = dbReturn.getFirst();
+				
+				if(!tmp[0].equals("ERR")){
+					((Actuals) wiadomosc).setId(Integer.parseInt(tmp[0]));
+				} else ((Actuals) wiadomosc).setQuery("ERR");
+			} else ((Actuals) wiadomosc).setQuery("ERR");
+			
+			if (!s.sendObject(wiadomosc)) {
+				 System.out.println("UZYCIE KOPII======="+db.useSavePoint());}
+			
 		}
 
 		
