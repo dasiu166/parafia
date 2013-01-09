@@ -351,7 +351,96 @@ public class Events {
 	 * <br /><br />
 	 * dodaje nowego urzytkownika<br />
 	 * dodalem nowa funkcje poniewarz bez sensy jest wrzucanie w parametry obiekty Adress i Course poniewarz sa w klasie Parishioner
-	 */
+	*/
+	
+	public void dodajUzytkownika(User newU, Adress newA, Priest newP) 
+			throws IOException, ClassNotFoundException {
+		
+		//User newU = new User();
+		//newU.setLogin("xxxx");
+		//newU.setPassword("P");
+		//newU.setRestriction(KindRestriction.WORKS_R);
+		//newU.setRange(KindRange.PRIEST_RANG);
+		
+		newU.setKindQuery(KindQuery.ADD_DBASE);
+		newU.setQuery("INSERT INTO Userr VALUES (" +
+				"seq_userr.nextval,'"+
+				newU.getLogin()+"','"+
+				newU.getPassword()+"',"+
+				newU.getRestriction()+","+
+				newU.getRange()
+				+")");
+		System.out.println("^^^^^^^^^^^^"+newU.getQuery());
+		if(!k.sendObject(newU)){
+			this.connectionError();
+		}
+		k.reciveObject();
+		newU = (User)k.getPackage();
+		System.out.println("Wynik dodania uzytkownika  "+newU.getQuery());
+		
+		//Adress newA = new Adress();
+		//newA.setCity("Kielce");
+		//newA.setHouseNumb("12A");
+		//newA.setPostcode("14-111");
+		//newA.setStreet("Wieczorna");
+		
+		newA.setKindQuery(KindQuery.ADD_DBASE);
+		newA.setQuery("INSERT INTO Adress VALUES (" +
+				"seq_adress.nextval,'" +
+				newA.getCity()+"','"+
+				newA.getStreet()+"','"+
+				newA.getHouse()+"','"+
+				newA.getPostcode()+
+				"')");
+		if(!k.sendObject(newA)){
+			this.connectionError();
+		}
+		k.reciveObject();
+		newA=(Adress)k.getPackage();
+		System.out.println("Wynik dodania adresu  "+newA.getQuery()+" "+newA.getId());
+		
+		try{
+			System.out.println("!!!!!!!!!!!!Oczekuje");
+			Thread.sleep(0);
+			}catch(InterruptedException e){
+				
+			}
+			
+			if (newU.getRestriction()>KindRestriction.LOGED_R){
+				//Priest newP = new Priest();
+				//newP.setPesel("900122");
+				//newP.setName("AdamKSIADZ");
+				//newP.setSurName("Milk");
+				//newP.setPossition("Ksiadz");
+				//newP.setSecularityDate(Pomoc.podajDate("1990-12-20"));
+				//newP.setArrivalDate(Pomoc.podajDate("2002-08-10"));
+				
+				newP.setKindQuery(KindQuery.ADD_DBASE);
+				newP.setQuery("INSERT INTO Priest VALUES (" +
+						newP.getPesel()+","+
+						newU.getId()+","+
+						newA.getId()+",'"+
+						newP.getName()+"','"+
+						newP.getSurName()+"','"+
+						newP.getPosition()+"',"+
+						"to_date('"+newP.getArrivalDate().toLocaleString().substring(0, 10)+"','yyyy-MM-dd'),"+
+						"to_date('"+newP.getSecularityDate().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')"+
+						")");
+				System.out.println(newP.getQuery());
+				
+				
+				if(!k.sendObject(newP)){
+					this.connectionError();
+				}
+				k.setNullPackage();
+				k.reciveObject();
+				
+				newP = (Priest)k.getPackage();
+				System.out.println("Wynik dodania parafianina"+newP.getQuery());
+		
+			}
+	}
+	
 	public void dodajUzytkownika(User newU,	Parishioner newP) throws IOException, ClassNotFoundException{
 		dodajUzytkownika(newU, newP.getAdress(), newP.getCourse(), newP);
 	}
@@ -643,6 +732,42 @@ public class Events {
 		System.out.println("Wynik usuwania " + check.getQuery());
 		return check;
 
+	}
+	
+	public Order akceptujZamowienie(Order o)throws IOException,
+	ClassNotFoundException
+	{
+		
+		o.setKindQuery(KindQuery.UPD_DBASE);
+		o.setQuery("UPDATE Orderr SET status='"+KindQuery.ACK+"' where" +
+				" id_orderr="+o.getId());
+		
+		if(!k.sendObject(o)){
+			this.connectionError();
+		}
+
+		k.reciveObject();
+		Order check = (Order) k.getPackage();
+		System.out.println("Wynik updatu " + check.getQuery());
+		return check;
+	}
+	
+	public Order odrzucZamowienie(Order o)throws IOException,
+	ClassNotFoundException
+	{
+		
+		o.setKindQuery(KindQuery.UPD_DBASE);
+		o.setQuery("UPDATE Orderr SET status='"+KindQuery.DEN+"' where" +
+				" id_orderr="+o.getId());
+		
+		if(!k.sendObject(o)){
+			this.connectionError();
+		}
+
+		k.reciveObject();
+		Order check = (Order) k.getPackage();
+		System.out.println("Wynik updatu " + check.getQuery());
+		return check;
 	}
 
 	// ---------------------------------------------------------------------

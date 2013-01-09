@@ -134,7 +134,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		User u = new User();
 		u.setKindQuery(KindQuery.TRY_LOGIN); //zapytanie = logowanie
 		u.setLogin("ania");
-		u.setPassword("ania");
+		u.setPassword("an11");
 		
 		u.setQuery("SELECT * FROM userr WHERE login = '"+u.getLogin()+"' AND password = '"+
 		 u.getPassword()+"'");
@@ -173,6 +173,83 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
 				" Pesel: "+p.getPesel());
+		
+		//DODANIE KSIEDZA
+		User newU = new User();
+		newU.setLogin("xxxx");
+		newU.setPassword("P");
+		newU.setRestriction(KindRestriction.WORKS_R);
+		newU.setRange(KindRange.PRIEST_RANG);
+		newU.setKindQuery(KindQuery.ADD_DBASE);
+		newU.setQuery("INSERT INTO Userr VALUES (" +
+				"seq_userr.nextval,'"+
+				newU.getLogin()+"','"+
+				newU.getPassword()+"',"+
+				newU.getRestriction()+","+
+				newU.getRange()
+				+")");
+		System.out.println("^^^^^^^^^^^^"+newU.getQuery());
+		k.sendObject(newU);
+		k.reciveObject();
+		newU = (User)k.getPackage();
+		System.out.println("Wynik dodania uzytkownika  "+newU.getQuery());
+		
+		Adress newA = new Adress();
+		newA.setCity("Kielce");
+		newA.setHouseNumb("12A");
+		newA.setPostcode("14-111");
+		newA.setStreet("Wieczorna");
+		newA.setKindQuery(KindQuery.ADD_DBASE);
+		newA.setQuery("INSERT INTO Adress VALUES (" +
+				"seq_adress.nextval,'" +
+				newA.getCity()+"','"+
+				newA.getStreet()+"','"+
+				newA.getHouse()+"','"+
+				newA.getPostcode()+
+				"')");
+		k.sendObject(newA);
+		k.reciveObject();
+		newA=(Adress)k.getPackage();
+		System.out.println("Wynik dodania adresu  "+newA.getQuery()+" "+newA.getId());
+		
+		try{
+			System.out.println("!!!!!!!!!!!!Oczekuje");
+			Thread.sleep(10000);
+			}catch(InterruptedException e){
+				
+			}
+			
+			if (newU.getRestriction()>KindRestriction.LOGED_R){
+				Priest newP = new Priest();
+				newP.setPesel("900122");
+				newP.setName("AdamKSIADZ");
+				newP.setSurName("Milk");
+				newP.setPossition("Ksiadz");
+				newP.setSecularityDate(Pomoc.podajDate("1990-12-20"));
+				newP.setArrivalDate(Pomoc.podajDate("2002-08-10"));
+				newP.setKindQuery(KindQuery.ADD_DBASE);
+				newP.setQuery("INSERT INTO Priest VALUES (" +
+						newP.getPesel()+","+
+						newU.getId()+","+
+						newA.getId()+",'"+
+						newP.getName()+"','"+
+						newP.getSurName()+"','"+
+						newP.getPosition()+"',"+
+						"to_date('"+newP.getArrivalDate().toLocaleString().substring(0, 10)+"','yyyy-MM-dd'),"+
+						"to_date('"+newP.getSecularityDate().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')"+
+						")");
+				System.out.println(newP.getQuery());
+				
+				k.sendObject(newP);
+				k.setNullPackage();
+				k.reciveObject();
+				
+				newP = (Priest)k.getPackage();
+				System.out.println("Wynik dodania parafianina"+newP.getQuery());
+		
+			}
+		
+		
 		
 		/*DODANIE PARAFIANINA (ze sprawdzeniem
 		 * czy taki juz jest, i ze zwrotem jego id po dodaniu
@@ -442,7 +519,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		
 		//----------------------------------------------------------
-		
+		/*
 		//###################DODANIE AKTUALNOSCI#####################
 				Actuals akt = new Actuals();
 				akt.setKindQuery(KindQuery.ADD_DBASE);
@@ -462,14 +539,14 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 								o.getSenderPesel()+"','"+o.getDescribe()+"','"+o.getStatus()+"',"+
 								"to_date('"+o.getBeginDate().toLocaleString().substring(0, 16)+
 								"','yyyy-MM-dd HH24:MI'),"+"to_date('"+o.getEndDate().toLocaleString().substring(0, 10)+
-								"','yyyy-MM-dd'))";*/
+								"','yyyy-MM-dd'))";
 				
-				System.out.println("^^^^^^^^^^^^" + akt.getQuery());
-				k.sendObject(akt);
+				//System.out.println("^^^^^^^^^^^^" + akt.getQuery());
+				//k.sendObject(akt);
 				//if(!k.sendObject(akt)){
 					//this.connectionError();
 				//}
-		
+		*/
 		
 		p.setKindQuery(-1);
 		k.sendObject(p);
@@ -485,5 +562,5 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 	//probaEnd
 	
 	
-	
+		
 }

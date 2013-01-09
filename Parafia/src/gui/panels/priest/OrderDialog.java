@@ -20,7 +20,10 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import obsluga.Order;
+import obsluga.*;
+import pomoce.Pomoc;
+
+import java.util.*;
 
 public class OrderDialog extends JDialog implements ActionListener{
 
@@ -33,14 +36,16 @@ public class OrderDialog extends JDialog implements ActionListener{
 	private boolean accept = false;
 	private boolean abort = false;
 	private Order order;
+	private LinkedList<obsluga.Event> eventList;
 
 	
 	/**
 	 * Create the dialog.
 	 */
-	public OrderDialog(JFrame owner, Order order) {
+	public OrderDialog(JFrame owner, Order order, LinkedList<obsluga.Event> le) {
 		super(owner, "Rozpatrzenie Wniosku", true);
 		setResizable(false);
+		eventList=le;
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent arg0) {
@@ -79,7 +84,7 @@ public class OrderDialog extends JDialog implements ActionListener{
 		lblType_.setBounds(54, 61, 150, 14);
 		contentPanel.add(lblType_);
 		
-		JLabel lblType = new JLabel(order.getEvent());
+		JLabel lblType = new JLabel(Pomoc.validateEventName(eventList,order.getEvent()));
 		lblType.setBounds(214, 61, 150, 14);
 		contentPanel.add(lblType);
 
@@ -155,6 +160,11 @@ public class OrderDialog extends JDialog implements ActionListener{
 	
 	public void setFocus(){
 		editorRepeat.requestFocusInWindow();
+	}
+	
+	public void setEventList(LinkedList<obsluga.Event> le){
+		eventList = le;
+		System.out.print("ORDERDIALOG LISTEVENT "+le.size());
 	}
 
 	@Override

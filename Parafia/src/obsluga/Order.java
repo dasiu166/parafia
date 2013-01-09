@@ -8,7 +8,7 @@ public class Order extends DataBaseElement implements Serializable{
 	private Parishioner sender; //ten co nadal zamowienie
 	private String senderPesel; //pesel tego co nadal zamowienie
 	
-	private Parishioner executor;//ten co ma odprawic zamowienie
+	private Priest executor;//ten co ma odprawic zamowienie
 	private String executorPesel;//pesel tego co ma odprawic zamowienie
 	
 	/*UP - narazie nie wiem ktore bedzie obowiazujace, zapewnie niedlugo
@@ -93,7 +93,7 @@ public class Order extends DataBaseElement implements Serializable{
 		this.sender = sender;
 	}
 	
-	public void setExecutor(Parishioner executor){
+	public void setExecutor(Priest executor){
 		this.executor = executor;
 	}
 	

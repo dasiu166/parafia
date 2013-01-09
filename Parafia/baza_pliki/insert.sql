@@ -51,12 +51,19 @@ INSERT INTO Userr VALUES(seq_userr.nextval,'pop_master','pop55',4,44);
 INSERT INTO Userr VALUES(seq_userr.nextval,'pop2','pop66',3,33);
 
 ------------Event------------
-INSERT INTO Event VALUES(seq_event.nextval,'Chrzest','Przyjecie chrztu sw');
-INSERT INTO Event VALUES(seq_event.nextval,'Slub','Przyjecie slubu');
-INSERT INTO Event VALUES(seq_event.nextval,'Msza','Odprawienie mszy sw');
-INSERT INTO Event VALUES(seq_event.nextval,'Pogrzeb','Odprawienie pogrzebu');
-INSERT INTO Event VALUES(seq_event.nextval,'Gregorianka','Combo msza x30');
-INSERT INTO Event VALUES(seq_event.nextval,'Urlop','Karaiby dla ksiedza');
+--INSERT INTO Event VALUES(seq_event.nextval,'Chrzest','Przyjecie chrztu sw');
+--INSERT INTO Event VALUES(seq_event.nextval,'Slub','Przyjecie slubu');
+--INSERT INTO Event VALUES(seq_event.nextval,'Msza','Odprawienie mszy sw');
+--INSERT INTO Event VALUES(seq_event.nextval,'Pogrzeb','Odprawienie pogrzebu');
+--INSERT INTO Event VALUES(seq_event.nextval,'Gregorianka','Combo msza x30');
+--INSERT INTO Event VALUES(seq_event.nextval,'Urlop','Karaiby dla ksiedza');
+
+INSERT INTO Event VALUES(1,'Chrzest','Przyjecie chrztu sw');
+INSERT INTO Event VALUES(2,'Przyjecie slubu');
+INSERT INTO Event VALUES(3,'Msza','Odprawienie mszy sw');
+INSERT INTO Event VALUES(4,'Pogrzeb','Odprawienie pogrzebu');
+INSERT INTO Event VALUES(5,'Gregorianka','Combo msza x30');
+INSERT INTO Event VALUES(6,'Urlop','Karaiby dla ksiedza');
 
 ------------Parishioner------------
 INSERT INTO Parishioner VALUES('11031254796',1,1,1,'Anna','Ciosk');

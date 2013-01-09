@@ -1,6 +1,7 @@
 package databaseService;
 
 import obsluga.Adress;
+import obsluga.Parishioner;
 import obsluga.Priest;
 import obsluga.User;
 import database.DBManager;
@@ -74,6 +75,26 @@ public class PriestService extends ServicePart {
 		}//## KONIEC SELECTU DANYCH KSIEDZA
 		
 		if (((Priest) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
+			
+			DBManager db = DBManager.getInstance();
+
+			dbReturnInt = db.execUpdateQuery(((Priest) wiadomosc)
+					.getQuery());
+
+			if (dbReturnInt == 0) {
+				((Priest) wiadomosc).setQuery("ERR");
+				System.out.println("UZYCIE KOPII=======" + db.useSavePoint());
+			
+			} else {
+				((Priest) wiadomosc).setQuery("OK+");
+			}
+
+			if (!s.sendObject(wiadomosc)) {
+				db.doCommit();
+				// uzycie kopii przy bledzie dodawania (cofnie sie az do usera)
+				//System.out.println("UZYCIE KOPII=======" + db.useSavePoint());
+			} else
+				db.doCommit(); // potwierdzenie zapisu
 			
 		}
 		

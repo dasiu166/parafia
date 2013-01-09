@@ -76,6 +76,33 @@ public class OrderService extends ServicePart {
 					o.setBeginDate(Pomoc.podajDate(tmp[6].substring(0, 16)));
 					// System.out.println("WYNIK::: "+tmp[6].substring(0, 16));
 					o.setEndDate(Pomoc.podajDate(tmp[7].substring(0, 16)));
+					
+					
+					
+					//BLOK UZUPELNIANIA DANYCH OSOBY zamawiajacej
+					dbReturn = db.execSelectQuery("Select * from parishioner where " +
+							"pesel="+tmp[3]);
+					System.out.println("%%%Select * from parishioner where " +
+							"pesel="+tmp[3]);
+					
+					String tmp3[] = dbReturn.getFirst();
+					Parishioner par = new Parishioner();
+					par.setName(tmp3[4]);
+					par.setSurName(tmp3[5]);
+					o.setSender(par);
+					
+					
+					
+					//BLOK UZUPELNIANIA DANYCH OSOBY WYKONUJACEJ
+					dbReturn = db.execSelectQuery("Select * from priest where " +
+							"pesel="+tmp[2]);
+					System.out.println("&&&Select * from priest where " +
+							"pesel="+tmp[2]);
+					String tmp2[] = dbReturn.getFirst();
+					Priest p = new Priest();
+					p.setName(tmp2[3]);
+					p.setSurName(tmp2[4]);
+					o.setExecutor(p);
 
 					orderList.add(o); // dodanie obiektu do listy
 				} else {
@@ -113,6 +140,31 @@ public class OrderService extends ServicePart {
 				// LOG_END------------------------------------------------------
 			}
 
+		}
+		
+		if (((Order) wiadomosc).getKindQuery() == KindQuery.UPD_DBASE) {
+			
+			DBManager db = DBManager.getInstance();
+			dbReturnInt = db.execUpdateQuery(((Order) wiadomosc).getQuery());
+			System.out.println(((Order) wiadomosc).getQuery());
+			
+			if (dbReturnInt != 0) {
+				((Order) wiadomosc).setData("ZAMOWIENIE UAKTUALNIONE");
+				((Order) wiadomosc).setQuery("OK+");
+				((Order) wiadomosc).setStatus(KindQuery.ACK);
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Zamowienie uaktualnione");
+				// LOG_END------------------------------------------------------
+			} else {
+				((Order) wiadomosc).setData("BLAD UAKTUALNIENIA ZAMOWIENIA");
+				((Order) wiadomosc).setQuery("ERR");
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Blad uaktualnienia zamowienia");
+				// LOG_END------------------------------------------------------
+			}
+			
 		}
 	}//koniec else
 	}//koniec doservice

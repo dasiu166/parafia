@@ -45,6 +45,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private int orderNumber = 0;
 	private long time = System.currentTimeMillis();
 	private LinkedList<obsluga.Event> eventList;
+	Events events = Events.getInstance();
 
 
 	/**
@@ -126,8 +127,8 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		orderNumber++;
 		addRowConstraint("[40.00px:40.00px]");
 		
-		//String from = order.getSender().getName()+" "+order.getSender().getSurName();
-		String from = "empty";
+		String from = order.getSender().getName()+" "+order.getSender().getSurName();
+		//String from = "empty";
 		String type = Pomoc.validateEventName(eventList, order.getEvent());
 		String status = order.getStatus();
 		Date dataTime = order.getBeginDate();
@@ -153,15 +154,37 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					OrderDialog orderDialog = null;
 					
 					if(orderDialog==null)
-						orderDialog = new OrderDialog(null, order);
+						//System.out.println("!!!Rozmiar eventList"+eventList.size());
+						orderDialog = new OrderDialog(null, order, eventList);//dodane
 					orderDialog.setVisible(true);
+					//orderDialog.setEventList(eventList);
 					//orderDialog.setFocus();
 	        		
 	        		if(orderDialog.isAccepted()){
+	        			//DODANE
+	        			try{
+	        			Order o = events.akceptujZamowienie(order);
+	        			order.setStatus(o.getStatus());
+	        			} catch (IOException ee){
+	        			
+	        			} catch (ClassNotFoundException ee){
+	        				
+	        			}
+	        			//END_DODANE
 	        			JOptionPane.showMessageDialog(null, "ACCEPT Zmiany zosta³y zaakceptowane");
 	        			lblStatus.setText("Status: "+order.getStatus());
 	        			orderPanel.setBackground(new Color(152, 251, 152));
 	        		}else if(orderDialog.isAborted()){
+	        			//DODANE
+	        			try{
+		        			Order o = events.odrzucZamowienie(order);
+		        			order.setStatus(o.getStatus());
+		        			} catch (IOException ee){
+		        			
+		        			} catch (ClassNotFoundException ee){
+		        				
+		        			}
+	        			//END_DODANE
 	        			JOptionPane.showMessageDialog(null, "ABORT Zmiany zosta³y zaakceptowane");
 	        			lblStatus.setText("Status: "+order.getStatus());
 	        			orderPanel.setBackground(new Color(240, 230, 140));
