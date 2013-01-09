@@ -47,6 +47,8 @@ public class DBManager {
 		}
 	}
 	
+	
+	
 	public boolean useSavePoint(){
 		try {
 			conn.rollback(s);
@@ -58,6 +60,7 @@ public class DBManager {
 	
 	public void doCommit(){
 		try{
+		
 		conn.commit();
 		}catch(SQLException e){
 			try{
@@ -117,11 +120,13 @@ public class DBManager {
 		try{
 		
 		ret = conn.createStatement().executeUpdate(q);
+		
 		//conn.createStatement().executeUpdate("commit");
 		}catch(SQLException e){
 			ret=0;
 			e.printStackTrace();
 			e.getMessage();
+			
 		}
 		
 		return ret;
@@ -156,6 +161,8 @@ public class DBManager {
 			}
 			dataList.add(fieldArray);//dodanie tablicy z polami do listy
 		 }
+		
+		data.close();
 		
 		} 
 		

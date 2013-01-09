@@ -254,6 +254,10 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		while(iterator.hasNext()){ 
 			Order tmp =iterator.next();
 			System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
+			if(tmp.getQuery().equals("ERR")) {
+				JOptionPane.showMessageDialog(null, "Brak zamowien");
+				return;
+			}
 			addOrder(tmp);
 		}
 		System.out.println("Wielkosc listy zamowien "+orderList.size());
