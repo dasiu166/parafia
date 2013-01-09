@@ -38,6 +38,13 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
+	
+	//Grzesiek - moje zmiany
+	GroupLayout gl_orderPanel;
+	JPanel panel_1 = new JPanel();
+	//
+	
+	
 	private static final long serialVersionUID = 1L;
 	private LoginDialog dialogLogowania;
 	private JFrame owner;
@@ -72,8 +79,8 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel.setFont(new Font("Tekton Pro", Font.BOLD, 14));
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new MigLayout("", "[572.00px:572.00px,grow]", "[24.00]"));
+	    
 		
-		JPanel panel_1 = new JPanel();
 		panel.add(panel_1, "cell 0 0,grow");
 		
 		JLabel lblPodwujneKliknieciOtwiera = new JLabel("Podwujne kliknieci otwiera okno z zamowieniem");
@@ -112,18 +119,23 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	 * @return void - dodaje domyœlne rozmiary w pionie dla nowego Zamówienia
 	 */
 	private synchronized void addRowConstraint(String constraint){
+		
+		
 		String rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
 		//JOptionPane.showMessageDialog(null, rowConstraints);
 		if(rowConstraints.equals("[]"))
 			((MigLayout)panel.getLayout()).setRowConstraints( constraint );
 		else
-			((MigLayout)panel.getLayout()).setRowConstraints( rowConstraints+constraint );
-		rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
-		JOptionPane.showMessageDialog(null, rowConstraints);
+			((MigLayout)panel.getLayout()).setRowConstraints( rowConstraints);
+		//rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
+		//JOptionPane.showMessageDialog(null, rowConstraints);
 	}
+	
+	
 	
 
 	public void addOrder(final Order order){
+		
 		orderNumber++;
 		addRowConstraint("[40.00px:40.00px]");
 		
@@ -196,7 +208,10 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			}
 		});
 		
+		
+		
 		GroupLayout gl_orderPanel = new GroupLayout(orderPanel);
+		
 		gl_orderPanel.setHorizontalGroup(
 			gl_orderPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_orderPanel.createSequentialGroup()
@@ -210,6 +225,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 					.addGap(6))
 		);
+		
 		gl_orderPanel.setVerticalGroup(
 			gl_orderPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_orderPanel.createSequentialGroup()
@@ -221,6 +237,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						.addComponent(lblData))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
+		
 		orderPanel.setLayout(gl_orderPanel);
 	}
 
@@ -229,8 +246,8 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		LinkedList<Order> orderList = null;
 		try {
 			orderList = events.pobierzZamowieniaKsiedza(KindRange.PRIEST_RANG);
-			JOptionPane.showMessageDialog(null, "TEST");
-			JOptionPane.showMessageDialog(null, orderList.getFirst().getStatus());
+			//JOptionPane.showMessageDialog(null, "TEST");
+			//JOptionPane.showMessageDialog(null, orderList.getFirst().getStatus());
 		} catch (IOException e) {	e.printStackTrace();	} catch (ClassNotFoundException e) {	e.printStackTrace();	}
 		Iterator<Order> iterator = orderList.iterator();
 
@@ -243,6 +260,15 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	public void loadListOrder(){
+		//Grzesiek - moje zmiany
+		panel.removeAll();
+		panel_1.removeAll();
+		JLabel lblPodwujneKliknieciOtwiera = new JLabel("Podwujne kliknieci otwiera okno z zamowieniem");
+		panel_1.add(lblPodwujneKliknieciOtwiera);
+		panel.add(panel_1);
+		//end
+		
+		orderNumber=0;
 		listOrders();
 	}
 	

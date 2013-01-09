@@ -437,9 +437,11 @@ public class CardLayoutExp extends JFrame {
 					}catch(IOException e){
 						
 					}
+				
 				jpOrdersList.setEventList(events.getClient().getEventKindList());
 				jpOrdersList.loadListOrder();
 				cl.show(panelContent, "ordersList");
+				//jpOrdersList.removeAll();
 			}
 		});
 		mnKsidz.add(mntmOrderslist);
