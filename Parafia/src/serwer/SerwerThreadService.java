@@ -32,6 +32,7 @@ public class SerwerThreadService extends Thread implements KindQuery , KindRange
 	private LinkedList<String[]> dbReturn1;
 	private int dbReturnInt=0;//odbior wynikow w postaci int
 	private LinkedList<ServicePart> serviceList = new LinkedList<ServicePart>();
+	private String myLogin;
 	
 	public SerwerThreadService(Socket s) throws IOException {
 		socket = s;
@@ -52,6 +53,10 @@ public class SerwerThreadService extends Thread implements KindQuery , KindRange
 		Pomoc.writeToFile(Serwer.LOGDIRECTORY, "threadSerwer.log."+
 				d.toLocaleString().substring(0, 10), d.toLocaleString()+
 				": Watek:"+this.getName()+" -> "+ text);
+	}
+	
+	public void setMyLogin(String val){
+		myLogin=val;
 	}
 	
 	private void setNullPackage(){
@@ -128,6 +133,7 @@ public class SerwerThreadService extends Thread implements KindQuery , KindRange
 			DBManager db = DBManager.getInstance();
 			System.out.println("Klient sie --odlaczyl "+db.useSavePoint());
 			this.saveLog("Klient sie rozlaczyl");
+			Serwer.removeLoginFromList(myLogin);
 		} finally {
 			
 			try {

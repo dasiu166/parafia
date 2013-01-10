@@ -50,6 +50,7 @@ public class ActualsService extends ServicePart {
 				a.setQuery("OK+");
 				actualList.add(a); //dodanie obiektu do listy
 				} else {
+					a.setData("Brak aktualnosci");
 					a.setQuery("ERR");
 					actualList.add(a);
 					break;

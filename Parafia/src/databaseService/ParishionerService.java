@@ -99,6 +99,7 @@ public class ParishionerService extends ServicePart {
 
 			if (dbReturnInt == 0) {
 				((Parishioner) wiadomosc).setQuery("ERR");
+				((Parishioner) wiadomosc).setData("Taki pesel juz jest");
 				System.out.println("UZYCIE KOPII=======" + db.useSavePoint());
 			
 			} else {

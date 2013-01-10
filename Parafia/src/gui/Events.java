@@ -20,6 +20,8 @@ public class Events {
 	private int portt;
 	private boolean logged = false;
 	private CardLayoutExp adminForm;
+	private String lastErr = "";
+	private String lastErrData="";
 
 	/**
 	 * CONSTRUCTOR - prywatny do SINGLETON
@@ -246,9 +248,10 @@ public class Events {
 	 *         urzytkownika bez uprawniem
 	 */
 
-	public boolean wyloguj() {
+	/*public boolean wyloguj() {
 		boolean bigErr;
 		int restriction = getRestriction();
+		
 		if (restriction == KindRestriction.LOGED_R) {
 			p.setKindQuery(KindQuery.TRY_LOGOUT);
 			try {
@@ -294,7 +297,39 @@ public class Events {
 		}
 		logged = false;
 		return true;
+	}*/
+	
+	public boolean wyloguj() {
+		boolean bigErr;
+		int restriction = getRestriction();
+		
+		
+			u.setKindQuery(KindQuery.TRY_LOGOUT);
+			try {
+				if (!k.sendObject(u))
+					//return false;
+					this.connectionError();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				if (!k.reciveObject())
+					return false;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			u = (User) k.getPackage();
+			//p = new Parishioner();
+			u.setRestriction(KindRestriction.GUEST_R);
+		logged = false;
+		return true;
 	}
+	
+	
 
 	// ####################### OPERACJE NA DANYCH
 	// ################################
@@ -377,6 +412,8 @@ public class Events {
 		k.reciveObject();
 		newU = (User)k.getPackage();
 		System.out.println("Wynik dodania uzytkownika  "+newU.getQuery());
+		this.setLastErrData(newU.getData());
+		this.setLastErr(newU.getQuery());
 		
 		//Adress newA = new Adress();
 		//newA.setCity("Kielce");
@@ -437,6 +474,8 @@ public class Events {
 				
 				newP = (Priest)k.getPackage();
 				System.out.println("Wynik dodania parafianina"+newP.getQuery());
+				this.setLastErrData(newP.getData());
+				this.setLastErr(newP.getQuery());
 		
 			}
 	}
@@ -468,6 +507,8 @@ public class Events {
 		k.reciveObject();
 		newU = (User) k.getPackage();
 		System.out.println("Wynik dodania uzytkownika  " + newU.getQuery());
+		this.setLastErrData(newU.getData());
+		this.setLastErr(newU.getQuery());
 
 		/*
 		 * Adress newA = new Adress(); newA.setCity("Kielce");
@@ -531,6 +572,8 @@ public class Events {
 
 			newP = (Parishioner) k.getPackage();
 			System.out.println("Wynik dodania parafianina" + newP.getQuery());
+			this.setLastErrData(newP.getData());
+			this.setLastErr(newP.getQuery());
 		}
 	}
 
@@ -812,6 +855,8 @@ public class Events {
 	public Client getClient() {
 		return k;
 	}
+	
+	
 
 	/**
 	 * @return <b>Parishioner</b> - zwraca aktualnego uzytkownika
@@ -844,6 +889,21 @@ public class Events {
 	 */
 	public int getRestriction() {
 		return u.getRestriction();
+	}
+	
+	public void setLastErr(String val){
+		lastErr=val;
+	}
+	public String getLastErr(){
+		return lastErr;
+	}
+	
+	public void setLastErrData(String val){
+		if(val==null) lastErrData=""; else
+		lastErrData=val;
+	}
+	public String getLastErrData(){
+		return lastErr;
 	}
 
 }

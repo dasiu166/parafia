@@ -5,6 +5,8 @@ import obsluga.*;
 import serwer.*;
 import stale.KindQuery;
 import stale.KindRange;
+import stale.KindRestriction;
+
 import java.util.*;
 import java.io.*;
 
@@ -24,7 +26,21 @@ public class UserrService extends ServicePart  {
 				//LOG-
 				s.saveLog("Proba logowania");
 				//LOG_END-
+				s.setMyLogin(((User) wiadomosc).getLogin());
+				
+				if(!Serwer.ckeckLoginList(((User) wiadomosc).getLogin())){
+					
+					((User) wiadomosc).setQuery("ERR");
+					((User) wiadomosc).setData("Jestes juz zalogowany");
+					 s.sendObject(wiadomosc);
+					 //LOG------------------------------
+					 s.saveLog("Blad logowania");
+					 return;
+				}
+				Serwer.showLoginList();
  
+				
+				
 				DBManager db = DBManager.getInstance();
 				db.setAutoCommit(true);//wlaczenie potwierdzen
  
@@ -76,6 +92,7 @@ public class UserrService extends ServicePart  {
 					//koniec znalezienia usera 
 				} else {
 					//##BLAD LOGOWANIA
+					((User) wiadomosc).setData("Nie ma takiego uzytkownika");
 					 ((User) wiadomosc).setQuery("ERR");
 					 s.sendObject(wiadomosc);
 					 //LOG------------------------------
@@ -84,6 +101,28 @@ public class UserrService extends ServicePart  {
 					 //LOG_END--------------------------
 				}
 			}//koniec bloku logowania
+			
+			if (((User) wiadomosc).getKindQuery() == KindQuery.TRY_LOGOUT) {
+				// ## BLOK PROBY WYLOGOWANIA
+
+				//((User) wiadomosc).clean();
+				if(Serwer.removeLoginFromList(((User) wiadomosc).getLogin())){
+				((User) wiadomosc).setRange(KindRange.GUEST_RANG);
+				((User) wiadomosc).setRestriction(KindRestriction.GUEST_R);
+				((User) wiadomosc).setData("Wylogowano CIE");
+				((User) wiadomosc).setQuery("OK+");
+				} else {
+					((User) wiadomosc).setQuery("ERR");
+					((User) wiadomosc).setData("Nie mozna Cie wylogowac - sproboj ponownie za chwile");
+				}
+				
+				s.sendObject(wiadomosc);
+
+				// LOG-------------------------------------------------------------
+				s.saveLog("Wylogowano");
+				// LOG_END----------------------------------------------------------
+				Serwer.showLoginList();
+			}
 			
 			 if (((User) wiadomosc).getKindQuery()==KindQuery.ADD_DBASE){
 				 	//##BLOK DODANIA UZYTKOWNIKA DO BAZY
@@ -124,13 +163,17 @@ public class UserrService extends ServicePart  {
 					 
 					 if(!tmp[0].equals("ERR")){
 						 ((User) wiadomosc).setId(Integer.parseInt(tmp[0]));
-					 } else ((User) wiadomosc).setQuery("ERR");
+					 } else {
+						 ((User) wiadomosc).setQuery("ERR");
+						 ((User) wiadomosc).setData("Blad dodawania");
+						 }
 				 
 				 
 				 } else ((User) wiadomosc).setQuery("ERR");
 				 
 				 } else {
 					 ((User) wiadomosc).setQuery("ERR");
+					 ((User) wiadomosc).setData("Uzytkownik juz istnieje");
 					 System.out.println("Taki uzytkownik juz jest");
 				 } 
 				 

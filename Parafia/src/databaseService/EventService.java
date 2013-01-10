@@ -42,6 +42,7 @@ public class EventService extends ServicePart {
 					e.setQuery("OK+");
 					eventList.add(e);
 				} else {
+					e.setData("Brak zdarzen");
 					e.setQuery("ERR");
 					eventList.add(e);
 					break;

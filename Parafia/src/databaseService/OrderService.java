@@ -106,6 +106,7 @@ public class OrderService extends ServicePart {
 
 					orderList.add(o); // dodanie obiektu do listy
 				} else {
+					o.setData("Brak zamowien");
 					o.setQuery("ERR");
 					orderList.add(o);
 					break;

@@ -83,6 +83,7 @@ public class PriestService extends ServicePart {
 
 			if (dbReturnInt == 0) {
 				((Priest) wiadomosc).setQuery("ERR");
+				((Priest) wiadomosc).setData("Taki pesel juz jest");
 				System.out.println("UZYCIE KOPII=======" + db.useSavePoint());
 			
 			} else {

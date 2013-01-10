@@ -66,7 +66,7 @@ public class LoginPanel extends JPanel {
 	        		cl.show(ja, "unlogged");
 	        		//JOptionPane.showMessageDialog(null, "Wylogowano");
         		} else {
-        			JOptionPane.showMessageDialog(null, "B³¹d wylogowania", "B³¹d", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(null, event.getUser().getData(), "B³¹d", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -98,6 +98,8 @@ public class LoginPanel extends JPanel {
         				owner.loginUser();
         				cl.show(ja, "logged");
         				//JOptionPane.showMessageDialog(null, "Zosta³eœ pomyœlnie zalogowany");
+        			} else {
+        				JOptionPane.showMessageDialog(null, event.getUser().getData());
         			}
         		}
         	}

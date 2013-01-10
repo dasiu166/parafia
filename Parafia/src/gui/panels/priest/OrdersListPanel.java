@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import net.miginfocom.swing.MigLayout;
@@ -241,7 +242,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		orderPanel.setLayout(gl_orderPanel);
 	}
 
-	public void listOrders(){
+	public boolean listOrders(){
 		Events events = Events.getInstance();
 		LinkedList<Order> orderList = null;
 		try {
@@ -253,14 +254,16 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 
 		while(iterator.hasNext()){ 
 			Order tmp =iterator.next();
-			System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
+			//System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
+			
 			if(tmp.getQuery().equals("ERR")) {
 				JOptionPane.showMessageDialog(null, "Brak zamowien");
-				return;
+				return false;
 			}
 			addOrder(tmp);
 		}
 		System.out.println("Wielkosc listy zamowien "+orderList.size());
+		return true;
 	}
 	
 	public void loadListOrder(){
@@ -270,10 +273,18 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		JLabel lblPodwujneKliknieciOtwiera = new JLabel("Podwujne kliknieci otwiera okno z zamowieniem");
 		panel_1.add(lblPodwujneKliknieciOtwiera);
 		panel.add(panel_1);
-		//end
+		
 		
 		orderNumber=0;
-		listOrders();
+		if(!listOrders()){
+			panel.removeAll();
+			panel_1.removeAll();
+			JLabel lblBrakZam = new JLabel("Brak zamowien");
+			panel_1.add(lblBrakZam);
+			panel.add(panel_1);
+			
+		}
+		//end
 	}
 	
 	public void setEventList(LinkedList<obsluga.Event> e){

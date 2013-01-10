@@ -552,6 +552,11 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 					Parishioner parishioner = getParishionerData();
 					try {
 						events.dodajUzytkownika(getUserData(), parishioner.getAdress(), parishioner.getCourse(), parishioner);
+						if(events.getLastErr().equals("OK+")){
+							JOptionPane.showMessageDialog(null, "Parafianin dodany");
+						} else {
+							JOptionPane.showMessageDialog(null, events.getLastErrData());
+						}
 					} catch (ClassNotFoundException e1) {e1.printStackTrace();	} catch (IOException e1) { e1.printStackTrace();}
 				} else {
 					JOptionPane.showMessageDialog(null, "Has³a musz¹ byæ takie same", "B³¹d Has³a", JOptionPane.WARNING_MESSAGE);

@@ -17,11 +17,46 @@ public class Serwer {
 	protected static int PORT = 2000; //zawiera port serwera
 	protected static String LOGDIRECTORY = ""; //zawiera folder glowny plikow log
 	private static Date d = new Date();
+	protected static LinkedList<String> loginNameList = new LinkedList<String>();
 	
 	private static void saveLog(String text){
 		Pomoc.writeToFile(Serwer.LOGDIRECTORY, "mainSerwer.log."+
 				d.toLocaleString().substring(0, 10), d.toLocaleString()+
 				": SERWER -> "+ text);
+	}
+	
+	protected static void addLoginToList(String val){
+		loginNameList.add(val);
+	}
+	
+	public synchronized static boolean ckeckLoginList(String val){
+		Iterator<String> it = loginNameList.iterator();
+		while(it.hasNext()){
+			if(it.next().equals(val)) return false;
+		}
+		loginNameList.add(val);
+		return true;
+	}
+	
+	public synchronized static boolean removeLoginFromList(String val){
+		Iterator<String> it = loginNameList.iterator();
+		int index=0;
+		while(it.hasNext()){
+			
+			if(it.next().equals(val)){
+				loginNameList.remove(index);
+				return true;
+			}
+			index++;
+		}
+		return false;
+	}
+	
+	public static void showLoginList(){
+		Iterator<String> it = loginNameList.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
 	}
 	
 	public static void main (String args[]) throws IOException{
