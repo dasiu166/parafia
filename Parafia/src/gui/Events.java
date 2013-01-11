@@ -484,98 +484,142 @@ public class Events {
 		dodajUzytkownika(newU, newP.getAdress(), newP.getCourse(), newP);
 	}
 
-	public void dodajUzytkownika(User newU, Adress newA, Course newC,
-			Parishioner newP) throws IOException, ClassNotFoundException {
-		boolean bigErr;
-		/*
-		 * Jako arametry chyba najlepeij przekazac bedzie gotowe obiekty bo
-		 * inaczej to parametrow w ciul
-		 */
-		/*
-		 * User newU = new User(); newU.setLogin("Iipii");
-		 * newU.setPassword("P"); newU.setRestriction(KindRestriction.LOGED_R);
-		 * newU.setRange(KindRange.LOGG_RANG);
-		 */
-		newU.setKindQuery(KindQuery.ADD_DBASE);
-		newU.setQuery("INSERT INTO Userr VALUES (" + "seq_userr.nextval,'"
-				+ newU.getLogin() + "','" + newU.getPassword() + "',"
-				+ newU.getRestriction() + "," + newU.getRange() + ")");
-		System.out.println("^^^^^^^^^^^^" + newU.getQuery());
-		if(!k.sendObject(newU)){
-			this.connectionError();
-		}
-		k.reciveObject();
-		newU = (User) k.getPackage();
-		System.out.println("Wynik dodania uzytkownika  " + newU.getQuery());
-		this.setLastErrData(newU.getData());
-		this.setLastErr(newU.getQuery());
-
-		/*
-		 * Adress newA = new Adress(); newA.setCity("Kielce");
-		 * newA.setHouseNumb("12A"); newA.setPostcode("14-111");
-		 * newA.setStreet("Wieczorna");
-		 */
-		newA.setKindQuery(KindQuery.ADD_DBASE);
-		newA.setQuery("INSERT INTO Adress VALUES (" + "seq_adress.nextval,'"
-				+ newA.getCity() + "','" + newA.getStreet() + "','"
-				+ newA.getHouse() + "','" + newA.getPostcode() + "')");
-		if(!k.sendObject(newA)){
-			this.connectionError();
-		}
-		k.reciveObject();
-		newA = (Adress) k.getPackage();
-		System.out.println("Wynik dodania adresu  " + newA.getQuery() + " "
-				+ newA.getId());
-
-		/*
-		 * Course newC = new Course();
-		 * newC.setBirthday(Pomoc.podajDate("1990-12-20"));
-		 * newC.setBaptism(Pomoc.podajDate("1991-01-11"));
-		 */
-		newC.setKindQuery(KindQuery.ADD_DBASE);
-		// UWAGA zastanawiamsie nad sposobem sprwdzenia nullow w datach
-		newC.setQuery("INSERT INTO Course VALUES (" + "seq_course.nextval,"
-				+ "to_date('"
-				+ newC.getBirthDay().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')" + ",to_date('"
-				+ newC.getBaptism().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')," + "null,null,null,null)");
-
-		System.out.println(newC.getQuery());
-
-		if(!k.sendObject(newC)){
-			this.connectionError();
-		}
-		k.setNullPackage();
-		k.reciveObject();
-		newC = (Course) k.getPackage();
-		System.out.println("Wynik dodania przebiegu  " + newC.getQuery() + " "
-				+ newC.getId());
-
-		if (newU.getRestriction() == KindRestriction.LOGED_R) {
+	//####################################DODAWANIE PARAFIANINA#############################	
+		public void dodajUzytkownika(User newU, Adress newA, Course newC,
+				Parishioner newP) throws IOException, ClassNotFoundException {
+			boolean bigErr;
 			/*
-			 * Parishioner newP = new Parishioner(); newP.setPesel("900");
-			 * newP.setName("Adam"); newP.setSurName("Milk");
+			 * Jako arametry chyba najlepeij przekazac bedzie gotowe obiekty bo
+			 * inaczej to parametrow w ciul
 			 */
-			newP.setKindQuery(KindQuery.ADD_DBASE);
-			newP.setQuery("INSERT INTO Parishioner VALUES (" + newP.getPesel()
-					+ "," + newC.getId() + "," + newU.getId() + ","
-					+ newA.getId() + ",'" + newP.getName() + "','"
-					+ newP.getSurName() + "'" + ")");
-			System.out.println(newP.getQuery());
+			/*
+			 * User newU = new User(); newU.setLogin("Iipii");
+			 * newU.setPassword("P"); newU.setRestriction(KindRestriction.LOGED_R);
+			 * newU.setRange(KindRange.LOGG_RANG);
+			 */
+			newU.setKindQuery(KindQuery.ADD_DBASE);
+			newU.setQuery("INSERT INTO Userr VALUES (" + "seq_userr.nextval,'"
+					+ newU.getLogin() + "','" + newU.getPassword() + "',"
+					+ newU.getRestriction() + "," + newU.getRange() + ")");
+			System.out.println("^^^^^^^^^^^^" + newU.getQuery());
+			if(!k.sendObject(newU)){
+				this.connectionError();
+			}
+			k.reciveObject();
+			newU = (User) k.getPackage();
+			System.out.println("Wynik dodania uzytkownika  " + newU.getQuery());
+			this.setLastErrData(newU.getData());
+			this.setLastErr(newU.getQuery());
 
-			if(!k.sendObject(newP)){
+			/*
+			 * Adress newA = new Adress(); newA.setCity("Kielce");
+			 * newA.setHouseNumb("12A"); newA.setPostcode("14-111");
+			 * newA.setStreet("Wieczorna");
+			 */
+			newA.setKindQuery(KindQuery.ADD_DBASE);
+			newA.setQuery("INSERT INTO Adress VALUES (" + "seq_adress.nextval,'"
+					+ newA.getCity() + "','" + newA.getStreet() + "','"
+					+ newA.getHouse() + "','" + newA.getPostcode() + "')");
+			if(!k.sendObject(newA)){
+				this.connectionError();
+			}
+			k.reciveObject();
+			newA = (Adress) k.getPackage();
+			System.out.println("Wynik dodania adresu  " + newA.getQuery() + " "
+					+ newA.getId());
+
+			/*
+			 * Course newC = new Course();
+			 * newC.setBirthday(Pomoc.podajDate("1990-12-20"));
+			 * newC.setBaptism(Pomoc.podajDate("1991-01-11"));
+			 */
+			newC.setKindQuery(KindQuery.ADD_DBASE);
+			// UWAGA zastanawiamsie nad sposobem sprwdzenia nullow w datach
+			
+			String query;
+			
+			newC.setQuery("INSERT INTO Course VALUES (" + "seq_course.nextval,"
+					+ "to_date('"
+					+ newC.getBirthDay().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')" + ",to_date('"
+					+ newC.getBaptism().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')," + "null,null,null,null)");
+			
+			query=("INSERT INTO Course VALUES (" + "seq_course.nextval,"
+					+ "to_date('"
+					+ newC.getBirthDay().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')" 
+					+ ",to_date('"
+					+ newC.getBaptism().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')");
+			
+			if (newC.getCommunion()==null){
+				query=query+",to_date(null)";
+			}
+			else{
+				query=query+",to_date('"+newC.getCommunion().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')";
+			}
+			
+			if (newC.getConfirmation()==null){
+				query=query+",to_date(null)";
+			}
+			else{
+				query=query+",to_date('"+newC.getConfirmation().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')";
+				}
+			
+			if(newC.getMarriage()==null){
+				query=query+",to_date(null)";
+			}
+			else{
+				query=query+",to_date('"+newC.getMarriage().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')";
+				}
+			
+			if(newC.getDeath()==null){
+				query=query+",to_date(null)";
+			}
+			else{
+				query=query+",to_date('"+newC.getDeath().toLocaleString().substring(0, 10)+"','yyyy-MM-dd')";
+			}
+
+			query=query+")";
+			System.out.println("moje zapytanie \n"+query);
+			
+			newC.setQuery(query);
+			System.out.println(newC.getQuery());
+
+			if(!k.sendObject(newC)){
 				this.connectionError();
 			}
 			k.setNullPackage();
 			k.reciveObject();
+			newC = (Course) k.getPackage();
+			System.out.println("Wynik dodania przebiegu  " + newC.getQuery() + " "
+					+ newC.getId());
 
-			newP = (Parishioner) k.getPackage();
-			System.out.println("Wynik dodania parafianina" + newP.getQuery());
-			this.setLastErrData(newP.getData());
-			this.setLastErr(newP.getQuery());
+			if (newU.getRestriction() == KindRestriction.LOGED_R) {
+				/*
+				 * Parishioner newP = new Parishioner(); newP.setPesel("900");
+				 * newP.setName("Adam"); newP.setSurName("Milk");
+				 */
+				newP.setKindQuery(KindQuery.ADD_DBASE);
+				newP.setQuery("INSERT INTO Parishioner VALUES (" + newP.getPesel()
+						+ "," + newC.getId() + "," + newU.getId() + ","
+						+ newA.getId() + ",'" + newP.getName() + "','"
+						+ newP.getSurName() + "'" + ")");
+				System.out.println(newP.getQuery());
+
+				if(!k.sendObject(newP)){
+					this.connectionError();
+				}
+				k.setNullPackage();
+				k.reciveObject();
+
+				newP = (Parishioner) k.getPackage();
+				System.out.println("Wynik dodania parafianina" + newP.getQuery());
+				this.setLastErrData(newP.getData());
+				this.setLastErr(newP.getQuery());
+			}
 		}
-	}
 
 	public void updateUzytkownik(String login, String pass) throws IOException,
 			ClassNotFoundException {

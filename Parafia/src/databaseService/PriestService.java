@@ -54,6 +54,7 @@ public class PriestService extends ServicePart {
 			 pr.setPesel(tmp1[0]);
 			 pr.setName(tmp1[3]);
 			 pr.setSurName(tmp1[4]);
+			 pr.setPossition(tmp1[5]);
 			 pr.setArrivalDate(Pomoc.podajDate(tmp1[6].substring(0, 10)));
 			 pr.setSecularityDate(Pomoc.podajDate(tmp1[7].substring(0, 10)));
 
