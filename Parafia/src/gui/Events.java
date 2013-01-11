@@ -111,7 +111,7 @@ public class Events {
 		//wiec polaczysem sie tutaj
 		int i=0;
 		act.setKindQuery(KindQuery.SEL_DBASE);
-		act.setQuery("Select * from actuals");
+		act.setQuery("Select * from actuals order by add_date desc");
 		k.sendObject(act);
 		k.reciveObject();
 		
@@ -162,6 +162,24 @@ public class Events {
 		
 		return true;
 		
+	}
+	
+	//################ USUWANIE AKTUALNOSCI ###################
+	public void usunAktualnosc(Actuals a)
+			throws ClassNotFoundException, IOException {
+		a.setKindQuery(KindQuery.DEL_DBASE);
+		a.setQuery("DELETE FROM actuals where id_actuals="+a.getId());
+		
+		if(!k.sendObject(a)){
+			this.connectionError();
+			return;
+		}
+		
+		k.reciveObject();
+		a = (Actuals)k.getPackage();
+		
+		this.setLastErr(a.getQuery());
+		this.setLastErrData(a.getData());
 	}
 	/**
 	 * @param login

@@ -63,6 +63,27 @@ public class ActualsService extends ServicePart {
 		
 		if(((Actuals) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
 			
+			DBManager db = DBManager.getInstance();
+			
+			dbReturnInt = db.execUpdateQuery(((Actuals) wiadomosc).getQuery()); 
+			System.out.println("^^^^^^^^^ "+((Actuals) wiadomosc).getQuery());
+			
+			if(dbReturnInt!=0){
+				((Actuals) wiadomosc).setQuery("OK+");
+				//dbReturn = db.execSelectQuery("Select seq_actuals.currval from dual");
+				//String tmp[] = dbReturn.getFirst();
+				
+				
+			} else {
+				((Actuals) wiadomosc).setQuery("ERR");
+				((Actuals) wiadomosc).setData("Taki wpis nie istnieje");
+				}
+			
+			if (!s.sendObject(wiadomosc)) {
+				 //System.out.println("UZYCIE KOPII======="+db.useSavePoint());}
+			
+		}
+			
 		}
 		
 		
@@ -84,7 +105,8 @@ public class ActualsService extends ServicePart {
 			} else ((Actuals) wiadomosc).setQuery("ERR");
 			
 			if (!s.sendObject(wiadomosc)) {
-				 System.out.println("UZYCIE KOPII======="+db.useSavePoint());}
+				 //System.out.println("UZYCIE KOPII======="+db.useSavePoint());
+				}
 			
 		}
 

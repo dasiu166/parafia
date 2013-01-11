@@ -174,7 +174,18 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
 				" Pesel: "+p.getPesel());
 		
-		//DODANIE KSIEDZA
+		//## USUWANIE AKTUALNOSCI##
+		
+		Actuals act = new Actuals();
+		act.setId(1);
+		act.setKindQuery(KindQuery.DEL_DBASE);
+		act.setQuery("DELETE FROM actuals where id_actuals="+act.getId());
+		k.sendObject(act);
+		k.reciveObject();
+		act=(Actuals)k.getPackage();
+		System.out.println("Wynik usuniecia aktualnosci="+act.getQuery());
+		
+		/*DODANIE KSIEDZA
 		User newU = new User();
 		newU.setLogin("xxxx");
 		newU.setPassword("P");
@@ -249,7 +260,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 			}
 		
-		
+		*/
 		
 		/*DODANIE PARAFIANINA (ze sprawdzeniem
 		 * czy taki juz jest, i ze zwrotem jego id po dodaniu
@@ -385,10 +396,10 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		System.out.println(q);
 		*/
 		
-		//Poczatek pobrania listy zamowien---------------------------------
+		/*Poczatek pobrania listy zamowien---------------------------------
 		Order o = new Order();
 		o.setKindQuery(KindQuery.SEL_DBASE);
-		//*przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)
+		//przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ PARAFIANINA)
 		o.setQuery("Select id_orderr,id_event," +
 				"odprawiajacy_pesel,zamawiajacy_pesel," +
 				"describe,status ,"+
@@ -409,7 +420,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			System.out.println(tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString());
 		}
 		System.out.println(orderList.size());
-		
+		*/
 		
 		
 		/*Pobranie szczegolowych danych na temat parafianina--------------
