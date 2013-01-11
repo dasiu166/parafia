@@ -1,5 +1,7 @@
 package gui.panels.priest;
 
+import gui.Events;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +23,10 @@ import javax.swing.JScrollPane;
 
 public class AddNewsPanel extends JPanel implements ActionListener {
 	private JTextField textTitle;
+	private JEditorPane editorContent;
+	private JButton btnSubmit;
+	private JButton btnReset;
+	private Events events = Events.getInstance();
 
 	/**
 	 * Create the panel.
@@ -29,10 +35,10 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		
-		JButton btnSubmit = new JButton("Dodaj");
+		btnSubmit = new JButton("Dodaj");
 		btnSubmit.addActionListener(this);
 		
-		JButton btnReset = new JButton("Wyczy\u015B\u0107");
+		btnReset = new JButton("Wyczy\u015B\u0107");
 		btnReset.addActionListener(this);
 		
 		JPanel panel = new JPanel();
@@ -69,7 +75,7 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 					.addContainerGap())
 		);
 		
-		JEditorPane editorContent = new JEditorPane();
+		editorContent = new JEditorPane();
 		scrollPane.setViewportView(editorContent);
 		
 		JLabel lblNowaAktualno = new JLabel("Nowa Aktualno\u015B\u0107");
@@ -124,7 +130,17 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		Object z = arg0.getSource();
+		
+		if(z==btnSubmit){
+			String tytul = textTitle.getText();
+			String content = editorContent.getText();
+			//events.dodajNews(tytul,content);
+			
+		}else if(z==btnReset){
+			textTitle.setText("");
+			editorContent.setText("");
+		}
 		
 	}
 }
