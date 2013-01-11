@@ -59,7 +59,7 @@ INSERT INTO Userr VALUES(seq_userr.nextval,'pop2','pop66',3,33);
 --INSERT INTO Event VALUES(seq_event.nextval,'Urlop','Karaiby dla ksiedza');
 
 INSERT INTO Event VALUES(1,'Chrzest','Przyjecie chrztu sw');
-INSERT INTO Event VALUES(2,'Przyjecie slubu');
+INSERT INTO Event VALUES(2,'Przyjecie slubu','slub mariana');
 INSERT INTO Event VALUES(3,'Msza','Odprawienie mszy sw');
 INSERT INTO Event VALUES(4,'Pogrzeb','Odprawienie pogrzebu');
 INSERT INTO Event VALUES(5,'Gregorianka','Combo msza x30');
