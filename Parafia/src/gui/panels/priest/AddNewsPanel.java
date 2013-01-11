@@ -5,6 +5,7 @@ import gui.Events;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -19,7 +20,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.util.Date;
+
 import javax.swing.JScrollPane;
+
+import obsluga.Actuals;
+import obsluga.Priest;
 
 public class AddNewsPanel extends JPanel implements ActionListener {
 	private JTextField textTitle;
@@ -131,11 +138,30 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object z = arg0.getSource();
-		
+		Actuals akt = new Actuals();
+		Date d = new Date();
+		Priest p = new Priest();
+		p=events.getPriest();
+		d.getDate();
 		if(z==btnSubmit){
 			String tytul = textTitle.getText();
 			String content = editorContent.getText();
-			//events.dodajNews(tytul,content);
+			akt.setSubject(tytul);
+			akt.setDescribe(content);
+			akt.setAddDate(d);
+			akt.setPriestPesel(p.getPesel());
+			try {
+				events.dodajAktualnosc(akt);
+				if(events.getLastErr().equals("OK+")){
+					JOptionPane.showMessageDialog(null, "News dodany");
+				} else {
+					JOptionPane.showMessageDialog(null, "Blad dodawania");
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}else if(z==btnReset){
 			textTitle.setText("");

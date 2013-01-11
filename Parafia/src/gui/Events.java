@@ -128,14 +128,13 @@ public class Events {
 				System.out.println(ae.getPriestPesel());
 				System.out.println(ae.getName());
 				System.out.println(ae.getSurName());
-				newsList.addNews(new News(ae.getSubject(), ae.getAddDate(),ae.getName()+ae.getSurName() , 56,	"<p style=\"color:orange; margin:0px; padding:0px;\">"+ae.getDescribe() +"</p>"));
+				newsList.addNews(new News(ae.getSubject(), ae.getAddDate(),ae.getName()+" "+ae.getSurName() , 56,	"<p style=\"color:orange; margin:0px; padding:0px;\">"+ae.getDescribe() +"</p>"));
 			}
 		}
 		return newsList;
 	}
 	//####################### DODAWANIE AKTUALNOSCI ##############################
 	public boolean dodajAktualnosc(Actuals akt) throws IOException{
-		
 		akt.setKindQuery(KindQuery.ADD_DBASE);
 		akt.setQuery("INSERT INTO Actuals VALUES (" + 
 				"seq_actuals.nextval,"+
@@ -149,6 +148,16 @@ public class Events {
 			return false;
 		}
 		
+		try {
+			if (!k.reciveObject())
+				return false;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		akt = (Actuals)k.getPackage();
+		this.setLastErr(akt.getQuery());
 		
 		
 		return true;
