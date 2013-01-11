@@ -1,11 +1,14 @@
 package gui.panels.priest;
 
+import gui.Events;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -55,7 +58,7 @@ public class OrderDialog extends JDialog implements ActionListener{
 		});
 		this.order = order;
 		
-		setBounds(100, 100, 500, 427);
+		setBounds(100, 100, 490, 418);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -65,9 +68,12 @@ public class OrderDialog extends JDialog implements ActionListener{
 		lblFrom_.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFrom_.setBounds(54, 11, 150, 14);
 		contentPanel.add(lblFrom_);
+		
+		JLabel lblFrom = new JLabel("Brak Danych Zamawiaj¹cego");;
+		if(order.getSender()!=null) 
+			lblFrom = new JLabel(order.getSender().getName()+" "+order.getSender().getSurName());
 
-		JLabel lblFrom = new JLabel(order.getSender().getName()+" "+order.getSender().getSurName());
-		lblFrom.setBounds(214, 11, 150, 14);
+		lblFrom.setBounds(214, 11, 220, 14);
 		contentPanel.add(lblFrom);
 
 		JLabel lblStatus_ = new JLabel("Status:");
@@ -76,7 +82,7 @@ public class OrderDialog extends JDialog implements ActionListener{
 		contentPanel.add(lblStatus_);
 
 		JLabel lblStatus = new JLabel(order.getStatus());
-		lblStatus.setBounds(214, 86, 150, 14);
+		lblStatus.setBounds(214, 86, 220, 14);
 		contentPanel.add(lblStatus);
 		
 		JLabel lblType_ = new JLabel("Typ:");
@@ -85,7 +91,7 @@ public class OrderDialog extends JDialog implements ActionListener{
 		contentPanel.add(lblType_);
 		
 		JLabel lblType = new JLabel(Pomoc.validateEventName(eventList,order.getEvent()));
-		lblType.setBounds(214, 61, 150, 14);
+		lblType.setBounds(214, 61, 220, 14);
 		contentPanel.add(lblType);
 
 		JLabel lblDate_ = new JLabel("Data:");
@@ -95,7 +101,7 @@ public class OrderDialog extends JDialog implements ActionListener{
 
 		DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		JLabel lblDate = new JLabel(formatter.format(order.getBeginDate()));
-		lblDate.setBounds(214, 36, 150, 14);
+		lblDate.setBounds(214, 36, 220, 14);
 		contentPanel.add(lblDate);
 		
 		JLabel lblMessage = new JLabel("Wiadomo\u015B\u0107:");

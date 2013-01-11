@@ -102,8 +102,9 @@ public class CardLayoutExp extends JFrame {
 		
 		//#################### PANEL CZASU ####################
 		JPanel panelTime = new JPanel();
-		JLabel lblTime = new JLabel("15:38");
-		lblTime.setBounds(57, 0, 43, 15);
+		Zegar lblTime = new Zegar();
+		lblTime.start();
+		lblTime.setBounds(0, 0, 160, 15);
 		lblTime.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		panelTime.add(lblTime);
 		
@@ -456,7 +457,7 @@ public class CardLayoutExp extends JFrame {
 			final JMenuItem mnPomocOProgramie = new JMenuItem("O Programie");
 			mnPomocOProgramie.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Ewiak Piotr", "O Programie",JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       prof. zw. dr hab. in¿. Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Ewiak Piotr", "O Programie",JOptionPane.PLAIN_MESSAGE);
 				}
 			});
 			mnPomocOProgramie.setAccelerator(KeyStroke.getKeyStroke("F1"));
