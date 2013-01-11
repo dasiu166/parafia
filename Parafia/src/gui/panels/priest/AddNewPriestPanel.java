@@ -182,7 +182,7 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		btnClear.addActionListener(this);
 		
 		comboPosition = new JComboBox();
-		comboPosition.setModel(new DefaultComboBoxModel(new String[] {"<wybierz Stanowisko>", "Ksi\u0105dz", "Proboszcz"}));
+		comboPosition.setModel(new DefaultComboBoxModel(new String[] {"<wybierz Stanowisko>", "Wikary", "Proboszcz"}));
 		
 		dateSecularity = new JDateChooser(true);
 		
@@ -413,15 +413,15 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		adress.setHouseNumb(textHomeNumber.getText());
 		adress.setPostcode(textPostCode.getText());
 		//adress.setPhone(textPhoneNumber.getText());
-		//((!dateHolyorders.isEmpty())?dateHolyorders.getDate():null);
-		//((!dateBeginWork.isEmpty())?dateBeginWork.getDate():null);
+		priest.setSecularityDate(((!dateSecularity.isEmpty())?dateSecularity.getDate():null));
+		priest.setArrivalDate(((!dateBeginWork.isEmpty())?dateBeginWork.getDate():null));
 	
 		priest.setAdress(adress);
 		
 		//pobieranie pozycji ksiedza
 		priest.setPass(passwordPassword.getPassword().toString());
 		if(comboPosition.getSelectedIndex()==1)
-			priest.setPossition("Ksi¹dz");
+			priest.setPossition("Wikary");
 		else if(comboPosition.getSelectedIndex()==2)
 			priest.setPossition("Proboszcz");
 		return priest;
@@ -432,8 +432,8 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		user.setId(0);
 		user.setLogin(textLogin.getText());
 		user.setPassword(passwordPassword.getText());
-		user.setRestriction(KindRestriction.LOGED_R);
-		user.setRange(KindRange.LOGG_RANG);		
+		user.setRestriction(KindRestriction.WORKS_R);
+		user.setRange(KindRange.WORKER_RANG);		
 		return user;
 	}
 	
@@ -511,19 +511,19 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		Object z = e.getSource();
 		if(z == btnAdd){
 			if(workingMode == ADD_MODE){
-				/*if(passwordPassword.getText().equals(passwordRepeatPassword.getText())){
+				if(passwordPassword.getText().equals(passwordRepeatPassword.getText())){
 					Priest priest = getPriestData();
 					try {
-						events.dodajUzytkownika(getUserData(), parishioner.getAdress(), parishioner.getCourse(), parishioner);
+						events.dodajUzytkownika(getUserData(), priest.getAdress(), priest);
 						if(events.getLastErr().equals("OK+")){
-							JOptionPane.showMessageDialog(null, "Parafianin dodany");
+							JOptionPane.showMessageDialog(null, "Ksiadz dodany");
 						} else {
 							JOptionPane.showMessageDialog(null, events.getLastErrData());
 						}
 					} catch (ClassNotFoundException e1) {e1.printStackTrace();	} catch (IOException e1) { e1.printStackTrace();}
 				} else {
 					JOptionPane.showMessageDialog(null, "Has³a musz¹ byæ takie same", "B³¹d Has³a", JOptionPane.WARNING_MESSAGE);
-				}*/
+				}
 			} else if(workingMode == EDIT_MODE)
 				;//events.editParishioner(getParishionerData());
 		}else if(z == btnClear){

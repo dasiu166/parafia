@@ -436,12 +436,12 @@ public class Events {
 		newA=(Adress)k.getPackage();
 		System.out.println("Wynik dodania adresu  "+newA.getQuery()+" "+newA.getId());
 		
-		try{
+		/*try{
 			System.out.println("!!!!!!!!!!!!Oczekuje");
 			Thread.sleep(0);
 			}catch(InterruptedException e){
 				
-			}
+			}*/
 			
 			if (newU.getRestriction()>KindRestriction.LOGED_R){
 				//Priest newP = new Priest();
@@ -473,7 +473,7 @@ public class Events {
 				k.reciveObject();
 				
 				newP = (Priest)k.getPackage();
-				System.out.println("Wynik dodania parafianina"+newP.getQuery());
+				System.out.println("Wynik dodania ksiedza"+newP.getQuery());
 				this.setLastErrData(newP.getData());
 				this.setLastErr(newP.getQuery());
 		
