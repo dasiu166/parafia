@@ -108,18 +108,6 @@ public class CardLayoutExp extends JFrame {
 		panelLogowania.setAlignmentY(Component.TOP_ALIGNMENT);
 		panelLogowania.setMaximumSize(new Dimension(200, 200));
 		
-		//#################### PANEL CZASU ####################
-		JPanel panelTime = new JPanel();
-		
-		JPanel panel = new JPanel();
-		panel.setMaximumSize(new Dimension(160, 100));
-		panel.setAlignmentY(Component.TOP_ALIGNMENT);
-		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(-6, -16, 172, 60);
-		panelTime.add(panel);
-		panel.setLayout(null);
-		
 		//#################### PANEL KALENDARZA ####################
 		JPanel panelCalendar =  new JCalendar();
 		
@@ -165,37 +153,32 @@ public class CardLayoutExp extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(8)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(panelLogowania, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-								.addComponent(panelTime, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblTime, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-							.addGap(4))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGap(8)
+								.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(panelCalendar, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+							.addGap(8)
+							.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
-					.addComponent(panelTime, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
 					.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(252, Short.MAX_VALUE))
-				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+					.addContainerGap(280, Short.MAX_VALUE))
+				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
 		);
-		panelTime.setLayout(null);
 		
 		contentPane.setLayout(gl_contentPane);
 		
