@@ -23,6 +23,8 @@ class Zegar extends JLabel implements Runnable {
   super("", SwingConstants.CENTER);
   // wybieramy font do wyœwietlenia zagara (podajemy nazwê, styl oraz rozmiar)
   setFont (new Font ("Consolas", Font.BOLD, 28));
+  this.setSize(100, 50);
+  setForeground(Color.BLUE);
   // ustawiamy przeŸroczystoœæ
   setOpaque(true);
  }

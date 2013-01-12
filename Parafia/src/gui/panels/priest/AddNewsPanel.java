@@ -155,7 +155,8 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 				if(events.getLastErr().equals("OK+")){
 					JOptionPane.showMessageDialog(null, "News dodany");
 				} else {
-					JOptionPane.showMessageDialog(null, "Blad dodawania");
+					JOptionPane.showMessageDialog(null, "Blad dodawania\n" +
+							events.getLastErrData());
 				}
 				
 			} catch (IOException e) {

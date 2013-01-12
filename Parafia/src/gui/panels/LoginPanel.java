@@ -17,6 +17,9 @@ import javax.swing.SwingConstants;
 import obsluga.Parishioner;
 import obsluga.Priest;
 import stale.KindRestriction;
+import javax.swing.ImageIcon;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 
 public class LoginPanel extends JPanel {
 
@@ -35,10 +38,10 @@ public class LoginPanel extends JPanel {
         							// Panel przed Zalogowaniem
         JPanel unlogged = new JPanel();
         add(unlogged, "unlogged");
-        unlogged.setLayout(null);
+        unlogged.setLayout(new BorderLayout(0, 0));
         
         JButton bZaloguj = new JButton("Zaloguj");
-        bZaloguj.setBounds(40, 23, 70, 24);
+        bZaloguj.setIcon(new ImageIcon(LoginPanel.class.getResource("/icons/login.png")));
         unlogged.add(bZaloguj);
         
         							// Panel po zalogowaniu
@@ -58,6 +61,7 @@ public class LoginPanel extends JPanel {
         logged.add(lblUserName);
         
         JButton bLogOut = new JButton("Wyloguj");
+        bLogOut.setIcon(new ImageIcon(LoginPanel.class.getResource("/icons/logouticon.png")));
         // akcja po wciœniêciu przycisku ### WYLOGUJ ###
         bLogOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -71,7 +75,7 @@ public class LoginPanel extends JPanel {
         		}
         	}
         });
-        bLogOut.setBounds(31, 44, 90, 20);
+        bLogOut.setBounds(20, 42, 109, 28);
         logged.add(bLogOut);
         
         // akcja po wciœniêciu przycisku ### ZALOGUJ ###

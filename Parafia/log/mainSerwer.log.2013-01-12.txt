@@ -1,0 +1,30 @@
+2013-01-12 00:22:41: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-12 00:22:41: SERWER -> Polaczono z baza danych
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek
+2013-01-12 00:22:41: SERWER -> Nowy watek

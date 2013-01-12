@@ -57,6 +57,10 @@ import com.jgoodies.looks.FontPolicy;
 import com.jgoodies.looks.FontSet;
 import com.jgoodies.looks.FontSets;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
+import javax.swing.ImageIcon;
+import javax.swing.border.TitledBorder;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 public class CardLayoutExp extends JFrame {
 
@@ -81,6 +85,7 @@ public class CardLayoutExp extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	public CardLayoutExp() throws ClassNotFoundException, IOException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CardLayoutExp.class.getResource("/icons/church-icon.png")));
 		events = Events.getInstance(this);
 		
 		setMinimumSize(new Dimension(800, 600));
@@ -99,20 +104,21 @@ public class CardLayoutExp extends JFrame {
 		
 		//#################### PANEL LOGOWANIA ####################
 		LoginPanel panelLogowania = new LoginPanel(frame); 
+		panelLogowania.setBounds(new Rectangle(0, 0, 250, 250));
+		panelLogowania.setAlignmentY(Component.TOP_ALIGNMENT);
+		panelLogowania.setMaximumSize(new Dimension(200, 200));
 		
 		//#################### PANEL CZASU ####################
 		JPanel panelTime = new JPanel();
-		Zegar lblTime = new Zegar();
-		lblTime.start();
-		lblTime.setBounds(0, 0, 160, 15);
-		lblTime.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-		panelTime.add(lblTime);
 		
-		//#################### PANEL INFORMACJI DODATKOWYCH ####################
-		JScrollPane scrollPaneInfo = new JScrollPane();
-		JTextPane txtpnInfo = new JTextPane();
-		txtpnInfo.setText("fdsfgvsdfgvsdf");
-		scrollPaneInfo.setViewportView(txtpnInfo);
+		JPanel panel = new JPanel();
+		panel.setMaximumSize(new Dimension(160, 100));
+		panel.setAlignmentY(Component.TOP_ALIGNMENT);
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(-6, -16, 172, 60);
+		panelTime.add(panel);
+		panel.setLayout(null);
 		
 		//#################### PANEL KALENDARZA ####################
 		JPanel panelCalendar =  new JCalendar();
@@ -148,19 +154,33 @@ public class CardLayoutExp extends JFrame {
       	
       	final OrdersListPanel jpOrdersList = new OrdersListPanel(this);
       	panelContent.add(jpOrdersList, "ordersList");
+		Zegar lblTime = new Zegar();
+		lblTime.setAutoscrolls(true);
+		lblTime.setIcon(new ImageIcon("C:\\Documents and Settings\\hp\\git\\parafia\\Parafia\\icons\\Clock-icon.png"));
+		lblTime.start();
+		lblTime.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
         
 		//#################### CONTENT PANEL ####################
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(scrollPaneInfo)
-						.addComponent(panelCalendar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(panelLogowania, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-						.addComponent(panelTime, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(8)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(panelLogowania, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+								.addComponent(panelTime, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblTime, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+							.addGap(4))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(panelCalendar, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -168,11 +188,12 @@ public class CardLayoutExp extends JFrame {
 					.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
 					.addGap(1)
 					.addComponent(panelTime, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
-					.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPaneInfo, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(252, Short.MAX_VALUE))
+				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
 		);
 		panelTime.setLayout(null);
 		
@@ -188,6 +209,7 @@ public class CardLayoutExp extends JFrame {
         menuBar.add(menuPlik); // dodanie menu plik do paska menu
 	       
         	JMenuItem menuPlikPanelNews = new JMenuItem("Aktualno\u015Bci",'1');
+        	menuPlikPanelNews.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Clipboard-Full-icon.png")));
 	        menuPlikPanelNews.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -281,6 +303,7 @@ public class CardLayoutExp extends JFrame {
 			JSeparator separator = new JSeparator(); // tworzy linie poziom¹ w menu plik taki separator
 			menuPlik.add(separator);
 			JMenuItem menuPlikClose = new JMenuItem("Close");
+			menuPlikClose.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Error-icon.png")));
 			menuPlikClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// wys³anie chêci zamkniêcia aplikacji do systemu (symulowanie wciœniêcia X)
@@ -338,6 +361,7 @@ public class CardLayoutExp extends JFrame {
 		menuBar.add(menuParishioner);
 		
 		JMenuItem menuParishionerDane = new JMenuItem("Dane");
+		menuParishionerDane.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/User-2-icon.png")));
 		menuParishionerDane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner().getName());
@@ -363,6 +387,7 @@ public class CardLayoutExp extends JFrame {
 		menuParishioner.add(menuParishionerDane);
 		
 		JMenuItem mntmParishionerZamowienie = new JMenuItem("Zamowienie");
+		mntmParishionerZamowienie.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Add-icon.png")));
 		mntmParishionerZamowienie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
@@ -382,6 +407,7 @@ public class CardLayoutExp extends JFrame {
 		menuBar.add(mnKsidz);
 		
 		JMenuItem mntmParishionerDane = new JMenuItem("Dane");
+		mntmParishionerDane.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/User-icon.png")));
 		mntmParishionerDane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(events.getLogged()){ 
@@ -405,6 +431,7 @@ public class CardLayoutExp extends JFrame {
 		mnKsidz.add(mntmParishionerDane);
 		
 		JMenuItem mntmAddnewparishioner = new JMenuItem("addNewParishioner");
+		mntmAddnewparishioner.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/addparishioner.png")));
 		mntmAddnewparishioner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(panelContent, "addNewParishioner");
@@ -413,6 +440,7 @@ public class CardLayoutExp extends JFrame {
 		mnKsidz.add(mntmAddnewparishioner);
 		
 		JMenuItem mntmKsiadzAddNews = new JMenuItem("addNews");
+		mntmKsiadzAddNews.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/File-List-icon.png")));
 		mntmKsiadzAddNews.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(panelContent, "addNews");
@@ -421,6 +449,7 @@ public class CardLayoutExp extends JFrame {
 		mnKsidz.add(mntmKsiadzAddNews);
 		
 		JMenuItem mntmAddnewpriest = new JMenuItem("addNewPriest");
+		mntmAddnewpriest.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/priest-add-icon.png")));
 		mntmAddnewpriest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(panelContent, "addNewPriest");
@@ -429,6 +458,7 @@ public class CardLayoutExp extends JFrame {
 		mnKsidz.add(mntmAddnewpriest);
 		
 		JMenuItem mntmOrderslist = new JMenuItem("ordersList");
+		mntmOrderslist.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Bookmark-icon.png")));
 		mntmOrderslist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
@@ -455,6 +485,7 @@ public class CardLayoutExp extends JFrame {
 		menuPomoc.setMnemonic('H');
 		menuBar.add(menuPomoc);
 			final JMenuItem mnPomocOProgramie = new JMenuItem("O Programie");
+			mnPomocOProgramie.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Help-icon.png")));
 			mnPomocOProgramie.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       prof. zw. dr hab. in¿. Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Ewiak Piotr", "O Programie",JOptionPane.PLAIN_MESSAGE);

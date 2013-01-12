@@ -13,6 +13,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.ImageIcon;
 
 public class LoginDialog extends JDialog implements ActionListener{
 
@@ -64,7 +65,8 @@ public class LoginDialog extends JDialog implements ActionListener{
 		getContentPane().add(lblPassword);		
 
 		bOK = new JButton("Zaloguj");
-		bOK.setBounds(61, 114, 76, 23);
+		bOK.setIcon(new ImageIcon(LoginDialog.class.getResource("/icons/Accept-icon.png")));
+		bOK.setBounds(40, 114, 97, 28);
 		bOK.setActionCommand("OK");
 		getContentPane().add(bOK);
 		getRootPane().setDefaultButton(bOK);
@@ -72,7 +74,8 @@ public class LoginDialog extends JDialog implements ActionListener{
 
 
 		bCansel = new JButton("Anuluj");
-		bCansel.setBounds(154, 114, 73, 23);
+		bCansel.setIcon(new ImageIcon(LoginDialog.class.getResource("/icons/Alcancel-icon.png")));
+		bCansel.setBounds(162, 114, 97, 28);
 		bCansel.setActionCommand("Cancel");
 		getContentPane().add(bCansel);
 		
