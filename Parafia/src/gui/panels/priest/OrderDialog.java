@@ -27,6 +27,7 @@ import obsluga.*;
 import pomoce.Pomoc;
 
 import java.util.*;
+import javax.swing.ImageIcon;
 
 public class OrderDialog extends JDialog implements ActionListener{
 
@@ -133,12 +134,14 @@ public class OrderDialog extends JDialog implements ActionListener{
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
 			okAbort = new JButton("Odrzu\u0107");
+			okAbort.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/cancel-icon.png")));
 			okAbort.setActionCommand("OK");
 			okAbort.addActionListener(this);
 			buttonPane.add(okAbort);
 		}
 		{
 			okAccept = new JButton("Akceptuj");
+			okAccept.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/Accept-icon.png")));
 			okAccept.setActionCommand("OK");
 			buttonPane.add(okAccept);
 			okAccept.addActionListener(this);
@@ -146,6 +149,7 @@ public class OrderDialog extends JDialog implements ActionListener{
 		}
 		{
 			cancelButton = new JButton("Anuluj");
+			cancelButton.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/anuluj-icon.png")));
 			cancelButton.setActionCommand("Cancel");
 			cancelButton.addActionListener(this);
 			buttonPane.add(cancelButton);
@@ -180,14 +184,15 @@ public class OrderDialog extends JDialog implements ActionListener{
 		if(z == okAccept){
 			accept = true;
 			order.setStatus("Zaakceptowany");
-			order.setDescribe(editorRepeat.getText());
+			order.setDescribe(order.getDescribe()+" \n( KSIADZ ) "+editorRepeat.getText());
 		}else 
 			accept = false;
 		
 		if(z == okAbort){
 			abort = true;
 			order.setStatus("Odrzucony");
-			order.setDescribe(editorRepeat.getText());
+			order.setDescribe(order.getDescribe()+" \n( KSIADZ ) "+editorRepeat.getText());
+
 		}else
 			abort = false;
 		

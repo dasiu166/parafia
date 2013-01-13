@@ -303,14 +303,14 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	        			try{
 		        			Order o = events.odrzucZamowienie(order);
 		        			order.setStatus(o.getStatus());
-		        			JOptionPane.showMessageDialog(null, "UWAGA events.odrzucZamowienie(order)getStatus() = "+o.getStatus()+"\n a powinno DEINED\n w OrderListPanel line 287");
+		        			JOptionPane.showMessageDialog(null, "DENIED Zmiany zosta³y zaakceptowane");
 		        			} catch (IOException ee){
 		        			
 		        			} catch (ClassNotFoundException ee){
 		        				
 		        			}
 	        			//END_DODANE
-	        			JOptionPane.showMessageDialog(null, "ABORT Zmiany zosta³y odrzucone");
+	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zosta³y odrzucone");
 	        			lblStatus.setText(order.getStatus());
 	        			//orderPanel.setBackground(new Color(240, 230, 140));
 	        			Color color = new Color(240, 230, 140);

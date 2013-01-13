@@ -152,7 +152,7 @@ public class OrderService extends ServicePart {
 			if (dbReturnInt != 0) {
 				((Order) wiadomosc).setData("ZAMOWIENIE UAKTUALNIONE");
 				((Order) wiadomosc).setQuery("OK+");
-				((Order) wiadomosc).setStatus(KindQuery.ACK);
+				//((Order) wiadomosc).setStatus(KindQuery.ACK);
 				s.sendObject(wiadomosc);
 				// LOG----------------------------------------------------------
 				s.saveLog("Zamowienie uaktualnione");

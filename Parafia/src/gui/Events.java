@@ -868,7 +868,8 @@ public class Events {
 	{
 		
 		o.setKindQuery(KindQuery.UPD_DBASE);
-		o.setQuery("UPDATE Orderr SET status='"+KindQuery.ACK+"' where" +
+		o.setQuery("UPDATE Orderr SET status='"+KindQuery.ACK+"'" +
+				"describe='"+o.getDescribe()+" where" +
 				" id_orderr="+o.getId());
 		
 		if(!k.sendObject(o)){
@@ -878,6 +879,7 @@ public class Events {
 		k.reciveObject();
 		Order check = (Order) k.getPackage();
 		System.out.println("Wynik updatu " + check.getQuery());
+		check.setStatus(KindQuery.ACK);
 		return check;
 	}
 	
@@ -886,7 +888,8 @@ public class Events {
 	{
 		
 		o.setKindQuery(KindQuery.UPD_DBASE);
-		o.setQuery("UPDATE Orderr SET status='"+KindQuery.DEN+"' where" +
+		o.setQuery("UPDATE Orderr SET status='"+KindQuery.DEN+"'" +
+				"describe='"+o.getDescribe()+" where" +
 				" id_orderr="+o.getId());
 		
 		if(!k.sendObject(o)){
@@ -895,6 +898,7 @@ public class Events {
 
 		k.reciveObject();
 		Order check = (Order) k.getPackage();
+		check.setStatus(KindQuery.DEN);
 		System.out.println("Wynik updatu " + check.getQuery());
 		return check;
 	}
