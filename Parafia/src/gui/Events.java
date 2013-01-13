@@ -393,6 +393,21 @@ public class Events {
 		}
 	}
 	
+	public void pobierzListeKsiezy()
+			throws IOException, ClassNotFoundException {
+		LinkedList<Priest> lp = new LinkedList<Priest>();
+		Priest np = new Priest();
+		np.setKindQuery(KindQuery.SEL_DBASE);
+		np.setQuery("Select * from Priest");
+		
+		//System.out.println("TEST TEST TEST "+np.getQuery().contains("where"));
+		
+		k.sendObject(np);
+		k.reciveObject();
+		lp=(LinkedList<Priest>)k.getPackage();
+		k.setPriestList(lp);
+	}
+	
 	
 	/**
 	 * @param editedParishioner
@@ -922,6 +937,49 @@ public class Events {
 		System.out.println(q);
 
 	}
+	
+	public void zlozZamowienie(Order o) throws IOException, ClassNotFoundException {
+		int restriction = getRestriction();
+		//Order o = new Order();
+		o.setKindQuery(KindQuery.ADD_DBASE); // dodanie do bazy
+		
+		if (restriction == KindRestriction.LOGED_R)
+			o.setSenderPesel(p.getPesel());
+		if (restriction > KindRestriction.LOGED_R)
+			o.setSenderPesel(priest.getPesel());
+
+		//o.setExecutorPesel(prPesel);
+		//o.setBeginDate(Pomoc.podajDate(date));
+		//o.setEndDate(Pomoc.podajDate(date));
+		//o.setEvent(idEvent);// 3 to msza wg Pawla bazy
+		//o.setDescribe(desc);
+		o.setStatus(KindQuery.NEW);
+		String q;
+
+		q = "INSERT INTO Orderr VALUES (seq_orderr.nextval," +
+				o.getEvent()+",'"
+				+ o.getExecutor().getPesel() + "','" + o.getSenderPesel() + "','"
+				+ o.getDescribe() + "','" + o.getStatus() + "'," + "to_date('"
+				+ o.getBeginDate().toLocaleString().substring(0, 16)
+				+ "','yyyy-MM-dd HH24:MI')," + "to_date('"
+				+ o.getEndDate().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd HH24:MI'))";
+		
+		o.setQuery(q);
+
+		if(!k.sendObject(o)){
+			this.connectionError();
+		}
+		k.reciveObject();
+		o = (Order) k.getPackage();
+		
+		this.setLastErr(o.getQuery());
+		this.setLastErrData(o.getData());
+
+		System.out.println("KLIENT:  (otrzymana odpowiedz)" + o.getData());
+		System.out.println(q);
+
+	}
 
 	public Client getClient() {
 		return k;
@@ -974,7 +1032,7 @@ public class Events {
 		lastErrData=val;
 	}
 	public String getLastErrData(){
-		return lastErr;
+		return lastErrData;
 	}
 
 }

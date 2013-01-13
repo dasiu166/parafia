@@ -21,6 +21,7 @@ public class DBManager {
 	private String user="";
 	private String port="";
 	private String adres="";
+	private String sid="";
 	Savepoint s;
 	
 	
@@ -82,12 +83,21 @@ public class DBManager {
 		pass = p;
 	}
 	
+	public void setInfoToConnect(String u, String p, String s){
+		/*!!Konieczne wywolanie przed polaczeniem bo trza dane podac*/
+		user = u;
+		pass = p;
+		sid  = s;
+	}
+	
 	public boolean connectToDB(){
 		/*laczy z baza danych*/
 		System.out.print("Sprawdzanie sterownika:\n");
         try {
         	port=Pomoc.loadFromFile("serwer.ini", "DBPORT");
         	adres=Pomoc.loadFromFile("serwer.ini", "DBADRES");
+        	sid=Pomoc.loadFromFile("serwer.ini", "DBSID");
+        	
 			Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
 		} catch (Exception e) {
 			System.out.println("Blad przy ladowaniu sterownika bazy!");
@@ -97,7 +107,7 @@ public class DBManager {
 		
 		// LACZENIE Z BAZA
 		System.out.print("\nLaczenie z baza danych:\n");
-		String baza = "jdbc:oracle:thin:@"+adres+":"+port;
+		String baza = "jdbc:oracle:thin:@"+adres+":"+port+":"+sid;
 		
         try {
 			conn=DriverManager.getConnection(baza, user, pass);

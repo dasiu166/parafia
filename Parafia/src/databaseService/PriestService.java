@@ -46,6 +46,33 @@ public class PriestService extends ServicePart {
 			 Priest pr = new Priest();
 			 DBManager db = DBManager.getInstance();
 			 dbReturn = db.execSelectQuery(((Priest) wiadomosc).getQuery());
+			 
+			 if (((Priest) wiadomosc).getQuery().contains("where")==false){
+				 
+				 System.out.println("!!!!!!!!!! Wysylam liste ksiezy");
+				 LinkedList<Priest> lpr = new LinkedList<Priest>();
+				 Iterator<String[]> it = dbReturn.iterator();
+				 while(it.hasNext()){
+					 String tmp[] = it.next();
+					 if(!tmp[0].equals("ERR")){
+						 Priest tmppr = new Priest();
+						 tmppr.setPesel(tmp[0]);
+						 tmppr.setName(tmp[3]);
+						 tmppr.setSurName(tmp[4]);
+						 lpr.add(tmppr);
+					 } else {
+						 Priest tmppr = new Priest();
+						 tmppr.setQuery("ERR");
+						 tmppr.setData("Brak ksiezy");
+						 lpr.add(tmppr);
+						 s.sendObject(lpr);
+						 return;
+					 }
+				 }
+				s.sendObject(lpr);
+				return;
+			 } 
+			 
 			 String tmp1[] = dbReturn.getFirst();
 			 
 			 String idA = dbReturn.getFirst()[2]; //id adresu

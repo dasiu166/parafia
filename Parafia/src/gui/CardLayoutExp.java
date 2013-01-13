@@ -375,12 +375,14 @@ public class CardLayoutExp extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 				events.pobierzZdarzenia();
+				events.pobierzListeKsiezy();
 				}catch(ClassNotFoundException e){
 					
 				}catch(IOException e){
 					
 				}
 				jpNewOrder.setOrderList(events.getClient().getEventKindList());
+				jpNewOrder.setPriestList(events.getClient().getPriestList());
 				cl.show(panelContent, "newOrder");
 			}
 		});

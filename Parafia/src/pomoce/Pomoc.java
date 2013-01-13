@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import obsluga.Priest;
 
 public class Pomoc {
 	/*Zawiera rozne statyczne metody ulatwiajace zycie
@@ -95,6 +96,15 @@ public static String validateEventName(LinkedList<obsluga.Event> list, String ty
 		return "Inne";
 		
 	}
+
+public static String validatePriestName(LinkedList<Priest> lp, int index){
+	
+	Iterator<Priest> it = lp.iterator();
+	
+	Priest pr = lp.get(index-1);
+	
+	return pr.getPesel();
+}
 	
 	public static void main(String[] args){
 		//Pomoc.writeToFile("log\\","log2","jakie zycie taki rap");

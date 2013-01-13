@@ -21,6 +21,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 	private boolean isConnected = false; //informuje czy klient jest polaczony
 	private Object przesylka = null; //sluzy do przyjmowania przyslanych obiektow
 	private LinkedList<Event> eventKindList = null; //przechowuje dostepne rodzaje zdarzen
+	private LinkedList<Priest> priestList = null;
 	
 	public void setEventKindList(LinkedList<Event> val){
 		eventKindList=val;
@@ -29,6 +30,16 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 	public LinkedList<Event> getEventKindList(){
 		return eventKindList;
 	}
+	
+	public void setPriestList(LinkedList<Priest> val){
+		priestList=val;
+	}
+	
+	public LinkedList<Priest> getPriestList(){
+		return priestList;
+	}
+	
+	
 	
 	public void setNullPackage(){
 		przesylka=null;
@@ -174,16 +185,33 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
 				" Pesel: "+p.getPesel());
 		
+		
+		//## POBRANIE LISTY KSIEZY ##
+		LinkedList<Priest> lp = new LinkedList<Priest>();
+		Priest np = new Priest();
+		np.setKindQuery(KindQuery.SEL_DBASE);
+		np.setQuery("Select * from Priest");
+		
+		System.out.println("TEST TEST TEST "+np.getQuery().contains("where"));
+		
+		k.sendObject(np);
+		k.reciveObject();
+		lp=(LinkedList<Priest>)k.getPackage();
+		
+		System.out.println("Ilosc ksiezy = "+lp.size());
+		
+		
+		
 		//## USUWANIE AKTUALNOSCI##
 		
-		Actuals act = new Actuals();
+		/*Actuals act = new Actuals();
 		act.setId(1);
 		act.setKindQuery(KindQuery.DEL_DBASE);
 		act.setQuery("DELETE FROM actuals where id_actuals="+act.getId());
 		k.sendObject(act);
 		k.reciveObject();
 		act=(Actuals)k.getPackage();
-		System.out.println("Wynik usuniecia aktualnosci="+act.getQuery());
+		System.out.println("Wynik usuniecia aktualnosci="+act.getQuery());*/
 		
 		/*DODANIE KSIEDZA
 		User newU = new User();
