@@ -853,11 +853,10 @@ public class Events {
 		if(!k.sendObject(o)){
 			this.connectionError();
 		}
-
-		
-
 		k.reciveObject();
 		Order check = (Order) k.getPackage();
+		this.setLastErr(check.getQuery());
+		this.setLastErrData(check.getData());
 		System.out.println("Wynik usuwania " + check.getQuery());
 		return check;
 
@@ -878,6 +877,8 @@ public class Events {
 
 		k.reciveObject();
 		Order check = (Order) k.getPackage();
+		this.setLastErr(check.getQuery());
+		this.setLastErrData(check.getData());
 		System.out.println("Wynik updatu " + check.getQuery());
 		check.setStatus(KindQuery.ACK);
 		return check;
@@ -898,6 +899,8 @@ public class Events {
 
 		k.reciveObject();
 		Order check = (Order) k.getPackage();
+		this.setLastErr(check.getQuery());
+		this.setLastErrData(check.getData());
 		check.setStatus(KindQuery.DEN);
 		System.out.println("Wynik updatu " + check.getQuery());
 		return check;

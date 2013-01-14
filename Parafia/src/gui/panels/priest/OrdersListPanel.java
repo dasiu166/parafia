@@ -268,7 +268,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				long currTime = System.currentTimeMillis();
 				
-				if(currTime-time < 250){
+				if(currTime-time < 500){
 					//System.out.println("doubleClick in: "+(currTime-time));
 					OrderDialog orderDialog = null;
 					
@@ -290,7 +290,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	        				
 	        			}
 	        			//END_DODANE
-	        			JOptionPane.showMessageDialog(null, "ACCEPT Zmiany zosta³y zaakceptowane");
+	        			JOptionPane.showMessageDialog(null, events.getLastErrData());
 	        			lblStatus.setText(order.getStatus());
 	        			//orderPanel.setBackground(new Color(152, 251, 152));
 	        			Color color = new Color(204, 255, 153);
@@ -298,12 +298,14 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	        			panel_Type.setBackground(color);
 	        			panel_Status.setBackground(color);
 	        			panel_Data.setBackground(color);
-	        		}else if(orderDialog.isAborted()){
+	        		}else 
+	        			
+	        			if(orderDialog.isAborted()){
 	        			//DODANE
 	        			try{
 		        			Order o = events.odrzucZamowienie(order);
 		        			order.setStatus(o.getStatus());
-		        			JOptionPane.showMessageDialog(null, "DENIED Zmiany zosta³y zaakceptowane");
+		        			JOptionPane.showMessageDialog(null, events.getLastErrData());
 		        			} catch (IOException ee){
 		        			
 		        			} catch (ClassNotFoundException ee){
@@ -318,7 +320,22 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	        			panel_Type.setBackground(color);
 	        			panel_Status.setBackground(color);
 	        			panel_Data.setBackground(color);
-	        		}else{
+	        		} else if (orderDialog.isDeleted()){
+	        			try{
+	        			
+	        			
+	        			
+	        			Order o = events.usunZamowienie(order);
+	        			JOptionPane.showMessageDialog(null, events.getLastErrData());
+	        			loadListOrder();
+	        			} catch(IOException ee){
+	        				
+	        			} catch (ClassNotFoundException ee){
+	        				
+	        			}
+	        		}
+	        			
+	        			else{
 	        			JOptionPane.showMessageDialog(null, "Porzucono zmiany");
 	        		}
 				}

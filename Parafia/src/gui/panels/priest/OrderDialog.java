@@ -36,9 +36,11 @@ public class OrderDialog extends JDialog implements ActionListener{
 	private JButton okAbort;
 	private JButton okAccept;
 	private JButton cancelButton;
+	private JButton btnUsu;
 	private JEditorPane editorRepeat;
 	private boolean accept = false;
 	private boolean abort = false;
+	private boolean delete = false;
 	private Order order;
 	private LinkedList<obsluga.Event> eventList;
 
@@ -137,7 +139,15 @@ public class OrderDialog extends JDialog implements ActionListener{
 			okAbort.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/cancel-icon.png")));
 			okAbort.setActionCommand("OK");
 			okAbort.addActionListener(this);
+			
+			btnUsu = new JButton("Usu\u0144");
+			btnUsu.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/trash-icon.png")));
+			btnUsu.addActionListener(this);
+			btnUsu.setActionCommand("OK");
+			btnUsu.setHorizontalAlignment(SwingConstants.LEFT);
+			buttonPane.add(btnUsu);
 			buttonPane.add(okAbort);
+			getRootPane().setDefaultButton(btnUsu);
 		}
 		{
 			okAccept = new JButton("Akceptuj");
@@ -168,6 +178,10 @@ public class OrderDialog extends JDialog implements ActionListener{
 		return abort;
 	}
 	
+	public boolean isDeleted(){
+		return delete;
+	}
+	
 	public void setFocus(){
 		editorRepeat.requestFocusInWindow();
 	}
@@ -195,6 +209,16 @@ public class OrderDialog extends JDialog implements ActionListener{
 
 		}else
 			abort = false;
+		
+		if(z == btnUsu){
+			
+			int i =	JOptionPane.showConfirmDialog(null, "Spowoduje to trwa³e usuniêcie zamówienia \n" +
+					"Czy chcesz kontynuowac?");
+			
+			if(i==0) delete = true; else delete=false;
+			
+		}else
+			delete = false;
 		
 		setVisible(false);
 	}
