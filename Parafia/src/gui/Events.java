@@ -868,8 +868,8 @@ public class Events {
 	{
 		
 		o.setKindQuery(KindQuery.UPD_DBASE);
-		o.setQuery("UPDATE Orderr SET status='"+KindQuery.ACK+"'" +
-				"describe='"+o.getDescribe()+" where" +
+		o.setQuery("UPDATE Orderr SET status='"+KindQuery.ACK+"' , " +
+				"describe='"+o.getDescribe()+"' where" +
 				" id_orderr="+o.getId());
 		
 		if(!k.sendObject(o)){
@@ -888,8 +888,8 @@ public class Events {
 	{
 		
 		o.setKindQuery(KindQuery.UPD_DBASE);
-		o.setQuery("UPDATE Orderr SET status='"+KindQuery.DEN+"'" +
-				"describe='"+o.getDescribe()+" where" +
+		o.setQuery("UPDATE Orderr SET status='"+KindQuery.DEN+"' , " +
+				"describe='"+o.getDescribe()+"' where" +
 				" id_orderr="+o.getId());
 		
 		if(!k.sendObject(o)){
