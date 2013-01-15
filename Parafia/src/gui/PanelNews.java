@@ -37,6 +37,9 @@ public class PanelNews extends JPanel implements ActionListener {
 	private JFrame owner;
 	JPanel panel;
 	int newsNumber = 0;
+	MigLayout ml;
+	boolean reset=false;
+	final JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -44,7 +47,7 @@ public class PanelNews extends JPanel implements ActionListener {
 	public PanelNews(JFrame owner) {
 		this.owner = owner;
 
-		final JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setAutoscrolls(true);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -61,7 +64,8 @@ public class PanelNews extends JPanel implements ActionListener {
 		panel = new JPanel();
 		panel.setFont(new Font("Tekton Pro", Font.BOLD, 14));
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[475.00px:475.00px,grow]", "[]"));
+		ml = new MigLayout("", "[475.00px:475.00px,grow]", "[]");
+		panel.setLayout(ml);
 		
 		//addNews("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>");
 		//addNews("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>");
@@ -93,7 +97,17 @@ public class PanelNews extends JPanel implements ActionListener {
 	 * @param content - Zawartoœæ newsu w kodzie html
 	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
 	 */
+	public void cleanList(){
+		newsNumber=0;
+		reset=false;
+		panel.removeAll();
+		//scrollPane.setViewportView(panel);
+		((MigLayout)panel.getLayout()).setRowConstraints("[100px:"+(0)+"px]");
+		
+	}
+	
 	public void addNews(String subiect, Date data, String ksiadz, int contentHeight, String content){
+		
 		newsNumber++;
 		addRowConstraint("[100px:"+(contentHeight+44)+"px]");
 		final JPanel panel_news = new JPanel();
@@ -155,7 +169,7 @@ public class PanelNews extends JPanel implements ActionListener {
 		addNews(news.getSubiect(), news.getData(), news.getKsiadz(), news.getContentHeight(), news.getContent());
 	}
 	
-	@Override
+	//@Override
 	public void actionPerformed(ActionEvent e) {
 		if(dialogLogowania==null)
 			dialogLogowania = new LoginDialog(owner);
@@ -303,6 +317,10 @@ class NewsList{
 	
 	public ArrayList<News> getNewsList(){
 		return lista;
+	}
+	
+	public void cleanList(){
+		lista.removeAll(lista);
 	}
 	
 	public void addNewsListToPanel(PanelNews panelNews){

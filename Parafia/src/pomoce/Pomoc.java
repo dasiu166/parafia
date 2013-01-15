@@ -84,7 +84,8 @@ public class Pomoc {
 		  return buf;
 		}
 	
-public static String validateEventName(LinkedList<obsluga.Event> list, String type){
+		
+	public static String validateEventName(LinkedList<obsluga.Event> list, String type){
 		
 		Iterator<obsluga.Event> it =list.iterator();
 		while(it.hasNext()){
@@ -105,12 +106,23 @@ public static String validatePriestName(LinkedList<Priest> lp, int index){
 	
 	return pr.getPesel();
 }
+
+public static long substractDates(Date d1, Date d2){
+	
+	return Math.round((d1.getTime() - d2.getTime())/86400000.0);
+	
+}
 	
 	public static void main(String[] args){
 		//Pomoc.writeToFile("log\\","log2","jakie zycie taki rap");
-		System.out.println(Pomoc.podajDate("2012-12-20 12:00").toLocaleString());
+		//System.out.println(Pomoc.podajDate("2012-12-20 12:00").toLocaleString());
+		//System.out.println(Double.parseDouble("90.122014155"));
 		
+		System.out.println(Pomoc.substractDates(Pomoc.podajDate("2013-01-15"),
+				Pomoc.podajDate("2013-01-15")));
 		
 	}
+	
+	
 
 }

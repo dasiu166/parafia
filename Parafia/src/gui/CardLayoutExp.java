@@ -116,7 +116,7 @@ public class CardLayoutExp extends JFrame {
 		cl = new CardLayout();									// stworzenie zarz¹dcy faormatki
 		panelContent.setLayout(cl);								// ustawienie zarz¹dcy formatki dla panelu z zawartoœci¹
 		
-		PanelNews jpNews = new PanelNews(this);
+		final PanelNews jpNews = new PanelNews(this);
         panelContent.add(jpNews, "news");
         //jpNews.addNews("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>");
         
@@ -138,7 +138,7 @@ public class CardLayoutExp extends JFrame {
       	panelContent.add(jpAddNews, "addNews");
       	
       	final AddNewPriestPanel jpAddNewPriest = new AddNewPriestPanel(this);
-      	panelContent.add(jpAddNewPriest, "addNewPriest");
+        panelContent.add(jpAddNewPriest, "addNewPriest");
       	
       	final OrdersListPanel jpOrdersList = new OrdersListPanel(this);
       	panelContent.add(jpOrdersList, "ordersList");
@@ -196,10 +196,19 @@ public class CardLayoutExp extends JFrame {
 	        menuPlikPanelNews.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					try{
+					jpNews.cleanList();	
+					events.getNewsList().addNewsListToPanel(jpNews);
+					}catch(IOException ew){
+						
+					}catch(ClassNotFoundException ee){
+						
+					}
 					cl.show(panelContent, "news");
 				}
 			});
 	        menuPlik.add(menuPlikPanelNews);
+	        
 			JMenuItem menuPlikPanel2 = new JMenuItem("parafianin/dane",'2');
 			menuPlikPanel2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -391,7 +400,7 @@ public class CardLayoutExp extends JFrame {
 		JMenu mnKsidz = new JMenu("Ksi\u0105dz");
 		menuBar.add(mnKsidz);
 		
-		JMenuItem mntmParishionerDane = new JMenuItem("Dane");
+		JMenuItem mntmParishionerDane = new JMenuItem("Moje dane");
 		mntmParishionerDane.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/User-icon.png")));
 		mntmParishionerDane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -415,34 +424,8 @@ public class CardLayoutExp extends JFrame {
 		});
 		mnKsidz.add(mntmParishionerDane);
 		
-		JMenuItem mntmAddnewparishioner = new JMenuItem("addNewParishioner");
-		mntmAddnewparishioner.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/addparishioner.png")));
-		mntmAddnewparishioner.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(panelContent, "addNewParishioner");
-			}
-		});
-		mnKsidz.add(mntmAddnewparishioner);
 		
-		JMenuItem mntmKsiadzAddNews = new JMenuItem("addNews");
-		mntmKsiadzAddNews.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/File-List-icon.png")));
-		mntmKsiadzAddNews.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(panelContent, "addNews");
-			}
-		});
-		mnKsidz.add(mntmKsiadzAddNews);
-		
-		JMenuItem mntmAddnewpriest = new JMenuItem("addNewPriest");
-		mntmAddnewpriest.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/priest-add-icon.png")));
-		mntmAddnewpriest.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(panelContent, "addNewPriest");
-			}
-		});
-		mnKsidz.add(mntmAddnewpriest);
-		
-		JMenuItem mntmOrderslist = new JMenuItem("ordersList");
+		JMenuItem mntmOrderslist = new JMenuItem("Lista zamówieñ");
 		mntmOrderslist.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Bookmark-icon.png")));
 		mntmOrderslist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -462,8 +445,45 @@ public class CardLayoutExp extends JFrame {
 		});
 		mnKsidz.add(mntmOrderslist);
 		
+		JMenuItem mntmKsiadzAddNews = new JMenuItem("Dodaj news");
+		mntmKsiadzAddNews.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/File-List-icon.png")));
+		mntmKsiadzAddNews.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(panelContent, "addNews");
+			}
+		});
+		mnKsidz.add(mntmKsiadzAddNews);
+		
+		JMenuItem mntmAddnewparishioner = new JMenuItem("Dodaj parafianina");
+		mntmAddnewparishioner.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/addparishioner.png")));
+		mntmAddnewparishioner.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(panelContent, "addNewParishioner");
+			}
+		});
+		mnKsidz.add(mntmAddnewparishioner);
+		
+		
+		
+		
+		JMenuItem mntmAddnewpriest = new JMenuItem("Dodaj ksiêdza");
+		mntmAddnewpriest.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/priest-add-icon.png")));
+		mntmAddnewpriest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//JOptionPane.showMessageDialog(null, events.getRestriction());
+				cl.show(panelContent, "addNewPriest");
+			}
+		});
+		//JOptionPane.showMessageDialog(null, events.getRestriction());
+		mnKsidz.add(mntmAddnewpriest);
+		
+		
+		
+		
+		
 		Component horizontalGlue = Box.createHorizontalGlue(); // dziêki temu menuPomoc jest po prawej stronie
 		menuBar.add(horizontalGlue);
+		
 		
 			// menu Pomoc
 		JMenu menuPomoc = new JMenu("Pomoc");
@@ -492,6 +512,7 @@ public class CardLayoutExp extends JFrame {
 		menuBar.getComponent(2).setEnabled(false);
 		menuBar.getComponent(3).setVisible(false);
 		menuBar.getComponent(3).setEnabled(false);
+	
 		cl.show(panelContent, "news");
 	}
 	
@@ -502,7 +523,7 @@ public class CardLayoutExp extends JFrame {
 		} else if (events.getRestriction()>KindRestriction.LOGED_R){
 			menuBar.getComponent(3).setVisible(true);
 			menuBar.getComponent(3).setEnabled(true);
-		}
+					}
 	}
 	
 	/**

@@ -48,6 +48,10 @@ public class DBManager {
 		}
 	}
 	
+	public void closeResultSet(){
+		
+	}
+	
 	
 	
 	public boolean useSavePoint(){
@@ -180,21 +184,25 @@ public class DBManager {
 			
 			e.printStackTrace();
 			e.getMessage();
+			try{
+			data.close();
+			}catch (SQLException eee){
+				
+			}
 			//return dataList;
 		}
 		
-		/*try {
-			conn.close();
-		} catch(SQLException e){
-			
-		}*/
-	
 		if (rows==0){
-			data = null;
+			//data = null;
 			System.out.println("CATCH SQL");
 			String[] fArray = new String[1];//zwrot bledu gdy brak danych
 			fArray[0]="ERR";
 			dataList.add(fArray);
+			try{
+				data.close();
+				}catch (SQLException eee){
+					return dataList;
+				}
 			return dataList;
 		} else
 		System.out.println("Ilosc wierszy "+rows);

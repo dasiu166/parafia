@@ -144,10 +144,17 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 		p=events.getPriest();
 		d.getDate();
 		if(z==btnSubmit){
-			String tytul = textTitle.getText();
-			String content = editorContent.getText();
-			akt.setSubject(tytul);
-			akt.setDescribe(content);
+			if(textTitle.getText().length()<1){
+				JOptionPane.showMessageDialog(null, "Za krótki tytu³ (min. 1 znak)");
+				return;
+			} else akt.setSubject(textTitle.getText());
+			
+			
+			if(editorContent.getText().length()<1){
+				JOptionPane.showMessageDialog(null, "Za krótki wpis (min. 1 znak)");
+				return;
+			} else akt.setDescribe(editorContent.getText());
+			
 			akt.setAddDate(d);
 			akt.setPriestPesel(p.getPesel());
 			try {

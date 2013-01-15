@@ -43,7 +43,8 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 	private final static int ADD_MODE = 1;
 	private final static int EDIT_MODE = 2;
 	private int workingMode;
-	private Priest priest;
+	private Priest priest = new Priest();
+	private User user = new User();
 	private static final long serialVersionUID = 7694386932112268103L;
 	private JTextField textLogin;
 	private JTextField textName;
@@ -55,8 +56,6 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 	private JTextField textPostCode;
 	private JPasswordField passwordPassword;
 	private JPasswordField passwordRepeatPassword;
-	private JTextField textPhoneNumber;
-	private JDateChooser dateBirthday;
 	private JLabel lblDataLogin;
 	private JLabel lblLogin_;
 	private JLabel lblPassword_;
@@ -135,10 +134,6 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		textPesel = new JTextField();
 		textPesel.setColumns(10);
 		
-		JLabel lblBirthday_ = new JLabel("Data urodzenia:");
-		lblBirthday_.setHorizontalAlignment(SwingConstants.RIGHT);		
-		dateBirthday = new JDateChooser(true);
-		
 		
 		JLabel lblAdress = new JLabel("Adres");
 		lblAdress.setHorizontalAlignment(SwingConstants.CENTER);
@@ -163,12 +158,6 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		lblPostCode_.setHorizontalAlignment(SwingConstants.RIGHT);
 		textPostCode = new JTextField();
 		textPostCode.setColumns(10);
-		
-		
-		JLabel lblPhoneNumber_ = new JLabel("Nr Telefonu:");
-		lblPhoneNumber_.setHorizontalAlignment(SwingConstants.RIGHT);
-		textPhoneNumber = new JTextField();
-		textPhoneNumber.setColumns(10);
 		
 		
 		JLabel lblOthers = new JLabel("Inne");
@@ -199,101 +188,75 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(70)
-							.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblRepeatPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblName_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textName, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblSurname_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textSurname, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblPesel_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblBirthday_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(dateBirthday, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblAdress, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblCity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textCity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblStreet_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textStreet, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblHomeNumber_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textHomeNumber, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblPostCode_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblPhoneNumber_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textPhoneNumber, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblDataLogin, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblSecularity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(dateSecularity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblOthers, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblPosition_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblBeginWork_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(comboPosition, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(dateBeginWork, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))))
-					.addContainerGap(63, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addGap(272)
-					.addComponent(btnClear)
-					.addGap(10)
-					.addComponent(btnAdd)
-					.addContainerGap(85, Short.MAX_VALUE))
+									.addComponent(lblPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblRepeatPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblName_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textName, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblSurname_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textSurname, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblPesel_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblAdress, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblCity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textCity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblStreet_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textStreet, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblHomeNumber_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textHomeNumber, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblPostCode_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblDataLogin, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(lblSecularity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(dateSecularity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+									.addComponent(lblOthers, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+											.addComponent(lblPosition_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+											.addComponent(lblBeginWork_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(comboPosition, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(dateBeginWork, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(272)
+							.addComponent(btnClear)
+							.addGap(10)
+							.addComponent(btnAdd)))
+					.addContainerGap(73, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -337,11 +300,7 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 							.addGap(3)
 							.addComponent(lblPesel_))
 						.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblBirthday_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dateBirthday, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+					.addGap(32)
 					.addComponent(lblAdress, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -367,13 +326,7 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 							.addGap(3)
 							.addComponent(lblPostCode_))
 						.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblPhoneNumber_))
-						.addComponent(textPhoneNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+					.addGap(32)
 					.addComponent(lblOthers, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -402,39 +355,125 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 	}
 
 	public Priest getPriestData(){
-		Adress adress = new Adress();
-		Priest priest = new Priest();
-		priest.setName(textName.getText());
-		priest.setSurName(textSurname.getText());
-		priest.setPesel(textPesel.getText());
-		//((!dateBirthday.isEmpty())?dateBirthday.getDate():null);
-		adress.setCity(textCity.getText());
-		adress.setStreet(textStreet.getText());
-		adress.setHouseNumb(textHomeNumber.getText());
-		adress.setPostcode(textPostCode.getText());
-		//adress.setPhone(textPhoneNumber.getText());
-		priest.setSecularityDate(((!dateSecularity.isEmpty())?dateSecularity.getDate():null));
-		priest.setArrivalDate(((!dateBeginWork.isEmpty())?dateBeginWork.getDate():null));
-	
-		priest.setAdress(adress);
-		
-		//pobieranie pozycji ksiedza
-		priest.setPass(passwordPassword.getPassword().toString());
-		if(comboPosition.getSelectedIndex()==1)
-			priest.setPossition("Wikary");
-		else if(comboPosition.getSelectedIndex()==2)
-			priest.setPossition("Proboszcz");
-		return priest;
+		return this.priest;
 	}
 	
+	public boolean setPriestData(Priest pr){
+		Adress adress = new Adress();
+		boolean tryCatch=true;
+		//Priest priest = new Priest();
+		
+		if(textName.getText().length()<3){
+			JOptionPane.showMessageDialog(null, "Za krótkie imiê (min 3 znaki)");
+			return false;
+		} else pr.setName(textName.getText());
+		
+		if(textSurname.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Za krótkie nazwisko (min 2 znaki)");
+			return false;
+		} else pr.setSurName(textSurname.getText());
+		
+		
+		if((textPesel.getText().length()<11)||(textPesel.getText().length()>11)){
+		    JOptionPane.showMessageDialog(null, "Pesel musi mieæ 11 liczb");
+		    return false;
+		}else 
+		if(textPesel.getText().contains(".")){
+			JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+		    return false;
+		} else {
+			try{
+				Double.parseDouble(textPesel.getText());
+				
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+			    //return false;
+				tryCatch=false;
+			}
+		}
+		
+		if(!tryCatch) return false; else pr.setPesel(textPesel.getText());
+		
+		int i;
+		//JOptionPane.showMessageDialog(null, "przechodze do dat");
+		
+		if(textCity.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa miasta jest za krótka (min 2 znaki)");
+		    return false;
+		} else adress.setCity(textCity.getText());
+		if(textStreet.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa ulicy jest za krótka (min 2 znaki)");
+		    return false;
+		}else adress.setStreet(textStreet.getText());
+		if(textHomeNumber.getText().length()<1){
+			JOptionPane.showMessageDialog(null, "Numer domu jest za krótki (min 1 znaki)");
+		    return false;
+		}else adress.setHouseNumb(textHomeNumber.getText());
+		if(textPostCode.getText().length()<6){
+			JOptionPane.showMessageDialog(null, "Kod pocztowy jest za krótki (min 6 znaki)");
+		    return false;
+		}else adress.setPostcode(textPostCode.getText());
+		
+		if(dateSecularity.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Podaj datê œwiêceñ");
+		    return false;
+		} else  i = dateSecularity.getDate().compareTo(new Date()); 
+		if(i>0){
+			JOptionPane.showMessageDialog(null, "Data œwiêceñ jest b³edna \n" +
+					"Taki dzien jeszcze nie nast¹pi³");
+		    return false;
+		} else pr.setSecularityDate(dateSecularity.getDate());
+		
+		
+		if(dateBeginWork.isEmpty()) pr.setArrivalDate(null); else
+			if(dateBeginWork.getDate().compareTo(dateSecularity.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data przybycia jest przed dat¹ œwiêceñ");
+			    return false;
+			} else pr.setArrivalDate(dateBeginWork.getDate());
+		
+		
+		pr.setAdress(adress);
+		
+		//pobieranie pozycji ksiedza
+		pr.setPass(passwordPassword.getPassword().toString());
+		if(comboPosition.getSelectedIndex()==0){
+			JOptionPane.showMessageDialog(null, "Wybierz stanowisko");
+		    return false;
+		} else
+		if(comboPosition.getSelectedIndex()==1){
+			pr.setPossition("Wikary");
+			user.setRestriction(KindRestriction.WORKS_R);
+			user.setRange(KindRange.WORKER_RANG);	
+			}
+		else if(comboPosition.getSelectedIndex()==2){
+			pr.setPossition("Proboszcz");
+			user.setRestriction(KindRestriction.GOD_R);
+			user.setRange(KindRange.GOD_RANG);
+		}
+		
+		return true;
+	}
+	
+	
 	public User getUserData(){
-		User user = new User();
-		user.setId(0);
-		user.setLogin(textLogin.getText());
-		user.setPassword(passwordPassword.getText());
-		user.setRestriction(KindRestriction.WORKS_R);
-		user.setRange(KindRange.WORKER_RANG);		
-		return user;
+		return this.user;
+	}
+	
+	public boolean setUserData(User user){
+		//User user = new User();
+		if(textLogin.getText().length()<5){
+			JOptionPane.showMessageDialog(null, "Za krótki login (min 5 znaków)");
+		    return false;
+		} else user.setLogin(textLogin.getText());
+		
+		if (passwordPassword.getText().length()<5){
+			JOptionPane.showMessageDialog(null, "Za krótkie has³o (min 5 znaków)");
+		    return false;
+		} else user.setPassword(passwordPassword.getText());
+		
+		//user.setRestriction(KindRestriction.WORKS_R);
+		//user.setRange(KindRange.WORKER_RANG);		
+		return true;
 	}
 	
 	private void reset(){
@@ -444,12 +483,12 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		textName.setText("");
 		textSurname.setText("");
 		textPesel.setText("");
-		dateBirthday.setEmpty();
+		//dateBirthday.setEmpty();
 		textCity.setText("");
 		textStreet.setText("");
 		textHomeNumber.setText("");
 		textPostCode.setText("");
-		textPhoneNumber.setText("");
+		//textPhoneNumber.setText("");
 		//dateBaptism = new JDateChooser(new JCalendar(new Date()));
 		dateSecularity.setEmpty();
 		dateBeginWork.setEmpty();
@@ -511,7 +550,9 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		Object z = e.getSource();
 		if(z == btnAdd){
 			if(workingMode == ADD_MODE){
+				if(!this.setUserData(this.user)) return;
 				if(passwordPassword.getText().equals(passwordRepeatPassword.getText())){
+					if(!this.setPriestData(this.priest)) return;
 					Priest priest = getPriestData();
 					try {
 						events.dodajUzytkownika(getUserData(), priest.getAdress(), priest);

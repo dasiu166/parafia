@@ -30,7 +30,6 @@ public class PriestDataPanel extends JPanel {
 	private JLabel lblSecularityData;
 	private JLabel lblArrivalData;	
 	private JLabel lblPosition;	
-	private JLabel lblPhone;
 	/**
 	 * Create the panel.
 	 */
@@ -80,14 +79,9 @@ public class PriestDataPanel extends JPanel {
 			lblSecularityData_.setHorizontalAlignment(SwingConstants.RIGHT);
 			JLabel lblPosition_ = new JLabel("Stanowisko:");
 			lblPosition_.setHorizontalAlignment(SwingConstants.RIGHT);
-			JLabel lblPhone_ = new JLabel("Nr. Telefonu:");
-			lblPhone_.setEnabled(false);
-			lblPhone_.setHorizontalAlignment(SwingConstants.RIGHT);			
 				lblSecularityData = new JLabel("NULL_SecularityData");
 				lblArrivalData = new JLabel("NULL_Arrival Data");
 				lblPosition = new JLabel("NULL_Confirmation Data");
-				lblPhone = new JLabel("NULL_Phone number");
-				lblPhone.setEnabled(false);
 		
 		JLabel lblArrivalData_ = new JLabel("Data przybycia do parafi:");
 		lblArrivalData_.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -97,54 +91,50 @@ public class PriestDataPanel extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(69)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblAdres, GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-						.addComponent(lblDane, GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+						.addComponent(lblAdres, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+						.addComponent(lblDane, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblName_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblName, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(lblName, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblSurname_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblSurname, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(lblSurname, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblPesel_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblPesel, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(lblPesel, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblBirthday_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblBirthday, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(lblBirthday, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblCity_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblCity, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(lblCity, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblStreet_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblStreet, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(lblStreet, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblHomeNumber_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblHomenumber, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(lblHomenumber, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblPostCode_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblPostcode, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblPhone_, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblPhone, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+									.addComponent(lblPostcode, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
 								.addComponent(lblOthers, GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGap(1)
@@ -202,11 +192,7 @@ public class PriestDataPanel extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPostcode)
 						.addComponent(lblPostCode_))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPhone_)
-						.addComponent(lblPhone))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(31)
 					.addComponent(lblOthers, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -220,7 +206,7 @@ public class PriestDataPanel extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblPosition)
 						.addComponent(lblPosition_))
-					.addContainerGap(76, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}

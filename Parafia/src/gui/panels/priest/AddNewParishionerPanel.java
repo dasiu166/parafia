@@ -40,7 +40,10 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 	private final static int ADD_MODE = 1;
 	private final static int EDIT_MODE = 2;
 	private int workingMode;
-	private Parishioner parishioner;
+	
+	private Parishioner parishioner = new Parishioner();
+	private User user = new User();
+	
 	private static final long serialVersionUID = 7694386932112268103L;
 	private JTextField textLogin;
 	private JTextField textName;
@@ -52,7 +55,6 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 	private JTextField textPostCode;
 	private JPasswordField passwordPassword;
 	private JPasswordField passwordRepeatPassword;
-	private JTextField textPhoneNumber;
 	private JDateChooser dateBirthday;
 	private JDateChooser dateBaptism;
 	private JDateChooser dateCommunion;
@@ -166,12 +168,6 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		textPostCode.setColumns(10);
 		
 		
-		JLabel lblPhoneNumber_ = new JLabel("Nr Telefonu:");
-		lblPhoneNumber_.setHorizontalAlignment(SwingConstants.RIGHT);
-		textPhoneNumber = new JTextField();
-		textPhoneNumber.setColumns(10);
-		
-		
 		JLabel lblPrzebieg = new JLabel("Przebieg");
 		lblPrzebieg.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPrzebieg.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -270,11 +266,6 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 							.addComponent(lblPostCode_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 							.addGap(10)
 							.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblPhoneNumber_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textPhoneNumber, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(70)
 							.addComponent(lblPrzebieg, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE))
@@ -388,13 +379,7 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 							.addGap(3)
 							.addComponent(lblPostCode_))
 						.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblPhoneNumber_))
-						.addComponent(textPhoneNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+					.addGap(32)
 					.addComponent(lblPrzebieg, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -430,39 +415,147 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		setMode();
 		
 	}
-
+	
 	public Parishioner getParishionerData(){
+		return this.parishioner;
+	}
+
+	public boolean setParishionerData(Parishioner prr){
+		boolean tryCatch=true;
+		
 		Course course = new Course();
 		Adress adress = new Adress();
-		Parishioner parishioner = new Parishioner();
-		parishioner.setName(textName.getText());
-		parishioner.setSurName(textSurname.getText());
-		parishioner.setPesel(textPesel.getText());
-		course.setBirthday((!dateBirthday.isEmpty())?dateBirthday.getDate():null);
-		adress.setCity(textCity.getText());
-		adress.setStreet(textStreet.getText());
-		adress.setHouseNumb(textHomeNumber.getText());
-		adress.setPostcode(textPostCode.getText());
-		//adress.setPhone(textPhoneNumber.getText());
-		course.setBaptism((!dateBaptism.isEmpty())?dateBaptism.getDate():null);
-		course.setCommunion((!dateCommunion.isEmpty())?dateCommunion.getDate():null);
-		course.setConfirmation((!dateConfirmation.isEmpty())?dateConfirmation.getDate():null);
-		course.setMarriage((!dateMarriage.isEmpty())?dateMarriage.getDate():null);
-		course.setDeath((!dateDeath.isEmpty())?dateDeath.getDate():null);
-		parishioner.setAdress(adress);
-		parishioner.setCourse(course);
-		parishioner.setPass(passwordPassword.getPassword().toString());
-		return parishioner;
+		//Parishioner parishioner = new Parishioner();
+		
+		//imie
+		if(textName.getText().length()<3){
+			JOptionPane.showMessageDialog(null, "Za krótkie imie (min 3 znaki)");
+			return false;
+		} else prr.setName(textName.getText());
+			
+		
+		//nazwisko
+		if(textSurname.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Za krótkie nazwisko (min 2 znaki)");
+			return false;
+		}else prr.setSurName(textSurname.getText());
+		
+		
+		//pesel
+		if((textPesel.getText().length()<11)||(textPesel.getText().length()>11)){
+		    JOptionPane.showMessageDialog(null, "Pesel musi mieæ 11 liczb");
+		    return false;
+		}else 
+		if(textPesel.getText().contains(".")){
+			JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+		    return false;
+		} else {
+			try{
+				Double.parseDouble(textPesel.getText());
+				
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+			    //return false;
+				tryCatch=false;
+			}
+		}
+		
+		if(!tryCatch) return false; else prr.setPesel(textPesel.getText());
+		
+		//data urodzenia
+		int i;
+		//JOptionPane.showMessageDialog(null, "przechodze do dat");
+
+		if(dateBirthday.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Podaj datê urodzenia");
+		    return false;
+		} else  i = dateBirthday.getDate().compareTo(new Date()); 
+		if(i>0){
+			JOptionPane.showMessageDialog(null, "Data urodzenie jest b³edna \n" +
+					"Taki dzien jeszcze nie nast¹pi³");
+		    return false;
+		} else course.setBirthday(dateBirthday.getDate());
+		
+		
+		//adress
+		if(textCity.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa miasta jest za krótka (min 2 znaki)");
+		    return false;
+		} else adress.setCity(textCity.getText());
+		if(textStreet.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa ulicy jest za krótka (min 2 znaki)");
+		    return false;
+		}else adress.setStreet(textStreet.getText());
+		if(textHomeNumber.getText().length()<1){
+			JOptionPane.showMessageDialog(null, "Numer domu jest za krótki (min 1 znaki)");
+		    return false;
+		}else adress.setHouseNumb(textHomeNumber.getText());
+		if(textPostCode.getText().length()<6){
+			JOptionPane.showMessageDialog(null, "Kod pocztowy jest za krótki (min 6 znaki)");
+		    return false;
+		}else adress.setPostcode(textPostCode.getText());
+		
+		
+		//course
+		if(dateBaptism.isEmpty()) course.setBaptism(null); else
+			if(dateBaptism.getDate().compareTo(dateBirthday.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data chrztu jest przed dat¹ urodzenia");
+			    return false;
+			} else course.setBaptism(dateBaptism.getDate());
+		
+		if(dateCommunion.isEmpty()) course.setCommunion(null); else
+			if(dateCommunion.getDate().compareTo(dateBaptism.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data komunii œw. jest przed dat¹ chrztu");
+			    return false;
+			} else course.setCommunion(dateCommunion.getDate());
+		
+		if(dateConfirmation.isEmpty()) course.setConfirmation(null); else
+			if(dateConfirmation.getDate().compareTo(dateCommunion.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data bierzmowania jest przed dat¹ komunii œw.");
+			    return false;
+			} else course.setConfirmation(dateConfirmation.getDate());
+		
+		
+		if(dateMarriage.isEmpty()) course.setMarriage(null); else
+			if(dateMarriage.getDate().compareTo(dateConfirmation.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data œlubu jest przed dat¹ bierzmowania");
+			    return false;
+			} else course.setMarriage(dateMarriage.getDate());
+		
+		if(dateDeath.isEmpty()) course.setDeath(null); else
+			if(dateDeath.getDate().compareTo(dateBirthday.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data œmierci jest przed dat¹ urodzenia");
+			    return false;
+			} else course.setMarriage(dateDeath.getDate());
+		
+		
+		
+		prr.setAdress(adress);
+		prr.setCourse(course);
+		prr.setPass(passwordPassword.getPassword().toString());
+		return true;
 	}
 	
 	public User getUserData(){
-		User user = new User();
-		user.setId(0);
-		user.setLogin(textLogin.getText());
-		user.setPassword(passwordPassword.getText());
+		return this.user;
+	}
+	
+	public boolean setUserData(User user){
+		//User user = new User();
+		//user.setId(0);
+		if(textLogin.getText().length()<5){
+			JOptionPane.showMessageDialog(null, "Za krótki login (min 5 znaków)");
+		    return false;
+		} else user.setLogin(textLogin.getText());
+		
+		if (passwordPassword.getText().length()<5){
+			JOptionPane.showMessageDialog(null, "Za krótkie has³o (min 5 znaków)");
+		    return false;
+		} else user.setPassword(passwordPassword.getText());
+		
 		user.setRestriction(KindRestriction.LOGED_R);
 		user.setRange(KindRange.LOGG_RANG);		
-		return user;
+		return true;
 	}
 	
 	private void reset(){
@@ -477,7 +570,7 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		textStreet.setText("");
 		textHomeNumber.setText("");
 		textPostCode.setText("");
-		textPhoneNumber.setText("");
+		//textPhoneNumber.setText("");
 		//dateBaptism = new JDateChooser(new JCalendar(new Date()));
 		dateBaptism.setEmpty();
 		dateCommunion.setEmpty();
@@ -548,10 +641,13 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		Object z = e.getSource();
 		if(z == btnAdd){
 			if(workingMode == ADD_MODE){
+				if(!this.setUserData(user)) return;//wyjdz jezeli blad w danych usera
+				
 				if(passwordPassword.getText().equals(passwordRepeatPassword.getText())){
-					Parishioner parishioner = getParishionerData();
+					if(!this.setParishionerData(parishioner)) return;//wyjdz (zle dane)
+					Parishioner pr = getParishionerData();
 					try {
-						events.dodajUzytkownika(getUserData(), parishioner.getAdress(), parishioner.getCourse(), parishioner);
+						events.dodajUzytkownika(getUserData(), pr.getAdress(), pr.getCourse(), pr);
 						if(events.getLastErr().equals("OK+")){
 							JOptionPane.showMessageDialog(null, "Parafianin dodany");
 						} else {

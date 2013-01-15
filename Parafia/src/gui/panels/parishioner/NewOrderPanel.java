@@ -241,7 +241,7 @@ public class NewOrderPanel extends JPanel implements ActionListener {
 		Object z = arg0.getSource();
 		
 		if(z==btnSend){
-			//tymczasowo ustwiam ksiedza na sztywno, alepozniej musi byc pobierany z listy
+			
 			Priest p = new Priest();
 			
 			try{
@@ -270,7 +270,17 @@ public class NewOrderPanel extends JPanel implements ActionListener {
 			if(getDateStart()==null){
 				JOptionPane.showMessageDialog(null, "Podaj date");
 				return;
-			} else {
+			} else 
+			if (Pomoc.substractDates(getDateStart(), new Date())<3){
+				JOptionPane.showMessageDialog(null, "Ró¿nica w czasie musi wynosic co najmnie 3 dni \n" +
+						"Nie mo¿esz z³o¿yæ zamowienia poniewa¿ ró¿nica pomiêdzy dniem dzisiejszym, a wybran¹ dat¹ jest mniejsza ni¿ 3 DNI");
+				return;
+				
+			} else if(getSelectedHourIndex()<=0){
+				JOptionPane.showMessageDialog(null, "Wybierz godzine");
+				return;
+				
+			}else {
 			o.setBeginDate(Pomoc.podajDate(getDateStart()
 					.toLocaleString().substring(0,10)+" "+getSelectedHour()));
 			//JOptionPane.showMessageDialog(null, o.getBeginDate().toLocaleString());
@@ -283,8 +293,7 @@ public class NewOrderPanel extends JPanel implements ActionListener {
 			if(getSelectedOrderItemIndex()<1){
 				JOptionPane.showMessageDialog(null, "Wybierz typ zamowienia");
 				return;
-			} else
-			o.setEvent(getSelectedOrderItem().substring(0, 1));
+			} else o.setEvent(getSelectedOrderItem().substring(0, 1));
 			//JOptionPane.showMessageDialog(null,getSelectedOrderItem().substring(0, 1) );
 
 			try{
