@@ -104,7 +104,7 @@ public class LoginDialog extends JDialog implements ActionListener{
 		JButton btnGood = new JButton("Good");
 		btnGood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setLoginData("godgod", "godgod");
+				setLoginData("pop_master", "pop55");
 				okData = true;
 				setVisible(false);
 			}

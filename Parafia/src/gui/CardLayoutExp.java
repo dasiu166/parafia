@@ -154,19 +154,17 @@ public class CardLayoutExp extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGap(8)
-								.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(8)
+							.addGap(4)
+							.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(4)
+							.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(4)
 							.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
+					.addGap(4)
+					.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -176,7 +174,7 @@ public class CardLayoutExp extends JFrame {
 					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(280, Short.MAX_VALUE))
+					.addContainerGap(272, Short.MAX_VALUE))
 				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
 		);
 		
@@ -431,6 +429,7 @@ public class CardLayoutExp extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 					events.pobierzZdarzenia();
+					//events.pobierzZamowienia(); //tu powinno byœ Zamówienia a nie Zdarzenia
 					}catch(ClassNotFoundException e){
 						
 					}catch(IOException e){
