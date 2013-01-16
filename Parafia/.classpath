@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/images.jar"/>
 	<classpathentry kind="lib" path="lib/ojdbc6_g.jar"/>
 	<classpathentry kind="lib" path="lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.3.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

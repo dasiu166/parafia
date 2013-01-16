@@ -566,7 +566,9 @@ public class CardLayoutExp extends JFrame {
 	}
 	
 	public void connectionError(){
-		JOptionPane.showMessageDialog(null, "Blad polaczenia");
+		JOptionPane.showMessageDialog(null, "Blad polaczenia - nast¹pi zamkniêcie aplikacji \n" +
+				"Sprobój po³¹czyæ siê póŸniej");
+		System.exit(0);
 	}
 
 	/**

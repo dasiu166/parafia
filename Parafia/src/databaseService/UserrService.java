@@ -96,6 +96,8 @@ public class UserrService extends ServicePart  {
 					 ((User) wiadomosc).setQuery("ERR");
 					 s.sendObject(wiadomosc);
 					 //LOG------------------------------
+					 Serwer.removeLoginFromList(((User) wiadomosc).getLogin());
+
 					 s.saveLog("Blad logowania");
 					 return;
 					 //LOG_END--------------------------

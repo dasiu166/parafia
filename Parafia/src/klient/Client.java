@@ -139,10 +139,50 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		if (k.isConnected==false) System.out.println("Klient - niepolaczony");
 			else System.out.println("Klient - polaczony");
 		
+		
+		
+		
+		
+		//Pobranie listy aktualnosci
+		int i=0;
+		while(true){
+			Actuals act = new Actuals();
+			act.setKindQuery(KindQuery.SEL_DBASE);
+			act.setQuery("Select * from actuals");
+			k.sendObject(act);
+			k.reciveObject();
+			LinkedList<Actuals> actL = new LinkedList<Actuals>();
+			actL=(LinkedList<Actuals>)k.getPackage();
+			Iterator<Actuals> itA = actL.iterator();
+			
+			while(itA.hasNext()){
+				Actuals ae = itA.next();
+			System.out.println(ae.getDescribe());
+			}
+			
+			try {
+				Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch blocke.printStackTrace();
+					}
+			i++;
+			System.out.println("ile= "+i);
+			}
+			
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
 		/*!!Poczatek logowania!!-------------------------------------------------*/
 		//Parishioner p = new Parishioner();
 		
-		User u = new User();
+		/*User u = new User();
 		u.setKindQuery(KindQuery.TRY_LOGIN); //zapytanie = logowanie
 		u.setLogin("ania");
 		u.setPassword("an11");
@@ -151,25 +191,25 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		 u.getPassword()+"'");
 		
 		
-		k.sendObject(u); //wysyla sie bo wszsytkie obiekty dziedzicza po Object
-		k.reciveObject();/*tu uwaga panowie bo sie blokuje az nie otrzyma jakiejs przesylki*/
+		k.sendObject(u);*/ //wysyla sie bo wszsytkie obiekty dziedzicza po Object
+		//k.reciveObject();/*tu uwaga panowie bo sie blokuje az nie otrzyma jakiejs przesylki*/
 		
-		u = (User)k.getPackage();
+		//u = (User)k.getPackage();
 		
-		if(u.getQuery().equals("ERR")){
+		//if(u.getQuery().equals("ERR")){
 			/*Gdy login/haslo bledne*/
-			System.out.println("Nie mozna sie zalogowac (zly login/haslo)");
-			u.setRestriction(KindRestriction.GUEST_R);
+			//System.out.println("Nie mozna sie zalogowac (zly login/haslo)");
+			//u.setRestriction(KindRestriction.GUEST_R);
 			//p.setRestriction(KindRestriction.GUEST_R);
-			return;
-		}
+			//return;
+		//}
 		
-		System.out.println("Prawa dostepu: "+u.getRestriction()+" Ranaga: "+u.getRange());
+		//System.out.println("Prawa dostepu: "+u.getRestriction()+" Ranaga: "+u.getRange());
 		
-		k.reciveObject();
+	//	k.reciveObject();
 		
-		Parishioner p = new Parishioner();
-		p=(Parishioner)k.getPackage();
+		//Parishioner p = new Parishioner();
+		//p=(Parishioner)k.getPackage();*/
 		
 		/*fragment rozrozniajacy rangi, trzeba go zaimplementowac w jakis sposob 
 		 * do formatek
@@ -182,11 +222,12 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 				p = (Priest)k.getPackage();
 			}*/
 		
-		System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
-				" Pesel: "+p.getPesel());
+		//System.out.println("Zalogowano jako: "+p.getName()+" "+p.getSurName()+"\n" +
+			//	" Pesel: "+p.getPesel());
 		
 		
 		//## POBRANIE LISTY KSIEZY ##
+		/*
 		LinkedList<Priest> lp = new LinkedList<Priest>();
 		Priest np = new Priest();
 		np.setKindQuery(KindQuery.SEL_DBASE);
@@ -199,7 +240,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		lp=(LinkedList<Priest>)k.getPackage();
 		
 		System.out.println("Ilosc ksiezy = "+lp.size());
-		
+		*/
 		
 		
 		//## USUWANIE AKTUALNOSCI##
@@ -587,14 +628,15 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 				//}
 		*/
 		
-		p.setKindQuery(-1);
+		
+		/*p.setKindQuery(-1);
 		k.sendObject(p);
 		k.reciveObject();
 		
 	    p = (Parishioner)k.getPackage();
 		
 		System.out.println("KLIENT:  (otrzymana odpowiedz)"+p.getData());
-		
+		*/
 	}
 	
 	

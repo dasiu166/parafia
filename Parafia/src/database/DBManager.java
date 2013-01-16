@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData; //opis kolumn
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.sql.Statement;
 import java.util.*;
 
 import obsluga.Adress;
@@ -154,10 +155,14 @@ public class DBManager {
 		//connectToDB();
 		ResultSet data=null; //wynik z bazy
 		ResultSetMetaData desc;//opis wyniku
+		Statement stmt=null;
 		LinkedList<String[]> dataList = new LinkedList<String[]>();//lista wierszy
 		int rows=0;
 		try{
-		data = conn.createStatement().executeQuery(q); //wykonanie zapytania w bazie
+	    stmt = conn.createStatement();
+	    data=stmt.executeQuery(q);
+		
+	    //data = conn.createStatement().executeQuery(q); //wykonanie zapytania w bazie
 		desc = data.getMetaData(); //zwrocenie opisu kolumn
 		
 		//if(data==null) System.out.println("CATCH SQL");
@@ -177,6 +182,7 @@ public class DBManager {
 		 }
 		
 		data.close();
+		stmt.close();
 		
 		} 
 		
@@ -186,6 +192,7 @@ public class DBManager {
 			e.getMessage();
 			try{
 			data.close();
+			stmt.close();
 			}catch (SQLException eee){
 				
 			}
@@ -200,6 +207,7 @@ public class DBManager {
 			dataList.add(fArray);
 			try{
 				data.close();
+				stmt.close();
 				}catch (SQLException eee){
 					return dataList;
 				}
