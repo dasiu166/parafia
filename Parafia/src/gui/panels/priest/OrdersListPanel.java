@@ -69,17 +69,18 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private LinkedList<obsluga.Event> eventList;
 	private Events events = Events.getInstance();
 	
-	private JButton btnZastosuj;
+	private JButton btnApply;
 	private ObserwatorStanuSortowania obserwatorStanuSortowania = new ObserwatorStanuSortowania(this);
 	private LinkedList<Order> orderList;
 	private int lastKindOrderQuery=0;//przechowuje jak byla tworzona lista z zamowineiami
 
-	
+
 	//POLA
 	private JDateChooser dateFrom;
 	private JDateChooser dateTo;
 	private JComboBox comboStatus;
 	private JComboBox comboPriest;
+	private JComboBox comboType;
 	
 	/**
 	 * Create the panel.
@@ -99,14 +100,19 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		
 		comboStatus = new JComboBox();
 		comboStatus.setModel(new DefaultComboBoxModel(new String[] {"Wszystkie","Nowe", "Zaakceptowane", "Odrzucone"}));
+		comboStatus.setSelectedIndex(1);
 		
 		comboPriest = new JComboBox();
 		//comboPriest.setModel(new DefaultComboBoxModel(new String[] {"Kazimierz Ksiazecki"}));
 		
-		dateFrom = new JDateChooser();
-		dateTo = new JDateChooser();
-		dateFrom.setEmpty();
-		dateTo.setEmpty();
+		dateFrom = new JDateChooser(true);		
+		dateTo = new JDateChooser(true);
+		/*
+		 * dateFrom = new JDateChooser(true); 
+		 * jest równoznaczne z
+		 * dateFrom = new JDateChooser();
+		 * dateFrom.setEmpty();
+		 */
 		
 		JLabel lblFromDate_ = new JLabel("Od:");
 		lblFromDate_.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -142,47 +148,46 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
-		JLabel lblInfo_ = new JLabel("Podw\u00F3jne klikniecie otwiera");
-		lblInfo_.setHorizontalAlignment(SwingConstants.CENTER);
+		btnApply = new JButton("Zastosuj");
+		btnApply.addActionListener(this);
 		
-		btnZastosuj = new JButton("Zastosuj");
-		btnZastosuj.addActionListener(this);
+		JLabel lblTyp_ = new JLabel("Typ:");
 		
-		JLabel lblOknoZZamowieniem = new JLabel("okno z zamowieniem");
-		lblOknoZZamowieniem.setHorizontalAlignment(SwingConstants.CENTER);
+		comboType = new JComboBox();
+		comboType.setModel(new DefaultComboBoxModel(new String[] {"wszystkie", "Msza", "Wypominki", "Pogrzeb"}));
+		
+		
 		GroupLayout gl_panel_Headline = new GroupLayout(panel_Headline);
 		gl_panel_Headline.setHorizontalGroup(
 			gl_panel_Headline.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
-					.addGap(10)
+					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblFromDate_, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblToDate_, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
+					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
 						.addComponent(dateFrom, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
 						.addComponent(dateTo, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-					.addGap(12)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
+					.addGap(5)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblStatusOrder_, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblPriest_, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-					.addGap(10)
+					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboStatus, 0, 140, Short.MAX_VALUE)
-						.addComponent(comboPriest, 0, 140, Short.MAX_VALUE))
+						.addComponent(comboPriest, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(comboStatus, 0, 140, Short.MAX_VALUE))
 					.addGap(10)
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
+					.addGap(8)
+					.addComponent(lblTyp_, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblInfo_, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-						.addComponent(lblOknoZZamowieniem, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-						.addGroup(gl_panel_Headline.createSequentialGroup()
-							.addGap(34)
-							.addComponent(btnZastosuj, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-							.addGap(34)))
-					.addGap(11))
+						.addComponent(btnApply)
+						.addComponent(comboType, 0, 140, Short.MAX_VALUE))
+					.addGap(14))
 		);
 		gl_panel_Headline.setVerticalGroup(
 			gl_panel_Headline.createParallelGroup(Alignment.LEADING)
@@ -192,28 +197,31 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					.addGap(7)
 					.addComponent(lblToDate_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panel_Headline.createSequentialGroup()
-					.addGap(13)
+					.addContainerGap()
 					.addComponent(dateFrom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addGap(7)
 					.addComponent(dateTo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
 					.addGap(13)
 					.addComponent(lblStatusOrder_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(lblPriest_, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblPriest_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panel_Headline.createSequentialGroup()
-					.addGap(12)
+					.addContainerGap()
 					.addComponent(comboStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(7)
-					.addComponent(comboPriest, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+					.addComponent(comboPriest, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
-					.addComponent(lblInfo_)
-					.addGap(1)
-					.addComponent(lblOknoZZamowieniem)
-					.addGap(9)
-					.addComponent(btnZastosuj))
+					.addContainerGap()
+					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTyp_))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnApply)
+					.addGap(9))
 		);
 		panel_Headline.setLayout(gl_panel_Headline);
 		
@@ -370,6 +378,10 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		//JOptionPane.showMessageDialog(null, rowConstraints);
 	}
 	
+	private synchronized void resetRowConstraint(){
+			((MigLayout)panel_OrdersList.getLayout()).setRowConstraints("[]");
+	}
+	
 	public void changeVisibility(){
 		if(events.getRestriction()>KindRestriction.LOGED_R) dateTo.setVisible(false);
 
@@ -421,7 +433,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel_Data.setBorder(new MatteBorder(0, 1, 0, 0, new Color(128, 128, 128)));
 		
 		//################## WYSWIETLANE POLA ######################
-		String from = order.getSender().getName()+" "+order.getSender().getSurName();
+		String from = order.getSender().getSurName()+" "+order.getSender().getName();
 		//String from = "<empty>";
 		String type = Pomoc.validateEventName(eventList, order.getEvent());
 		//String type = "Typ";
@@ -610,6 +622,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel_OrdersList.removeAll();
 		panel_1.removeAll();
 		orderNumber=0;
+		resetRowConstraint();
 		
 		Iterator<Order> iterator = orderList.iterator();
 
@@ -695,7 +708,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	public int getStatusSelectedIndex(){
-		return comboStatus.getSelectedIndex();
+		return (comboStatus.getSelectedIndex()==-1)?1:comboStatus.getSelectedIndex();
 	}
 	
 	public String getStatusSelectedItem(){
@@ -703,24 +716,34 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	public int getPriestSelectedIndex(){
-		return (comboPriest.getSelectedIndex()==-1)?1:comboPriest.getSelectedIndex();
+		return (comboPriest.getSelectedIndex()==-1)?0:comboPriest.getSelectedIndex();
 	}
 	
 	public String getPriestSelectedItem(){
 		return (String)comboPriest.getSelectedItem();
 	}
 	
+	public int getTypeSelectedIndex(){
+		return (comboType.getSelectedIndex()==-1)?0:comboType.getSelectedIndex();
+	}
+	
+	public String getTypeSelectedItem(){
+		return (String)comboType.getSelectedItem();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object z = e.getSource();
 		
-		if(z == btnZastosuj){
+		if(z == btnApply){
 			Date from = getDateFrom();
 			Date to = getDateTo();
 			String statusS = getStatusSelectedItem();
 			int status = getStatusSelectedIndex();
 			String priestS = getPriestSelectedItem();
 			int priest = getPriestSelectedIndex();
+			String typeS = getTypeSelectedItem();
+			int type = getTypeSelectedIndex();
 			
 			//events.pobierzZamowienia(from, to, status, priest);
 			//events.pobierzZamowienia(from, to, statusS, priestS);
@@ -834,10 +857,71 @@ class ObserwatorStanuSortowania implements Obserwowany
 			    		}
 			    	}
     		}
+
+    	} else if(obserwator.getName().equals("status")){
+    		if(obserwator.getStan() == StanuSortowania.IMG_UP){
+		    	for(int j=0;j<orderArray.length-1;j++)
+			    	for(int i=1; i<orderArray.length;i++){
+			    		if( orderArray[i-1].getStatus().compareToIgnoreCase(orderArray[i].getStatus()) < 0){
+			    			tmp = orderArray[i-1];
+			    			orderArray[i-1] = orderArray[i];
+			    			orderArray[i] = tmp;
+			    		}
+			    	}
+    		} else {
+		    	for(int j=0;j<orderArray.length-1;j++)
+			    	for(int i=1; i<orderArray.length;i++){
+			    		if(orderArray[i-1].getStatus().compareToIgnoreCase(orderArray[i].getStatus()) > 0){
+			    			tmp = orderArray[i-1];
+			    			orderArray[i-1] = orderArray[i];
+			    			orderArray[i] = tmp;
+			    		}
+			    	}
+    		}
+    	} else if(obserwator.getName().equals("type")){
+    		if(obserwator.getStan() == StanuSortowania.IMG_UP){
+		    	for(int j=0;j<orderArray.length-1;j++)
+			    	for(int i=1; i<orderArray.length;i++){
+			    		if( orderArray[i-1].getEvent().compareToIgnoreCase(orderArray[i].getEvent()) < 0){
+			    			tmp = orderArray[i-1];
+			    			orderArray[i-1] = orderArray[i];
+			    			orderArray[i] = tmp;
+			    		}
+			    	}
+    		} else {
+		    	for(int j=0;j<orderArray.length-1;j++)
+			    	for(int i=1; i<orderArray.length;i++){
+			    		if(orderArray[i-1].getEvent().compareToIgnoreCase(orderArray[i].getEvent()) > 0){
+			    			tmp = orderArray[i-1];
+			    			orderArray[i-1] = orderArray[i];
+			    			orderArray[i] = tmp;
+			    		}
+			    	}
+    		}
+    	}else if(obserwator.getName().equals("from")){
+    		if(obserwator.getStan() == StanuSortowania.IMG_UP){
+		    	for(int j=0;j<orderArray.length-1;j++)
+			    	for(int i=1; i<orderArray.length;i++){
+			    		if( orderArray[i-1].getSender().getSurName().compareToIgnoreCase(orderArray[i].getSender().getSurName()) < 0){
+			    			tmp = orderArray[i-1];
+			    			orderArray[i-1] = orderArray[i];
+			    			orderArray[i] = tmp;
+			    		}
+			    	}
+    		} else {
+		    	for(int j=0;j<orderArray.length-1;j++)
+			    	for(int i=1; i<orderArray.length;i++){
+			    		if(orderArray[i-1].getSender().getSurName().compareToIgnoreCase(orderArray[i].getSender().getSurName()) > 0){
+			    			tmp = orderArray[i-1];
+			    			orderArray[i-1] = orderArray[i];
+			    			orderArray[i] = tmp;
+			    		}
+			    	}
+    		}
     	}
     	
     	orderList.clear();
-    	JOptionPane.showMessageDialog(null, orderArray.length);
+
     	for(int i=0; i<orderArray.length;i++){
     		orderList.add(orderArray[i]);
     	}
@@ -860,9 +944,9 @@ class StanuSortowania implements Obserwator
     public static final int IMG_CLEAR = 0;
     public static final int IMG_UP = 1;
     public static final int IMG_DOWN = 2;
-	private static final ImageIcon iconUp = new ImageIcon("icons/arrow_sort_a.png");
-	private static final ImageIcon iconDown = new ImageIcon("icons/arrow_sort_b.png");
-	private static final ImageIcon iconClear = new ImageIcon("icons/arrow_sort_c.png");
+	private static final ImageIcon ICON_UP = new ImageIcon("icons/arrow_sort_a.png");
+	private static final ImageIcon ICON_DOWN = new ImageIcon("icons/arrow_sort_b.png");
+	private static final ImageIcon ICON_CLEAR = new ImageIcon("icons/arrow_sort_c.png");
 
     
 	private String name;
@@ -892,13 +976,13 @@ class StanuSortowania implements Obserwator
     public void uaktualnij(int stan) {
     	this.stan = stan;
     	if(stan == IMG_CLEAR)
-    		label.setIcon(iconClear);
+    		label.setIcon(ICON_CLEAR);
     	else if(stan == IMG_UP)
-    		label.setIcon(iconUp);
+    		label.setIcon(ICON_UP);
     	else if(stan == IMG_DOWN)
-    		label.setIcon(iconDown);
+    		label.setIcon(ICON_DOWN);
     	else
-    		label.setIcon(iconClear);
+    		label.setIcon(ICON_CLEAR);
     }
     
     public String getName(){
