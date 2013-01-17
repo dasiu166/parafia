@@ -25,6 +25,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -59,6 +60,9 @@ import com.jgoodies.looks.FontSets;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
+
+import pomoce.HelpWindow;
+
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -429,6 +433,7 @@ public class CardLayoutExp extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 					events.pobierzZdarzenia();
+					events.pobierzListeKsiezy();
 					//events.pobierzZamowienia(); //tu powinno byœ Zamówienia a nie Zdarzenia
 					}catch(ClassNotFoundException e){
 						
@@ -437,7 +442,8 @@ public class CardLayoutExp extends JFrame {
 					}
 				
 				jpOrdersList.setEventList(events.getClient().getEventKindList());
-				jpOrdersList.loadListOrder();
+				jpOrdersList.setPriestList(events.getClient().getPriestList());
+				jpOrdersList.loadListOrder(0);
 				cl.show(panelContent, "ordersList");
 				//jpOrdersList.removeAll();
 			}
@@ -452,6 +458,26 @@ public class CardLayoutExp extends JFrame {
 			}
 		});
 		mnKsidz.add(mntmKsiadzAddNews);
+		
+		
+		JMenuItem mntmPriestZamowienie = new JMenuItem("Zamowienie");
+		mntmPriestZamowienie.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Add-icon.png")));
+		mntmPriestZamowienie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+				events.pobierzZdarzenia();
+				events.pobierzListeKsiezy();
+				}catch(ClassNotFoundException e){
+					
+				}catch(IOException e){
+					
+				}
+				jpNewOrder.setOrderList(events.getClient().getEventKindList());
+				jpNewOrder.setPriestList(events.getClient().getPriestList());
+				cl.show(panelContent, "newOrder");
+			}
+		});
+		mnKsidz.add(mntmPriestZamowienie);
 		
 		JMenuItem mntmAddnewparishioner = new JMenuItem("Dodaj parafianina");
 		mntmAddnewparishioner.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/addparishioner.png")));
@@ -497,6 +523,19 @@ public class CardLayoutExp extends JFrame {
 			});
 			mnPomocOProgramie.setAccelerator(KeyStroke.getKeyStroke("F1"));
 			menuPomoc.add(mnPomocOProgramie);
+			
+			
+			final JMenuItem mnPomocHTML = new JMenuItem("Instrukcja");
+			mnPomocHTML.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Help-icon.png")));
+			mnPomocHTML.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       prof. zw. dr hab. in¿. Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Ewiak Piotr", "O Programie",JOptionPane.PLAIN_MESSAGE);
+					URL index = ClassLoader.getSystemResource("Help/index.html");
+				    new HelpWindow("Test", index);
+				}
+			});
+			//mnPomocOProgramie.setAccelerator(KeyStroke.getKeyStroke("F1"));
+			menuPomoc.add(mnPomocHTML);
 				
         
 		
@@ -593,6 +632,7 @@ public class CardLayoutExp extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null,"Blad po³¹czenia z serwerem");
+					//System.exit(0);
 					e.printStackTrace();
 				}
 			}

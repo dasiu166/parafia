@@ -115,6 +115,7 @@ public class PriestService extends ServicePart {
 				System.out.println("UZYCIE KOPII=======" + db.useSavePoint());
 			
 			} else {
+				
 				((Priest) wiadomosc).setQuery("OK+");
 			}
 

@@ -82,15 +82,36 @@ public class OrderService extends ServicePart {
 					//BLOK UZUPELNIANIA DANYCH OSOBY zamawiajacej
 					dbReturn = db.execSelectQuery("Select * from parishioner where " +
 							"pesel="+tmp[3]);
+					
 					System.out.println("%%%Select * from parishioner where " +
 							"pesel="+tmp[3]);
 					
 					String tmp3[] = dbReturn.getFirst();
+					System.out.println("QQQQQ    ZWROT POSZUK PARAF = "+tmp[0]);
+					if(!tmp3[0].equals("ERR"))
+					{
 					Parishioner par = new Parishioner();
+					par.setPesel(tmp[3]);
 					par.setName(tmp3[4]);
 					par.setSurName(tmp3[5]);
 					o.setSender(par);
-					
+					} else {
+						dbReturn=null;
+						
+						dbReturn = db.execSelectQuery("Select * from priest where " +
+								"pesel="+tmp[3]);
+						
+						System.out.println("%%%Select * from priest where " +
+								"pesel="+tmp[3]);
+						
+						String tmp4[] = dbReturn.getFirst();
+						Priest prr = new Priest();
+						prr.setPesel(tmp[3]);
+						prr.setName(tmp4[3]);
+						prr.setSurName(tmp4[4]);
+						o.setSender(prr);
+						
+					}
 					
 					
 					//BLOK UZUPELNIANIA DANYCH OSOBY WYKONUJACEJ

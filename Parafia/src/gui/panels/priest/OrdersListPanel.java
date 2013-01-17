@@ -40,9 +40,11 @@ import javax.swing.border.MatteBorder;
 
 import net.miginfocom.swing.MigLayout;
 import obsluga.Order;
+import obsluga.Priest;
 import pomoce.Pomoc;
 import stale.KindQuery;
 import stale.KindRange;
+import stale.KindRestriction;
 import gui.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
@@ -66,14 +68,19 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private long time = System.currentTimeMillis();
 	private LinkedList<obsluga.Event> eventList;
 	private Events events = Events.getInstance();
+	
+	private JButton btnZastosuj;
+	private ObserwatorStanuSortowania obserwatorStanuSortowania = new ObserwatorStanuSortowania(this);
+	private LinkedList<Order> orderList;
+	private int lastKindOrderQuery=0;//przechowuje jak byla tworzona lista z zamowineiami
+
+	
+	//POLA
 	private JDateChooser dateFrom;
 	private JDateChooser dateTo;
 	private JComboBox comboStatus;
 	private JComboBox comboPriest;
-	private JButton btnZastosuj;
-	private ObserwatorStanuSortowania obserwatorStanuSortowania = new ObserwatorStanuSortowania(this);
-	private LinkedList<Order> orderList;
-
+	
 	/**
 	 * Create the panel.
 	 */
@@ -91,14 +98,15 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel_Headline.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		comboStatus = new JComboBox();
-		comboStatus.setModel(new DefaultComboBoxModel(new String[] {"Nowe", "Zaakceptowane", "Odrzucone", "Wszystkie"}));
+		comboStatus.setModel(new DefaultComboBoxModel(new String[] {"Wszystkie","Nowe", "Zaakceptowane", "Odrzucone"}));
 		
 		comboPriest = new JComboBox();
-		comboPriest.setModel(new DefaultComboBoxModel(new String[] {"Kazimierz Ksiazecki"}));
+		//comboPriest.setModel(new DefaultComboBoxModel(new String[] {"Kazimierz Ksiazecki"}));
 		
-		dateFrom = new JDateChooser(true);
-		
-		dateTo = new JDateChooser(true);
+		dateFrom = new JDateChooser();
+		dateTo = new JDateChooser();
+		dateFrom.setEmpty();
+		dateTo.setEmpty();
 		
 		JLabel lblFromDate_ = new JLabel("Od:");
 		lblFromDate_.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -362,6 +370,26 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		//JOptionPane.showMessageDialog(null, rowConstraints);
 	}
 	
+	public void changeVisibility(){
+		if(events.getRestriction()>KindRestriction.LOGED_R) dateTo.setVisible(false);
+
+	}
+	
+	public void setPriestList(LinkedList<Priest> lp){
+		Iterator<Priest> it = lp.iterator();
+		String strPriest[] = new String[lp.size()];
+		
+		int index=0;
+		while(it.hasNext()){
+			Priest prr = it.next();
+			strPriest[index] =prr.getName()+" "+prr.getSurName();
+			index++;
+		}
+		
+		comboPriest.setModel(new DefaultComboBoxModel(strPriest));
+		
+	}
+	
 
 	public void addOrder(final Order order){		
 		addRowConstraint("[19.00px]");
@@ -424,6 +452,17 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					//System.out.println("doubleClick in: "+(currTime-time));
 					OrderDialog orderDialog = null;
 					
+					JOptionPane.showMessageDialog(null,events.getRestriction()+order.getExecutroPesel() );
+
+					
+					
+					if(events.getRestriction()==KindRestriction.WORKS_R){
+						if(!order.getExecutroPesel().equals(events.getPriest().getPesel())){
+						JOptionPane.showMessageDialog(null, "Nie masz uprawnieñ do modyfikownaia tego zamówienia");
+						return;
+						}
+					}
+					
 					if(orderDialog==null)
 						//System.out.println("!!!Rozmiar eventList"+eventList.size());
 						orderDialog = new OrderDialog(null, order, eventList);//dodane
@@ -479,7 +518,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	        			
 	        			Order o = events.usunZamowienie(order);
 	        			JOptionPane.showMessageDialog(null, events.getLastErrData());
-	        			loadListOrder();
+	        			loadListOrder(lastKindOrderQuery);
 	        			} catch(IOException ee){
 	        				
 	        			} catch (ClassNotFoundException ee){
@@ -518,11 +557,36 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		
 	}//end addOrder()
 
-	public boolean listOrders(){
+	public boolean listOrders(int role){
+		//role=0 - pobieranie zamowien nowych (przy wybraniu orderList z menu)
+		//role>0 - pobranie zamowien zgodnie z polami (po nacisnieciu przycisku na formatce)
 		Events events = Events.getInstance();
 		orderList = null;
 		try {
-			orderList = events.pobierzZamowieniaKsiedza(KindRange.PRIEST_RANG);
+			if(role==0){
+				//orderList = events.pobierzZamowieniaKsiedza(KindRange.PRIEST_RANG);
+				
+				orderList = events.pobierzZamowieniaKsiedza(KindRestriction.WORKS_R, 
+							events.getPriest().getPesel(), 
+							KindQuery.NEW, 
+							null, 
+							null, 
+							0); //0=null
+			}
+			
+			if(role>0){ 
+						
+						orderList = events.pobierzZamowieniaKsiedza(KindRestriction.WORKS_R, 
+						Pomoc.validatePriestName(events.getClient().getPriestList(),this.getPriestSelectedIndex()+1), 
+						this.getStatusSelected(), 
+						this.getDateFrom(), 
+						this.getDateTo(), 
+						0); //0=null rodzaj eventu
+			}
+			
+			
+			
+			
 			//JOptionPane.showMessageDialog(null, "TEST");
 			//JOptionPane.showMessageDialog(null, orderList.getFirst().getStatus());
 		} catch (IOException e) {	e.printStackTrace();	} catch (ClassNotFoundException e) {	e.printStackTrace();	}
@@ -554,16 +618,20 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void loadListOrder(){
+	public void loadListOrder(int role){
 		//Grzesiek - moje zmiany
+		//role=0 - pobieranie zamowien nowych (przy wybraniu orderList z menu)
+		//role>0 - pobranie zamowien zgodnie z polami (po nacisnieciu przycisku na formatce)
 		panel_OrdersList.removeAll();
+		panel_OrdersList.repaint();
 		panel_1.removeAll();
+		panel_1.repaint();
 
 		//panel.add(panel_1);
 		
-		
+		lastKindOrderQuery=role;
 		orderNumber=0;
-		if(!listOrders()){
+		if(!listOrders(role)){
 			panel_OrdersList.removeAll();
 			panel_1.removeAll();
 			JLabel lblBrakZam = new JLabel("Brak zamowien");
@@ -614,14 +682,14 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	 * 			<b>null</b> 		je¿eli = !!Error!!<br />
 	 */
 	public String getStatusSelected(){
-		if(comboStatus.getSelectedIndex()<=0)
+		if(comboStatus.getSelectedIndex()==1)
 			return KindQuery.NEW;
-		else if(comboStatus.getSelectedIndex()<=1)
+		else if(comboStatus.getSelectedIndex()==2)
 			return KindQuery.ACK;
-		else if(comboStatus.getSelectedIndex()<=2)
+		else if(comboStatus.getSelectedIndex()==3)
 			return KindQuery.DEN;
-		else if(comboStatus.getSelectedIndex()<=3)
-			return "";
+		//else if(comboStatus.getSelectedIndex()<=3)
+			//return "";
 		else
 			return null;
 	}
@@ -658,7 +726,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			//events.pobierzZamowienia(from, to, statusS, priestS);
 			
 			//setEventList(events.getClient().getEventKindList());
-			//loadListOrder();
+			loadListOrder(1); //pobiera zgodnie z polami
 		}
 	}
 }
@@ -699,6 +767,13 @@ interface Obserwator
         public String getName();
         public int getStan();
 }
+
+
+
+
+
+
+
 
 class ObserwatorStanuSortowania implements Obserwowany
 {

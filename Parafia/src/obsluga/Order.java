@@ -8,6 +8,8 @@ public class Order extends DataBaseElement implements Serializable{
 	private Parishioner sender; //ten co nadal zamowienie
 	private String senderPesel; //pesel tego co nadal zamowienie
 	
+	private Priest senderP;//ksiadz jako zamawiajacy
+	
 	private Priest executor;//ten co ma odprawic zamowienie
 	private String executorPesel;//pesel tego co ma odprawic zamowienie
 	
@@ -82,7 +84,7 @@ public class Order extends DataBaseElement implements Serializable{
 	}
 	
 	public Person getSender(){
-		return sender;
+		if (sender!=null)return sender; else return senderP;
 	}
 	
 	public Person getExecutor(){
@@ -91,6 +93,10 @@ public class Order extends DataBaseElement implements Serializable{
 	
 	public void setSender(Parishioner sender){
 		this.sender = sender;
+	}
+	
+	public void setSender(Priest sender){
+		this.senderP = sender;
 	}
 	
 	public void setExecutor(Priest executor){

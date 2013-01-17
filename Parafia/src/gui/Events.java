@@ -516,6 +516,29 @@ public class Events {
 				
 				newP = (Priest)k.getPackage();
 				System.out.println("Wynik dodania ksiedza"+newP.getQuery());
+				
+				Parishioner newPa = new Parishioner();
+				newPa.setKindQuery(KindQuery.ADD_DBASE);
+				newPa.setQuery("INSERT INTO Parishioner VALUES (" + newP.getPesel()
+						+ ",1" +"," + newU.getId() + ","
+						+ newA.getId() + ",'" + newP.getName() + "','"
+						+ newP.getSurName() + "'" + ")");
+				System.out.println(newPa.getQuery());
+
+				if(!k.sendObject(newPa)){
+					this.connectionError();
+				}
+				k.setNullPackage();
+				k.reciveObject();
+
+				newPa = (Parishioner) k.getPackage();
+				System.out.println("Wynik dodania parafianina" + newPa.getQuery());
+				this.setLastErrData(newPa.getData());
+				this.setLastErr(newPa.getQuery());
+				
+				
+				
+				
 				this.setLastErrData(newP.getData());
 				this.setLastErr(newP.getQuery());
 		
@@ -740,6 +763,80 @@ public class Events {
 		return orderList;
 
 	}
+	
+	//-----------------------------------------------------------------
+	
+	public LinkedList<Order> pobierzZamowieniaKsiedza(int role,String execPesel, String stat, Date dataBeg, Date dataEnd, int idEvent)
+			throws IOException, ClassNotFoundException {
+			boolean bigErr;
+			/*
+			* Paramtr role okresla czy ponieramy zamowienia dla ksiedza jako a)
+			* ksiadz jako zamawiajacy (wtedy stawiamy go na rowni ze zwyklym
+			* uzytkownikem (LOGG_RANG)) b) ksiadz jako odprawiajacy
+			*/
+			Order o = new Order();
+			o.setKindQuery(KindQuery.SEL_DBASE);
+			// *przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ
+			// PARAFIANINA)
+
+			String query;
+			if (role == KindRange.LOGG_RANG) {
+			query=("Select id_orderr,id_event,"
+			+ "odprawiajacy_pesel,zamawiajacy_pesel,"
+			+ "describe,status ,"
+			+ "to_char(beginD,'yyyy-MM-dd HH24:MI'),"
+			+ "to_char(endD, 'yyyy-MM-dd HH24:MI') "
+			+ "from orderr where zamawiajacy_pesel="
+			+ priest.getPesel());
+			} else {
+			query=("Select id_orderr,id_event,"
+			+ "odprawiajacy_pesel,zamawiajacy_pesel,"
+			+ "describe,status ,"
+			+ "to_char(beginD,'yyyy-MM-dd HH24:MI'),"
+			+ "to_char(endD, 'yyyy-MM-dd HH24:MI') "
+			+ "from orderr where odprawiajacy_pesel="
+			+ execPesel);
+			}
+
+			if(dataBeg!=null && dataEnd!=null){
+			query=query+" and beginD between '"+ dataBeg.toLocaleString().substring(0, 10)+"' and '"
+			+dataEnd.toLocaleString().substring(0, 10)+"'";
+			}
+			if(stat!=null){
+			query=query+" and status='"+stat+"'";
+			}
+
+			if(idEvent!=0){
+			query=query+" and id_event='"+idEvent+"'";
+			}
+
+
+			o.setQuery(query);
+
+			System.out.println(o.getQuery());
+			if(!k.sendObject(o)){
+			this.connectionError();
+			}
+			k.reciveObject();
+
+			LinkedList<Order> orderList = new LinkedList<Order>();
+
+			orderList = (LinkedList<Order>) k.getPackage();
+
+			/*
+			* Przyklad przegladania, jakbys chcal ladowac dozmiennej to zrob tak
+			* jak zrobilem dla Event (poieranie zdarzen:))
+			*
+			* Iterator<Order> iterator = orderList.iterator();
+			*
+			* while(iterator.hasNext()){ Order tmp =iterator.next();
+			* System.out.println
+			* (tmp.getDescribe()+"    "+tmp.getBeginDate().toLocaleString()); }
+			* System.out.println(orderList.size());
+			*/
+			return orderList;
+
+			}
 
 	// ----------------------------------------------------------------
 	public LinkedList<Order> pobierzZamowieniaKsiedza(int role)

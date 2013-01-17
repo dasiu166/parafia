@@ -7,12 +7,12 @@ DROP SEQUENCE  seq_actuals;
 
 
 
-CREATE  SEQUENCE seq_userr MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
-CREATE  SEQUENCE seq_adress MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
-CREATE  SEQUENCE seq_course MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
-CREATE  SEQUENCE seq_event MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
-CREATE  SEQUENCE seq_orderr MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
-CREATE  SEQUENCE seq_actuals MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1;
+CREATE  SEQUENCE seq_userr MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1 ORDER;
+CREATE  SEQUENCE seq_adress MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1 ORDER;
+CREATE  SEQUENCE seq_course MINVALUE 0 MAXVALUE 999999  START WITH 2 INCREMENT BY 1 ORDER;
+CREATE  SEQUENCE seq_event MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1 ORDER;
+CREATE  SEQUENCE seq_orderr MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1 ORDER;
+CREATE  SEQUENCE seq_actuals MINVALUE 0 MAXVALUE 999999  START WITH 1 INCREMENT BY 1 ORDER;
 
 
 
@@ -36,6 +36,7 @@ INSERT INTO Adress VALUES(seq_adress.nextval,'Kielce','Jagiellonska','1/19','25-
 INSERT INTO Adress VALUES(seq_adress.nextval,'Kielce','Powstancow','48','25-001');
 
 ------------Course------------
+INSERT INTO Course VALUES(1,null,null,null,null,null,null); --Specjalna dla ksiezy
 INSERT INTO Course VALUES(seq_course.nextval,to_date('12/03/2011','mm/dd/yyyy'),null,null,null,null,null);
 INSERT INTO Course VALUES(seq_course.nextval,to_date('12/03/2008','mm/dd/yyyy'),to_date('05/06/2009','mm/dd/yyyy'),null,null,null,null);
 INSERT INTO Course VALUES(seq_course.nextval,to_date('12/03/2000','mm/dd/yyyy'),to_date('05/06/2001','mm/dd/yyyy'),to_date('05/06/2010','mm/dd/yyyy'),null,null,null);
@@ -66,10 +67,15 @@ INSERT INTO Event VALUES(5,'Gregorianka','Combo msza x30');
 INSERT INTO Event VALUES(6,'Urlop','Karaiby dla ksiedza');
 
 ------------Parishioner------------
-INSERT INTO Parishioner VALUES('11031254796',1,1,1,'Anna','Ciosk');
-INSERT INTO Parishioner VALUES('08031223846',2,2,2,'Krzysztof','Kowalski');
-INSERT INTO Parishioner VALUES('00031268745',3,3,3,'Mariusz','Piotrowski');
-INSERT INTO Parishioner VALUES('91031254875',4,4,4,'Tadeusz','Maliniak');
+INSERT INTO Parishioner VALUES('11031254796',2,1,1,'Anna','Ciosk');
+INSERT INTO Parishioner VALUES('08031223846',3,2,2,'Krzysztof','Kowalski');
+INSERT INTO Parishioner VALUES('00031268745',4,3,3,'Mariusz','Piotrowski');
+INSERT INTO Parishioner VALUES('91031254875',5,4,4,'Tadeusz','Maliniak');
+
+---PR--
+INSERT INTO Parishioner VALUES('59040665847',1,5,5,'Kazimierz','Ksiazecki');
+INSERT INTO Parishioner VALUES('69010566803',1,6,6,'Jan','Wojciechowski');
+-------
 
 
 ------------Priest------------
@@ -77,10 +83,10 @@ INSERT INTO Priest VALUES('59040665847',5,5,'Kazimierz','Ksiazecki','Proboszcz',
 INSERT INTO Priest VALUES('69010566803',6,5,'Jan','Wojciechowski','Wikary',to_date('09/25/2002','mm/dd/yyyy'),to_date('02/15/1995','mm/dd/yyyy'));
 
 ------------Orderr------------
-INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chcilem zamowic chrzest;p',1,to_date('07/15/2012','mm/dd/yyyy'),to_date('07/15/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Chcilem zamowic msze',1,to_date('12/20/2012','mm/dd/yyyy'),to_date('12/20/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'59040665847','91031254875','Chcilem gregorianke',1,to_date('12/21/2012','mm/dd/yyyy'),to_date('12/21/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chcilem zamowic chrzest;p',1,to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chcilem zamowic chrzest;p','NEW',to_date('07/15/2012','mm/dd/yyyy'),to_date('07/15/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Chcilem zamowic msze','NEW',to_date('12/20/2012','mm/dd/yyyy'),to_date('12/20/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'59040665847','91031254875','Chcilem gregorianke','NEW',to_date('12/21/2012','mm/dd/yyyy'),to_date('12/21/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chcilem zamowic chrzest;p','NEW',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
 
 
 ------------Actuals-----------

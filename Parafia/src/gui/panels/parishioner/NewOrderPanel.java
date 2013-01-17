@@ -25,6 +25,7 @@ import java.io.*;
 import obsluga.*;
 import pomoce.Pomoc;
 import stale.KindQuery;
+import stale.KindRestriction;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -255,8 +256,20 @@ public class NewOrderPanel extends JPanel implements ActionListener {
 			//JOptionPane.showMessageDialog(null, p.getPesel());
 			
 			Order o = new Order();
+			
+			if(events.getRestriction()==KindRestriction.LOGED_R){
 			o.setSender(events.getParishioner());
+			o.setSenderPesel(events.getParishioner().getPesel());
+			}
+			
+			if(events.getRestriction()>KindRestriction.LOGED_R){
+				o.setSender(events.getPriest());
+				o.setSenderPesel(events.getPriest().getPesel());
+				}
+			
+			
 			o.setExecutor(p);
+			o.setExecutorPesel(p.getPesel());
 			
 			
 			
