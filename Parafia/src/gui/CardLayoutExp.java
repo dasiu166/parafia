@@ -440,7 +440,7 @@ public class CardLayoutExp extends JFrame {
 					}catch(IOException e){
 						
 					}
-				
+				jpOrdersList.setOrderTypeList(events.getClient().getEventKindList());
 				jpOrdersList.setEventList(events.getClient().getEventKindList());
 				jpOrdersList.setPriestList(events.getClient().getPriestList());
 				jpOrdersList.loadListOrder(0);

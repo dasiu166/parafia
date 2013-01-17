@@ -39,6 +39,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
 import net.miginfocom.swing.MigLayout;
+import obsluga.Event;
 import obsluga.Order;
 import obsluga.Priest;
 import pomoce.Pomoc;
@@ -154,7 +155,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		JLabel lblTyp_ = new JLabel("Typ:");
 		
 		comboType = new JComboBox();
-		comboType.setModel(new DefaultComboBoxModel(new String[] {"wszystkie", "Msza", "Wypominki", "Pogrzeb"}));
+		//comboType.setModel(new DefaultComboBoxModel(new String[] {"wszystkie", "Msza", "Wypominki", "Pogrzeb"}));
 		
 		
 		GroupLayout gl_panel_Headline = new GroupLayout(panel_Headline);
@@ -402,6 +403,21 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		
 	}
 	
+	public void setOrderTypeList(LinkedList<Event> le){
+		
+		Iterator<Event> it = le.iterator();
+		String kindOrder[] = new String[le.size()+1];
+		kindOrder[0] = "Wszystkie";
+		int index=1;
+		  while(it.hasNext()){
+			  Event ee = it.next();
+			  kindOrder[index] = ee.getId()+"  "+ee.getName();
+			  index++;
+		  }
+		
+		comboType.setModel(new DefaultComboBoxModel(kindOrder));
+	}
+	
 
 	public void addOrder(final Order order){		
 		addRowConstraint("[19.00px]");
@@ -593,7 +609,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						this.getStatusSelected(), 
 						this.getDateFrom(), 
 						this.getDateTo(), 
-						0); //0=null rodzaj eventu
+						this.getTypeSelectedIndex()); //0=null rodzaj eventu
 			}
 			
 			
