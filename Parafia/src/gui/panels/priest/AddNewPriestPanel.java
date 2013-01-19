@@ -36,6 +36,9 @@ import stale.KindRange;
 import stale.KindRestriction;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
 
 
 public class AddNewPriestPanel extends JPanel implements ActionListener{
@@ -92,14 +95,16 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new MatteBorder(2, 2, 1, 1, (Color) new Color(128, 0, 128)));
 		panel.setBounds(0, 0, 508, 900);
 		scrollPane.setViewportView(panel);
 		
 		
 		lblDataLogin = new JLabel("Dane Logowania");
+		lblDataLogin.setForeground(new Color(128, 0, 128));
 		lblDataLogin.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblDataLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDataLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDataLogin.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		lblLogin_ = new JLabel("Login:");
 		lblLogin_.setHorizontalAlignment(SwingConstants.RIGHT);		
@@ -116,8 +121,9 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		
 		
 		JLabel lblData = new JLabel("Dane");
+		lblData.setForeground(new Color(128, 0, 128));
 		lblData.setHorizontalAlignment(SwingConstants.CENTER);
-		lblData.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblData.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		JLabel lblName_ = new JLabel("Imie:");
 		lblName_.setHorizontalAlignment(SwingConstants.RIGHT);		
@@ -136,8 +142,9 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		
 		
 		JLabel lblAdress = new JLabel("Adres");
+		lblAdress.setForeground(new Color(128, 0, 128));
 		lblAdress.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAdress.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAdress.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		JLabel lblCity_ = new JLabel("Miasto:");
 		lblCity_.setHorizontalAlignment(SwingConstants.RIGHT);		
@@ -161,13 +168,16 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		
 		
 		JLabel lblOthers = new JLabel("Inne");
+		lblOthers.setForeground(new Color(128, 0, 128));
 		lblOthers.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOthers.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblOthers.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		
 		btnAdd = new JButton("Dodaj");
+		btnAdd.setIcon(new ImageIcon(AddNewPriestPanel.class.getResource("/icons/Add-icon.png")));
 		btnAdd.addActionListener(this);
 		btnClear = new JButton("Reset");
+		btnClear.setIcon(new ImageIcon(AddNewPriestPanel.class.getResource("/icons/reset.png")));
 		btnClear.addActionListener(this);
 		
 		comboPosition = new JComboBox();

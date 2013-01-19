@@ -20,6 +20,11 @@ import stale.KindRestriction;
 import javax.swing.ImageIcon;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import net.miginfocom.swing.MigLayout;
 
 public class LoginPanel extends JPanel {
 
@@ -47,17 +52,15 @@ public class LoginPanel extends JPanel {
         							// Panel po zalogowaniu
         JPanel logged = new JPanel();
         add(logged, "logged");
-        logged.setLayout(null);
+        logged.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         JLabel lblJesteZalogowany = new JLabel("Jeste\u015B zalogowany jako:");
         lblJesteZalogowany.setHorizontalAlignment(SwingConstants.CENTER);
-        lblJesteZalogowany.setBounds(0, 4, 150, 14);
         logged.add(lblJesteZalogowany);
         
         final JLabel lblUserName = new JLabel("Nazwa U\u017Cytkownika");
         lblUserName.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblUserName.setHorizontalAlignment(SwingConstants.CENTER);
-        lblUserName.setBounds(0, 24, 150, 14);
         logged.add(lblUserName);
         
         JButton bLogOut = new JButton("Wyloguj");
@@ -75,7 +78,6 @@ public class LoginPanel extends JPanel {
         		}
         	}
         });
-        bLogOut.setBounds(20, 42, 109, 28);
         logged.add(bLogOut);
         
         // akcja po wciœniêciu przycisku ### ZALOGUJ ###

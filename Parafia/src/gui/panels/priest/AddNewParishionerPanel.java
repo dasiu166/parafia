@@ -33,6 +33,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 //import oracle.net.jdbc.TNSAddress.Address;
 import stale.KindRange;
 import stale.KindRestriction;
+import javax.swing.ImageIcon;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
 
 
 public class AddNewParishionerPanel extends JPanel implements ActionListener{
@@ -96,14 +99,16 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new MatteBorder(2, 2, 1, 1, (Color) new Color(0, 0, 204)));
 		panel.setBounds(0, 0, 508, 900);
 		scrollPane.setViewportView(panel);
 		
 		
 		lblDataLogin = new JLabel("Dane Logowania");
+		lblDataLogin.setForeground(new Color(0, 0, 204));
 		lblDataLogin.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblDataLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDataLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDataLogin.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		lblLogin_ = new JLabel("Login:");
 		lblLogin_.setHorizontalAlignment(SwingConstants.RIGHT);		
@@ -120,8 +125,9 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		
 		
 		JLabel lblData = new JLabel("Dane");
+		lblData.setForeground(new Color(0, 0, 204));
 		lblData.setHorizontalAlignment(SwingConstants.CENTER);
-		lblData.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblData.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		JLabel lblName_ = new JLabel("Imie:");
 		lblName_.setHorizontalAlignment(SwingConstants.RIGHT);		
@@ -144,8 +150,9 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		
 		
 		JLabel lblAdress = new JLabel("Adres");
+		lblAdress.setForeground(new Color(0, 0, 204));
 		lblAdress.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAdress.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAdress.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		JLabel lblCity_ = new JLabel("Miasto:");
 		lblCity_.setHorizontalAlignment(SwingConstants.RIGHT);		
@@ -169,8 +176,9 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		
 		
 		JLabel lblPrzebieg = new JLabel("Przebieg");
+		lblPrzebieg.setForeground(new Color(0, 0, 204));
 		lblPrzebieg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPrzebieg.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPrzebieg.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		JLabel lblBaptism_ = new JLabel("Chrzest:");
 		lblBaptism_.setHorizontalAlignment(SwingConstants.RIGHT);		
@@ -194,8 +202,10 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		
 		
 		btnAdd = new JButton("Dodaj");
+		btnAdd.setIcon(new ImageIcon(AddNewParishionerPanel.class.getResource("/icons/Add-icon.png")));
 		btnAdd.addActionListener(this);
 		btnClear = new JButton("Reset");
+		btnClear.setIcon(new ImageIcon(AddNewParishionerPanel.class.getResource("/icons/reset.png")));
 		btnClear.addActionListener(this);
 		
 		label = new JLabel("");

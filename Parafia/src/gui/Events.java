@@ -102,6 +102,11 @@ public class Events {
 	 * @throws ClassNotFoundException
 	 */
 	//############################## WYSWIETLANIE AKTULNOSCI ################################3
+	LinkedList<Actuals> listAct;
+	public LinkedList<Actuals> getActualsList(){
+		return listAct;
+	}
+	
 	public NewsList getNewsList() throws ClassNotFoundException, IOException {
 		NewsList newsList = new NewsList();
 		Actuals act = new Actuals();
@@ -117,6 +122,7 @@ public class Events {
 		
 		LinkedList<Actuals> actL = new LinkedList<Actuals>();
 		actL=(LinkedList<Actuals>)k.getPackage();
+		listAct=actL;
 		if(!actL.getFirst().getQuery().equals("ERR")){
 			Iterator<Actuals> itA = actL.iterator();
 			while(itA.hasNext()){

@@ -27,6 +27,9 @@ import javax.swing.JScrollPane;
 
 import obsluga.Actuals;
 import obsluga.Priest;
+import javax.swing.ImageIcon;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
 
 public class AddNewsPanel extends JPanel implements ActionListener {
 	private JTextField textTitle;
@@ -39,13 +42,15 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 	 * Create the panel.
 	 */
 	public AddNewsPanel(JFrame owner) {
-		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		setBorder(new MatteBorder(2, 2, 1, 1, (Color) new Color(0, 100, 0)));
 		
 		
 		btnSubmit = new JButton("Dodaj");
+		btnSubmit.setIcon(new ImageIcon(AddNewsPanel.class.getResource("/icons/Add-icon.png")));
 		btnSubmit.addActionListener(this);
 		
 		btnReset = new JButton("Wyczy\u015B\u0107");
+		btnReset.setIcon(new ImageIcon(AddNewsPanel.class.getResource("/icons/reset.png")));
 		btnReset.addActionListener(this);
 		
 		JPanel panel = new JPanel();
@@ -86,8 +91,9 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 		scrollPane.setViewportView(editorContent);
 		
 		JLabel lblNowaAktualno = new JLabel("Nowa Aktualno\u015B\u0107");
+		lblNowaAktualno.setForeground(new Color(0, 100, 0));
 		lblNowaAktualno.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNowaAktualno.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNowaAktualno.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		
 		JLabel lblTitle_ = new JLabel("Tytu\u0142:");
 		lblTitle_.setHorizontalAlignment(SwingConstants.RIGHT);

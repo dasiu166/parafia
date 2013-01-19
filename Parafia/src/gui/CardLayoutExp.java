@@ -53,6 +53,7 @@ import obsluga.Parishioner;
 import obsluga.Priest;
 import stale.KindRestriction;
 
+import com.itextpdf.text.DocumentException;
 import com.jgoodies.looks.FontPolicies;
 import com.jgoodies.looks.FontPolicy;
 import com.jgoodies.looks.FontSet;
@@ -61,10 +62,13 @@ import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 
+import pdf.PdfCreator;
 import pomoce.HelpWindow;
+import pomoce.Pomoc;
 
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.Window.Type;
 
 public class CardLayoutExp extends JFrame {
 
@@ -117,7 +121,7 @@ public class CardLayoutExp extends JFrame {
 		
 		//#################### PANEL CONTENT ####################
 		panelContent = new JPanel();				// stworzenie panelu logowania
-		cl = new CardLayout();									// stworzenie zarz¹dcy faormatki
+		cl = new CardLayout();
 		panelContent.setLayout(cl);								// ustawienie zarz¹dcy formatki dla panelu z zawartoœci¹
 		
 		final PanelNews jpNews = new PanelNews(this);
@@ -157,29 +161,27 @@ public class CardLayoutExp extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(4)
-							.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(4)
-							.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(4)
-							.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
-					.addGap(4)
-					.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+							.addGap(4)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelContent, GroupLayout.PREFERRED_SIZE, 607, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(272, Short.MAX_VALUE))
-				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+					.addContainerGap(164, Short.MAX_VALUE))
+				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
 		);
 		
 		contentPane.setLayout(gl_contentPane);
@@ -201,6 +203,7 @@ public class CardLayoutExp extends JFrame {
 					try{
 					jpNews.cleanList();	
 					events.getNewsList().addNewsListToPanel(jpNews);
+					
 					}catch(IOException ew){
 						
 					}catch(ClassNotFoundException ee){
@@ -210,6 +213,28 @@ public class CardLayoutExp extends JFrame {
 				}
 			});
 	        menuPlik.add(menuPlikPanelNews);
+	        
+	        
+	        JMenuItem menuPDFPlikPanelNews = new JMenuItem("Aktualnosci PDF",'1');
+        	menuPDFPlikPanelNews.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/pdf32.png")));
+	        menuPDFPlikPanelNews.addActionListener(new ActionListener() {				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try{
+					//jpNews.cleanList();	
+					//events.getNewsList().addNewsListToPanel(jpNews);
+					PdfCreator pdf = new PdfCreator();
+					pdf.createActualsPdf(events.getActualsList(), Pomoc.saveFileWindow());
+					}catch(IOException ew){
+						
+								
+					}catch(DocumentException er){
+						
+					}
+					cl.show(panelContent, "news");
+				}
+			});
+	        menuPlik.add(menuPDFPlikPanelNews);
 	        
 			JMenuItem menuPlikPanel2 = new JMenuItem("parafianin/dane",'2');
 			menuPlikPanel2.addActionListener(new ActionListener() {
@@ -351,6 +376,7 @@ public class CardLayoutExp extends JFrame {
 			}
 		}
 		
+		//PodMENU PARAFIANIN idComponet 2
 		JMenu menuParishioner = new JMenu("Parafianin");
 		menuBar.add(menuParishioner);
 		
@@ -380,7 +406,11 @@ public class CardLayoutExp extends JFrame {
 		});
 		menuParishioner.add(menuParishionerDane);
 		
-		JMenuItem mntmParishionerZamowienie = new JMenuItem("Zamowienie");
+		JMenu menuZamowieniePar = new JMenu("Zamówienie");
+		menuBar.add(menuZamowieniePar);
+		
+		//podMENU ZAMOWIENIE id 3
+		JMenuItem mntmParishionerZamowienie = new JMenuItem("Dodaj zamówienie");
 		mntmParishionerZamowienie.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Add-icon.png")));
 		mntmParishionerZamowienie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -397,8 +427,9 @@ public class CardLayoutExp extends JFrame {
 				cl.show(panelContent, "newOrder");
 			}
 		});
-		menuParishioner.add(mntmParishionerZamowienie);
+		menuZamowieniePar.add(mntmParishionerZamowienie);
 		
+		//podMENU KSIADZ id 4
 		JMenu mnKsidz = new JMenu("Ksi\u0105dz");
 		menuBar.add(mnKsidz);
 		
@@ -426,6 +457,9 @@ public class CardLayoutExp extends JFrame {
 		});
 		mnKsidz.add(mntmParishionerDane);
 		
+		//-------------podMENU ZAMOWIENIE id 5
+		JMenu mnZamowienieKS = new JMenu("Zamówienie");
+		menuBar.add(mnZamowienieKS);
 		
 		JMenuItem mntmOrderslist = new JMenuItem("Lista zamówieñ");
 		mntmOrderslist.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Bookmark-icon.png")));
@@ -448,19 +482,9 @@ public class CardLayoutExp extends JFrame {
 				//jpOrdersList.removeAll();
 			}
 		});
-		mnKsidz.add(mntmOrderslist);
+		mnZamowienieKS.add(mntmOrderslist);
 		
-		JMenuItem mntmKsiadzAddNews = new JMenuItem("Dodaj news");
-		mntmKsiadzAddNews.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/File-List-icon.png")));
-		mntmKsiadzAddNews.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(panelContent, "addNews");
-			}
-		});
-		mnKsidz.add(mntmKsiadzAddNews);
-		
-		
-		JMenuItem mntmPriestZamowienie = new JMenuItem("Zamowienie");
+		JMenuItem mntmPriestZamowienie = new JMenuItem("Dodaj zamówienie");
 		mntmPriestZamowienie.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Add-icon.png")));
 		mntmPriestZamowienie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -477,8 +501,25 @@ public class CardLayoutExp extends JFrame {
 				cl.show(panelContent, "newOrder");
 			}
 		});
-		mnKsidz.add(mntmPriestZamowienie);
+		mnZamowienieKS.add(mntmPriestZamowienie);
 		
+		//podMENU AKTUALNOSC id 6
+		JMenu mnActualsKS = new JMenu("Aktualnoœci");
+		menuBar.add(mnActualsKS);
+		JMenuItem mntmKsiadzAddNews = new JMenuItem("Dodaj news");
+		mntmKsiadzAddNews.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/File-List-icon.png")));
+		mntmKsiadzAddNews.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(panelContent, "addNews");
+			}
+		});
+		mnActualsKS.add(mntmKsiadzAddNews);
+		
+		
+		
+		//podMENU DANE id 7
+		JMenu mnDaneAdd = new JMenu("Dane osobowe");
+		menuBar.add(mnDaneAdd);
 		JMenuItem mntmAddnewparishioner = new JMenuItem("Dodaj parafianina");
 		mntmAddnewparishioner.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/addparishioner.png")));
 		mntmAddnewparishioner.addActionListener(new ActionListener() {
@@ -486,7 +527,7 @@ public class CardLayoutExp extends JFrame {
 				cl.show(panelContent, "addNewParishioner");
 			}
 		});
-		mnKsidz.add(mntmAddnewparishioner);
+		mnDaneAdd.add(mntmAddnewparishioner);
 		
 		
 		
@@ -500,7 +541,9 @@ public class CardLayoutExp extends JFrame {
 			}
 		});
 		//JOptionPane.showMessageDialog(null, events.getRestriction());
-		mnKsidz.add(mntmAddnewpriest);
+		mnDaneAdd.add(mntmAddnewpriest);
+		
+		
 		
 		
 		
@@ -525,8 +568,8 @@ public class CardLayoutExp extends JFrame {
 			menuPomoc.add(mnPomocOProgramie);
 			
 			
-			final JMenuItem mnPomocHTML = new JMenuItem("Instrukcja");
-			mnPomocHTML.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Help-icon.png")));
+			final JMenuItem mnPomocHTML = new JMenuItem("Przewodnik");
+			mnPomocHTML.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Lamp-icon.png")));
 			mnPomocHTML.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       prof. zw. dr hab. in¿. Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Ewiak Piotr", "O Programie",JOptionPane.PLAIN_MESSAGE);
@@ -550,6 +593,15 @@ public class CardLayoutExp extends JFrame {
 		menuBar.getComponent(2).setEnabled(false);
 		menuBar.getComponent(3).setVisible(false);
 		menuBar.getComponent(3).setEnabled(false);
+		
+		menuBar.getComponent(4).setVisible(false);
+		menuBar.getComponent(4).setEnabled(false);
+		menuBar.getComponent(5).setVisible(false);
+		menuBar.getComponent(5).setEnabled(false);
+		menuBar.getComponent(6).setVisible(false);
+		menuBar.getComponent(6).setEnabled(false);
+		menuBar.getComponent(7).setVisible(false);
+		menuBar.getComponent(7).setEnabled(false);
 	
 		cl.show(panelContent, "news");
 	}
@@ -558,9 +610,18 @@ public class CardLayoutExp extends JFrame {
 		if(events.getRestriction() == KindRestriction.LOGED_R){
 			menuBar.getComponent(2).setVisible(true);
 			menuBar.getComponent(2).setEnabled(true);
-		} else if (events.getRestriction()>KindRestriction.LOGED_R){
 			menuBar.getComponent(3).setVisible(true);
 			menuBar.getComponent(3).setEnabled(true);
+		} else if (events.getRestriction()>KindRestriction.LOGED_R){
+			menuBar.getComponent(4).setVisible(true);
+			menuBar.getComponent(4).setEnabled(true);
+			
+			menuBar.getComponent(5).setVisible(true);
+			menuBar.getComponent(5).setEnabled(true);
+			menuBar.getComponent(6).setVisible(true);
+			menuBar.getComponent(6).setEnabled(true);
+			menuBar.getComponent(7).setVisible(true);
+			menuBar.getComponent(7).setEnabled(true);
 					}
 	}
 	
@@ -632,7 +693,7 @@ public class CardLayoutExp extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null,"Blad po³¹czenia z serwerem");
-					//System.exit(0);
+				    System.exit(0);
 					e.printStackTrace();
 				}
 			}

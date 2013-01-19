@@ -28,6 +28,8 @@ import pomoce.Pomoc;
 
 import java.util.*;
 import javax.swing.ImageIcon;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
 
 public class OrderDialog extends JDialog implements ActionListener{
 
@@ -63,7 +65,7 @@ public class OrderDialog extends JDialog implements ActionListener{
 		
 		setBounds(100, 100, 490, 418);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new MatteBorder(2, 2, 1, 1, (Color) new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		

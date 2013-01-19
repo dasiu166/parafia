@@ -31,6 +31,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.ImageIcon;
 
 public class NewOrderPanel extends JPanel implements ActionListener {
 	private JComboBox comboOrderType;
@@ -59,9 +60,11 @@ public class NewOrderPanel extends JPanel implements ActionListener {
 		dateStart = new JDateChooser(true);
 		
 		btnSend = new JButton("Wy\u015Blij");
+		btnSend.setIcon(new ImageIcon(NewOrderPanel.class.getResource("/icons/Add-icon.png")));
 		btnSend.addActionListener(this);
 		
 		btnReset = new JButton("Reset");
+		btnReset.setIcon(new ImageIcon(NewOrderPanel.class.getResource("/icons/reset.png")));
 		btnReset.addActionListener(this);
 		
 		JLabel lblMessage_ = new JLabel("Wiadomo\u015B\u0107:");

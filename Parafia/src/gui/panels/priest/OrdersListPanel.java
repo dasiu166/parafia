@@ -42,6 +42,7 @@ import net.miginfocom.swing.MigLayout;
 import obsluga.Event;
 import obsluga.Order;
 import obsluga.Priest;
+import pdf.PdfCreator;
 import pomoce.Pomoc;
 import stale.KindQuery;
 import stale.KindRange;
@@ -49,6 +50,8 @@ import stale.KindRestriction;
 import gui.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import com.itextpdf.text.DocumentException;
 
 public class OrdersListPanel extends JPanel implements ActionListener {
 	/**
@@ -82,12 +85,13 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private JComboBox comboStatus;
 	private JComboBox comboPriest;
 	private JComboBox comboType;
+	JButton btnPdf;
 	
 	/**
 	 * Create the panel.
 	 */
 	public OrdersListPanel(JFrame owner) {
-		setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), null));
+		setBorder(new MatteBorder(2, 2, 1, 1, (Color) new Color(0, 0, 0)));
 		this.owner = owner;
 
 		final JScrollPane scrollPane = new JScrollPane();
@@ -132,29 +136,34 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(7)
 					.addComponent(panel_Headline, GroupLayout.PREFERRED_SIZE, 587, Short.MAX_VALUE)
-					.addContainerGap())
-				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+					.addGap(10))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel_Headline, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
+					.addComponent(panel_Headline, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
 		);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
-		btnApply = new JButton("Zastosuj");
+		btnApply = new JButton("Poka\u017C");
+		btnApply.setIcon(new ImageIcon(OrdersListPanel.class.getResource("/icons/get.png")));
 		btnApply.addActionListener(this);
 		
 		JLabel lblTyp_ = new JLabel("Typ:");
 		
 		comboType = new JComboBox();
+		
+		btnPdf = new JButton("Generuj PDF");
+		btnPdf.setIcon(new ImageIcon(OrdersListPanel.class.getResource("/icons/pdf24png.png")));
+		btnPdf.addActionListener(this);
 		//comboType.setModel(new DefaultComboBoxModel(new String[] {"wszystkie", "Msza", "Wypominki", "Pogrzeb"}));
 		
 		
@@ -178,7 +187,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						.addComponent(lblPriest_, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboPriest, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(comboPriest, 0, 140, Short.MAX_VALUE)
 						.addComponent(comboStatus, 0, 140, Short.MAX_VALUE))
 					.addGap(10)
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
@@ -186,9 +195,12 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					.addComponent(lblTyp_, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnApply)
-						.addComponent(comboType, 0, 140, Short.MAX_VALUE))
-					.addGap(14))
+						.addGroup(gl_panel_Headline.createSequentialGroup()
+							.addComponent(btnApply)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnPdf))
+						.addComponent(comboType, 0, 142, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		gl_panel_Headline.setVerticalGroup(
 			gl_panel_Headline.createParallelGroup(Alignment.LEADING)
@@ -202,7 +214,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					.addComponent(dateFrom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(7)
 					.addComponent(dateTo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
 					.addGap(13)
 					.addComponent(lblStatusOrder_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -214,14 +226,16 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					.addGap(7)
 					.addComponent(comboPriest, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
-				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTyp_))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnApply)
+					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnApply)
+						.addComponent(btnPdf))
 					.addGap(9))
 		);
 		panel_Headline.setLayout(gl_panel_Headline);
@@ -767,6 +781,19 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			//setEventList(events.getClient().getEventKindList());
 			loadListOrder(1); //pobiera zgodnie z polami
 		}
+		
+		if(z==btnPdf){
+			PdfCreator pdf = new PdfCreator();
+			try{
+			pdf.setMyEventList(events.getClient().getEventKindList());
+			pdf.createOrderPdf(this.getOrderList(), Pomoc.saveFileWindow());
+			}catch(IOException rrr){
+				JOptionPane.showMessageDialog(null, "B³¹d w miejscu zapisu");
+			}catch(DocumentException rrr){
+				JOptionPane.showMessageDialog(null, "B³¹d kreatora dokumentu");
+
+			}
+		}
 	}
 }
 
@@ -960,8 +987,8 @@ class StanuSortowania implements Obserwator
     public static final int IMG_CLEAR = 0;
     public static final int IMG_UP = 1;
     public static final int IMG_DOWN = 2;
-	private static final ImageIcon ICON_UP = new ImageIcon("icons/arrow_sort_a.png");
-	private static final ImageIcon ICON_DOWN = new ImageIcon("icons/arrow_sort_b.png");
+	private static final ImageIcon ICON_UP = new ImageIcon("icons/sortup.png");
+	private static final ImageIcon ICON_DOWN = new ImageIcon("icons/sortdown.png");
 	private static final ImageIcon ICON_CLEAR = new ImageIcon("icons/arrow_sort_c.png");
 
     
