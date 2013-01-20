@@ -3,6 +3,7 @@ package gui.panels.priest;
 
 import gui.Events;
 import gui.panels.LoginDialog;
+import gui.panels.parishioner.OrderDialogParishioner;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -85,6 +86,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private JComboBox comboStatus;
 	private JComboBox comboPriest;
 	private JComboBox comboType;
+	JLabel lblPriest_;
 	JButton btnPdf;
 	
 	/**
@@ -112,6 +114,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		
 		dateFrom = new JDateChooser(true);		
 		dateTo = new JDateChooser(true);
+		
 		/*
 		 * dateFrom = new JDateChooser(true); 
 		 * jest równoznaczne z
@@ -128,7 +131,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		JLabel lblStatusOrder_ = new JLabel("Status:");
 		lblStatusOrder_.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel lblPriest_ = new JLabel("Ksi\u0105dz:");
+		lblPriest_ = new JLabel("Ksi\u0105dz:");
 		lblPriest_.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JPanel panel = new JPanel();
@@ -250,6 +253,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel_OrdersList.setFont(new Font("Tekton Pro", Font.BOLD, 14));
 		scrollPane.setViewportView(panel_OrdersList);
 		panel_OrdersList.setLayout(new MigLayout("", "[572.00px:572.00px,grow]", "[]"));
+		JLabel lblFrom_ ;
 		
 		JPanel panel_Header_ = new JPanel();
 		scrollPane.setColumnHeaderView(panel_Header_);
@@ -257,7 +261,14 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		JPanel panel_From_ = new JPanel();
 		panel_From_.setBorder(new MatteBorder(2, 2, 2, 0, (Color) Color.DARK_GRAY));
 		panel_From_.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));		
-			JLabel lblFrom_ = new JLabel("Od");
+			
+		if(events.getRestriction()==KindRestriction.LOGED_R){
+			    lblFrom_ = new JLabel("Do");
+
+			}else {
+			    lblFrom_ = new JLabel("Od");
+	
+			}
 			panel_From_.add(lblFrom_);			
 			final JLabel lblFrom_Icon = new JLabel("");
 			panel_From_.add(lblFrom_Icon);
@@ -463,7 +474,14 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel_Data.setBorder(new MatteBorder(0, 1, 0, 0, new Color(128, 128, 128)));
 		
 		//################## WYSWIETLANE POLA ######################
-		String from = order.getSender().getSurName()+" "+order.getSender().getName();
+		String from;
+		if(events.getRestriction()==KindRestriction.LOGED_R){
+			from = order.getExecutor().getName()+" "+order.getExecutor().getSurName();
+
+		} else {
+		    from = order.getSender().getSurName()+" "+order.getSender().getName();
+	
+		}
 		//String from = "<empty>";
 		String type = Pomoc.validateEventName(eventList, order.getEvent());
 		//String type = "Typ";
@@ -493,12 +511,11 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 				if(currTime-time < 500){
 					//System.out.println("doubleClick in: "+(currTime-time));
 					OrderDialog orderDialog = null;
+					OrderDialogParishioner orderDialogPR = null;
 					
-					JOptionPane.showMessageDialog(null,events.getRestriction()+order.getExecutroPesel() );
-
+					if(events.getRestriction()>KindRestriction.LOGED_R){
 					
-					
-					if(events.getRestriction()==KindRestriction.WORKS_R){
+						if(events.getRestriction()==KindRestriction.WORKS_R){
 						if(!order.getExecutroPesel().equals(events.getPriest().getPesel())){
 						JOptionPane.showMessageDialog(null, "Nie masz uprawnieñ do modyfikownaia tego zamówienia");
 						return;
@@ -571,7 +588,52 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	        			else{
 	        			JOptionPane.showMessageDialog(null, "Porzucono zmiany");
 	        		}
+				} else {
+					if(orderDialogPR==null)
+						//System.out.println("!!!Rozmiar eventList"+eventList.size());
+						orderDialogPR = new OrderDialogParishioner(null, order, eventList);//dodane
+					orderDialogPR.setVisible(true);
+					
+					if(orderDialogPR.isAborted()){
+	        			//DODANE
+	        			try{
+		        			Order o = events.odrzucZamowienie(order);
+		        			order.setStatus(o.getStatus());
+		        			JOptionPane.showMessageDialog(null, events.getLastErrData());
+		        			} catch (IOException ee){
+		        			
+		        			} catch (ClassNotFoundException ee){
+		        				
+		        			}
+	        			//END_DODANE
+	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zosta³y odrzucone");
+	        			lblStatus.setText(order.getStatus());
+	        			//orderPanel.setBackground(new Color(240, 230, 140));
+	        			Color color = new Color(240, 230, 140);
+	        			panel_From.setBackground(color);
+	        			panel_Type.setBackground(color);
+	        			panel_Status.setBackground(color);
+	        			panel_Data.setBackground(color);
+	        		} else if (orderDialogPR.isDeleted()){
+	        			try{
+	        			Order o = events.usunZamowienie(order);
+	        			JOptionPane.showMessageDialog(null, events.getLastErrData());
+	        			loadListOrder(lastKindOrderQuery);
+	        			} catch(IOException ee){
+	        				
+	        			} catch (ClassNotFoundException ee){
+	        				
+	        			}
+	        		}
+	        			
+	        			else{
+	        			JOptionPane.showMessageDialog(null, "Porzucono zmiany");
+	        		}
+					
+					
 				}
+				
+				} 
 				time = currTime;
 			}
 		});
@@ -608,15 +670,39 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			if(role==0){
 				//orderList = events.pobierzZamowieniaKsiedza(KindRange.PRIEST_RANG);
 				
+				
+				if(events.getRestriction()==KindRestriction.LOGED_R){
+				orderList = events.pobierzZamowieniaParafianina(); 
+				comboPriest.setVisible(false);
+				lblPriest_.setVisible(false);
+				}else {
+					comboPriest.setVisible(true);
+					lblPriest_.setVisible(true);
 				orderList = events.pobierzZamowieniaKsiedza(KindRestriction.WORKS_R, 
 							events.getPriest().getPesel(), 
 							KindQuery.NEW, 
 							null, 
 							null, 
 							0); //0=null
+				}
 			}
 			
 			if(role>0){ 
+				
+				if(events.getRestriction()==KindRestriction.LOGED_R){
+					comboPriest.setVisible(false);
+					lblPriest_.setVisible(false);
+					orderList = events.pobierzZamowieniaParafianina(
+							this.getStatusSelected(), 
+							this.getDateFrom(), 
+							this.getDateTo(), 
+							this.getTypeSelectedIndex()); 
+					
+					
+					}else {
+						
+						comboPriest.setVisible(true);
+						lblPriest_.setVisible(true);
 						
 						orderList = events.pobierzZamowieniaKsiedza(KindRestriction.WORKS_R, 
 						Pomoc.validatePriestName(events.getClient().getPriestList(),this.getPriestSelectedIndex()+1), 
@@ -624,6 +710,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						this.getDateFrom(), 
 						this.getDateTo(), 
 						this.getTypeSelectedIndex()); //0=null rodzaj eventu
+					}
 			}
 			
 			

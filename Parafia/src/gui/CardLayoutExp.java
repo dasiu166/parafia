@@ -117,8 +117,7 @@ public class CardLayoutExp extends JFrame {
 		panelLogowania.setMaximumSize(new Dimension(200, 200));
 		
 		//#################### PANEL KALENDARZA ####################
-		JPanel panelCalendar =  new JCalendar();
-		
+				JPanel panelCalendar =  new JCalendar();
 		//#################### PANEL CONTENT ####################
 		panelContent = new JPanel();				// stworzenie panelu logowania
 		cl = new CardLayout();
@@ -406,10 +405,38 @@ public class CardLayoutExp extends JFrame {
 		});
 		menuParishioner.add(menuParishionerDane);
 		
+		//podMENU ZAMOWIENIE id 3
 		JMenu menuZamowieniePar = new JMenu("Zamówienie");
 		menuBar.add(menuZamowieniePar);
 		
-		//podMENU ZAMOWIENIE id 3
+		JMenuItem mntmParishionerOrderList = new JMenuItem("Lista zamówieñ");
+		mntmParishionerOrderList.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Bookmark-icon.png")));
+		mntmParishionerOrderList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+				events.pobierzZdarzenia();
+				events.pobierzListeKsiezy();
+				}catch(ClassNotFoundException e){
+					
+				}catch(IOException e){
+					
+				}
+				jpOrdersList.setOrderTypeList(events.getClient().getEventKindList());
+				jpOrdersList.setEventList(events.getClient().getEventKindList());
+				jpOrdersList.setPriestList(events.getClient().getPriestList());
+				jpOrdersList.loadListOrder(0);
+				cl.show(panelContent, "ordersList");
+			}
+		});
+		menuZamowieniePar.add(mntmParishionerOrderList);
+		
+		
+		
+		
+		
+		
+		
+		
 		JMenuItem mntmParishionerZamowienie = new JMenuItem("Dodaj zamówienie");
 		mntmParishionerZamowienie.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Add-icon.png")));
 		mntmParishionerZamowienie.addActionListener(new ActionListener() {
@@ -623,6 +650,12 @@ public class CardLayoutExp extends JFrame {
 			menuBar.getComponent(7).setVisible(true);
 			menuBar.getComponent(7).setEnabled(true);
 					}
+	}
+	
+	public void pokazOrderList(){
+		
+		cl.show(panelContent, "ordersList");
+		
 	}
 	
 	/**
