@@ -435,7 +435,10 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		} else pr.setSecularityDate(dateSecularity.getDate());
 		
 		
-		if(dateBeginWork.isEmpty()) pr.setArrivalDate(null); else
+		if(dateBeginWork.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Podaj date przybycia do parafii");
+		    return false;
+			}else
 			if(dateBeginWork.getDate().compareTo(dateSecularity.getDate())<0){
 				JOptionPane.showMessageDialog(null, "Data przybycia jest przed dat¹ œwiêceñ");
 			    return false;

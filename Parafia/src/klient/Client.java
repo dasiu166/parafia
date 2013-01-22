@@ -2,6 +2,8 @@ package klient;
 import serwer.Serwer;
 import obsluga.*;
 import pomoce.Pomoc;
+import gui.Events;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -132,18 +134,36 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		 * dziala jak zloto jak narazie, trza dolaczyc baze i formatke i bedzie mam
 		 * nadzieje, Panowie musimy przyspieszyc to troche bo inaczej...*/
 		
-		String adr = Pomoc.loadFromFile("client.ini", "SERWERADRES"); //pobranie adresu
+		/*String adr = Pomoc.loadFromFile("client.ini", "SERWERADRES"); //pobranie adresu
 		int portt = Integer.parseInt(Pomoc.loadFromFile("client.ini", "PORT")); //pobranie portu
 		
 		k.isConnected = k.connect(adr,portt);
 		if (k.isConnected==false) System.out.println("Klient - niepolaczony");
 			else System.out.println("Klient - polaczony");
+		*/
 		
 		
 		
+		
+		
+		
+		Events ev = Events.getInstance();
+		
+		
+		/*Adress a = new Adress();
+		a.setId(1);
+		a.setStreet("Opole");
+		ev.updateAdress(a);
+		*/
+		
+		Course c = new Course();
+		c.setId(1);
+		c.setBirthday(Pomoc.podajDate("1999-12-02"));
+		ev.updateCourse(c);
 		
 		
 		//Pobranie listy aktualnosci
+		/*
 		int i=0;
 		while(true){
 			Actuals act = new Actuals();
@@ -168,7 +188,7 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			i++;
 			System.out.println("ile= "+i);
 			}
-			
+		*/	
 		
 
 		

@@ -679,7 +679,7 @@ public class Events {
 
 	public void updateUzytkownik(String login, String pass) throws IOException,
 			ClassNotFoundException {
-		boolean bigErr;
+	
 		u.setKindQuery(KindQuery.UPD_DBASE);
 		String newPass = pass;
 		String newLogin = login;
@@ -694,11 +694,121 @@ public class Events {
 		k.reciveObject();
 		u = (User) k.getPackage();
 
-		if (u.getQuery().equals("OK+"))
-			System.out.println("Update hasla ok");
-		else
-			System.out.println("Blad updatu hasla");
+		if (u.getQuery().equals("OK+")){
+			this.setLastErr(u.getQuery());
+			this.setLastErrData("Akyualizacja zatwierdzona");
+			System.out.println("Update uzytkownika poprawny");
+		}
+		else{
+			this.setLastErr(u.getQuery());
+			this.setLastErrData("Blad aktualizacji");
+			System.out.println("Blad updatu uzytkownika");
+		}
 	}
+	
+	public void updateCourse(Course c)throws IOException,
+	ClassNotFoundException{
+		
+		c.setKindQuery(KindQuery.UPD_DBASE);
+	
+		
+		String query="";
+		
+		query="UPDATE Course SET ";
+		
+		if(c.getBirthDay()!=null) query=query+"birthday = to_date('"
+				+ c.getBirthDay().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd')";
+		
+		if(c.getBaptism()!=null) query=query+" ,baptism = to_date('"
+				+ c.getBaptism().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd')";
+		
+		if(c.getCommunion()!=null) query=query+" ,communion = to_date('"
+				+ c.getCommunion().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd')";
+		
+		if(c.getConfirmation()!=null) query=query+" ,confirmation = to_date('"
+				+ c.getConfirmation().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd')";
+		
+		if(c.getMarriage()!=null) query=query+" ,marriage = to_date('"
+				+ c.getMarriage().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd')";
+		if(c.getDeath()!=null) query=query+" ,death = to_date('"
+				+ c.getDeath().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd')";
+		
+		
+		query=query+ " WHERE id_course=" + c.getId();
+		
+		c.setQuery(query);
+		
+		System.out.println(c.getQuery());
+
+		k.setNullPackage();
+		
+		if (!k.sendObject(c)) {
+			this.connectionError();
+		}
+		
+		k.reciveObject();
+		c = (Course) k.getPackage();
+
+		if (c.getQuery().equals("OK+")){
+			this.setLastErrData("Update adresu przebiegl z powodzeniem");
+			System.out.println("Update hasla ok");
+		}
+		else{
+			this.setLastErr(c.getQuery());
+			this.setLastErrData("Blad aktualizacji adresu");
+			System.out.println("Blad updatu hasla");
+		}
+		
+	}
+	
+	public void updateAdress(Adress a) throws IOException,
+	ClassNotFoundException{
+		
+		a.setKindQuery(KindQuery.UPD_DBASE);
+	
+		
+		String query="";
+		
+		query="UPDATE Adress SET ";
+		
+		if(a.getCity()!=null) query=query+"city='" + a.getCity();
+		if(a.getStreet()!=null) query=query+"',street='"+ a.getStreet();
+		if(a.getHouse()!=null)  query=query+"',house_numb='"+ a.getHouse(); 
+		if(a.getPostcode()!=null) query=query+"',postcode='"+ a.getPostcode();
+		query=query+ "' WHERE id_adress=" + a.getId();
+		
+		a.setQuery(query);
+		
+		System.out.println(a.getQuery());
+
+		k.setNullPackage();
+		
+		if (!k.sendObject(a)) {
+			this.connectionError();
+		}
+		
+		k.reciveObject();
+		a = (Adress) k.getPackage();
+
+		if (a.getQuery().equals("OK+")){
+			this.setLastErrData("Update adresu przebiegl z powodzeniem");
+			System.out.println("Update hasla ok");
+		}
+		else{
+			this.setLastErr(a.getQuery());
+			this.setLastErrData("Blad aktualizacji adresu");
+			System.out.println("Blad updatu hasla");
+		}
+	}
+		
+		
+	
 
 	// ############################ OPERACJE NA ZDARZENIACH
 	// #######################

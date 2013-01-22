@@ -507,7 +507,11 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		
 		
 		//course
-		if(dateBaptism.isEmpty()) course.setBaptism(null); else
+		
+		if(dateBaptism.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Podaj date chrztu");
+		    return false;
+			}else
 			if(dateBaptism.getDate().compareTo(dateBirthday.getDate())<0){
 				JOptionPane.showMessageDialog(null, "Data chrztu jest przed dat¹ urodzenia");
 			    return false;

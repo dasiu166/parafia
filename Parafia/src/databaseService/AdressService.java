@@ -1,6 +1,7 @@
 package databaseService;
 
 import obsluga.Adress;
+import obsluga.Order;
 import obsluga.User;
 import database.DBManager;
 import obsluga.*;
@@ -49,9 +50,31 @@ public class AdressService extends ServicePart {
 		
 		if (((Adress) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){
 			
+			
+			
 		}
 		
 		if (((Adress) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
+			DBManager db = DBManager.getInstance();
+			dbReturnInt = db.execUpdateQuery(((Adress) wiadomosc).getQuery());
+			System.out.println(((Adress) wiadomosc).getQuery());
+			
+			if (dbReturnInt != 0) {
+				((Adress) wiadomosc).setData("Adres UAKTUALNIONE");
+				((Adress) wiadomosc).setQuery("OK+");
+				//((Order) wiadomosc).setStatus(KindQuery.ACK);
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Zamowienie uaktualnione");
+				// LOG_END------------------------------------------------------
+			} else {
+				((Adress) wiadomosc).setData("BLAD UAKTUALNIENIA Adresu");
+				((Adress) wiadomosc).setQuery("ERR");
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Blad uaktualnienia adresu");
+				// LOG_END------------------------------------------------------
+			}
 			
 		}
 		
