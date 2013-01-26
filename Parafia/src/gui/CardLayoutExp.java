@@ -10,6 +10,7 @@ import gui.panels.priest.AddNewPriestPanel;
 import gui.panels.priest.AddNewsPanel;
 import gui.panels.priest.OrdersListPanel;
 import gui.panels.priest.PriestDataPanel;
+import gui.panels.priest.UserListPanel;
 
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -69,7 +70,6 @@ import pomoce.Pomoc;
 
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.Window.Type;
 
 public class CardLayoutExp extends JFrame {
 
@@ -97,8 +97,8 @@ public class CardLayoutExp extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CardLayoutExp.class.getResource("/icons/church-icon.png")));
 		events = Events.getInstance(this);
 		
-		setMinimumSize(new Dimension(800, 600));
-		setPreferredSize(new Dimension(800, 600));
+		setMinimumSize(new Dimension(814, 600));
+		setPreferredSize(new Dimension(814, 600));
 		
 		// Inicjalizacja i ustawienie nowego wygl¹du: JGoodies Plastic 3D look and feel
 		initializeLookAndFeels();
@@ -106,7 +106,7 @@ public class CardLayoutExp extends JFrame {
         setTitle("System zarz¹dzania uroczystosciami");
                 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 	// ustawienie akcji dla przycisku X
-		setBounds(100, 100, 800, 600);						  	// ustwienie rozmieru okna
+		setBounds(100, 100, 814, 600);						  	// ustwienie rozmieru okna
 		contentPane = new JPanel();								// stworzenie panelu g³ównego formatki
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));			// ustawienie obramowania
 		setContentPane(contentPane);								// ustawienie panelu g³ównego dla formatki
@@ -153,6 +153,10 @@ public class CardLayoutExp extends JFrame {
       	
       	final OrdersListPanel jpOrdersList = new OrdersListPanel(this);
       	panelContent.add(jpOrdersList, "ordersList");
+      	
+      	final UserListPanel jpUserList = new UserListPanel(this);
+      	panelContent.add(jpUserList, "userList");
+      	
 		Zegar lblTime = new Zegar();
 		lblTime.setAutoscrolls(true);
 		lblTime.setIcon(new ImageIcon("C:\\Documents and Settings\\hp\\git\\parafia\\Parafia\\icons\\Clock-icon.png"));
@@ -164,27 +168,26 @@ public class CardLayoutExp extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+					.addGap(6)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
-							.addGap(4)))
-					.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(10)
+							.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)))
+					.addGap(10)
 					.addComponent(panelContent, GroupLayout.PREFERRED_SIZE, 607, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(panelLogowania, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelCalendar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(164, Short.MAX_VALUE))
-				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+					.addContainerGap(251, Short.MAX_VALUE))
+				.addComponent(panelContent, GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
 		);
 		
 		contentPane.setLayout(gl_contentPane);
@@ -603,6 +606,14 @@ public class CardLayoutExp extends JFrame {
 		});
 		//JOptionPane.showMessageDialog(null, events.getRestriction());
 		mnDaneAdd.add(mntmAddnewpriest);
+		
+		JMenuItem mntmListaUrzytkownikw = new JMenuItem("Lista Urzytkownik\u00F3w");
+		mntmListaUrzytkownikw.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(panelContent, "userList");
+			}
+		});
+		mnDaneAdd.add(mntmListaUrzytkownikw);
 		
 		
 		

@@ -390,7 +390,7 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 							.addComponent(lblPostCode_))
 						.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(32)
-					.addComponent(lblPrzebieg, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblPrzebieg, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblBaptism_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)

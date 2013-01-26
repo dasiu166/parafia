@@ -28,6 +28,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 
 import net.miginfocom.swing.MigLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelNews extends JPanel implements ActionListener {
 
@@ -35,9 +37,9 @@ public class PanelNews extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private LoginDialog dialogLogowania;
 	private JFrame owner;
-	JPanel panel;
-	int newsNumber = 0;
-	MigLayout ml;
+	private JPanel panel;
+	private int newsNumber = 0;
+	private MigLayout ml;
 	boolean reset=false;
 	final JScrollPane scrollPane;
 
@@ -67,7 +69,7 @@ public class PanelNews extends JPanel implements ActionListener {
 		ml = new MigLayout("", "[475.00px:475.00px,grow]", "[]");
 		panel.setLayout(ml);
 		
-		//addNews("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>");
+		addNews("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - <br /><br /><br /><br /><br /><br /><br />Zawarto\u015B\u0107 aktualno\u015Bci 1</p>");
 		//addNews("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>");
 		//addNews("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>");
 		//addNews("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>");
@@ -79,7 +81,7 @@ public class PanelNews extends JPanel implements ActionListener {
 //######################### FUNCTIONS #########################
 	/**
 	 * @param constraint - ograniczenie "[[100px:]100px[,grow]]"
-	 * @return void - dodaje domyœlne rozmiary w pionie dla nowego newsu
+	 * @return void - dodaje domyślne rozmiary w pionie dla nowego newsu
 	 */
 	private synchronized void addRowConstraint(String constraint){
 		String rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
@@ -90,12 +92,30 @@ public class PanelNews extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @param subiect - Temat / Tytu³ newsu
+	 * @param constraint - ograniczenie "[[100px:]100px[,grow]]"
+	 * @return void - dodaje domy�lne rozmiary w pionie dla nowego newsu
+	 */
+	private synchronized void editRowConstraint(int constraint, int number){
+		//JOptionPane.showMessageDialog(null, ((MigLayout)panel.getLayout()).getRowConstraints());
+		String rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
+		String constraints[] = rowConstraints.substring(1, rowConstraints.length()-1).replace("][", "##").split("##");
+		constraints[number] = "100px:"+Integer.toString(constraint)+"px";
+		rowConstraints = "";
+		for(int i=0;i<constraints.length;i++){
+			rowConstraints +="["+constraints[i]+"]";
+		}
+		((MigLayout)panel.getLayout()).setRowConstraints( rowConstraints );
+		//JOptionPane.showMessageDialog(null, ((MigLayout)panel.getLayout()).getRowConstraints());
+		panel.repaint();
+	}
+	
+	/**
+	 * @param subiect - Temat / Tytuł newsu
 	 * @param data - data dodania newsu
-	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @param content - Zawartoœæ newsu w kodzie html
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
+	 * @param ksiadz - Imie i Nazwisko księdza dodającego news
+	 * @param contentHeight - wysokość[px] zawartości newsu (min 100px)
+	 * @param content - Zawartość newsu w kodzie html
+	 * @return <b>void</b> - tworzy nowego newsa na ko�ńcu listy newsów (newsy należy dodawać od najnowszego - do najsterszego);
 	 */
 	public void cleanList(){
 		newsNumber=0;
@@ -109,14 +129,23 @@ public class PanelNews extends JPanel implements ActionListener {
 	public void addNews(String subiect, Date data, String ksiadz, int contentHeight, String content){
 		
 		newsNumber++;
+		final int newsNumber_ = newsNumber-1;
 		addRowConstraint("[100px:"+(contentHeight+44)+"px]");
 		final JPanel panel_news = new JPanel();
+		MouseAdapter mouseAdapter = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				onClick(newsNumber_);
+			}
+		};		
+		panel_news.addMouseListener(mouseAdapter);
 		panel_news.setMinimumSize(new Dimension(10, 100));
 		panel_news.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_news.setAutoscrolls(true);
 		panel.add(panel_news, "cell 0 "+(newsNumber-1)+",grow");
 				
 		final JEditorPane dtrpnContent = new JEditorPane();
+		dtrpnContent.addMouseListener(mouseAdapter);
 		dtrpnContent.setContentType("text/html");
 		dtrpnContent.setText(content);
 		dtrpnContent.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -163,7 +192,7 @@ public class PanelNews extends JPanel implements ActionListener {
 	
 	/**
 	 * @param news
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
+	 * @return <b>void</b> - tworzy nowego newsa na końcu listy newsów (newsy należy dodawać od najnowszego - do najsterszego);
 	 */
 	public void addNews(News news){
 		addNews(news.getSubiect(), news.getData(), news.getKsiadz(), news.getContentHeight(), news.getContent());
@@ -177,19 +206,44 @@ public class PanelNews extends JPanel implements ActionListener {
 		dialogLogowania.setFocus();
 		
 		if(dialogLogowania.isOK()){
-			JOptionPane.showMessageDialog(owner, "Login: "+dialogLogowania.getLogin()+"\nHas³o: "+dialogLogowania.getPassword());
+			JOptionPane.showMessageDialog(owner, "Login: "+dialogLogowania.getLogin()+"\nHasło: "+dialogLogowania.getPassword());
 		}		
+	}
+	
+	public void onClick(int numer){
+		int height = ((JEditorPane)((JPanel)panel.getComponent(numer)).getComponent(0)).getHeight();
+		if(panel.getComponent(numer).getHeight()<=100){
+			//JOptionPane.showMessageDialog(null, height);
+			editRowConstraint(height+44,numer);
+		}else{
+			//JOptionPane.showMessageDialog(null, "FALSE");
+			editRowConstraint(100,numer);
+		}
+		panel.resize(panel.getWidth()+1, panel.getHeight());
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 class News{
 	/**
-	 * @param subiect - Temat / Tytu³ newsu
+	 * @param subiect - Temat / Tytuł newsu
 	 * @param data - data dodania newsu
-	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @param content - Zawartoœæ newsu w kodzie html
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
+	 * @param ksiadz - Imie i Nazwisko księdza dodającego news
+	 * @param contentHeight - wysokość[px] zawartości newsu (min 100px)
+	 * @param content - Zawartość newsu w kodzie html
+	 * @return <b>void</b> - tworzy nowego newsa na końcu listy newsów (newsy należy dodawać od najnowszego - do najsterszego);
 	 */
 	public News(String subiect, Date data, String ksiadz, int contentHeight, String content) {
 		super();
@@ -208,14 +262,14 @@ class News{
 	
 	/**
 	 * pobiera Temat newsa
-	 * @return <b>String</b> - Temat / Tytu³ newsu
+	 * @return <b>String</b> - Temat / Tytuł newsu
 	 */
 	public String getSubiect() {
 		return subiect;
 	}
 	/**
 	 * ustawia Temat newsa
-	 * @param subiect - Temat / Tytu³ newsu
+	 * @param subiect - Temat / Tytuł newsu
 	 */
 	public void setSubiect(String subiect) {
 		this.subiect = subiect;
@@ -235,49 +289,60 @@ class News{
 		this.data = data;
 	}
 	/**
-	 * ustawia Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @return <b>String</b> - Imie i Nazwisko ksiêdza dodaj¹cego news
+	 * ustawia Imie i Nazwisko księdza dodaj�cego news
+	 * @return <b>String</b> - Imie i Nazwisko księdza dodaj�cego news
 	 */
 	public String getKsiadz() {
 		return ksiadz;
 	}
 	/**
-	 * pobiera Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
+	 * pobiera Imie i Nazwisko księdza dodającego news
+	 * @param ksiadz - Imie i Nazwisko księdza dodającego news
 	 */
 	public void setKsiadz(String ksiadz) {
 		this.ksiadz = ksiadz;
 	}
 	/**
-	 * ustawia wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @return <b>int</b> - wysokoœæ[px] zawartoœci newsu (min 100px)
+	 * ustawia wysokość[px] zawartości newsu (min 100px)
+	 * @return <b>int</b> - wysokość[px] zawartości newsu (min 100px)
 	 */
 	public int getContentHeight() {
 		return contentHeight;
 	}
 	/**
-	 * pobiera wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
+	 * pobiera wysokość[px] zawartości newsu (min 100px)
+	 * @param contentHeight - wysokość[px] zawartości newsu (min 100px)
 	 */
 	public void setContentHeight(int contentHeight) {
 		this.contentHeight = contentHeight;
 	}
 	/**
-	 * ustawia zawartoœæ newsu w kodzie html
-	 * @return <b>String</b> - Zawartoœæ newsu w kodzie html
+	 * ustawia zawartość newsu w kodzie html
+	 * @return <b>String</b> - Zawartość newsu w kodzie html
 	 */
 	public String getContent() {
 		return content;
 	}
 	/**
-	 * pobiera zawartoœæ newsu w kodzie html
-	 * @param content - Zawartoœæ newsu w kodzie html
+	 * pobiera zawartość newsu w kodzie html
+	 * @param content - Zawartość newsu w kodzie html
 	 */
 	public void setContent(String content) {
 		this.content = content;
-	}
-	
+	}	
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 class NewsList{	
 	ArrayList<News> lista = new ArrayList<News>();

@@ -2,6 +2,9 @@ package gui.panels.priest;
 
 
 import gui.Events;
+import gui.Obserwator;
+import gui.Obserwowany;
+import gui.calendar.JDateChooser;
 import gui.panels.LoginDialog;
 import gui.panels.parishioner.OrderDialogParishioner;
 
@@ -26,6 +29,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +46,7 @@ import javax.swing.border.MatteBorder;
 import net.miginfocom.swing.MigLayout;
 import obsluga.Event;
 import obsluga.Order;
+import obsluga.Parishioner;
 import obsluga.Priest;
 import pdf.PdfCreator;
 import pomoce.Pomoc;
@@ -86,9 +91,10 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private JComboBox comboStatus;
 	private JComboBox comboPriest;
 	private JComboBox comboType;
-	JLabel lblPriest_;
-	JButton btnPdf;
-	JButton btnReset;
+	private JLabel lblFrom_;
+	private JLabel lblPriest_;
+	private JButton btnPdf;
+	private JButton btnReset;
 	
 	/**
 	 * Create the panel.
@@ -140,18 +146,18 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(7)
-					.addComponent(panel_Headline, GroupLayout.PREFERRED_SIZE, 587, Short.MAX_VALUE)
+					.addComponent(panel_Headline, GroupLayout.PREFERRED_SIZE, 588, Short.MAX_VALUE)
 					.addGap(10))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel_Headline, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_Headline, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
 		);
 		
 		JPanel panel_2 = new JPanel();
@@ -185,8 +191,8 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						.addComponent(lblToDate_, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(dateFrom, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-						.addComponent(dateTo, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+						.addComponent(dateFrom, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+						.addComponent(dateTo, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
 					.addGap(5)
@@ -195,21 +201,22 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						.addComponent(lblPriest_, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboPriest, 0, 103, Short.MAX_VALUE)
-						.addComponent(comboStatus, 0, 103, Short.MAX_VALUE))
-					.addGap(10)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboPriest, 0, 100, Short.MAX_VALUE)
+						.addComponent(comboStatus, 0, 100, Short.MAX_VALUE))
 					.addGap(8)
-					.addComponent(lblTyp_, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboType, 0, 220, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_panel_Headline.createSequentialGroup()
-							.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-							.addGap(66)
-							.addComponent(btnPdf, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-						.addComponent(btnApply, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
-					.addContainerGap())
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panel_Headline.createSequentialGroup()
+							.addGap(6)
+							.addComponent(btnApply, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnPdf, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_Headline.createSequentialGroup()
+							.addGap(6)
+							.addComponent(lblTyp_, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboType, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addGap(4))
 		);
 		gl_panel_Headline.setVerticalGroup(
 			gl_panel_Headline.createParallelGroup(Alignment.LEADING)
@@ -223,7 +230,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					.addComponent(dateFrom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(7)
 					.addComponent(dateTo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
 					.addGap(13)
 					.addComponent(lblStatusOrder_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -234,19 +241,18 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					.addComponent(comboStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(7)
 					.addComponent(comboPriest, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(37))
-				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+					.addContainerGap())
+				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTyp_))
-					.addGap(2)
+						.addComponent(lblTyp_)
+						.addComponent(comboType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnPdf, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-					.addGap(1)
-					.addComponent(btnApply, GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
+						.addComponent(btnApply)
+						.addComponent(btnPdf))
+					.addGap(9))
 		);
 		panel_Headline.setLayout(gl_panel_Headline);
 		
@@ -260,22 +266,16 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel_OrdersList.setFont(new Font("Tekton Pro", Font.BOLD, 14));
 		scrollPane.setViewportView(panel_OrdersList);
 		panel_OrdersList.setLayout(new MigLayout("", "[572.00px:572.00px,grow]", "[]"));
-		JLabel lblFrom_ ;
-		
+				
 		JPanel panel_Header_ = new JPanel();
 		scrollPane.setColumnHeaderView(panel_Header_);
 		
 		JPanel panel_From_ = new JPanel();
 		panel_From_.setBorder(new MatteBorder(2, 2, 2, 0, (Color) Color.DARK_GRAY));
 		panel_From_.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));		
-			
-		if(events.getRestriction()==KindRestriction.LOGED_R){
-			    lblFrom_ = new JLabel("Do");
-
-			}else {
-			    lblFrom_ = new JLabel("Od");
-	
-			}
+			lblFrom_ = new JLabel("Od");
+			if(events.getRestriction()==KindRestriction.LOGED_R)
+			    lblFrom_.setText("Do");
 			panel_From_.add(lblFrom_);			
 			final JLabel lblFrom_Icon = new JLabel("");
 			panel_From_.add(lblFrom_Icon);
@@ -369,7 +369,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		sender.setName("Anna");
 		sender.setSurName("Wojnar");
 		order.setSender(sender);
-		order.setEvent("Œlub");
+		order.setEvent("ślub");
 		order.setStatus("Do rozpatrzenia");
 		order.setBeginDate(new Date());
 		order.setDescribe("wiadomosc od usera");
@@ -398,7 +398,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	
 	/**
 	 * @param constraint - ograniczenie "[[40px:]40px[,grow]]"
-	 * @return void - dodaje domyœlne rozmiary w pionie dla nowego Zamówienia
+	 * @return void - dodaje domyślne rozmiary w pionie dla nowego Zamówienia
 	 */
 	private synchronized void addRowConstraint(String constraint){
 		String rowConstraints = (String)((MigLayout)panel_OrdersList.getLayout()).getRowConstraints();
@@ -532,7 +532,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					
 						if(events.getRestriction()==KindRestriction.WORKS_R){
 						if(!order.getExecutroPesel().equals(events.getPriest().getPesel())){
-						JOptionPane.showMessageDialog(null, "Nie masz uprawnieñ do modyfikownaia tego zamówienia");
+						JOptionPane.showMessageDialog(null, "Nie masz uprawnień do modyfikownaia tego zamówienia");
 						return;
 						}
 					}
@@ -577,7 +577,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		        				
 		        			}
 	        			//END_DODANE
-	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zosta³y odrzucone");
+	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zostały odrzucone");
 	        			lblStatus.setText(order.getStatus());
 	        			//orderPanel.setBackground(new Color(240, 230, 140));
 	        			Color color = new Color(240, 230, 140);
@@ -621,7 +621,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		        				
 		        			}
 	        			//END_DODANE
-	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zosta³y odrzucone");
+	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zostały odrzucone");
 	        			lblStatus.setText(order.getStatus());
 	        			//orderPanel.setBackground(new Color(240, 230, 140));
 	        			Color color = new Color(240, 230, 140);
@@ -690,6 +690,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 				orderList = events.pobierzZamowieniaParafianina(); 
 				comboPriest.setVisible(false);
 				lblPriest_.setVisible(false);
+				lblFrom_.setText("Do");
 				}else {
 					comboPriest.setVisible(true);
 					lblPriest_.setVisible(true);
@@ -707,6 +708,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 				if(events.getRestriction()==KindRestriction.LOGED_R){
 					comboPriest.setVisible(false);
 					lblPriest_.setVisible(false);
+					lblFrom_.setText("Do");
 					orderList = events.pobierzZamowieniaParafianina(
 							this.getStatusSelected(), 
 							this.getDateFrom(), 
@@ -718,6 +720,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						
 						comboPriest.setVisible(true);
 						lblPriest_.setVisible(true);
+						lblFrom_.setText("Od");
 						
 						orderList = events.pobierzZamowieniaKsiedza(KindRestriction.WORKS_R, 
 						Pomoc.validatePriestName(events.getClient().getPriestList(),this.getPriestSelectedIndex()+1), 
@@ -804,7 +807,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @return <B>Date</B> - Data pocz¹tkowa<br />
+	 * @return <B>Date</B> - Data początkowa<br />
 	 * 			<b>null</b> - data nie wybrana
 	 */
 	public Date getDateFrom(){
@@ -812,7 +815,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @return <B>Date</B> - Data koñcowa<br />
+	 * @return <B>Date</B> - Data końcowa<br />
 	 * 			<b>null</b> - data nie wybrana
 	 */
 	public Date getDateTo(){
@@ -820,11 +823,11 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @return 	<b>KindQuery.NEW</b> je¿eli = Nowe<br />
-	 * 			<b>KindQuery.ACK</b> je¿eli = Zaakceptowane<br />
-	 * 			<b>KindQuery.DEN</b> je¿eli = Odrzucone<br />
-	 * 			<b>""</b> 			je¿eli = Wszystkie<br />
-	 * 			<b>null</b> 		je¿eli = !!Error!!<br />
+	 * @return 	<b>KindQuery.NEW</b> jeżeli = Nowe<br />
+	 * 			<b>KindQuery.ACK</b> jeżeli = Zaakceptowane<br />
+	 * 			<b>KindQuery.DEN</b> jeżeli = Odrzucone<br />
+	 * 			<b>""</b> 			jeżeli = Wszystkie<br />
+	 * 			<b>null</b> 		jeżeli = !!Error!!<br />
 	 */
 	public String getStatusSelected(){
 		if(comboStatus.getSelectedIndex()==1)
@@ -893,9 +896,9 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			else
 			pdf.createOrderPdf(this.getOrderList(), Pomoc.saveFileWindow());
 			}catch(IOException rrr){
-				JOptionPane.showMessageDialog(null, "B³¹d w miejscu zapisu");
+				JOptionPane.showMessageDialog(null, "Błąd w miejscu zapisu");
 			}catch(DocumentException rrr){
-				JOptionPane.showMessageDialog(null, "B³¹d kreatora dokumentu");
+				JOptionPane.showMessageDialog(null, "Błąd kreatora dokumentu");
 
 			}
 		}
@@ -910,38 +913,6 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-interface Obserwowany 
-{
-        public void dodajObserwatora( Obserwator obserwator );
-        public void usunObserwatora( Obserwator obserwator );
-        public void powiadomObserwatorow(Obserwator obserwator);
-}
-
-interface Obserwator
-{
-        public void uaktualnij(int Stan);
-        public String getName();
-        public int getStan();
-}
 
 
 
@@ -1098,7 +1069,7 @@ class StanuSortowania implements Obserwator
     public static final int IMG_DOWN = 2;
 	private static final ImageIcon ICON_UP = new ImageIcon("icons/sortup.png");
 	private static final ImageIcon ICON_DOWN = new ImageIcon("icons/sortdown.png");
-	private static final ImageIcon ICON_CLEAR = new ImageIcon("icons/arrow_sort_c.png");
+	private static final ImageIcon ICON_CLEAR = new ImageIcon("icons/sortclean.png");
 
     
 	private String name;
@@ -1106,7 +1077,7 @@ class StanuSortowania implements Obserwator
 	private int stan;
  
     /**
-     * @param label - JLabel gdzie ma znajdowaæ siê ikona
+     * @param label - JLabel gdzie ma znajdować się ikona
      * @param name - Nadana nazwa dla Stanu Sortowania
      */
     public StanuSortowania(JLabel label, String name) {
@@ -1116,7 +1087,7 @@ class StanuSortowania implements Obserwator
     }
     
     /**
-     * @param label - JLabel gdzie ma znajdowaæ siê ikona
+     * @param label - JLabel gdzie ma znajdować się ikona
      * @param name - Nadana nazwa dla Stanu Sortowania
      * @param stan - IMG_CLEAR, IMG_UP lub IMG_DOWN
      */

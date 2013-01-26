@@ -61,25 +61,25 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollPane)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
 							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnSubmit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-							.addGap(17))))
+							.addGap(17))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+							.addContainerGap())))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 					.addGap(1)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnReset)
@@ -107,34 +107,34 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNowaAktualno, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(gl_panel.createSequentialGroup()
+					.addComponent(lblContent, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblTitle_, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
-						.addComponent(lblContent, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textTitle, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-					.addGap(70))
+							.addComponent(lblNowaAktualno, GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(21)
+							.addComponent(lblTitle_, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textTitle, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+							.addGap(84))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNowaAktualno)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblNowaAktualno)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTitle_))
-							.addContainerGap(20, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblContent, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(lblTitle_)
+								.addComponent(textTitle))
+							.addGap(15))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(lblContent)
+							.addGap(6))))
 		);
 		panel.setLayout(gl_panel);
 		setLayout(groupLayout);
@@ -151,7 +151,7 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 		d.getDate();
 		if(z==btnSubmit){
 			if(textTitle.getText().length()<1){
-				JOptionPane.showMessageDialog(null, "Za krótki tytu³ (min. 1 znak)");
+				JOptionPane.showMessageDialog(null, "Za krótki tytuł (min. 1 znak)");
 				return;
 			} else akt.setSubject(textTitle.getText());
 			
