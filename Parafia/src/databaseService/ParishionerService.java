@@ -123,6 +123,27 @@ public class ParishionerService extends ServicePart {
 		
 		if (((Parishioner) wiadomosc).getKindQuery() == KindQuery.UPD_DBASE) {
 			// ##BLOK UAKTUALNIENIA DANYCH
+			
+			DBManager db = DBManager.getInstance();
+			dbReturnInt = db.execUpdateQuery(((Parishioner) wiadomosc).getQuery());
+			System.out.println(((Parishioner) wiadomosc).getQuery());
+			
+			if (dbReturnInt != 0) {
+				((Parishioner) wiadomosc).setData("Parafianin UAKTUALNIONE");
+				((Parishioner) wiadomosc).setQuery("OK+");
+				//((Order) wiadomosc).setStatus(KindQuery.ACK);
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Parafianin uaktualniony");
+				// LOG_END------------------------------------------------------
+			} else {
+				((Parishioner) wiadomosc).setData("BLAD UAKTUALNIENIA Parafainina");
+				((Parishioner) wiadomosc).setQuery("ERR");
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Blad uaktualnienia parafianina");
+				// LOG_END------------------------------------------------------
+			}
 
 		}
 

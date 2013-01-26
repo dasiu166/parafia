@@ -888,6 +888,9 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			PdfCreator pdf = new PdfCreator();
 			try{
 			pdf.setMyEventList(events.getClient().getEventKindList());
+			if(events.getRestriction()==KindRestriction.LOGED_R)
+				pdf.createOwnOrderPdf(this.getOrderList(), Pomoc.saveFileWindow());
+			else
 			pdf.createOrderPdf(this.getOrderList(), Pomoc.saveFileWindow());
 			}catch(IOException rrr){
 				JOptionPane.showMessageDialog(null, "B³¹d w miejscu zapisu");

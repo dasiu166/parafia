@@ -151,13 +151,13 @@ public class AddNewsPanel extends JPanel implements ActionListener {
 		d.getDate();
 		if(z==btnSubmit){
 			if(textTitle.getText().length()<1){
-				JOptionPane.showMessageDialog(null, "Za krótki tytu³ (min. 1 znak)");
+				JOptionPane.showMessageDialog(null, "Za krÃ³tki tytuÂ³ (min. 1 znak)");
 				return;
 			} else akt.setSubject(textTitle.getText());
 			
 			
 			if(editorContent.getText().length()<1){
-				JOptionPane.showMessageDialog(null, "Za krótki wpis (min. 1 znak)");
+				JOptionPane.showMessageDialog(null, "Za krÃ³tki wpis (min. 1 znak)");
 				return;
 			} else akt.setDescribe(editorContent.getText());
 			

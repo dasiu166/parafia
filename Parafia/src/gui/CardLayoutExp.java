@@ -4,6 +4,7 @@ import gui.calendar.JCalendar;
 import gui.panels.LoginPanel;
 import gui.panels.parishioner.NewOrderPanel;
 import gui.panels.parishioner.ParishionerDataPanel;
+import gui.panels.parishioner.UpdateLoginDataPanel;
 import gui.panels.priest.AddNewParishionerPanel;
 import gui.panels.priest.AddNewPriestPanel;
 import gui.panels.priest.AddNewsPanel;
@@ -129,6 +130,9 @@ public class CardLayoutExp extends JFrame {
         
         final ParishionerDataPanel jpParishionerData = new ParishionerDataPanel(this);
         panelContent.add(jpParishionerData, "parishionerData");
+        
+        final UpdateLoginDataPanel updtLoginDataPanel = new UpdateLoginDataPanel(this);
+        panelContent.add(updtLoginDataPanel, "updLoginPanel");
         
         final NewOrderPanel jpNewOrder = new NewOrderPanel();
        // JLabel jl3 = new JLabel("Card3");
@@ -405,6 +409,21 @@ public class CardLayoutExp extends JFrame {
 		});
 		menuParishioner.add(menuParishionerDane);
 		
+		JMenuItem menuParishionerLoginUpdate = new JMenuItem("Zmien login/haslo");
+		menuParishionerLoginUpdate.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/user-login-icon.png")));
+		menuParishionerLoginUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner().getName());
+				if(events.getLogged()) {
+					
+					updtLoginDataPanel.setLoginField(events.getUser().getLogin());
+					
+				}
+				cl.show(panelContent, "updLoginPanel");
+			}
+		});
+		menuParishioner.add(menuParishionerLoginUpdate);
+		
 		//podMENU ZAMOWIENIE id 3
 		JMenu menuZamowieniePar = new JMenu("Zamówienie");
 		menuBar.add(menuZamowieniePar);
@@ -483,6 +502,21 @@ public class CardLayoutExp extends JFrame {
 			}
 		});
 		mnKsidz.add(mntmParishionerDane);
+		
+		JMenuItem menuPriestLoginUpdate = new JMenuItem("Zmien login/haslo");
+		menuPriestLoginUpdate.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/user-login-icon.png")));
+		menuPriestLoginUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//JOptionPane.showMessageDialog(null, "Logged: "+events.getLogged()+"\nParishioner:\n"+events.getParishioner().getName());
+				if(events.getLogged()) {
+					
+					updtLoginDataPanel.setLoginField(events.getUser().getLogin());
+					
+				}
+				cl.show(panelContent, "updLoginPanel");
+			}
+		});
+		mnKsidz.add(menuPriestLoginUpdate);
 		
 		//-------------podMENU ZAMOWIENIE id 5
 		JMenu mnZamowienieKS = new JMenu("Zamówienie");

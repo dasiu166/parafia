@@ -1,0 +1,45 @@
+2013-01-25 15:35:04: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-25 15:35:04: SERWER -> Polaczono z baza danych
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 15:35:04: SERWER -> Nowy watek
+2013-01-25 21:13:13: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-25 21:13:13: SERWER -> Polaczono z baza danych
+2013-01-25 21:13:13: SERWER -> Port zajety
+2013-01-25 21:13:52: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-25 21:13:52: SERWER -> Polaczono z baza danych
+2013-01-25 21:13:52: SERWER -> Nowy watek
+2013-01-25 21:16:18: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-25 21:16:18: SERWER -> Polaczono z baza danych
+2013-01-25 21:16:18: SERWER -> Nowy watek
+2013-01-25 21:16:18: SERWER -> Nowy watek
+2013-01-25 21:16:18: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-25 21:47:00: SERWER -> Polaczono z baza danych
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek
+2013-01-25 21:47:00: SERWER -> Nowy watek

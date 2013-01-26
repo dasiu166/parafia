@@ -1,0 +1,42 @@
+2013-01-22 00:15:18: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-22 00:18:39: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-22 00:20:06: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-22 00:20:06: Watek:Thread-1 -> Zamowienie uaktualnione
+2013-01-22 00:20:06: Watek:Thread-1 -> Klient sie rozlaczyl
+2013-01-22 00:20:42: Watek:Thread-2 -> Klient sie podlaczyl
+2013-01-22 00:20:42: Watek:Thread-2 -> Blad uaktualnienia adresu
+2013-01-22 00:20:42: Watek:Thread-2 -> Klient sie rozlaczyl
+2013-01-22 00:23:19: Watek:Thread-3 -> Klient sie podlaczyl
+2013-01-22 00:23:19: Watek:Thread-3 -> Blad uaktualnienia przebiegu
+2013-01-22 00:23:19: Watek:Thread-3 -> Klient sie rozlaczyl
+2013-01-22 00:24:15: Watek:Thread-4 -> Klient sie podlaczyl
+2013-01-22 00:24:15: Watek:Thread-4 -> Blad uaktualnienia przebiegu
+2013-01-22 00:24:15: Watek:Thread-4 -> Klient sie rozlaczyl
+2013-01-22 00:24:56: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-22 00:24:56: Watek:Thread-5 -> Blad uaktualnienia przebiegu
+2013-01-22 00:24:56: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-22 00:25:50: Watek:Thread-6 -> Klient sie podlaczyl
+2013-01-22 00:25:50: Watek:Thread-6 -> Przebieg uaktualnione
+2013-01-22 00:25:50: Watek:Thread-6 -> Klient sie rozlaczyl
+2013-01-22 00:55:07: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-22 00:55:07: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-22 00:55:07: Watek:Thread-1 -> Proba logowania
+2013-01-22 00:55:07: Watek:Thread-1 -> Zalogowano
+2013-01-22 00:55:07: Watek:Thread-1 -> Pobranie zamowien
+2013-01-22 00:55:07: Watek:Thread-1 -> Klient sie rozlaczyl
+2013-01-22 01:29:30: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-22 01:29:30: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-22 01:29:30: Watek:Thread-1 -> Proba logowania
+2013-01-22 01:29:30: Watek:Thread-1 -> Zalogowano
+2013-01-22 01:29:30: Watek:Thread-1 -> Pobranie zamowien
+2013-01-22 01:29:30: Watek:Thread-1 -> Pobranie zamowien
+2013-01-22 01:29:30: Watek:Thread-1 -> Wylogowano
+2013-01-22 01:29:30: Watek:Thread-1 -> Proba logowania
+2013-01-22 01:29:30: Watek:Thread-1 -> Zalogowano
+2013-01-22 01:29:30: Watek:Thread-1 -> Pobranie zamowien
+2013-01-22 01:29:30: Watek:Thread-1 -> Pobranie zamowien
+2013-01-22 01:29:30: Watek:Thread-1 -> Pobranie zamowien
+2013-01-22 01:29:30: Watek:Thread-1 -> Wylogowano
+2013-01-22 01:29:30: Watek:Thread-1 -> Proba logowania
+2013-01-22 01:29:30: Watek:Thread-1 -> Zalogowano
+2013-01-22 01:29:30: Watek:Thread-1 -> Klient sie rozlaczyl

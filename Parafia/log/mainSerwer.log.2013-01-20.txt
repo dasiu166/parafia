@@ -1,0 +1,7 @@
+2013-01-20 01:16:28: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-20 01:16:28: SERWER -> Polaczono z baza danych
+2013-01-20 01:16:28: SERWER -> Nowy watek
+2013-01-20 01:16:28: SERWER -> Nowy watek
+2013-01-20 01:16:28: SERWER -> Nowy watek
+2013-01-20 01:16:28: SERWER -> Nowy watek
+2013-01-20 01:16:28: SERWER -> Nowy watek

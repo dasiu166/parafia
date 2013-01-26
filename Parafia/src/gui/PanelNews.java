@@ -79,7 +79,7 @@ public class PanelNews extends JPanel implements ActionListener {
 //######################### FUNCTIONS #########################
 	/**
 	 * @param constraint - ograniczenie "[[100px:]100px[,grow]]"
-	 * @return void - dodaje domyœlne rozmiary w pionie dla nowego newsu
+	 * @return void - dodaje domyÅ“lne rozmiary w pionie dla nowego newsu
 	 */
 	private synchronized void addRowConstraint(String constraint){
 		String rowConstraints = (String)((MigLayout)panel.getLayout()).getRowConstraints();
@@ -90,12 +90,12 @@ public class PanelNews extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @param subiect - Temat / Tytu³ newsu
+	 * @param subiect - Temat / TytuÂ³ newsu
 	 * @param data - data dodania newsu
-	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @param content - Zawartoœæ newsu w kodzie html
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
+	 * @param ksiadz - Imie i Nazwisko ksiÃªdza dodajÂ¹cego news
+	 * @param contentHeight - wysokoÅ“Ã¦[px] zawartoÅ“ci newsu (min 100px)
+	 * @param content - ZawartoÅ“Ã¦ newsu w kodzie html
+	 * @return <b>void</b> - tworzy nowego newsa na koÃ±cu listy newsÃ³w (newsy naleÂ¿y dodawaÃ¦ od najnowszego - do najsterszego);
 	 */
 	public void cleanList(){
 		newsNumber=0;
@@ -163,7 +163,7 @@ public class PanelNews extends JPanel implements ActionListener {
 	
 	/**
 	 * @param news
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
+	 * @return <b>void</b> - tworzy nowego newsa na koÃ±cu listy newsÃ³w (newsy naleÂ¿y dodawaÃ¦ od najnowszego - do najsterszego);
 	 */
 	public void addNews(News news){
 		addNews(news.getSubiect(), news.getData(), news.getKsiadz(), news.getContentHeight(), news.getContent());
@@ -177,19 +177,19 @@ public class PanelNews extends JPanel implements ActionListener {
 		dialogLogowania.setFocus();
 		
 		if(dialogLogowania.isOK()){
-			JOptionPane.showMessageDialog(owner, "Login: "+dialogLogowania.getLogin()+"\nHas³o: "+dialogLogowania.getPassword());
+			JOptionPane.showMessageDialog(owner, "Login: "+dialogLogowania.getLogin()+"\nHasÂ³o: "+dialogLogowania.getPassword());
 		}		
 	}
 }
 
 class News{
 	/**
-	 * @param subiect - Temat / Tytu³ newsu
+	 * @param subiect - Temat / TytuÂ³ newsu
 	 * @param data - data dodania newsu
-	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @param content - Zawartoœæ newsu w kodzie html
-	 * @return <b>void</b> - tworzy nowego newsa na koñcu listy newsów (newsy nale¿y dodawaæ od najnowszego - do najsterszego);
+	 * @param ksiadz - Imie i Nazwisko ksiÃªdza dodajÂ¹cego news
+	 * @param contentHeight - wysokoÅ“Ã¦[px] zawartoÅ“ci newsu (min 100px)
+	 * @param content - ZawartoÅ“Ã¦ newsu w kodzie html
+	 * @return <b>void</b> - tworzy nowego newsa na koÃ±cu listy newsÃ³w (newsy naleÂ¿y dodawaÃ¦ od najnowszego - do najsterszego);
 	 */
 	public News(String subiect, Date data, String ksiadz, int contentHeight, String content) {
 		super();
@@ -208,14 +208,14 @@ class News{
 	
 	/**
 	 * pobiera Temat newsa
-	 * @return <b>String</b> - Temat / Tytu³ newsu
+	 * @return <b>String</b> - Temat / TytuÂ³ newsu
 	 */
 	public String getSubiect() {
 		return subiect;
 	}
 	/**
 	 * ustawia Temat newsa
-	 * @param subiect - Temat / Tytu³ newsu
+	 * @param subiect - Temat / TytuÂ³ newsu
 	 */
 	public void setSubiect(String subiect) {
 		this.subiect = subiect;
@@ -235,43 +235,43 @@ class News{
 		this.data = data;
 	}
 	/**
-	 * ustawia Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @return <b>String</b> - Imie i Nazwisko ksiêdza dodaj¹cego news
+	 * ustawia Imie i Nazwisko ksiÃªdza dodajÂ¹cego news
+	 * @return <b>String</b> - Imie i Nazwisko ksiÃªdza dodajÂ¹cego news
 	 */
 	public String getKsiadz() {
 		return ksiadz;
 	}
 	/**
-	 * pobiera Imie i Nazwisko ksiêdza dodaj¹cego news
-	 * @param ksiadz - Imie i Nazwisko ksiêdza dodaj¹cego news
+	 * pobiera Imie i Nazwisko ksiÃªdza dodajÂ¹cego news
+	 * @param ksiadz - Imie i Nazwisko ksiÃªdza dodajÂ¹cego news
 	 */
 	public void setKsiadz(String ksiadz) {
 		this.ksiadz = ksiadz;
 	}
 	/**
-	 * ustawia wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @return <b>int</b> - wysokoœæ[px] zawartoœci newsu (min 100px)
+	 * ustawia wysokoÅ“Ã¦[px] zawartoÅ“ci newsu (min 100px)
+	 * @return <b>int</b> - wysokoÅ“Ã¦[px] zawartoÅ“ci newsu (min 100px)
 	 */
 	public int getContentHeight() {
 		return contentHeight;
 	}
 	/**
-	 * pobiera wysokoœæ[px] zawartoœci newsu (min 100px)
-	 * @param contentHeight - wysokoœæ[px] zawartoœci newsu (min 100px)
+	 * pobiera wysokoÅ“Ã¦[px] zawartoÅ“ci newsu (min 100px)
+	 * @param contentHeight - wysokoÅ“Ã¦[px] zawartoÅ“ci newsu (min 100px)
 	 */
 	public void setContentHeight(int contentHeight) {
 		this.contentHeight = contentHeight;
 	}
 	/**
-	 * ustawia zawartoœæ newsu w kodzie html
-	 * @return <b>String</b> - Zawartoœæ newsu w kodzie html
+	 * ustawia zawartoÅ“Ã¦ newsu w kodzie html
+	 * @return <b>String</b> - ZawartoÅ“Ã¦ newsu w kodzie html
 	 */
 	public String getContent() {
 		return content;
 	}
 	/**
-	 * pobiera zawartoœæ newsu w kodzie html
-	 * @param content - Zawartoœæ newsu w kodzie html
+	 * pobiera zawartoÅ“Ã¦ newsu w kodzie html
+	 * @param content - ZawartoÅ“Ã¦ newsu w kodzie html
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -292,8 +292,8 @@ class NewsList{
 	}
 	
 	/**
-	 * tworzy liste newsów do testów
-	 * @param num - liczba newsów do wygenerowania
+	 * tworzy liste newsÃ³w do testÃ³w
+	 * @param num - liczba newsÃ³w do wygenerowania
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */

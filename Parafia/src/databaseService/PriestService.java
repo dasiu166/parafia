@@ -130,6 +130,28 @@ public class PriestService extends ServicePart {
 		
 		if (((Priest) wiadomosc).getKindQuery()==KindQuery.UPD_DBASE){
 			
+			DBManager db = DBManager.getInstance();
+			dbReturnInt = db.execUpdateQuery(((Priest) wiadomosc).getQuery());
+			System.out.println(((Priest) wiadomosc).getQuery());
+			
+			if (dbReturnInt != 0) {
+				((Priest) wiadomosc).setData("Ksiadz UAKTUALNIONE");
+				((Priest) wiadomosc).setQuery("OK+");
+				//((Order) wiadomosc).setStatus(KindQuery.ACK);
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Parafianin uaktualniony");
+				// LOG_END------------------------------------------------------
+			} else {
+				((Priest) wiadomosc).setData("BLAD UAKTUALNIENIA Ksiedza");
+				((Priest) wiadomosc).setQuery("ERR");
+				s.sendObject(wiadomosc);
+				// LOG----------------------------------------------------------
+				s.saveLog("Blad uaktualnienia ksiedza");
+				// LOG_END------------------------------------------------------
+			}
+
+			
 		}
 		
 		if (((Priest) wiadomosc).getKindQuery()==KindQuery.DEL_DBASE){

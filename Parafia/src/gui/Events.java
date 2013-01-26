@@ -139,7 +139,7 @@ public class Events {
 				System.out.println(ae.getName());
 				System.out.println(ae.getSurName());
 				newsList.addNews(new News(ae.getSubject(), ae.getAddDate(), ae
-						.getName() + " " + ae.getSurName(), 56,
+						.getName() + " " + ae.getSurName(), 100*(ae.getDescribe().length()/200),
 						"<p style=\"color:orange; margin:0px; padding:0px;\">"
 								+ ae.getDescribe() + "</p>"));
 			}
@@ -704,6 +704,98 @@ public class Events {
 			this.setLastErrData("Blad aktualizacji");
 			System.out.println("Blad updatu uzytkownika");
 		}
+	}
+	
+	public void updatePriest(Priest p) throws IOException,
+	ClassNotFoundException {
+		boolean cut=true;
+		
+		p.setKindQuery(KindQuery.UPD_DBASE);
+		String query="";
+		query="UPDATE Priest SET ";
+		if(p.getName()!=null) query = query+"name='"+p.getName()+"', ";
+		if(p.getSurName()!=null) query = query+"surname='"+p.getSurName()+"', "; else {
+			query=query.substring(0, query.length()-2);
+			cut=false;
+		}
+		if(p.getPosition()!=null){
+			query=query+" position='"+p.getPosition()+"', ";
+			cut=true;
+		}else {
+			if(cut)query=query.substring(0, query.length()-2);
+			cut=false;
+		}
+		if(p.getArrivalDate()!=null){query=query+"beginWork=to_date('"
+				+ p.getArrivalDate().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd'), ";
+				cut=true;
+		}else {
+					if(cut)query=query.substring(0, query.length()-2);
+					cut=false;
+				}
+		if(p.getSecularityDate()!=null){
+			query=query+"beginWork=to_date('"
+				+ p.getSecularityDate().toLocaleString().substring(0, 10)
+				+ "','yyyy-MM-dd') ";
+				
+			}
+		
+		query = query+" WHERE pesel="+p.getPesel();
+		p.setQuery(query);
+		System.out.println(p.getQuery());
+		
+		if (!k.sendObject(p)) {
+			this.connectionError();
+		}
+		k.reciveObject();
+		p = (Priest) k.getPackage();
+
+		if (p.getQuery().equals("OK+")){
+			this.setLastErr(p.getQuery());
+			this.setLastErrData("Akyualizacja zatwierdzona");
+			System.out.println("Update uzytkownika poprawny");
+		}
+		else{
+			this.setLastErr(p.getQuery());
+			this.setLastErrData("Blad aktualizacji");
+			System.out.println("Blad updatu uzytkownika");
+		}
+		
+		
+		
+	}
+	
+	public void updateParishioner(Parishioner p)throws IOException,
+	ClassNotFoundException {
+		
+		p.setKindQuery(KindQuery.UPD_DBASE);
+		String query="";
+		query="UPDATE Parishioner SET ";
+		if(p.getName()!=null) query = query+"name='"+p.getName()+"', ";
+		if(p.getSurName()!=null) query = query+"surname='"+p.getSurName()+"' "; else {
+			query=query.substring(0, query.length()-2);
+		}
+		query = query+" where pesel="+p.getPesel();
+		p.setQuery(query);
+		System.out.println(p.getQuery());
+		
+		if (!k.sendObject(p)) {
+			this.connectionError();
+		}
+		k.reciveObject();
+		p = (Parishioner) k.getPackage();
+
+		if (p.getQuery().equals("OK+")){
+			this.setLastErr(p.getQuery());
+			this.setLastErrData("Akyualizacja zatwierdzona");
+			System.out.println("Update uzytkownika poprawny");
+		}
+		else{
+			this.setLastErr(p.getQuery());
+			this.setLastErrData("Blad aktualizacji");
+			System.out.println("Blad updatu uzytkownika");
+		}
+		
 	}
 	
 	public void updateCourse(Course c)throws IOException,

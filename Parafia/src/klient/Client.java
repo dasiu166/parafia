@@ -142,13 +142,19 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 			else System.out.println("Klient - polaczony");
 		*/
 		
-		
-		
-		
-		
-		
 		Events ev = Events.getInstance();
 		
+		/*Parishioner p = new Parishioner();
+		p.setPesel("11031254796");
+		p.setName("NowaAnia");
+		p.setSurName("NowaCiosk");
+		ev.updateParishioner(p);*/
+		
+		Priest pr = new Priest();
+		pr.setPesel("69010566803");
+		pr.setName("NowyJan");
+		pr.setSurName("NoweNazwisko");
+		ev.updatePriest(pr);
 		
 		/*Adress a = new Adress();
 		a.setId(1);
@@ -156,10 +162,10 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		ev.updateAdress(a);
 		*/
 		
-		Course c = new Course();
+		/*Course c = new Course();
 		c.setId(1);
 		c.setBirthday(Pomoc.podajDate("1999-12-02"));
-		ev.updateCourse(c);
+		ev.updateCourse(c);*.
 		
 		
 		//Pobranie listy aktualnosci
