@@ -69,6 +69,8 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 	private JDateChooser dateBeginWork;
 	private JComboBox comboPosition;
 	private Events events = Events.getInstance();
+	private JPanel panel_1;
+	private JPanel panel_2;
 
 	public AddNewPriestPanel(JFrame owner, Priest priest){
 		this(owner);
@@ -196,13 +198,19 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		JLabel lblPosition_ = new JLabel("Stanowisko:");
 		lblPosition_.setHorizontalAlignment(SwingConstants.RIGHT);
 		
+		panel_1 = new JPanel();
+		
+		panel_2 = new JPanel();
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+					.addGap(1)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
+							.addGap(61)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
@@ -266,7 +274,8 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 							.addComponent(btnClear)
 							.addGap(10)
 							.addComponent(btnAdd)))
-					.addContainerGap(73, Short.MAX_VALUE))
+					.addGap(88)
+					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -310,7 +319,7 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 							.addGap(3)
 							.addComponent(lblPesel_))
 						.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(32)
+					.addGap(35)
 					.addComponent(lblAdress, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -355,7 +364,9 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnClear)
 						.addComponent(btnAdd))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(15, Short.MAX_VALUE))
+				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
 		);
 		panel.setLayout(gl_panel);		
 		

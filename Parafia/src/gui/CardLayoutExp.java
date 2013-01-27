@@ -80,6 +80,7 @@ public class CardLayoutExp extends JFrame {
 	private CardLayout cl;
 	private CardLayoutExp frame = this;
 	private Events events;// = Events.getInstance();
+	private PanelNews jpNews;
 	
 	/*
 	 * Aby dzia³a³ nowy wygl¹d który doda³em nale¿y dodaæ biblioteki z folderu lib do Bildera
@@ -124,7 +125,7 @@ public class CardLayoutExp extends JFrame {
 		cl = new CardLayout();
 		panelContent.setLayout(cl);								// ustawienie zarz¹dcy formatki dla panelu z zawartoœci¹
 		
-		final PanelNews jpNews = new PanelNews(this);
+		jpNews = new PanelNews(this);
         panelContent.add(jpNews, "news");
         //jpNews.addNews("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>");
         
@@ -674,7 +675,7 @@ public class CardLayoutExp extends JFrame {
 		menuBar.getComponent(6).setEnabled(false);
 		menuBar.getComponent(7).setVisible(false);
 		menuBar.getComponent(7).setEnabled(false);
-	
+		jpNews.deleteEnable(false);
 		cl.show(panelContent, "news");
 	}
 	
@@ -684,6 +685,7 @@ public class CardLayoutExp extends JFrame {
 			menuBar.getComponent(2).setEnabled(true);
 			menuBar.getComponent(3).setVisible(true);
 			menuBar.getComponent(3).setEnabled(true);
+			jpNews.deleteEnable(false);
 		} else if (events.getRestriction()>KindRestriction.LOGED_R){
 			menuBar.getComponent(4).setVisible(true);
 			menuBar.getComponent(4).setEnabled(true);
@@ -694,7 +696,8 @@ public class CardLayoutExp extends JFrame {
 			menuBar.getComponent(6).setEnabled(true);
 			menuBar.getComponent(7).setVisible(true);
 			menuBar.getComponent(7).setEnabled(true);
-					}
+			jpNews.deleteEnable(true);
+		}
 	}
 	
 	public void pokazOrderList(){

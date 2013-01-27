@@ -139,10 +139,7 @@ public class Events {
 				System.out.println(ae.getName());
 				System.out.println(ae.getSurName());
 				newsList.addNews(new News(ae.getSubject(), ae.getAddDate(), ae
-						.getName() + " " + ae.getSurName(), 100 * (ae
-						.getDescribe().length() / 200),
-						"<p style=\"color:orange; margin:0px; padding:0px;\">"
-								+ ae.getDescribe() + "</p>"));
+						.getName() + " " + ae.getSurName(), 100*(ae.getDescribe().length()/200),ae.getDescribe()));
 			}
 		}
 		return newsList;
@@ -407,9 +404,7 @@ public class Events {
 			priest.setKindQuery(KindQuery.SEL_DBASE);
 			priest.setQuery("Select * from priest where pesel="
 					+ priest.getPesel());
-			JOptionPane.showMessageDialog(null,
-					"Select * from priest where pesel=\"" + priest.getPesel()
-							+ "\"");
+			//JOptionPane.showMessageDialog(null,	"Select * from priest where pesel=\"" + priest.getPesel()+ "\"");
 			if (!k.sendObject(priest)) {
 				this.connectionError();
 			}

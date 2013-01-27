@@ -2,6 +2,9 @@ package gui.panels.priest;
 
 
 import gui.Events;
+import gui.Obserwator;
+import gui.Obserwowany;
+import gui.calendar.JDateChooser;
 import gui.panels.LoginDialog;
 import gui.panels.parishioner.OrderDialogParishioner;
 
@@ -26,6 +29,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -86,9 +90,10 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	private JComboBox comboStatus;
 	private JComboBox comboPriest;
 	private JComboBox comboType;
-	JLabel lblPriest_;
-	JButton btnPdf;
-	JButton btnReset;
+	private JLabel lblFrom_;
+	private JLabel lblPriest_;
+	private JButton btnPdf;
+	private JButton btnReset;
 	private boolean errorList=false;
 	
 	/**
@@ -119,7 +124,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		
 		/*
 		 * dateFrom = new JDateChooser(true); 
-		 * jest rĂłwnoznaczne z
+		 * jest równoznaczne z
 		 * dateFrom = new JDateChooser();
 		 * dateFrom.setEmpty();
 		 */
@@ -261,22 +266,16 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		panel_OrdersList.setFont(new Font("Tekton Pro", Font.BOLD, 14));
 		scrollPane.setViewportView(panel_OrdersList);
 		panel_OrdersList.setLayout(new MigLayout("", "[572.00px:572.00px,grow]", "[]"));
-		JLabel lblFrom_ ;
-		
+
 		JPanel panel_Header_ = new JPanel();
 		scrollPane.setColumnHeaderView(panel_Header_);
 		
 		JPanel panel_From_ = new JPanel();
 		panel_From_.setBorder(new MatteBorder(2, 2, 2, 0, (Color) Color.DARK_GRAY));
 		panel_From_.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));		
-			
-		if(events.getRestriction()==KindRestriction.LOGED_R){
-			    lblFrom_ = new JLabel("Do");
-
-			}else {
-			    lblFrom_ = new JLabel("Od");
-	
-			}
+			lblFrom_ = new JLabel("Od");
+			if(events.getRestriction()==KindRestriction.LOGED_R)
+			    lblFrom_.setText("Do");
 			panel_From_.add(lblFrom_);			
 			final JLabel lblFrom_Icon = new JLabel("");
 			panel_From_.add(lblFrom_Icon);
@@ -370,7 +369,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		sender.setName("Anna");
 		sender.setSurName("Wojnar");
 		order.setSender(sender);
-		order.setEvent("Ĺ’lub");
+		order.setEvent("ślub");
 		order.setStatus("Do rozpatrzenia");
 		order.setBeginDate(new Date());
 		order.setDescribe("wiadomosc od usera");
@@ -399,7 +398,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	
 	/**
 	 * @param constraint - ograniczenie "[[40px:]40px[,grow]]"
-	 * @return void - dodaje domyĹ“lne rozmiary w pionie dla nowego ZamĂłwienia
+	 * @return void - dodaje domyślne rozmiary w pionie dla nowego Zamówienia
 	 */
 	private synchronized void addRowConstraint(String constraint){
 		String rowConstraints = (String)((MigLayout)panel_OrdersList.getLayout()).getRowConstraints();
@@ -533,7 +532,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					
 						if(events.getRestriction()==KindRestriction.WORKS_R){
 						if(!order.getExecutroPesel().equals(events.getPriest().getPesel())){
-						JOptionPane.showMessageDialog(null, "Nie masz uprawnieĂ± do modyfikownaia tego zamĂłwienia");
+						JOptionPane.showMessageDialog(null, "Nie masz uprawnień do modyfikownaia tego zamówienia");
 						return;
 						}
 					}
@@ -578,7 +577,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		        				
 		        			}
 	        			//END_DODANE
-	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zostaÂły odrzucone");
+	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zostały odrzucone");
 	        			lblStatus.setText(order.getStatus());
 	        			//orderPanel.setBackground(new Color(240, 230, 140));
 	        			Color color = new Color(240, 230, 140);
@@ -622,7 +621,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 		        				
 		        			}
 	        			//END_DODANE
-	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zostaÂły odrzucone");
+	        			//JOptionPane.showMessageDialog(null, "ABORT Zmiany zostały odrzucone");
 	        			lblStatus.setText(order.getStatus());
 	        			//orderPanel.setBackground(new Color(240, 230, 140));
 	        			Color color = new Color(240, 230, 140);
@@ -691,6 +690,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 				orderList = events.pobierzZamowieniaParafianina(); 
 				comboPriest.setVisible(false);
 				lblPriest_.setVisible(false);
+				lblFrom_.setText("Do");
 				}else {
 					comboPriest.setVisible(true);
 					lblPriest_.setVisible(true);
@@ -708,6 +708,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 				if(events.getRestriction()==KindRestriction.LOGED_R){
 					comboPriest.setVisible(false);
 					lblPriest_.setVisible(false);
+					lblFrom_.setText("Do");
 					orderList = events.pobierzZamowieniaParafianina(
 							this.getStatusSelected(), 
 							this.getDateFrom(), 
@@ -719,6 +720,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 						
 						comboPriest.setVisible(true);
 						lblPriest_.setVisible(true);
+						lblFrom_.setText("Od");
 						
 						orderList = events.pobierzZamowieniaKsiedza(KindRestriction.WORKS_R, 
 						Pomoc.validatePriestName(events.getClient().getPriestList(),this.getPriestSelectedIndex()+1), 
@@ -807,7 +809,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @return <B>Date</B> - Data poczÂątkowa<br />
+	 * @return <B>Date</B> - Data początkowa<br />
 	 * 			<b>null</b> - data nie wybrana
 	 */
 	public Date getDateFrom(){
@@ -815,7 +817,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @return <B>Date</B> - Data koĂ±cowa<br />
+	 * @return <B>Date</B> - Data końcowa<br />
 	 * 			<b>null</b> - data nie wybrana
 	 */
 	public Date getDateTo(){
@@ -823,11 +825,11 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * @return 	<b>KindQuery.NEW</b> jeÂżeli = Nowe<br />
-	 * 			<b>KindQuery.ACK</b> jeÂżeli = Zaakceptowane<br />
-	 * 			<b>KindQuery.DEN</b> jeÂżeli = Odrzucone<br />
-	 * 			<b>""</b> 			jeÂżeli = Wszystkie<br />
-	 * 			<b>null</b> 		jeÂżeli = !!Error!!<br />
+	 * @return 	<b>KindQuery.NEW</b> jeżeli = Nowe<br />
+	 * 			<b>KindQuery.ACK</b> jeżeli = Zaakceptowane<br />
+	 * 			<b>KindQuery.DEN</b> jeżeli = Odrzucone<br />
+	 * 			<b>""</b> 			jeżeli = Wszystkie<br />
+	 * 			<b>null</b> 		jeżeli = !!Error!!<br />
 	 */
 	public String getStatusSelected(){
 		if(comboStatus.getSelectedIndex()==1)
@@ -901,9 +903,9 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			else
 			pdf.createOrderPdf(this.getOrderList(), Pomoc.saveFileWindow());
 			}catch(IOException rrr){
-				JOptionPane.showMessageDialog(null, "BÂłÂąd w miejscu zapisu");
+				JOptionPane.showMessageDialog(null, "Błąd w miejscu zapisu");
 			}catch(DocumentException rrr){
-				JOptionPane.showMessageDialog(null, "BÂłÂąd kreatora dokumentu");
+				JOptionPane.showMessageDialog(null, "Błąd kreatora dokumentu");
 
 			}
 		}
@@ -918,38 +920,6 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-interface Obserwowany 
-{
-        public void dodajObserwatora( Obserwator obserwator );
-        public void usunObserwatora( Obserwator obserwator );
-        public void powiadomObserwatorow(Obserwator obserwator);
-}
-
-interface Obserwator
-{
-        public void uaktualnij(int Stan);
-        public String getName();
-        public int getStan();
-}
 
 
 
@@ -1106,7 +1076,7 @@ class StanuSortowania implements Obserwator
     public static final int IMG_DOWN = 2;
 	private static final ImageIcon ICON_UP = new ImageIcon("icons/sortup.png");
 	private static final ImageIcon ICON_DOWN = new ImageIcon("icons/sortdown.png");
-	private static final ImageIcon ICON_CLEAR = new ImageIcon("icons/arrow_sort_c.png");
+	private static final ImageIcon ICON_CLEAR = new ImageIcon("icons/sortclean.png");
 
     
 	private String name;
@@ -1114,7 +1084,7 @@ class StanuSortowania implements Obserwator
 	private int stan;
  
     /**
-     * @param label - JLabel gdzie ma znajdowaĂ¦ siĂŞ ikona
+     * @param label - JLabel gdzie ma znajdować się ikona
      * @param name - Nadana nazwa dla Stanu Sortowania
      */
     public StanuSortowania(JLabel label, String name) {
@@ -1124,7 +1094,7 @@ class StanuSortowania implements Obserwator
     }
     
     /**
-     * @param label - JLabel gdzie ma znajdowaĂ¦ siĂŞ ikona
+     * @param label - JLabel gdzie ma znajdować się ikona
      * @param name - Nadana nazwa dla Stanu Sortowania
      * @param stan - IMG_CLEAR, IMG_UP lub IMG_DOWN
      */

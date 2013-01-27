@@ -30,6 +30,12 @@ import javax.swing.border.EtchedBorder;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextPane;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+
+import stale.KindRestriction;
 
 public class PanelNews extends JPanel implements ActionListener {
 
@@ -40,8 +46,9 @@ public class PanelNews extends JPanel implements ActionListener {
 	private JPanel panel;
 	private int newsNumber = 0;
 	private MigLayout ml;
-	boolean reset=false;
-	final JScrollPane scrollPane;
+	private boolean reset=false;
+	private final JScrollPane scrollPane;
+	private Events events = Events.getInstance();
 
 	/**
 	 * Create the panel.
@@ -69,10 +76,10 @@ public class PanelNews extends JPanel implements ActionListener {
 		ml = new MigLayout("", "[475.00px:475.00px,grow]", "[]");
 		panel.setLayout(ml);
 		
-		addNews("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - <br /><br /><br /><br /><br /><br /><br />Zawarto\u015B\u0107 aktualno\u015Bci 1</p>");
-		//addNews("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>");
-		//addNews("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>");
-		//addNews("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>");
+		//addNews("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"Aktualność1\nline2\nline3\nline4\nline5");
+		//addNews("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 2");
+		//addNews("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 3");
+		//addNews("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum -\n Zawarto\u015B\u0107 aktualno\u015Bci 4\n linijka 3\nlinijka 4\nlinijka 5");
 		setLayout(groupLayout);
 		
 		//JOptionPane.showMessageDialog(null, ((MigLayout)panel.getLayout()).getRowConstraints());
@@ -143,48 +150,79 @@ public class PanelNews extends JPanel implements ActionListener {
 		panel_news.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_news.setAutoscrolls(true);
 		panel.add(panel_news, "cell 0 "+(newsNumber-1)+",grow");
-				
-		final JEditorPane dtrpnContent = new JEditorPane();
-		dtrpnContent.addMouseListener(mouseAdapter);
-		dtrpnContent.setContentType("text/html");
-		dtrpnContent.setText(content);
-		dtrpnContent.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dtrpnContent.setEditable(false);		
 
 		JLabel lblTitle = new JLabel(subiect);
 		lblTitle.setFont(new Font("Adobe Caslon Pro", Font.BOLD, 18));
 		
 		DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		JLabel lblDate = new JLabel(formatter.format(data)); //data.getDate()+"."+(data.getMonth()+1)+"."+(data.getYear()+1900)+" "+data.getHours()+":"+data.getMinutes()
+		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JLabel lblKsName = new JLabel("Ks. "+ksiadz);
+		lblKsName.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JButton btnDelete = new JButton("");
+		if(events.getRestriction()>KindRestriction.LOGED_R)
+			btnDelete.setVisible(true);
+		else
+			btnDelete.setVisible(false);
+		
+		// ################# USUWANIE NEWSA ########################
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int answer = JOptionPane.showConfirmDialog(null, "Czy na pewno usunąć News?", "Usówanie Newsa", JOptionPane.YES_NO_OPTION);
+				if(answer == JOptionPane.YES_OPTION){
+					JOptionPane.showMessageDialog(null, "Usunięto news nr"+newsNumber_,"Usówanie Newsa",JOptionPane.INFORMATION_MESSAGE);
+					//Events events = Events.getInstance();
+					//events.deleteNews(newsNumber_);
+					// newsNumber_ - numer newsa na liście wyświetlanej (numerowane od 0);
+					//subiect, data, ksiadz, contentHeight, content - informacje podawane podczas tworzenia
+				}
+			}
+		});
+		btnDelete.setIcon(new ImageIcon(PanelNews.class.getResource("/javax/swing/plaf/metal/icons/ocean/paletteClose.gif")));
+		
+		JEditorPane editorPane = new JEditorPane();
+		editorPane.addMouseListener(mouseAdapter);
+		editorPane.setText(content);
+		editorPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		editorPane.setEditable(false);
+		
 		GroupLayout gl_panel_news = new GroupLayout(panel_news);
 		gl_panel_news.setHorizontalGroup(
 			gl_panel_news.createParallelGroup(Alignment.TRAILING)
-				.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
 				.addGroup(gl_panel_news.createSequentialGroup()
-					.addGap(5)
-					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_news.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblDate)
-						.addComponent(lblKsName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(5))
+					.addGap(3)
+					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+					.addGroup(gl_panel_news.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panel_news.createSequentialGroup()
+							.addGap(72)
+							.addComponent(lblDate, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_news.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblKsName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addGap(2))
+				.addComponent(editorPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
 		);
 		gl_panel_news.setVerticalGroup(
 			gl_panel_news.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_news.createSequentialGroup()
 					.addGroup(gl_panel_news.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_news.createSequentialGroup()
-							.addComponent(lblDate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-							.addGap(1)
-							.addComponent(lblKsName))
+							.addGroup(gl_panel_news.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblDate, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel_news.createSequentialGroup()
+									.addGap(1)
+									.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
+							.addGap(2)
+							.addComponent(lblKsName, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_news.createSequentialGroup()
-							.addGap(10)
+							.addGap(7)
 							.addComponent(lblTitle)))
-					.addGap(1)
-					.addComponent(dtrpnContent, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-					.addGap(1))
+					.addPreferredGap(ComponentPlacement.RELATED, 4, Short.MAX_VALUE)
+					.addComponent(editorPane, GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
 		);
 		panel_news.setLayout(gl_panel_news);
 	}
@@ -198,6 +236,35 @@ public class PanelNews extends JPanel implements ActionListener {
 		addNews(news.getSubiect(), news.getData(), news.getKsiadz(), news.getContentHeight(), news.getContent());
 	}
 	
+	public void onClick(int numer){
+		//JOptionPane.showMessageDialog(null, ((JTextPane)((JPanel)panel.getComponent(numer)).getComponent(3)).getClass().getName());
+		int i;
+		for(i=0;i<((JPanel)panel.getComponent(numer)).getComponentCount();i++)
+			if(((JPanel)panel.getComponent(numer)).getComponent(i).getClass().getName().compareTo("javax.swing.JEditorPane") == 0)
+				break;
+		int height = ((JEditorPane)((JPanel)panel.getComponent(numer)).getComponent(i)).getHeight();
+		if(panel.getComponent(numer).getHeight()<=100){
+			//JOptionPane.showMessageDialog(null, height);
+			editRowConstraint(height+45,numer);
+		}else{
+			//JOptionPane.showMessageDialog(null, "FALSE");
+			editRowConstraint(100,numer);
+		}
+		panel.resize(panel.getWidth()+1, panel.getHeight());
+	}
+	
+	public void deleteEnable(boolean answer){
+		if(((JPanel)panel.getComponent(0)).getComponentCount()>3){
+			int i,j;
+			for(j=0;j<((JPanel)panel.getComponent(0)).getComponentCount();j++)
+				if(((JPanel)panel.getComponent(0)).getComponent(j).getClass().getName().compareTo("javax.swing.JButton") == 0)
+					break;
+			for(i=0;i<panel.getComponentCount();i++)
+				((JButton)((JPanel)panel.getComponent(i)).getComponent(j)).setVisible(answer);
+		}
+	}
+	
+	
 	//@Override
 	public void actionPerformed(ActionEvent e) {
 		if(dialogLogowania==null)
@@ -208,18 +275,6 @@ public class PanelNews extends JPanel implements ActionListener {
 		if(dialogLogowania.isOK()){
 			JOptionPane.showMessageDialog(owner, "Login: "+dialogLogowania.getLogin()+"\nHasło: "+dialogLogowania.getPassword());
 		}		
-	}
-	
-	public void onClick(int numer){
-		int height = ((JEditorPane)((JPanel)panel.getComponent(numer)).getComponent(0)).getHeight();
-		if(panel.getComponent(numer).getHeight()<=100){
-			//JOptionPane.showMessageDialog(null, height);
-			editRowConstraint(height+44,numer);
-		}else{
-			//JOptionPane.showMessageDialog(null, "FALSE");
-			editRowConstraint(100,numer);
-		}
-		panel.resize(panel.getWidth()+1, panel.getHeight());
 	}
 }
 
@@ -364,11 +419,11 @@ class NewsList{
 	 */
 	public void generateNewsList(int num) throws IOException, ClassNotFoundException {
 		for(int i=1 ;i<=num;i++){
-			if(i%5==1)addNews(new News("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:red; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 1</p>"));
-			if(i%5==2)addNews(new News("test News 2", new Date(), "Zdzichu Kowal", 56,"<p style=\"color:yellow; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 2</p>"));
-			if(i%5==3)addNews(new News("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 3</p>"));
-			if(i%5==4)addNews(new News("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum</b> -<br /> Zawarto\u015B\u0107 aktualno\u015Bci 4<br /> linijka 3<br />linijka 4<br />linijka 5</p>"));
-			if(i%5==0)addNews(new News("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:orange; margin:0px; padding:0px;\"><b>Lorem ipsum</b> - Zawarto\u015B\u0107 aktualno\u015Bci 5</p>"));
+			if(i%5==1)addNews(new News("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 1"));
+			if(i%5==2)addNews(new News("test News 2", new Date(), "Zdzichu Kowal", 56,"Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 2"));
+			if(i%5==3)addNews(new News("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 3"));
+			if(i%5==4)addNews(new News("test News 4", new Date(), "Zdzichu Kowal", 97,"Lorem ipsum -\n Zawarto\u015B\u0107 aktualno\u015Bci 4\n linijka 3\nlinijka 4\nlinijka 5"));
+			if(i%5==0)addNews(new News("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 5"));
 		}
 	}	
 	
