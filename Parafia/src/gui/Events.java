@@ -139,7 +139,8 @@ public class Events {
 				System.out.println(ae.getName());
 				System.out.println(ae.getSurName());
 				newsList.addNews(new News(ae.getSubject(), ae.getAddDate(), ae
-						.getName() + " " + ae.getSurName(), 100*(ae.getDescribe().length()/200),
+						.getName() + " " + ae.getSurName(), 100 * (ae
+						.getDescribe().length() / 200),
 						"<p style=\"color:orange; margin:0px; padding:0px;\">"
 								+ ae.getDescribe() + "</p>"));
 			}
@@ -341,6 +342,45 @@ public class Events {
 		u.setRestriction(KindRestriction.GUEST_R);
 		logged = false;
 		return true;
+	}
+
+	public LinkedList<Person> wyszukajPesel(String pesel) throws IOException,
+			ClassNotFoundException {
+		// najpierw wyszukaj w ksiedzu
+
+		LinkedList<Person> personList = new LinkedList<Person>();
+
+		Priest pr = new Priest();
+		pr.setKindQuery(KindQuery.SEL_DBASE);
+		pr.setPesel(pesel);
+		pr.setQuery("Select * from priest where pesel=" + pr.getPesel());
+
+		if (!k.sendObject(pr)) {
+			this.connectionError();
+		}
+		k.reciveObject();
+		pr = (Priest) k.getPackage();
+		if (pr.getQuery().equals("OK+")) {
+			personList.add((Person) pr);
+			return personList;
+		}
+
+		Parishioner par = new Parishioner();
+		par.setPesel(pesel);
+		par.setKindQuery(KindQuery.SEL_DBASE);
+		par.setQuery("Select * from parishioner where pesel=" + par.getPesel());
+		System.out.println(par.getQuery());
+		if (!k.sendObject(par)) {
+			this.connectionError();
+		}
+		k.reciveObject();
+		par = (Parishioner) k.getPackage();
+		if (par.getQuery().equals("OK+")) {
+			personList.add((Person) par);
+			return personList;
+		}
+
+		return personList;
 	}
 
 	// ####################### OPERACJE NA DANYCH
@@ -679,12 +719,21 @@ public class Events {
 
 	public void updateUzytkownik(String login, String pass) throws IOException,
 			ClassNotFoundException {
-	
+
 		u.setKindQuery(KindQuery.UPD_DBASE);
 		String newPass = pass;
 		String newLogin = login;
+		u.setData("");
+		
+		if(login==null) u.setQuery("UPDATE Userr SET " + "password='"
+				+ newPass + "' WHERE id_userr=" + u.getId()); 
+		
+		else{
 		u.setQuery("UPDATE Userr SET " + "login='" + newLogin + "',password='"
 				+ newPass + "' WHERE id_userr=" + u.getId());
+		u.setData(login);
+		}
+		
 		System.out.println(u.getQuery());
 
 		k.setNullPackage();
@@ -694,213 +743,219 @@ public class Events {
 		k.reciveObject();
 		u = (User) k.getPackage();
 
-		if (u.getQuery().equals("OK+")){
+		if (u.getQuery().equals("OK+")) {
 			this.setLastErr(u.getQuery());
-			this.setLastErrData("Akyualizacja zatwierdzona");
+			this.setLastErrData("Aktualizacja zatwierdzona");
 			System.out.println("Update uzytkownika poprawny");
-		}
-		else{
+		} else {
 			this.setLastErr(u.getQuery());
-			this.setLastErrData("Blad aktualizacji");
+			this.setLastErrData(u.getData());
 			System.out.println("Blad updatu uzytkownika");
 		}
 	}
-	
+
 	public void updatePriest(Priest p) throws IOException,
-	ClassNotFoundException {
-		boolean cut=true;
-		
+			ClassNotFoundException {
+		boolean cut = true;
+
 		p.setKindQuery(KindQuery.UPD_DBASE);
-		String query="";
-		query="UPDATE Priest SET ";
-		if(p.getName()!=null) query = query+"name='"+p.getName()+"', ";
-		if(p.getSurName()!=null) query = query+"surname='"+p.getSurName()+"', "; else {
-			query=query.substring(0, query.length()-2);
-			cut=false;
+		String query = "";
+		query = "UPDATE Priest SET ";
+		if (p.getName() != null)
+			query = query + "name='" + p.getName() + "', ";
+		if (p.getSurName() != null)
+			query = query + "surname='" + p.getSurName() + "', ";
+		else {
+			query = query.substring(0, query.length() - 2);
+			cut = false;
 		}
-		if(p.getPosition()!=null){
-			query=query+" position='"+p.getPosition()+"', ";
-			cut=true;
-		}else {
-			if(cut)query=query.substring(0, query.length()-2);
-			cut=false;
+		if (p.getPosition() != null) {
+			query = query + " position='" + p.getPosition() + "', ";
+			cut = true;
+		} else {
+			if (cut)
+				query = query.substring(0, query.length() - 2);
+			cut = false;
 		}
-		if(p.getArrivalDate()!=null){query=query+"beginWork=to_date('"
-				+ p.getArrivalDate().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd'), ";
-				cut=true;
-		}else {
-					if(cut)query=query.substring(0, query.length()-2);
-					cut=false;
-				}
-		if(p.getSecularityDate()!=null){
-			query=query+"beginWork=to_date('"
-				+ p.getSecularityDate().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd') ";
-				
-			}
-		
-		query = query+" WHERE pesel="+p.getPesel();
+		if (p.getArrivalDate() != null) {
+			query = query + "beginWork=to_date('"
+					+ p.getArrivalDate().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd'), ";
+			cut = true;
+		} else {
+			if (cut)
+				query = query.substring(0, query.length() - 2);
+			cut = false;
+		}
+		if (p.getSecularityDate() != null) {
+			query = query + "beginWork=to_date('"
+					+ p.getSecularityDate().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd') ";
+
+		}
+
+		query = query + " WHERE pesel=" + p.getPesel();
 		p.setQuery(query);
 		System.out.println(p.getQuery());
-		
+
 		if (!k.sendObject(p)) {
 			this.connectionError();
 		}
 		k.reciveObject();
 		p = (Priest) k.getPackage();
 
-		if (p.getQuery().equals("OK+")){
+		if (p.getQuery().equals("OK+")) {
 			this.setLastErr(p.getQuery());
 			this.setLastErrData("Akyualizacja zatwierdzona");
 			System.out.println("Update uzytkownika poprawny");
-		}
-		else{
+		} else {
 			this.setLastErr(p.getQuery());
 			this.setLastErrData("Blad aktualizacji");
 			System.out.println("Blad updatu uzytkownika");
 		}
-		
-		
-		
+
 	}
-	
-	public void updateParishioner(Parishioner p)throws IOException,
-	ClassNotFoundException {
-		
+
+	public void updateParishioner(Parishioner p) throws IOException,
+			ClassNotFoundException {
+
 		p.setKindQuery(KindQuery.UPD_DBASE);
-		String query="";
-		query="UPDATE Parishioner SET ";
-		if(p.getName()!=null) query = query+"name='"+p.getName()+"', ";
-		if(p.getSurName()!=null) query = query+"surname='"+p.getSurName()+"' "; else {
-			query=query.substring(0, query.length()-2);
+		String query = "";
+		query = "UPDATE Parishioner SET ";
+		if (p.getName() != null)
+			query = query + "name='" + p.getName() + "', ";
+		if (p.getSurName() != null)
+			query = query + "surname='" + p.getSurName() + "' ";
+		else {
+			query = query.substring(0, query.length() - 2);
 		}
-		query = query+" where pesel="+p.getPesel();
+		query = query + " where pesel=" + p.getPesel();
 		p.setQuery(query);
 		System.out.println(p.getQuery());
-		
+
 		if (!k.sendObject(p)) {
 			this.connectionError();
 		}
 		k.reciveObject();
 		p = (Parishioner) k.getPackage();
 
-		if (p.getQuery().equals("OK+")){
+		if (p.getQuery().equals("OK+")) {
 			this.setLastErr(p.getQuery());
 			this.setLastErrData("Akyualizacja zatwierdzona");
 			System.out.println("Update uzytkownika poprawny");
-		}
-		else{
+		} else {
 			this.setLastErr(p.getQuery());
 			this.setLastErrData("Blad aktualizacji");
 			System.out.println("Blad updatu uzytkownika");
 		}
-		
+
 	}
-	
-	public void updateCourse(Course c)throws IOException,
-	ClassNotFoundException{
-		
+
+	public void updateCourse(Course c) throws IOException,
+			ClassNotFoundException {
+
 		c.setKindQuery(KindQuery.UPD_DBASE);
-	
-		
-		String query="";
-		
-		query="UPDATE Course SET ";
-		
-		if(c.getBirthDay()!=null) query=query+"birthday = to_date('"
-				+ c.getBirthDay().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')";
-		
-		if(c.getBaptism()!=null) query=query+" ,baptism = to_date('"
-				+ c.getBaptism().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')";
-		
-		if(c.getCommunion()!=null) query=query+" ,communion = to_date('"
-				+ c.getCommunion().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')";
-		
-		if(c.getConfirmation()!=null) query=query+" ,confirmation = to_date('"
-				+ c.getConfirmation().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')";
-		
-		if(c.getMarriage()!=null) query=query+" ,marriage = to_date('"
-				+ c.getMarriage().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')";
-		if(c.getDeath()!=null) query=query+" ,death = to_date('"
-				+ c.getDeath().toLocaleString().substring(0, 10)
-				+ "','yyyy-MM-dd')";
-		
-		
-		query=query+ " WHERE id_course=" + c.getId();
-		
+
+		String query = "";
+
+		query = "UPDATE Course SET ";
+
+		if (c.getBirthDay() != null)
+			query = query + "birthday = to_date('"
+					+ c.getBirthDay().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')";
+
+		if (c.getBaptism() != null)
+			query = query + " ,baptism = to_date('"
+					+ c.getBaptism().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')";
+
+		if (c.getCommunion() != null)
+			query = query + " ,communion = to_date('"
+					+ c.getCommunion().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')";
+
+		if (c.getConfirmation() != null)
+			query = query + " ,confirmation = to_date('"
+					+ c.getConfirmation().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')";
+
+		if (c.getMarriage() != null)
+			query = query + " ,marriage = to_date('"
+					+ c.getMarriage().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')";
+		if (c.getDeath() != null)
+			query = query + " ,death = to_date('"
+					+ c.getDeath().toLocaleString().substring(0, 10)
+					+ "','yyyy-MM-dd')";
+
+		query = query + " WHERE id_course=" + c.getId();
+
 		c.setQuery(query);
-		
+
 		System.out.println(c.getQuery());
 
 		k.setNullPackage();
-		
+
 		if (!k.sendObject(c)) {
 			this.connectionError();
 		}
-		
+
 		k.reciveObject();
 		c = (Course) k.getPackage();
 
-		if (c.getQuery().equals("OK+")){
+		if (c.getQuery().equals("OK+")) {
 			this.setLastErrData("Update adresu przebiegl z powodzeniem");
 			System.out.println("Update hasla ok");
-		}
-		else{
+		} else {
 			this.setLastErr(c.getQuery());
 			this.setLastErrData("Blad aktualizacji adresu");
 			System.out.println("Blad updatu hasla");
 		}
-		
+
 	}
-	
+
 	public void updateAdress(Adress a) throws IOException,
-	ClassNotFoundException{
-		
+			ClassNotFoundException {
+
 		a.setKindQuery(KindQuery.UPD_DBASE);
-	
-		
-		String query="";
-		
-		query="UPDATE Adress SET ";
-		
-		if(a.getCity()!=null) query=query+"city='" + a.getCity();
-		if(a.getStreet()!=null) query=query+"',street='"+ a.getStreet();
-		if(a.getHouse()!=null)  query=query+"',house_numb='"+ a.getHouse(); 
-		if(a.getPostcode()!=null) query=query+"',postcode='"+ a.getPostcode();
-		query=query+ "' WHERE id_adress=" + a.getId();
-		
+
+		String query = "";
+
+		query = "UPDATE Adress SET ";
+
+		if (a.getCity() != null)
+			query = query + "city='" + a.getCity();
+		if (a.getStreet() != null)
+			query = query + "',street='" + a.getStreet();
+		if (a.getHouse() != null)
+			query = query + "',house_numb='" + a.getHouse();
+		if (a.getPostcode() != null)
+			query = query + "',postcode='" + a.getPostcode();
+		query = query + "' WHERE id_adress=" + a.getId();
+
 		a.setQuery(query);
-		
+
 		System.out.println(a.getQuery());
 
 		k.setNullPackage();
-		
+
 		if (!k.sendObject(a)) {
 			this.connectionError();
 		}
-		
+
 		k.reciveObject();
 		a = (Adress) k.getPackage();
 
-		if (a.getQuery().equals("OK+")){
+		if (a.getQuery().equals("OK+")) {
 			this.setLastErrData("Update adresu przebiegl z powodzeniem");
 			System.out.println("Update hasla ok");
-		}
-		else{
+		} else {
 			this.setLastErr(a.getQuery());
 			this.setLastErrData("Blad aktualizacji adresu");
 			System.out.println("Blad updatu hasla");
 		}
 	}
-		
-		
-	
 
 	// ############################ OPERACJE NA ZDARZENIACH
 	// #######################
@@ -959,22 +1014,22 @@ public class Events {
 
 	// -----------------------------------------------------------------
 
-	public LinkedList<Order> pobierzZamowieniaParafianina(String stat, Date dataBeg, Date dataEnd,
-			int idEvent)
-			throws IOException, ClassNotFoundException {
+	public LinkedList<Order> pobierzZamowieniaParafianina(String stat,
+			Date dataBeg, Date dataEnd, int idEvent) throws IOException,
+			ClassNotFoundException {
 		boolean bigErr;
 		Order o = new Order();
 		o.setKindQuery(KindQuery.SEL_DBASE);
 		// *przykladowe zapytanie(POBIERA WSZYSTKIE ZAMOWIENIA ZLOZONE PRZEZ
 		// PARAFIANINA)
 		String query;
-		
-		query ="Select id_orderr,id_event,"
+
+		query = "Select id_orderr,id_event,"
 				+ "odprawiajacy_pesel,zamawiajacy_pesel," + "describe,status ,"
 				+ "to_char(beginD,'yyyy-MM-dd HH24:MI'),"
 				+ "to_char(endD, 'yyyy-MM-dd HH24:MI') "
-				+ "from orderr where zamawiajacy_pesel=" + p.getPesel(); 
-		
+				+ "from orderr where zamawiajacy_pesel=" + p.getPesel();
+
 		if (dataBeg != null && dataEnd != null) {
 			query = query + " and beginD between '"
 					+ dataBeg.toLocaleString().substring(0, 10) + "' and '"
@@ -987,7 +1042,7 @@ public class Events {
 		if (idEvent != 0) {
 			query = query + " and id_event='" + idEvent + "'";
 		}
-		
+
 		o.setQuery(query);
 		System.out.println(o.getQuery());
 		if (!k.sendObject(o)) {

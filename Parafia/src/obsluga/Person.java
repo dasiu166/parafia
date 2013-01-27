@@ -10,10 +10,10 @@ public abstract class Person extends DataBaseElement {
 	int restriction; //liczba oznaczajaca prawa dostepu
 	
 	
-	public boolean setQuery(String val){
-		/*nadpisywana dla parafianina i dla ksiedza*/
+	/*public boolean setQuery(String val){
+		//nadpisywana dla parafianina i dla ksiedza
 		return true;
-	}
+	}*/
 	
 	public void setPesel(String p){
 		pesel = p;

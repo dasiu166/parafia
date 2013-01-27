@@ -53,9 +53,20 @@ public class Adress extends DataBaseElement{
 	}
 	
 	
-	public boolean setQuery(String val){
-		query = val;
+    /*public boolean setQuery(String val){ 
+		
+		if (!this.checkQuery(val)&& (!val.contains("OK+")) && (!val.contains("ERR"))) return false;
+		query=val;
 		return true;
+	}*/
+	
+	protected boolean checkQuery(String val){
+		if ((val.length()<6) || 
+				((!val.contains("Adress"))&&
+				(!val.contains("adress"))&&
+				(!val.contains("ADRESS")))) return false; else
+			return true;
+		
 	}
 	
 	public static void main(String[] args){

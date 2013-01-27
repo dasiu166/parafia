@@ -36,6 +36,9 @@ import stale.KindRange;
 import stale.KindRestriction;
 import javax.swing.ImageIcon;
 import javax.swing.border.MatteBorder;
+
+import pomoce.Pomoc;
+
 import java.awt.Color;
 
 
@@ -62,6 +65,9 @@ public class UpdateLoginDataPanel extends JPanel implements ActionListener{
 	private JLabel label;
 	private JPasswordField stareHaslo;
 	JLabel lblStareHaslo;
+	private JButton btnGenPas;
+	private JLabel lblNewPas;
+	
 
 	public UpdateLoginDataPanel(JFrame owner, Parishioner parishioner){
 		this(owner);
@@ -128,16 +134,25 @@ public class UpdateLoginDataPanel extends JPanel implements ActionListener{
 		stareHaslo = new JPasswordField();
 		stareHaslo.setColumns(10);
 		
+		btnGenPas = new JButton("Stw\u00F3rz has\u0142o");
+		btnGenPas.addActionListener(this);
+		
+		lblNewPas = new JLabel("#####");
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(274)
+							.addGap(45)
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addComponent(label)
 								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(btnGenPas)
+									.addGap(18)
+									.addComponent(lblNewPas)
+									.addGap(74)
 									.addComponent(btnClear)
 									.addGap(10)
 									.addComponent(btnAdd))))
@@ -187,9 +202,13 @@ public class UpdateLoginDataPanel extends JPanel implements ActionListener{
 						.addComponent(lblRepeatPassword_)
 						.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(30)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnClear)
-						.addComponent(btnAdd))
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addComponent(btnClear)
+							.addComponent(btnAdd))
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnGenPas)
+							.addComponent(lblNewPas)))
 					.addGap(20)
 					.addComponent(label)
 					.addContainerGap(13, Short.MAX_VALUE))
@@ -218,12 +237,18 @@ public class UpdateLoginDataPanel extends JPanel implements ActionListener{
 		if(textLogin.getText().length()<5){
 			JOptionPane.showMessageDialog(null, "Za krótki login (min 5 znaków)");
 		    return false;
+		} 
+		if(textLogin.getText().equals(events.getUser().getLogin())){
+			user.setLogin(null);
 		} else user.setLogin(textLogin.getText());
 		
 		if (passwordPassword.getText().length()<5){
 			JOptionPane.showMessageDialog(null, "Za krótkie has³o (min 5 znaków)");
 		    return false;
-		} else user.setPassword(passwordPassword.getText());
+		} else if(!passwordPassword.getText().equals(passwordRepeatPassword.getText())){
+	    	JOptionPane.showMessageDialog(null, "Powtórzone has³o siê nie zgadza");
+		    return false;	
+	    }else user.setPassword(passwordPassword.getText());
 		
 		user.setRestriction(events.getUser().getRestriction());
 		user.setRange(events.getUser().getRange());		
@@ -256,7 +281,7 @@ public class UpdateLoginDataPanel extends JPanel implements ActionListener{
 		Object z = e.getSource();
 		if(z == btnAdd){
 			
-			this.setUserData(user);
+			if(!this.setUserData(user)) return;
 			try{
 			events.updateUzytkownik(user.getLogin(), user.getPassword());	
 			}catch(ClassNotFoundException ee){
@@ -269,6 +294,11 @@ public class UpdateLoginDataPanel extends JPanel implements ActionListener{
 			
 				reset();
 			
+		} else if (z==btnGenPas){
+			String pas = Pomoc.losujString(5);
+			lblNewPas.setText(pas);
+			passwordPassword.setText(pas);
+			passwordRepeatPassword.setText(pas);
 		}
 	}
 }

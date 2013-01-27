@@ -27,9 +27,23 @@ public class Parishioner extends Person{
 	
 	/*SETTERY*/
 	
-	public boolean setQuery(String val){
+	/*public boolean setQuery(String val) { 
+
+		if (!this.checkQuery(val) && (!val.contains("OK+"))
+				&& (!val.contains("ERR")))
+			return false;
 		query = val;
 		return true;
+	}*/
+
+	protected boolean checkQuery(String val) {
+		if ((val.length() < 11)
+				|| ((!val.contains("Parishioner")) && (!val.contains("parishioner"))
+						&& (!val.contains("PARISHIONER"))))
+			return false;
+		else
+			return true;
+
 	}
 	
 	public void setCourse(Course c){

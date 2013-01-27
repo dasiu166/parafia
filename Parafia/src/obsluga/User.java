@@ -17,9 +17,22 @@ public class User extends DataBaseElement {
 	*/
 	
 	
-	public boolean setQuery(String val){
+	/*public boolean setQuery(String val) { 
+
+		if (!this.checkQuery(val) && (!val.contains("OK+"))
+				&& (!val.contains("ERR")))
+			return false;
 		query = val;
 		return true;
+	}*/
+
+	protected boolean checkQuery(String val) {
+		if ((val.length() < 4)
+				|| ((!val.contains("User")) && (!val.contains("user")) && (!val.contains("USER"))))
+			return false;
+		else
+			return true;
+
 	}
 	
 	public void setId(int val){

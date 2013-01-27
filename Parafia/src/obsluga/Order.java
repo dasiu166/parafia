@@ -78,9 +78,22 @@ public class Order extends DataBaseElement implements Serializable{
 		return id;
 	}
 	
-	public boolean setQuery(String val){
+	/*public boolean setQuery(String val) { 
+
+		if (!this.checkQuery(val) && (!val.contains("OK+"))
+				&& (!val.contains("ERR")))
+			return false;
 		query = val;
 		return true;
+	}*/
+
+	protected boolean checkQuery(String val) {
+		if ((val.length() < 5)
+				|| ((!val.contains("Order")) && (!val.contains("order")) && (!val.contains("ORDER"))))
+			return false;
+		else
+			return true;
+
 	}
 	
 	public Person getSender(){

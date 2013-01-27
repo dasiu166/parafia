@@ -12,9 +12,20 @@ public class Actuals extends DataBaseElement{
 	private String name; //moje zmiany(VeLoOx)
 	private String surName;//moje zmiany(VeLoOx)
 	
-	public boolean setQuery(String val){
-		query = val;
+    /*public boolean setQuery(String val){ 
+		
+		if (!this.checkQuery(val)&& (!val.contains("OK+")) && (!val.contains("ERR"))) return false;
+		query=val;
 		return true;
+	}*/
+	
+	protected boolean checkQuery(String val){
+		if ((val.length()<7) || 
+				((!val.contains("Actuals"))&&
+				(!val.contains("actuals"))&&
+				(!val.contains("ACTUALS")))) return false; else
+			return true;
+		
 	}
 	
 	public void setId(int val){

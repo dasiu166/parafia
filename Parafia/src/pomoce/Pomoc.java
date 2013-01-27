@@ -147,13 +147,28 @@ public class Pomoc {
 		return katalog + plik;
 	}
 
+	public static String losujString(int ile){
+		String los = "";
+		Random rand = new Random();
+		int i;
+		
+		for(i=0; i<ile; i++){
+			char s = (char)(rand.nextInt(78)+48);
+			los=los+s;
+		}
+		
+		return los;
+	}
+	
 	public static void main(String[] args) {
 		// Pomoc.writeToFile("log\\","log2","jakie zycie taki rap");
 		// System.out.println(Pomoc.podajDate("2012-12-20 12:00").toLocaleString());
 		// System.out.println(Double.parseDouble("90.122014155"));
 
-		System.out.println(Pomoc.substractDates(Pomoc.podajDate("2013-01-15"),
-				Pomoc.podajDate("2013-01-15")));
+		//System.out.println(Pomoc.substractDates(Pomoc.podajDate("2013-01-15"),
+			//	Pomoc.podajDate("2013-01-15")));
+		
+		System.out.println(Pomoc.losujString(5));
 
 	}
 

@@ -74,6 +74,14 @@ public class PriestService extends ServicePart {
 			 } 
 			 
 			 String tmp1[] = dbReturn.getFirst();
+			 if(tmp1[0].equals("ERR")){
+				 Priest tpr = new Priest();
+				 tpr.setQuery("ERR");
+				 tpr.setData("Brak osoby o taki nr pesel");
+				 s.sendObject(tpr);
+				 return;
+			 }
+			 
 			 
 			 String idA = dbReturn.getFirst()[2]; //id adresu
 

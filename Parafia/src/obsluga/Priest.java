@@ -7,9 +7,22 @@ public class Priest extends Person {
 		Date arrivalD;//data przybycia do parafii
 		String position; //nazwa stanowiska //wikary, proboszcz,kapelan itp
 		
-		public boolean setQuery(String val){
+		/*public boolean setQuery(String val) { 
+
+			if (!this.checkQuery(val) && (!val.contains("OK+"))
+					&& (!val.contains("ERR")))
+				return false;
 			query = val;
 			return true;
+		}*/
+
+		protected boolean checkQuery(String val) {
+			if ((val.length() < 6)
+					|| ((!val.contains("Priest")) && (!val.contains("priest")) && (!val.contains("PRIEST"))))
+				return false;
+			else
+				return true;
+
 		}
 		
 		public void clean(){

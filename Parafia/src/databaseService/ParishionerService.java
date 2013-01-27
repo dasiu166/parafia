@@ -3,6 +3,7 @@ package databaseService;
 import obsluga.Adress;
 import obsluga.Course;
 import obsluga.Parishioner;
+import obsluga.Priest;
 import obsluga.User;
 import database.DBManager;
 import obsluga.*;
@@ -50,6 +51,24 @@ public class ParishionerService extends ServicePart {
 			// ##BLOK PROBY POBRANIA PELNYCH DANYCH
 			DBManager db = DBManager.getInstance();
 			dbReturn = db.execSelectQuery(((Parishioner) wiadomosc).getQuery());
+			
+			String tmp1[] = dbReturn.getFirst();
+			
+			if(tmp1[0].equals("ERR")){
+				 Parishioner tpr = new Parishioner();
+				 tpr.setQuery("ERR");
+				 tpr.setData("Brak osoby o taki nr pesel");
+				 s.sendObject(tpr);
+				 return;
+			 }
+			
+			((Parishioner) wiadomosc).setQuery("OK+");
+			((Parishioner) wiadomosc).setPesel(tmp1[0]);
+			((Parishioner) wiadomosc).setName(tmp1[4]);
+			((Parishioner) wiadomosc).setSurName(tmp1[5]);
+			
+			
+			
 			String idA = dbReturn.getFirst()[3]; // id adresu
 			String idC = dbReturn.getFirst()[1]; // id przebiegu
 

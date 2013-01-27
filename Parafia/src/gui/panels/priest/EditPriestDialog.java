@@ -39,7 +39,6 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 	private JButton btnReset;
 	private JButton btnOk;
 	private JButton btnCansel;
-	private JTextField textLogin;
 	private JTextField textName;
 	private JTextField textSurname;
 	private JTextField textPesel;
@@ -66,6 +65,7 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 
 	/**
 	 * Create the dialog.
+	 * @wbp.parser.constructor
 	 */
 	public EditPriestDialog(JFrame owner, Priest priest){
 		this(owner);
@@ -74,7 +74,7 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 	public EditPriestDialog(JFrame owner) {
 		super(owner, "Edycja Ksiêdza", true);
 		setResizable(false);
-		setBounds(100, 100, 450, 511);
+		setBounds(100, 100, 494, 576);
 		BorderLayout borderLayout = new BorderLayout();
 		getContentPane().setLayout(borderLayout);
 		scrollContentPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -84,12 +84,6 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		
 		JPanel panelContent = new JPanel();
 		scrollContentPanel.setViewportView(panelContent);
-		
-		JLabel lblLogin_ = new JLabel("Login:");
-		lblLogin_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		textLogin = new JTextField();
-		textLogin.setColumns(10);
 		
 		JLabel label_Data_ = new JLabel("Dane");
 		label_Data_.setHorizontalAlignment(SwingConstants.CENTER);
@@ -164,106 +158,104 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		
 		dateBeginWork = new JDateChooser(true);
 		
-		JLabel label_Login_Data_ = new JLabel("Dane Logowania");
-		label_Login_Data_.setVerticalAlignment(SwingConstants.BOTTOM);
-		label_Login_Data_.setHorizontalAlignment(SwingConstants.CENTER);
-		label_Login_Data_.setForeground(new Color(128, 0, 128));
-		label_Login_Data_.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
+		JButton btnNewButton = new JButton("New button");
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		
+		JButton btnNewButton_2 = new JButton("New button");
 		GroupLayout gl_panelContent = new GroupLayout(panelContent);
 		gl_panelContent.setHorizontalGroup(
 			gl_panelContent.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelContent.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(label_Login_Data_, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblName_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textName, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblSurname_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textSurname, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelContent.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addComponent(lblCity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textCity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addComponent(lblStreet_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textStreet, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addComponent(lblHomeNr_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textHomeNr, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addComponent(lblPostCode_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addComponent(lblSecularity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(dateSecularity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addComponent(lblSurname_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(textSurname, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addComponent(lblName_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(textName, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelContent.createSequentialGroup()
+									.addGap(14)
+									.addComponent(btnNewButton_2)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE))))
+						.addGroup(gl_panelContent.createSequentialGroup()
 							.addComponent(lblPesel_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
+							.addGap(18)
 							.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addComponent(label_Address, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblCity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textCity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblStreet_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textStreet, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblHomeNr_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textHomeNr, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblPostCode_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addComponent(label_Other_, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblSecularity_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(dateSecularity, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblBeginWork_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(dateBeginWork, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_panelContent.createSequentialGroup()
-							.addComponent(lblPosition_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(comboPosition, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addComponent(label_Data_, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap(44, Short.MAX_VALUE))
+						.addGroup(gl_panelContent.createSequentialGroup()
+							.addGap(19)
+							.addComponent(btnNewButton_1)
+							.addGap(18)
+							.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelContent.createSequentialGroup()
+							.addGap(23)
+							.addComponent(btnNewButton)
+							.addGap(18)
+							.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelContent.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblBeginWork_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPosition_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboPosition, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dateBeginWork, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(108, Short.MAX_VALUE))
 		);
 		gl_panelContent.setVerticalGroup(
 			gl_panelContent.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelContent.createSequentialGroup()
-					.addGap(7)
-					.addComponent(label_Login_Data_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelContent.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblLogin_))
-						.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelContent.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblName_))
+					.addContainerGap()
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton_2))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblName_)
 						.addComponent(textName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelContent.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblSurname_))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSurname_)
 						.addComponent(textSurname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelContent.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblPesel_))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPesel_)
 						.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addGap(48)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelContent.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblCity_))
-						.addComponent(textCity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnNewButton_1)
+						.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
+						.addComponent(textCity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCity_))
 					.addGap(6)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelContent.createSequentialGroup()
@@ -282,23 +274,23 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 							.addGap(3)
 							.addComponent(lblPostCode_))
 						.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnNewButton)
+						.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSecularity_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dateSecularity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblBeginWork_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dateBeginWork, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelContent.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblPosition_))
-						.addComponent(comboPosition, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(15, Short.MAX_VALUE))
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
+						.addComponent(dateSecularity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSecularity_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
+						.addComponent(dateBeginWork, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblBeginWork_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboPosition, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPosition_))
+					.addGap(41))
 		);
 		panelContent.setLayout(gl_panelContent);
 		{
@@ -336,7 +328,6 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 	
 	private void resetPriestData(){
 		clearPriestPanel();
-		textLogin.setText("brak danych");
 		textName.setText(priest.getName());
 		textSurname.setText(priest.getSurName());
 		textPesel.setText(priest.getPesel());
@@ -357,7 +348,6 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 	}
 	
 	private void clearPriestPanel(){
-		textLogin.setText("");
 		textName.setText("");
 		textSurname.setText("");
 		textPesel.setText("");

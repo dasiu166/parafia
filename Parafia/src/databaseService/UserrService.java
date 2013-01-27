@@ -201,6 +201,19 @@ public class UserrService extends ServicePart  {
 				
 				 DBManager db = DBManager.getInstance();
 				 System.out.println("&&&&&& "+((User) wiadomosc).getQuery());
+				 
+				 dbReturn = db.execSelectQuery("Select * from Userr where login='"+
+						 ((User) wiadomosc).getData()+"'");
+				 
+				 if(dbReturn.getFirst().equals("ERR")){
+					 ((User) wiadomosc).setQuery("ERR");
+					 ((User) wiadomosc).setData("Login juz zajety");
+					 s.sendObject(wiadomosc);
+					 s.saveLog("Login zajety");
+					 return;
+				 }
+				 
+				 
 				 dbReturnInt = db.execUpdateQuery(((User) wiadomosc).getQuery());
 				 if (dbReturnInt!=0) ((User) wiadomosc).setQuery("OK+"); else
 					 	((User) wiadomosc).setQuery("ERR");

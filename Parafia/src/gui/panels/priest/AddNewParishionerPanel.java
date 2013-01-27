@@ -35,6 +35,9 @@ import stale.KindRange;
 import stale.KindRestriction;
 import javax.swing.ImageIcon;
 import javax.swing.border.MatteBorder;
+
+import pomoce.Pomoc;
+
 import java.awt.Color;
 
 
@@ -70,9 +73,12 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 	private JLabel lblRepeatPassword_;
 	private JLabel lblDeath_;
 	private JButton btnAdd;
+
 	private JButton btnClear;
 	private Events events = Events.getInstance();
 	private JLabel label;
+	private JButton btnGenPass;
+	private JLabel lblNewPas;
 
 	public AddNewParishionerPanel(JFrame owner, Parishioner parishioner){
 		this(owner);
@@ -208,28 +214,19 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 		btnClear.setIcon(new ImageIcon(AddNewParishionerPanel.class.getResource("/icons/reset.png")));
 		btnClear.addActionListener(this);
 		
+		
 		label = new JLabel("");
+		
+		btnGenPass = new JButton("Stw\u00F3rz has\u0142o");
+		btnGenPass.addActionListener(this);
+		
+		lblNewPas = new JLabel("#####");
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(70)
-							.addComponent(lblRepeatPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(70)
 							.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
@@ -314,7 +311,28 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 									.addComponent(btnAdd))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(70)
-							.addComponent(lblDataLogin, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(lblDataLogin, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(70)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblRepeatPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+											.addGap(10)
+											.addComponent(passwordRepeatPassword))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+											.addGap(10)
+											.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)))
+									.addGap(30)
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(lblNewPas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnGenPass, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+									.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap(69, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
@@ -322,24 +340,28 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 				.addGroup(gl_panel.createSequentialGroup()
 					.addComponent(lblDataLogin, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 					.addGap(8)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblLogin_))
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblLogin_)
 						.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
+							.addGap(9)
 							.addComponent(lblPassword_))
-						.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(6)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewPas)
+								.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
+							.addGap(9)
 							.addComponent(lblRepeatPassword_))
-						.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnGenPass))))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -390,7 +412,7 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 							.addComponent(lblPostCode_))
 						.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(32)
-					.addComponent(lblPrzebieg, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblPrzebieg, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblBaptism_, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -678,8 +700,11 @@ public class AddNewParishionerPanel extends JPanel implements ActionListener{
 				reset();
 			else if(workingMode == EDIT_MODE)
 				editMode();
+		} else if (z==btnGenPass){
+			String pas = Pomoc.losujString(5);
+			lblNewPas.setText(pas);
+			passwordPassword.setText(pas);
+			passwordRepeatPassword.setText(pas);
 		}
 	}
-	
-	
 }

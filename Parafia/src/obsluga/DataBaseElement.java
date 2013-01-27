@@ -22,7 +22,18 @@ public abstract class DataBaseElement implements Serializable {
 		return query;
 	}
 	
-	abstract boolean setQuery(String val); /*ustawia zapytanie*/
+	final public boolean setQuery(String val){ /*ustawia zapytanie*/
+		
+		if (!this.checkQuery(val)&& (!val.contains("OK+")) && (!val.contains("ERR"))) return false;
+		query=val;
+		return true;
+	}
+	
+	protected boolean checkQuery(String val){
+		if (val.length()<1) return false; else
+			return true;
+		
+	}
 	
 	public void setKindQuery(int val){
 		/*ustawia rodzaj zapytania*/

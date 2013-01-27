@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -347,6 +348,12 @@ public class UserListPanel extends JPanel implements ActionListener{
 			((MigLayout)panel_UsersList.getLayout()).setRowConstraints("[]");
 	}
 	
+	public void resetUserListPanel(){
+		userList = new LinkedList<Person>();
+		userNumber=0;
+		panel_UsersList.repaint();
+	}
+	
 	public void addUser(final Person user){
 		addRowConstraint("[19.00px]");		
 				
@@ -374,7 +381,12 @@ public class UserListPanel extends JPanel implements ActionListener{
 		final JLabel lblPesel = new JLabel(user.getPesel());
 		panelRank.add(lblPesel);
 		
-		JLabel lblRange = new JLabel(Integer.toString(user.getRestriction()));
+		//JLabel lblRange = new JLabel(Integer.toString(user.getRestriction()));
+		JLabel lblRange = new JLabel();
+		if(user instanceof Parishioner) lblRange.setText("Parafianin"); else
+			lblRange.setText("Ksiadz");
+		
+		
 		panelRange.add(lblRange);
 		
 		//################## ON CLICK ######################
@@ -450,6 +462,7 @@ public class UserListPanel extends JPanel implements ActionListener{
 	}
 	
 	public void listUsers(){
+		
 		panel_UsersList.removeAll();
 		userNumber=0;
 		resetRowConstraint();
@@ -500,21 +513,20 @@ public class UserListPanel extends JPanel implements ActionListener{
 			String pesel = getPesel();
 			int restriction = getRestrictionSelected();
 			
-			//userList = events.getUserList(surname, name, pesel, restriction);
-			//listUsers();			
+			try{
+			this.resetUserListPanel();
+			userList = events.wyszukajPesel(pesel);
+			}catch(ClassNotFoundException eee){
+				
+			}catch(IOException eeee){
+				
+			}
+			
+			listUsers();			
 		}
 		
 		if(z==btnPdf){
-			/*PdfCreator pdf = new PdfCreator();
-			try{
-			pdf.setMyEventList(events.getClient().getEventKindList());
-			pdf.createUserPdf(this.getUserList(), Pomoc.saveFileWindow());
-			}catch(IOException rrr){
-				JOptionPane.showMessageDialog(null, "B³¹d w miejscu zapisu");
-			}catch(DocumentException rrr){
-				JOptionPane.showMessageDialog(null, "B³¹d kreatora dokumentu");
-
-			}*/
+			
 		}
 	}
 }
