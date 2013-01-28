@@ -38,6 +38,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.border.MatteBorder;
+
+import pomoce.Pomoc;
+
 import java.awt.Color;
 
 
@@ -68,9 +71,9 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 	private JDateChooser dateSecularity;
 	private JDateChooser dateBeginWork;
 	private JComboBox comboPosition;
+	private JButton btnGenPas;
+	private JLabel lblGenPas;
 	private Events events = Events.getInstance();
-	private JPanel panel_1;
-	private JPanel panel_2;
 
 	public AddNewPriestPanel(JFrame owner, Priest priest){
 		this(owner);
@@ -198,32 +201,18 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		JLabel lblPosition_ = new JLabel("Stanowisko:");
 		lblPosition_.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		panel_1 = new JPanel();
-		
-		panel_2 = new JPanel();
+		btnGenPas = new JButton("Stw\u00F3rz has\u0142o");
+		btnGenPas.addActionListener(this);
+		lblGenPas = new JLabel("#####");
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
-					.addGap(1)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(61)
+							.addGap(70)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-									.addGap(10)
-									.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-									.addGap(10)
-									.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblRepeatPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-									.addGap(10)
-									.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 								.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblName_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
@@ -268,37 +257,58 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 											.addComponent(comboPosition, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(dateBeginWork, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))))
+											.addComponent(dateBeginWork, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+											.addGroup(gl_panel.createSequentialGroup()
+												.addComponent(lblPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+												.addGap(10)
+												.addComponent(passwordPassword))
+											.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+												.addComponent(lblRepeatPassword_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+												.addGap(10)
+												.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))
+										.addGap(18)
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+											.addComponent(btnGenPas)
+											.addComponent(lblGenPas)))
+									.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+										.addComponent(lblLogin_, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(272)
 							.addComponent(btnClear)
 							.addGap(10)
 							.addComponent(btnAdd)))
-					.addGap(88)
-					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(110, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addComponent(lblDataLogin, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 					.addGap(8)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblLogin_))
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblLogin_)
 						.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
+							.addGap(9)
 							.addComponent(lblPassword_))
-						.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(6)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(passwordPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblGenPas))))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblRepeatPassword_))
-						.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(passwordRepeatPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnGenPas)))
 					.addGap(6)
 					.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
@@ -319,7 +329,7 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 							.addGap(3)
 							.addComponent(lblPesel_))
 						.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(35)
+					.addGap(32)
 					.addComponent(lblAdress, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -364,9 +374,7 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnClear)
 						.addComponent(btnAdd))
-					.addContainerGap(15, Short.MAX_VALUE))
-				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
-				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);		
 		
@@ -517,6 +525,7 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 		dateSecularity.setEmpty();
 		dateBeginWork.setEmpty();
 		comboPosition.setSelectedIndex(0);
+		lblGenPas.setText("#####");
 	}
 	
 	public void setEditMode(Priest priest){
@@ -596,6 +605,11 @@ public class AddNewPriestPanel extends JPanel implements ActionListener{
 				reset();
 			else if(workingMode == EDIT_MODE)
 				editMode();
+		} else if (z==btnGenPas){
+			String s = Pomoc.losujString(5);
+			lblGenPas.setText(s);
+			passwordPassword.setText(s);
+			passwordRepeatPassword.setText(s);
 		}
 	}
 }

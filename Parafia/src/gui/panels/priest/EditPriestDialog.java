@@ -34,10 +34,9 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 
 	private final JScrollPane scrollContentPanel = new JScrollPane();
 	private Priest priest;
-	private boolean isOk = false;
+	private boolean isOk, isDane, isAdres, isInne = false;
 	private boolean isCansel = false;
 	private JButton btnReset;
-	private JButton btnOk;
 	private JButton btnCansel;
 	private JTextField textName;
 	private JTextField textSurname;
@@ -49,6 +48,9 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 	private JDateChooser dateSecularity;
 	private JDateChooser dateBeginWork;
 	private JComboBox comboPosition;
+	private JButton btnInne;
+	private JButton btnAdres;
+	private JButton btnDane;
 
 	/**
 	 * Launch the application.
@@ -158,11 +160,15 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		
 		dateBeginWork = new JDateChooser(true);
 		
-		JButton btnNewButton = new JButton("New button");
+		btnInne = new JButton("Aktualizuj");
+		btnInne.addActionListener(this);
 		
-		JButton btnNewButton_1 = new JButton("New button");
+		btnAdres = new JButton("Aktualizuj");
+		btnAdres.addActionListener(this);
 		
-		JButton btnNewButton_2 = new JButton("New button");
+		btnDane = new JButton("Aktualizuj");
+		btnDane.addActionListener(this);
+		
 		GroupLayout gl_panelContent = new GroupLayout(panelContent);
 		gl_panelContent.setHorizontalGroup(
 			gl_panelContent.createParallelGroup(Alignment.LEADING)
@@ -201,7 +207,7 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 									.addComponent(textName, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panelContent.createSequentialGroup()
 									.addGap(14)
-									.addComponent(btnNewButton_2)
+									.addComponent(btnDane)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_panelContent.createSequentialGroup()
@@ -210,12 +216,12 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 							.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelContent.createSequentialGroup()
 							.addGap(19)
-							.addComponent(btnNewButton_1)
+							.addComponent(btnAdres)
 							.addGap(18)
 							.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelContent.createSequentialGroup()
 							.addGap(23)
-							.addComponent(btnNewButton)
+							.addComponent(btnInne)
 							.addGap(18)
 							.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelContent.createSequentialGroup()
@@ -235,7 +241,7 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 					.addContainerGap()
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton_2))
+						.addComponent(btnDane))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName_)
@@ -250,7 +256,7 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 						.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(48)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton_1)
+						.addComponent(btnAdres)
 						.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
@@ -276,7 +282,7 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 						.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnNewButton)
+						.addComponent(btnInne)
 						.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
@@ -304,16 +310,8 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 				buttonPane.add(btnReset);
 			}
 			{
-				btnOk = new JButton("OK");
-				btnOk.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/Accept-icon.png")));
-				btnOk.addActionListener(this);
-				btnOk.setActionCommand("OK");
-				buttonPane.add(btnOk);
-				getRootPane().setDefaultButton(btnOk);
-			}
-			{
 				btnCansel = new JButton("Cancel");
-				btnCansel.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/anuluj-icon.png")));
+				btnCansel.setIcon(new ImageIcon(EditPriestDialog.class.getResource("/icons/cancel-icon.png")));
 				btnCansel.addActionListener(this);
 				btnCansel.setActionCommand("Cancel");
 				buttonPane.add(btnCansel);
@@ -378,6 +376,15 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 	public boolean isOk(){
 		return isOk;
 	}
+	public boolean isDane(){
+		return isDane;
+	}
+	public boolean isAdres(){
+		return isAdres;
+	}
+	public boolean isInne(){
+		return isInne;
+	}
 	public boolean isCansel(){
 		return isCansel;
 	}
@@ -387,16 +394,9 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		Object z = arg0.getSource();
 		isOk = false;
 		isCansel = false;
-		
-		if(z == btnOk){
-			isOk = true;
-			setVisible(false);
-		}else if(z == btnCansel){
-			isCansel = true;
-			setVisible(false);
-		}else if(z == btnReset){
-			resetPriestData();
-		}
+		isDane=false;
+		isInne=false;
+		isAdres=false;
 		
 	}
 }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -43,6 +44,8 @@ import net.miginfocom.swing.MigLayout;
 import obsluga.Parishioner;
 import obsluga.Person;
 import obsluga.Priest;
+import pdf.PdfCreator;
+import pomoce.Pomoc;
 import stale.KindRestriction;
 
 public class UserListPanel extends JPanel implements ActionListener{
@@ -65,12 +68,10 @@ public class UserListPanel extends JPanel implements ActionListener{
 	private long time = System.currentTimeMillis();
 	private ObserwatorStanSortowania obserwatorStanSortowania = new ObserwatorStanSortowania(this);
 	private LinkedList<Person> userList;
-	private JTextField text_Surname;
-	private JTextField text_Name;
 	private JTextField text_Pesel;
-	private JComboBox combo_Range;
 	private JButton btnApply;
 	private JButton btnPdf;
+	private JButton btnDodajDoListy;
 	
 	
 	/**
@@ -83,18 +84,6 @@ public class UserListPanel extends JPanel implements ActionListener{
 		//#################### Nag³ówek (Wyszukiwarka) ########################
 		JPanel panel_Headline = new JPanel();
 		panel_Headline.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-				
-		JLabel lbl_Surname_ = new JLabel("Nazwisko:");
-		lbl_Surname_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		JLabel lbl_Name_ = new JLabel("Imie:");
-		lbl_Name_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		text_Surname = new JTextField();
-		text_Surname.setColumns(10);
-		
-		text_Name = new JTextField();
-		text_Name.setColumns(10);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -102,19 +91,13 @@ public class UserListPanel extends JPanel implements ActionListener{
 		JLabel lbl_Pesel_ = new JLabel("Pesel:");
 		lbl_Pesel_.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel lbl_Range_ = new JLabel("Ranga:");
-		lbl_Range_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
 		text_Pesel = new JTextField();
 		text_Pesel.setColumns(10);
-		
-		combo_Range = new JComboBox();
-		combo_Range.setModel(new DefaultComboBoxModel(new String[] {"Wszystkie", "Parafianin", "Ksi\u0105dz", "Proboszcz"}));
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
 		
-		btnApply = new JButton("Poka\u017C");
+		btnApply = new JButton("Nowa lista");
 		btnApply.setIcon(new ImageIcon(OrdersListPanel.class.getResource("/icons/get.png")));
 		btnApply.addActionListener(this);
 		
@@ -122,66 +105,50 @@ public class UserListPanel extends JPanel implements ActionListener{
 		btnPdf.setIcon(new ImageIcon(OrdersListPanel.class.getResource("/icons/pdf24png.png")));
 		btnPdf.addActionListener(this);
 		
+		btnDodajDoListy = new JButton("Dodaj do listy");
+		btnDodajDoListy.addActionListener(this);
+		btnDodajDoListy.setIcon(new ImageIcon(UserListPanel.class.getResource("/icons/Add-icon.png")));
+		
 		GroupLayout gl_panel_Headline = new GroupLayout(panel_Headline);
 		gl_panel_Headline.setHorizontalGroup(
 			gl_panel_Headline.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
-					.addGap(3)
-					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(lbl_Surname_, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lbl_Name_, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-					.addGap(3)
-					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(text_Name, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-						.addComponent(text_Surname, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
-					.addGap(6)
+					.addGap(27)
+					.addComponent(btnDodajDoListy)
+					.addGap(21)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(3)
-					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(lbl_Pesel_, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lbl_Range_, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+					.addComponent(lbl_Pesel_, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 					.addGap(3)
-					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addComponent(text_Pesel, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-						.addComponent(combo_Range, 0, 111, Short.MAX_VALUE))
+					.addComponent(text_Pesel, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnApply, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+					.addComponent(btnApply, GroupLayout.PREFERRED_SIZE, 93, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnPdf, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+					.addComponent(btnPdf, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
 					.addGap(6))
 		);
 		gl_panel_Headline.setVerticalGroup(
 			gl_panel_Headline.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_Headline.createSequentialGroup()
 					.addGroup(gl_panel_Headline.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_Headline.createSequentialGroup()
-							.addGap(6)
-							.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lbl_Surname_)
-								.addComponent(text_Surname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(5)
-							.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
-								.addComponent(text_Name, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbl_Name_)))
 						.addComponent(separator, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_Headline.createSequentialGroup()
-							.addGap(6)
+							.addGap(21)
 							.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lbl_Pesel_)
-								.addComponent(text_Pesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(5)
-							.addGroup(gl_panel_Headline.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lbl_Range_)
-								.addComponent(combo_Range, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(text_Pesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_Headline.createSequentialGroup()
 							.addGap(15)
 							.addComponent(btnApply, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_Headline.createSequentialGroup()
 							.addGap(15)
-							.addComponent(btnPdf, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnPdf, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_Headline.createSequentialGroup()
+							.addGap(15)
+							.addComponent(btnDodajDoListy, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_Headline.setLayout(gl_panel_Headline);
@@ -403,6 +370,50 @@ public class UserListPanel extends JPanel implements ActionListener{
 						
 						if(editParishionerDialog.isOk()){
 							Parishioner parishioner = editParishionerDialog.getParishionerEdited();
+							JOptionPane.showMessageDialog(null, "DOK");
+
+							// w tym miejscu trzeba wywo³aæ metode edytuj¹c¹ parafianina
+						}else if(editParishionerDialog.isDane()){
+							JOptionPane.showMessageDialog(null, "Dane");
+
+							Parishioner parishioner = editParishionerDialog.getParishionerEdited();
+							
+							try{
+							events.updateParishioner(parishioner);
+							} catch(ClassNotFoundException eee){
+								
+							}catch(IOException eee){
+								
+							}
+							JOptionPane.showMessageDialog(null, events.getLastErrData());
+							// w tym miejscu trzeba wywo³aæ metode edytuj¹c¹ parafianina
+						}else if(editParishionerDialog.isDaty()){
+							//JOptionPane.showMessageDialog(null, "Dane");
+
+							Parishioner parishioner = editParishionerDialog.getParishionerEdited();
+							
+							try{
+							events.updateCourse(parishioner.getCourse());
+							} catch(ClassNotFoundException eee){
+								
+							}catch(IOException eee){
+								
+							}
+							JOptionPane.showMessageDialog(null, events.getLastErrData());
+							// w tym miejscu trzeba wywo³aæ metode edytuj¹c¹ parafianina
+						}else if(editParishionerDialog.isAdres()){
+							JOptionPane.showMessageDialog(null, "Dane");
+
+							Parishioner parishioner = editParishionerDialog.getParishionerEdited();
+							
+							try{
+							events.updateAdress(parishioner.getAdress());
+							} catch(ClassNotFoundException eee){
+								
+							}catch(IOException eee){
+								
+							}
+							JOptionPane.showMessageDialog(null, events.getLastErrData());
 							// w tym miejscu trzeba wywo³aæ metode edytuj¹c¹ parafianina
 						}else if(editParishionerDialog.isCansel()){
 							
@@ -414,6 +425,31 @@ public class UserListPanel extends JPanel implements ActionListener{
 						
 						if(editPriestDialog.isOk()){
 							Priest priest = editPriestDialog.getPriestEdited();
+							// w tym miejscu trzeba wywo³aæ metode edytuj¹c¹ parafianina
+						}else if((editPriestDialog.isDane())||editPriestDialog.isInne()){
+							Priest priest = editPriestDialog.getPriestEdited();
+							try{
+								events.updatePriest(priest);
+								} catch(ClassNotFoundException eee){
+									
+								}catch(IOException eee){
+									
+								}
+								JOptionPane.showMessageDialog(null, events.getLastErrData());
+							// w tym miejscu trzeba wywo³aæ metode edytuj¹c¹ parafianina
+						}else if(editPriestDialog.isAdres()){
+							JOptionPane.showMessageDialog(null, "Dane");
+
+							Priest priest = editPriestDialog.getPriestEdited();
+							
+							try{
+							events.updateAdress(priest.getAdress());
+							} catch(ClassNotFoundException eee){
+								
+							}catch(IOException eee){
+								
+							}
+							JOptionPane.showMessageDialog(null, events.getLastErrData());
 							// w tym miejscu trzeba wywo³aæ metode edytuj¹c¹ parafianina
 						}else if(editPriestDialog.isCansel()){
 							
@@ -450,7 +486,11 @@ public class UserListPanel extends JPanel implements ActionListener{
 
 	public void listUsers(LinkedList<Person> userList){
 		this.userList = userList;
-		listUsers();
+		listUsers(false);
+	}
+	
+	public void addToList(Person user){
+		this.userList.add(user);
 	}
 	
 	public void setUserList(LinkedList<Person> userList){
@@ -461,11 +501,11 @@ public class UserListPanel extends JPanel implements ActionListener{
 		return userList;
 	}
 	
-	public void listUsers(){
+	public void listUsers(boolean add){
 		
-		panel_UsersList.removeAll();
+		if(!add){panel_UsersList.removeAll();
 		userNumber=0;
-		resetRowConstraint();
+		resetRowConstraint();}
 		
 		Iterator<Person> iterator = userList.iterator();
 
@@ -474,44 +514,21 @@ public class UserListPanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	public String getSurname(){
-		return text_Surname.getText();
-	}
-	public String getName(){
-		return text_Name.getText();
-	}
+	
 	public String getPesel(){
 		return text_Pesel.getText();
 	}
-	public int getRestrictionSelected(){
-		int item = combo_Range.getSelectedIndex();
-		switch (item){
-		case 1:
-			return KindRestriction.LOGED_R;
-		case 2:
-			return KindRestriction.WORKS_R;
-		case 3:
-			return KindRestriction.GOD_R;
-		default:
-			return -1;
-		}
-	}
-	public int getRestrictionSelectedIndex(){
-		return combo_Range.getSelectedIndex();
-	}
-	public String getRestrictionSelectedItem(){
-		return (String)combo_Range.getSelectedItem();
-	}
+	
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object z = e.getSource();
 		
 		if(z == btnApply){
-			String surname = getSurname();
-			String name = getName();
+			
 			String pesel = getPesel();
-			int restriction = getRestrictionSelected();
+			
 			
 			try{
 			this.resetUserListPanel();
@@ -521,12 +538,46 @@ public class UserListPanel extends JPanel implements ActionListener{
 			}catch(IOException eeee){
 				
 			}
-			
-			listUsers();			
+			if(userList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Brak wyników");
+				return;
+			}
+			listUsers(false);			
 		}
 		
 		if(z==btnPdf){
 			
+			PdfCreator pdf = new PdfCreator();
+			//pdf.createPersonDataPdf(userList, Pomoc.saveFileWindow());
+		}
+		
+		if(z==btnDodajDoListy){
+			try{
+				String pesel = getPesel();
+				//this.resetUserListPanel();
+				//userList = events.wyszukajPesel(pesel);
+				Person u;
+				try{
+				u = events.wyszukajPesel(pesel).getFirst();
+				}catch (NoSuchElementException ee){
+					JOptionPane.showMessageDialog(null, "Brak wynikow");
+
+					return;
+				}
+				
+				if(!u.getQuery().equals("ERR"))
+				this.addUser(u); else{
+					JOptionPane.showMessageDialog(null, "Brak wynikow");
+					return;
+				}
+				}catch(ClassNotFoundException eee){
+					
+				}catch(IOException eeee){
+					
+				}
+				
+				
+				//listUsers(true);
 		}
 	}
 }
@@ -668,7 +719,7 @@ class ObserwatorStanSortowania implements Obserwowany
     		userList.add(userArray[i]);
     	}
     	usersListPanel.setUserList(userList);
-    	usersListPanel.listUsers();
+    	usersListPanel.listUsers(false);
     	
     }
  

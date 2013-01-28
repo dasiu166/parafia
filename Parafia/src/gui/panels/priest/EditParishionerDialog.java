@@ -47,11 +47,13 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 	private JDateChooser dateConfirmation;
 	private JDateChooser dateMarriage;
 	private JDateChooser dateDeath;
-	private boolean isOk = false;
+	private boolean isOk, isDane, isAdres, isDaty = false;
 	private boolean isCansel = false;
 	private JButton btnReset;
-	private JButton btnOk;
 	private JButton btnCansel;
+	private JButton btnDane;
+	private JButton btnAdres;
+	private JButton btnDaty;
 
 	/**
 	 * Launch the application.
@@ -177,12 +179,14 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 			
 			dateDeath = new JDateChooser(true);
 			
-			JButton btnNewButton = new JButton("New button");
+			btnDane = new JButton("Aktualizuj");
+			btnDane.addActionListener(this);
 			
-			JButton btnNewButton_1 = new JButton("New button");
+			btnAdres = new JButton("Aktualizuj");
+			btnAdres.addActionListener(this);
 			
-			JButton btnNewButton_2 = new JButton("New button");
-			
+			btnDaty = new JButton("Aktualizuj");
+			btnDaty.addActionListener(this);
 			
 			GroupLayout gl_panelContent = new GroupLayout(panelContent);
 			gl_panelContent.setHorizontalGroup(
@@ -195,7 +199,7 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 								.addPreferredGap(ComponentPlacement.UNRELATED)
 								.addComponent(dateBirthday, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panelContent.createSequentialGroup()
-								.addComponent(btnNewButton)
+								.addComponent(btnDane)
 								.addGap(18)
 								.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panelContent.createSequentialGroup()
@@ -231,7 +235,7 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 								.addPreferredGap(ComponentPlacement.UNRELATED)
 								.addComponent(dateBaptism, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panelContent.createSequentialGroup()
-								.addComponent(btnNewButton_1)
+								.addComponent(btnAdres)
 								.addGap(18)
 								.addComponent(label_Address_, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panelContent.createSequentialGroup()
@@ -251,7 +255,7 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 								.addPreferredGap(ComponentPlacement.UNRELATED)
 								.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panelContent.createSequentialGroup()
-								.addComponent(btnNewButton_2)
+								.addComponent(btnDaty)
 								.addGap(18)
 								.addComponent(lblDaty, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap(318, Short.MAX_VALUE))
@@ -261,7 +265,7 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 					.addGroup(gl_panelContent.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnNewButton)
+							.addComponent(btnDane)
 							.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
@@ -277,7 +281,7 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 							.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(36)
 						.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnNewButton_1)
+							.addComponent(btnAdres)
 							.addComponent(label_Address_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
@@ -297,7 +301,7 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 							.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(37)
 						.addGroup(gl_panelContent.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnNewButton_2)
+							.addComponent(btnDaty)
 							.addComponent(lblDaty, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
@@ -338,16 +342,8 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 				buttonPane.add(btnReset);
 			}
 			{
-				btnOk = new JButton("OK");
-				btnOk.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/Accept-icon.png")));
-				btnOk.addActionListener(this);
-				btnOk.setActionCommand("OK");
-				buttonPane.add(btnOk);
-				getRootPane().setDefaultButton(btnOk);
-			}
-			{
 				btnCansel = new JButton("Cancel");
-				btnCansel.setIcon(new ImageIcon(OrderDialog.class.getResource("/icons/anuluj-icon.png")));
+				btnCansel.setIcon(new ImageIcon(EditParishionerDialog.class.getResource("/icons/cancel-icon.png")));
 				btnCansel.addActionListener(this);
 				btnCansel.setActionCommand("Cancel");
 				buttonPane.add(btnCansel);
@@ -410,12 +406,15 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 		parishioner.setSurName(textSurname.getText());
 		parishioner.setPesel(textPesel.getText());
 		if(parishioner.getAdress() == null) parishioner.setAdress(new Adress());
+		
 		parishioner.getAdress().setCity(textCity.getText());
 		parishioner.getAdress().setStreet(textStreet.getText());
 		parishioner.getAdress().setHouseNumb(textHomeNr.getText());
 		parishioner.getAdress().setPostcode(textPostCode.getText());
+		
 		if(parishioner.getCourse() == null) parishioner.setCourse(new Course());
 		parishioner.getCourse().setBirthday((!dateBirthday.isEmpty())?dateBirthday.getDate():null);
+		parishioner.getCourse().setBaptism((!dateBaptism.isEmpty())?dateBaptism.getDate():null);
 		parishioner.getCourse().setCommunion((!dateCommunion.isEmpty())?dateCommunion.getDate():null);
 		parishioner.getCourse().setConfirmation((!dateConfirmation.isEmpty())?dateConfirmation.getDate():null);
 		parishioner.getCourse().setMarriage((!dateMarriage.isEmpty())?dateMarriage.getDate():null);
@@ -426,6 +425,15 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 	public boolean isOk(){
 		return isOk;
 	}
+	public boolean isDane(){
+		return isDane;
+	}
+	public boolean isAdres(){
+		return isAdres;
+	}
+	public boolean isDaty(){
+		return isDaty;
+	}
 	public boolean isCansel(){
 		return isCansel;
 	}
@@ -435,16 +443,9 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 		Object z = arg0.getSource();
 		isOk = false;
 		isCansel = false;
-		
-		if(z == btnOk){
-			isOk = true;
-			setVisible(false);
-		}else if(z == btnCansel){
-			isCansel = true;
-			setVisible(false);
-		}else if(z == btnReset){
-			resetParishionerData();
-		}
+		isDane=false;
+		isDaty=false;
+		isAdres=false;
 		
 	}
 }

@@ -17,10 +17,10 @@ public interface KindQuery {
 
 	
 	/*Ta czesc zawiera komendy odpowiedzi po zapytaniach do bazy*/
-	String ACK = "ACK"; //zamowienie zaakceptowane
-	String DEN = "DENIED"; //zamowienie odrzucone(moze byc usuniete z bazy)
-	String NEW = "NEW";//zamowienie czeka na rozpatrzenie
-	String TODEL = "TODELETE";//do usuniecia z bazy
+	String ACK = "Zaakceptowane"; //zamowienie zaakceptowane
+	String DEN = "Odrzucone"; //zamowienie odrzucone(moze byc usuniete z bazy)
+	String NEW = "Nowy";//zamowienie czeka na rozpatrzenie
+	String TODEL = "Do usuniecia";//do usuniecia z bazy
 	
 	/*Mozliwe komunikaty*/
 	String ServErr = "SerwerError";

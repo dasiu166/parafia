@@ -112,8 +112,8 @@ public class Events {
 	public NewsList getNewsList() throws ClassNotFoundException, IOException {
 		NewsList newsList = new NewsList();
 		Actuals act = new Actuals();
-		// newsList.generateNewsList(5); // pobranie przyk�adowej listy
-		// aktualno�ci
+		// newsList.generateNewsList(5); // pobranie przyk³adowej listy
+		// aktualnoœci
 
 		// Starsznie przekombionowane tutaj jest poniewaz nie wiem w ktorym
 		// momencie Malysz laczy sie z serwerem
@@ -144,6 +144,7 @@ public class Events {
 		}
 		return newsList;
 	}
+
 
 	// ####################### DODAWANIE AKTUALNOSCI
 	// ##############################
@@ -404,7 +405,9 @@ public class Events {
 			priest.setKindQuery(KindQuery.SEL_DBASE);
 			priest.setQuery("Select * from priest where pesel="
 					+ priest.getPesel());
-			//JOptionPane.showMessageDialog(null,	"Select * from priest where pesel=\"" + priest.getPesel()+ "\"");
+			JOptionPane.showMessageDialog(null,
+					"Select * from priest where pesel=\"" + priest.getPesel()
+							+ "\"");
 			if (!k.sendObject(priest)) {
 				this.connectionError();
 			}
@@ -783,7 +786,7 @@ public class Events {
 			cut = false;
 		}
 		if (p.getSecularityDate() != null) {
-			query = query + "beginWork=to_date('"
+			query = query + "holyOrders=to_date('"
 					+ p.getSecularityDate().toLocaleString().substring(0, 10)
 					+ "','yyyy-MM-dd') ";
 
@@ -858,7 +861,10 @@ public class Events {
 		if (c.getBirthDay() != null)
 			query = query + "birthday = to_date('"
 					+ c.getBirthDay().toLocaleString().substring(0, 10)
-					+ "','yyyy-MM-dd')";
+					+ "','yyyy-MM-dd')"; else {
+						JOptionPane.showMessageDialog(null, "Data urodzin musi być wypełniona");
+						return;
+					}
 
 		if (c.getBaptism() != null)
 			query = query + " ,baptism = to_date('"
@@ -900,12 +906,12 @@ public class Events {
 		c = (Course) k.getPackage();
 
 		if (c.getQuery().equals("OK+")) {
-			this.setLastErrData("Update adresu przebiegl z powodzeniem");
-			System.out.println("Update hasla ok");
+			this.setLastErrData("Update dat przebiegl z powodzeniem");
+			//System.out.println("Update hasla ok");
 		} else {
 			this.setLastErr(c.getQuery());
-			this.setLastErrData("Blad aktualizacji adresu");
-			System.out.println("Blad updatu hasla");
+			this.setLastErrData("Blad aktualizacji dat");
+			//System.out.println("Blad updatu hasla");
 		}
 
 	}
