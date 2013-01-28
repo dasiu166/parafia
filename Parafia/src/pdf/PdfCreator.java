@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import obsluga.Order;
 
@@ -48,12 +49,25 @@ public class PdfCreator {
 	public void setMyEventList(LinkedList<obsluga.Event> val) {
 		eventList2 = val;
 	}
+	
+	
 
-	public  void createActualsPdf( LinkedList<Actuals> actL, String path)
+	public  boolean createActualsPdf( LinkedList<Actuals> actL, String path)
 
             throws DocumentException, IOException   {
 			Document document = new Document();
-
+			
+			if(path==null) return false;
+			if(actL.getFirst().getQuery().equals("ERR")){
+				JOptionPane.showMessageDialog(null, "Lista aktualnoœci pusta");
+				return false;
+			}
+			
+			if(path.equals("null")){
+				JOptionPane.showMessageDialog(null, "Anulowano");
+				return false;
+			}
+			
 			if (!path.substring(path.length() - 4).equals(".pdf"))
 				path = path + ".pdf";
 			PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -111,15 +125,21 @@ document.add(table);
 
 document.close();
 
-
+return true;
 
 }
 
-	public void createOrderPdf(LinkedList<Order> orderList, String path)
+	public boolean createOrderPdf(LinkedList<Order> orderList, String path)
 			throws DocumentException, IOException {
 		Iterator<Order> iterator = orderList.iterator();
 		Document document = new Document();
 		Order o = orderList.getFirst();
+		
+		if(path.equals("null")){
+			JOptionPane.showMessageDialog(null, "Anulowano");
+			return false;
+		}
+		
 		if (!path.substring(path.length() - 4).equals(".pdf"))
 			path = path + ".pdf";
 		PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -177,15 +197,23 @@ document.close();
 		document.setPageCount(0);
 
 		document.close();
+		return true;
 	}
 	
-	public void createOwnOrderPdf(LinkedList<Order> orderList, String path)
+	public boolean createOwnOrderPdf(LinkedList<Order> orderList, String path)
 			throws DocumentException, IOException {
 		Iterator<Order> iterator = orderList.iterator();
 		Document document = new Document();
 		Order o = orderList.getFirst();
+		
+		if(path.equals("null")){
+			JOptionPane.showMessageDialog(null, "Anulowano");
+			return false;
+		}
+		
 		if (!path.substring(path.length() - 4).equals(".pdf"))
 			path = path + ".pdf";
+		
 		PdfWriter.getInstance(document, new FileOutputStream(path));
 		document.open();
 		document.add(new Paragraph("Lista zamowien\n"
@@ -241,6 +269,7 @@ document.close();
 		document.setPageCount(0);
 
 		document.close();
+	return true;
 	}
 	
 

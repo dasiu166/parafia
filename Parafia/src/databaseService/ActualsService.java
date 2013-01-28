@@ -70,6 +70,7 @@ public class ActualsService extends ServicePart {
 			
 			if(dbReturnInt!=0){
 				((Actuals) wiadomosc).setQuery("OK+");
+				((Actuals) wiadomosc).setData("Wpis usuniêty");
 				//dbReturn = db.execSelectQuery("Select seq_actuals.currval from dual");
 				//String tmp[] = dbReturn.getFirst();
 				

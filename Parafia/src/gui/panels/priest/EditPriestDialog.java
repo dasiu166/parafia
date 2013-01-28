@@ -397,6 +397,21 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		isDane=false;
 		isInne=false;
 		isAdres=false;
+		if(z == btnCansel){
+			isCansel = true;
+			setVisible(false);
+		}else if(z == btnReset){
+			resetPriestData();
+		}else if(z == btnInne){
+			isInne = true;
+			setVisible(false);
+		}else if(z == btnAdres){
+			isAdres = true;
+			setVisible(false);
+		}else if(z == btnDane){
+			isDane = true;
+			setVisible(false);
+		}
 		
 	}
 }

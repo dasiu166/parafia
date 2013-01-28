@@ -138,7 +138,7 @@ public class Events {
 				System.out.println(ae.getPriestPesel());
 				System.out.println(ae.getName());
 				System.out.println(ae.getSurName());
-				newsList.addNews(new News(ae.getSubject(), ae.getAddDate(), ae
+				newsList.addNews(new News(ae.getId(), ae.getSubject(), ae.getAddDate(), ae
 						.getName() + " " + ae.getSurName(), 100*(ae.getDescribe().length()/200),ae.getDescribe()));
 			}
 		}

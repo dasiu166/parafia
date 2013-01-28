@@ -71,7 +71,7 @@ CREATE TABLE Orderr  (
   odprawiajacy_pesel NUMBER(11),
   zamawiajacy_pesel NUMBER(11),
   describe VARCHAR2(300),
-  status VARCHAR2(10),
+  status VARCHAR2(15),
   beginD DATE,
   endD DATE,
   CONSTRAINT or_ev_fk1 FOREIGN KEY (id_event) REFERENCES Event(id_event),
@@ -83,7 +83,7 @@ CREATE TABLE Actuals(
   id_actuals NUMBER CONSTRAINT actuals_pk PRIMARY KEY,
   pesel_priest NUMBER(11),
   subject VARCHAR(100),
-  describe VARCHAR(400),
+  describe VARCHAR(1200),
   add_date DATE,
   CONSTRAINT ac_pr_fk FOREIGN KEY (pesel_priest) REFERENCES Priest(pesel)
 );

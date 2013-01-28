@@ -447,5 +447,21 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 		isDaty=false;
 		isAdres=false;
 		
+		if(z == btnCansel){
+			isCansel = true;
+			setVisible(false);
+		}else if(z == btnReset){
+			resetParishionerData();
+		}else if(z == btnDane){
+			isDane = true;
+			setVisible(false);
+		}else if(z == btnAdres){
+			isAdres = true;
+			setVisible(false);
+		}else if(z == btnDaty){
+			isDaty = true;
+			setVisible(false);
+		}
+		
 	}
 }

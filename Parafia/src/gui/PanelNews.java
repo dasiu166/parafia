@@ -35,12 +35,17 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
+import obsluga.Actuals;
+
 import stale.KindRestriction;
 
 public class PanelNews extends JPanel implements ActionListener {
 
 //######################### CONSTRUCTOR #########################
 	private static final long serialVersionUID = 1L;
+	private CardLayoutExp CLExp;
+	private ArrayList<News> NWList;
+	private NewsList Nl;
 	private LoginDialog dialogLogowania;
 	private JFrame owner;
 	private JPanel panel;
@@ -49,6 +54,7 @@ public class PanelNews extends JPanel implements ActionListener {
 	private boolean reset=false;
 	private final JScrollPane scrollPane;
 	private Events events = Events.getInstance();
+	private PanelNews pl;
 
 	/**
 	 * Create the panel.
@@ -81,7 +87,7 @@ public class PanelNews extends JPanel implements ActionListener {
 		//addNews("Aktualnosc 3", new Date(), "Zdzichu Kasprowicz", 56,"<p style=\"color:green; margin:0px; padding:0px;\"><b>Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 3");
 		//addNews("test News 4", new Date(), "Zdzichu Kowal", 97,"<p style=\"color:blue; margin:0px; padding:0px;\"><b>Lorem ipsum -\n Zawarto\u015B\u0107 aktualno\u015Bci 4\n linijka 3\nlinijka 4\nlinijka 5");
 		setLayout(groupLayout);
-		
+		pl=this;
 		//JOptionPane.showMessageDialog(null, ((MigLayout)panel.getLayout()).getRowConstraints());
 
 	}
@@ -96,6 +102,18 @@ public class PanelNews extends JPanel implements ActionListener {
 			((MigLayout)panel.getLayout()).setRowConstraints( constraint );
 		else
 			((MigLayout)panel.getLayout()).setRowConstraints( rowConstraints+constraint );
+	}
+	
+	public void setCLExp(CardLayoutExp e){
+		CLExp=e;
+	}
+	
+	public void setNl(NewsList e){
+		Nl=e;
+	}
+	
+	public void setNWList(ArrayList<News> e){
+		NWList=e;
 	}
 	
 	/**
@@ -133,7 +151,9 @@ public class PanelNews extends JPanel implements ActionListener {
 		
 	}
 	
-	public void addNews(String subiect, Date data, String ksiadz, int contentHeight, String content){
+	public void addNews(int id, String subiect, Date data, String ksiadz, int contentHeight, String content){
+		
+		final int idToDel = id;
 		
 		newsNumber++;
 		final int newsNumber_ = newsNumber-1;
@@ -172,11 +192,28 @@ public class PanelNews extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				int answer = JOptionPane.showConfirmDialog(null, "Czy na pewno usunąć News?", "Usówanie Newsa", JOptionPane.YES_NO_OPTION);
 				if(answer == JOptionPane.YES_OPTION){
-					JOptionPane.showMessageDialog(null, "Usunięto news nr"+newsNumber_,"Usówanie Newsa",JOptionPane.INFORMATION_MESSAGE);
+					//JOptionPane.showMessageDialog(null, "Usunięto news nr"+newsNumber_,"Usuwanie Newsa",JOptionPane.INFORMATION_MESSAGE);
 					//Events events = Events.getInstance();
 					//events.deleteNews(newsNumber_);
 					// newsNumber_ - numer newsa na liście wyświetlanej (numerowane od 0);
 					//subiect, data, ksiadz, contentHeight, content - informacje podawane podczas tworzenia
+					Actuals a = new Actuals();
+					a.setId(idToDel);
+					try{
+					events.usunAktualnosc(a);
+					//Nl.removeNewsFromLista(a.getId());
+					//pl.removeAll();
+					//Nl.addNewsListToPanel(pl);
+					//pl.repaint();
+					JOptionPane.showMessageDialog(null, events.getLastErrData());
+					CLExp.refreshActuals();
+					}catch(IOException eee){
+						
+					}catch (ClassNotFoundException eee){
+						
+					}
+					
+					
 				}
 			}
 		});
@@ -233,7 +270,7 @@ public class PanelNews extends JPanel implements ActionListener {
 	 * @return <b>void</b> - tworzy nowego newsa na końcu listy newsów (newsy należy dodawać od najnowszego - do najsterszego);
 	 */
 	public void addNews(News news){
-		addNews(news.getSubiect(), news.getData(), news.getKsiadz(), news.getContentHeight(), news.getContent());
+		addNews(news.getId(), news.getSubiect(), news.getData(), news.getKsiadz(), news.getContentHeight(), news.getContent());
 	}
 	
 	public void onClick(int numer){
@@ -292,6 +329,14 @@ public class PanelNews extends JPanel implements ActionListener {
 
 
 class News{
+	
+	public News(){
+		this.id = -1;
+		this.subiect="Brak aktualnosci";
+		this.content="";
+		this.contentHeight=10;
+		this.data=new Date();
+	}
 	/**
 	 * @param subiect - Temat / Tytuł newsu
 	 * @param data - data dodania newsu
@@ -300,8 +345,9 @@ class News{
 	 * @param content - Zawartość newsu w kodzie html
 	 * @return <b>void</b> - tworzy nowego newsa na końcu listy newsów (newsy należy dodawać od najnowszego - do najsterszego);
 	 */
-	public News(String subiect, Date data, String ksiadz, int contentHeight, String content) {
+	public News(int id, String subiect, Date data, String ksiadz, int contentHeight, String content) {
 		super();
+		this.id=id;
 		this.subiect = subiect;
 		this.data = data;
 		this.ksiadz = ksiadz;
@@ -314,11 +360,16 @@ class News{
 	private String ksiadz;
 	private int contentHeight;
 	private String content;
+	private int id;
 	
 	/**
 	 * pobiera Temat newsa
 	 * @return <b>String</b> - Temat / Tytuł newsu
 	 */
+	public int getId(){
+		return id;
+	}
+	
 	public String getSubiect() {
 		return subiect;
 	}
@@ -399,7 +450,8 @@ class News{
 
 
 
-class NewsList{	
+class NewsList{
+	PanelNews panelNews;
 	ArrayList<News> lista = new ArrayList<News>();
 	
 	public NewsList() {
@@ -417,7 +469,7 @@ class NewsList{
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public void generateNewsList(int num) throws IOException, ClassNotFoundException {
+	/*public void generateNewsList(int num) throws IOException, ClassNotFoundException {
 		for(int i=1 ;i<=num;i++){
 			if(i%5==1)addNews(new News("Aktualnosc 1", new Date(), "Zdzichu Kasprowicz", 56,"Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 1"));
 			if(i%5==2)addNews(new News("test News 2", new Date(), "Zdzichu Kowal", 56,"Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 2"));
@@ -425,7 +477,7 @@ class NewsList{
 			if(i%5==4)addNews(new News("test News 4", new Date(), "Zdzichu Kowal", 97,"Lorem ipsum -\n Zawarto\u015B\u0107 aktualno\u015Bci 4\n linijka 3\nlinijka 4\nlinijka 5"));
 			if(i%5==0)addNews(new News("Aktualnosc 5", new Date(), "Zdzichu Kasprowicz", 56,"Lorem ipsum - Zawarto\u015B\u0107 aktualno\u015Bci 5"));
 		}
-	}	
+	}*/	
 	
 	public void addNews(News news){
 		lista.add(news);
@@ -443,14 +495,34 @@ class NewsList{
 		lista.removeAll(lista);
 	}
 	
+	public void removeNewsFromLista(int i){
+		int index=0;
+		ListIterator<News> iterator = lista.listIterator();
+		while(iterator.hasNext()){
+			index++;
+			if(iterator.next().getId()==i){
+				lista.remove(index);
+				return;
+			}
+		}
+	}
+	
 	public void addNewsListToPanel(PanelNews panelNews){
+		if(lista.isEmpty()){
+			panelNews.addNews(new News());
+		}
+		panelNews.setNWList(lista);
 		ListIterator<News> iterator = lista.listIterator();
 		while(iterator.hasNext()){
 			panelNews.addNews(iterator.next());
 		}
 	}
 	
-	public boolean addNewsToPanel(PanelNews panelNews, int index){
+	
+	
+	public boolean addNewsToPanel(PanelNews panel, int index){
+		panelNews=panelNews;
+		
 		if(index<lista.size()){
 			panelNews.addNews(lista.get(index));
 			return true;

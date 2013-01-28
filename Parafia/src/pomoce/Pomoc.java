@@ -139,10 +139,14 @@ public class Pomoc {
 
 		String plik = fd.getFile();
 
-		if ((plik == null) || plik.length() == 0)
+		
+		
+		/*if ((plik == null) || plik.length() == 0)
 			plik = new Date().toLocaleString().substring(0, 10)
-					+ " - Wydruk (SZUK)";
+					+ " - Wydruk (SZUK)";*/
+		if ((plik == null) || plik.length() == 0) plik="";
 		// if(plik.substring(plik.length()-4).equals(".pdf"))
+		
 		System.out.println("directory    - " + katalog + plik);
 		return katalog + plik;
 	}

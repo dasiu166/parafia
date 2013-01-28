@@ -279,7 +279,7 @@ public class UserListPanel extends JPanel implements ActionListener{
 		
 		
 		
-		Parishioner user = new Parishioner();
+		/*Parishioner user = new Parishioner();
 		user.setName("Mariusz");
 		user.setSurName("Charczuk");
 		user.setPesel("90031105210");
@@ -294,7 +294,7 @@ public class UserListPanel extends JPanel implements ActionListener{
 		ksiadz.setRestriction(KindRestriction.LOGED_R);
 		ksiadz.setPossition("Wikary");
 		addUser(ksiadz);
-		userList.add(ksiadz);
+		userList.add(ksiadz);*/
 		
 		//listUsers();
 	}
@@ -524,11 +524,30 @@ public class UserListPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object z = e.getSource();
-		
+		boolean tryCatch=true;
 		if(z == btnApply){
 			
 			String pesel = getPesel();
 			
+			if(pesel.length()!=11){
+				JOptionPane.showMessageDialog(null, "Nieprawidlowy pesel");
+			}
+			
+			if(pesel.contains(".")){
+				JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+			    return ;
+			} else {
+				try{
+					Double.parseDouble(pesel);
+					
+				}catch(NumberFormatException ee){
+					JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+				    //return false;
+					tryCatch=false;
+				}
+			}
+			
+			if(!tryCatch) return;
 			
 			try{
 			this.resetUserListPanel();
@@ -547,13 +566,42 @@ public class UserListPanel extends JPanel implements ActionListener{
 		
 		if(z==btnPdf){
 			
+			if(userList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Lista pusta");
+				return;
+			}
+			
 			PdfCreator pdf = new PdfCreator();
 			//pdf.createPersonDataPdf(userList, Pomoc.saveFileWindow());
 		}
 		
 		if(z==btnDodajDoListy){
+			boolean tryCatch2=true;
 			try{
 				String pesel = getPesel();
+				
+				if(pesel.length()!=11){
+					JOptionPane.showMessageDialog(null, "Nieprawidlowy pesel");
+				}
+				
+				if(pesel.contains(".")){
+					JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+				    return ;
+				} else {
+					try{
+						Double.parseDouble(pesel);
+						
+					}catch(NumberFormatException ee){
+						JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+					    //return false;
+						tryCatch2=false;
+					}
+				}
+				
+				if(!tryCatch2) return;
+				
+				
+				
 				//this.resetUserListPanel();
 				//userList = events.wyszukajPesel(pesel);
 				Person u;
