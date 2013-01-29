@@ -161,7 +161,7 @@ public class CardLayoutExp extends JFrame {
       	
 		Zegar lblTime = new Zegar();
 		lblTime.setAutoscrolls(true);
-		lblTime.setIcon(new ImageIcon("C:\\Documents and Settings\\hp\\git\\parafia\\Parafia\\icons\\Clock-icon.png"));
+		lblTime.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/Clock-icon.png")));
 		lblTime.start();
 		lblTime.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
         
@@ -268,7 +268,7 @@ public class CardLayoutExp extends JFrame {
 		UIManager.LookAndFeelInfo[] lnfs = UIManager.getInstalledLookAndFeels();
 
 		ButtonGroup lnfGroup = new ButtonGroup();
-		JMenu menuLookFeel = new JMenu("Look&Feel");
+		JMenu menuLookFeel = new JMenu("Widok");
 		menuLookFeel.setMnemonic('L');
 
 		menuBar.add(menuLookFeel);
@@ -534,6 +534,7 @@ public class CardLayoutExp extends JFrame {
 		mnDaneAdd.add(mntmAddnewpriest);
 		
 		JMenuItem mntmListaUrzytkownikw = new JMenuItem("Lista Urzytkownik\u00F3w");
+		mntmListaUrzytkownikw.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/contact-list-icon.png")));
 		mntmListaUrzytkownikw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(panelContent, "userList");

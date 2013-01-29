@@ -70,7 +70,7 @@ CREATE TABLE Orderr  (
   id_event NUMBER,
   odprawiajacy_pesel NUMBER(11),
   zamawiajacy_pesel NUMBER(11),
-  describe VARCHAR2(300),
+  describe VARCHAR2(400),
   status VARCHAR2(15),
   beginD DATE,
   endD DATE,

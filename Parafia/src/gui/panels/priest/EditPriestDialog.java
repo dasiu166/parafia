@@ -31,7 +31,7 @@ import javax.swing.border.EmptyBorder;
 import obsluga.Adress;
 import obsluga.Priest;
 
-public class EditPriestDialog extends JDialog implements ActionListener{
+public class EditPriestDialog extends JDialog implements ActionListener {
 
 	private final JScrollPane scrollContentPanel = new JScrollPane();
 	private Priest priest;
@@ -68,108 +68,120 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 
 	/**
 	 * Create the dialog.
+	 * 
 	 * @wbp.parser.constructor
 	 */
-	public EditPriestDialog(JFrame owner, Priest priest){
+	public EditPriestDialog(JFrame owner, Priest priest) {
 		this(owner);
 		setPriestData(priest);
 	}
+
 	public EditPriestDialog(JFrame owner) {
 		super(owner, "Edycja Ksiêdza", true);
 		setResizable(false);
 		setBounds(100, 100, 494, 576);
 		BorderLayout borderLayout = new BorderLayout();
 		getContentPane().setLayout(borderLayout);
-		scrollContentPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollContentPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollContentPanel
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollContentPanel
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollContentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(scrollContentPanel, BorderLayout.CENTER);
-		
+
 		JPanel panelContent = new JPanel();
 		scrollContentPanel.setViewportView(panelContent);
-		
+
 		JLabel label_Data_ = new JLabel("Dane");
 		label_Data_.setHorizontalAlignment(SwingConstants.CENTER);
 		label_Data_.setForeground(new Color(128, 0, 128));
-		label_Data_.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
-		
+		label_Data_.setFont(new Font("Times New Roman",
+				Font.BOLD | Font.ITALIC, 20));
+
 		JLabel lblName_ = new JLabel("Imie:");
 		lblName_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		textName = new JTextField();
 		textName.setColumns(10);
-		
+
 		JLabel lblSurname_ = new JLabel("Nazwisko:");
 		lblSurname_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		textSurname = new JTextField();
 		textSurname.setColumns(10);
-		
+
 		JLabel lblPesel_ = new JLabel("pesel:");
 		lblPesel_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		textPesel = new JTextField();
+		textPesel.setEditable(false);
 		textPesel.setColumns(10);
-		
+
 		JLabel label_Address = new JLabel("Adres");
 		label_Address.setHorizontalAlignment(SwingConstants.CENTER);
 		label_Address.setForeground(new Color(128, 0, 128));
-		label_Address.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
-		
+		label_Address.setFont(new Font("Times New Roman", Font.BOLD
+				| Font.ITALIC, 20));
+
 		JLabel lblCity_ = new JLabel("Miasto:");
 		lblCity_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		textCity = new JTextField();
 		textCity.setColumns(10);
-		
+
 		JLabel lblStreet_ = new JLabel("Ulica:");
 		lblStreet_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		textStreet = new JTextField();
 		textStreet.setColumns(10);
-		
+
 		JLabel lblHomeNr_ = new JLabel("Nr domu/mieszkania:");
 		lblHomeNr_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		textHomeNr = new JTextField();
 		textHomeNr.setColumns(10);
-		
+
 		JLabel lblPostCode_ = new JLabel("Kod pocztowy:");
 		lblPostCode_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		textPostCode = new JTextField();
 		textPostCode.setColumns(10);
-		
+
 		JLabel lblSecularity_ = new JLabel("Data \u015Awi\u0119ce\u0144:");
 		lblSecularity_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		dateSecularity = new JDateChooser(true);
-		
+
 		JLabel label_Other_ = new JLabel("Inne");
 		label_Other_.setHorizontalAlignment(SwingConstants.CENTER);
 		label_Other_.setForeground(new Color(128, 0, 128));
-		label_Other_.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
-		
+		label_Other_.setFont(new Font("Times New Roman", Font.BOLD
+				| Font.ITALIC, 20));
+
 		JLabel lblPosition_ = new JLabel("Stanowisko:");
 		lblPosition_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		JLabel lblBeginWork_ = new JLabel("Data Przybycia:");
 		lblBeginWork_.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		comboPosition = new JComboBox();
-		comboPosition.setModel(new DefaultComboBoxModel(new String[] {"Wikary", "Proboszcz"}));
-		
+		comboPosition.setModel(new DefaultComboBoxModel(new String[] {
+				"Wikary", "Proboszcz" }));
+
 		dateBeginWork = new JDateChooser(true);
-		
+
 		btnInne = new JButton("Aktualizuj");
+		btnInne.setIcon(new ImageIcon(EditPriestDialog.class.getResource("/icons/sign-up-icon.png")));
 		btnInne.addActionListener(this);
-		
+
 		btnAdres = new JButton("Aktualizuj");
+		btnAdres.setIcon(new ImageIcon(EditPriestDialog.class.getResource("/icons/sign-up-icon.png")));
 		btnAdres.addActionListener(this);
-		
+
 		btnDane = new JButton("Aktualizuj");
+		btnDane.setIcon(new ImageIcon(EditPriestDialog.class.getResource("/icons/sign-up-icon.png")));
 		btnDane.addActionListener(this);
-		
+
 		GroupLayout gl_panelContent = new GroupLayout(panelContent);
 		gl_panelContent.setHorizontalGroup(
 			gl_panelContent.createParallelGroup(Alignment.LEADING)
@@ -208,7 +220,7 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 									.addComponent(textName, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panelContent.createSequentialGroup()
 									.addGap(14)
-									.addComponent(btnDane)
+									.addComponent(btnDane, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(label_Data_, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_panelContent.createSequentialGroup()
@@ -217,13 +229,13 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 							.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelContent.createSequentialGroup()
 							.addGap(19)
-							.addComponent(btnAdres)
-							.addGap(18)
+							.addComponent(btnAdres, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelContent.createSequentialGroup()
 							.addGap(23)
-							.addComponent(btnInne)
-							.addGap(18)
+							.addComponent(btnInne, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelContent.createSequentialGroup()
 							.addContainerGap()
@@ -257,8 +269,8 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 						.addComponent(textPesel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(48)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnAdres)
-						.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+						.addComponent(label_Address, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAdres))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.LEADING)
 						.addComponent(textCity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -283,8 +295,8 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 						.addComponent(textPostCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnInne)
-						.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+						.addComponent(label_Other_, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnInne))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelContent.createParallelGroup(Alignment.TRAILING)
 						.addComponent(dateSecularity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -306,47 +318,53 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnReset = new JButton("Reset");
-				btnReset.setIcon(new ImageIcon(AddNewParishionerPanel.class.getResource("/icons/reset.png")));
+				btnReset.setIcon(new ImageIcon(AddNewParishionerPanel.class
+						.getResource("/icons/reset.png")));
 				btnReset.addActionListener(this);
 				buttonPane.add(btnReset);
 			}
 			{
 				btnCansel = new JButton("Cancel");
-				btnCansel.setIcon(new ImageIcon(EditPriestDialog.class.getResource("/icons/cancel-icon.png")));
+				btnCansel.setIcon(new ImageIcon(EditPriestDialog.class
+						.getResource("/icons/cancel-icon.png")));
 				btnCansel.addActionListener(this);
 				btnCansel.setActionCommand("Cancel");
 				buttonPane.add(btnCansel);
 			}
 		}
 	}
-	
-	public void setPriestData(Priest priest){
+
+	public void setPriestData(Priest priest) {
 		this.priest = priest;
 		resetPriestData();
 	}
-	
-	private void resetPriestData(){
+
+	private void resetPriestData() {
 		clearPriestPanel();
 		textName.setText(priest.getName());
 		textSurname.setText(priest.getSurName());
 		textPesel.setText(priest.getPesel());
-		if(priest.getAdress() != null){
+		if (priest.getAdress() != null) {
 			textCity.setText(priest.getAdress().getCity());
 			textStreet.setText(priest.getAdress().getStreet());
 			textHomeNr.setText(priest.getAdress().getHouse());
 			textPostCode.setText(priest.getAdress().getPostcode());
 		}
 		Date date = priest.getSecularityDate();
-		if(date != null) dateSecularity.setDate(date);		
+		if (date != null)
+			dateSecularity.setDate(date);
 		date = priest.getArrivalDate();
-		if(date != null) dateBeginWork.setDate(date);
+		if (date != null)
+			dateBeginWork.setDate(date);
 		int i = -1;
-		if(priest.getPosition().compareTo("Wikary") == 0) i=0;
-		else if(priest.getPosition().compareTo("Proboszcz") == 0) i=1;
+		if (priest.getPosition().compareTo("Wikary") == 0)
+			i = 0;
+		else if (priest.getPosition().compareTo("Proboszcz") == 0)
+			i = 1;
 		comboPosition.setSelectedIndex(i);
 	}
-	
-	private void clearPriestPanel(){
+
+	private void clearPriestPanel() {
 		textName.setText("");
 		textSurname.setText("");
 		textPesel.setText("");
@@ -358,108 +376,83 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		dateBeginWork.setEmpty();
 		comboPosition.setSelectedIndex(-1);
 	}
-	
-	public Priest getPriestEdited(){
-		boolean tryCatch=true;
-		int i=0;
-		if(textName.getText().length()<3){
-			JOptionPane.showMessageDialog(null, "Za krótkie imiê (min 3 znaki)");
+
+	public Priest getPriestEdited() {
+		boolean tryCatch = true;
+		int i = 0;
+		priest.setName(textName.getText());
+
+		priest.setSurName(textSurname.getText());
+
+		if ((textPesel.getText().length() < 11)
+				|| (textPesel.getText().length() > 11)) {
+			JOptionPane.showMessageDialog(null, "Pesel musi mieæ 11 liczb");
 			priest.setData("ERR");
 			return priest;
-		} else priest.setName(textName.getText());
-		
-		if(textSurname.getText().length()<2){
-			JOptionPane.showMessageDialog(null, "Za krótkie nazwisko (min 2 znaki)");
-			priest.setData("ERR");
-			return priest;
-		} else priest.setSurName(textSurname.getText());
-		
-		
-		if((textPesel.getText().length()<11)||(textPesel.getText().length()>11)){
-		    JOptionPane.showMessageDialog(null, "Pesel musi mieæ 11 liczb");
-		    priest.setData("ERR");
-			return priest;
-		}else 
-		if(textPesel.getText().contains(".")){
-			JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+		} else if (textPesel.getText().contains(".")) {
+			JOptionPane.showMessageDialog(null,
+					"Pesel mo¿e zawieraæ tylko liczby");
 			priest.setData("ERR");
 			return priest;
 		} else {
-			try{
+			try {
 				Double.parseDouble(textPesel.getText());
-				
-			}catch(NumberFormatException e){
-				JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
-			    //return false;
-				tryCatch=false;
+
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null,
+						"Pesel mo¿e zawieraæ tylko liczby");
+				// return false;
+				tryCatch = false;
 				priest.setData("ERR");
 				return priest;
 			}
 		}
-		
-		if(!tryCatch) {
+
+		if (!tryCatch) {
 			priest.setData("ERR");
 			return priest;
-		} else priest.setPesel(textPesel.getText());
-		
-		
-		if(priest.getAdress() == null) priest.setAdress(new Adress());
-		
-		
-		if(textCity.getText().length()<2){
-			JOptionPane.showMessageDialog(null, "Nazwa miasta jest za krótka (min 2 znaki)");
-			priest.setData("ERR");
-			return priest;
-		} else priest.getAdress().setCity(textCity.getText());
-		
-		
-		if(textStreet.getText().length()<2){
-			JOptionPane.showMessageDialog(null, "Nazwa ulicy jest za krótka (min 2 znaki)");
-			priest.setData("ERR");
-			return priest;
-		}else priest.getAdress().setStreet(textStreet.getText());
-		
+		} else
+			priest.setPesel(textPesel.getText());
+
+		if (priest.getAdress() == null)
+			priest.setAdress(new Adress());
+
+		priest.getAdress().setCity(textCity.getText());
+
+		priest.getAdress().setStreet(textStreet.getText());
+
 		priest.getAdress().setHouseNumb(textHomeNr.getText());
-		
-		if(textPostCode.getText().length()<6){
-			JOptionPane.showMessageDialog(null, "Kod pocztowy jest za krótki (min 6 znaki)");
-			priest.setData("ERR");
-			return priest;
-		}else priest.getAdress().setPostcode(textPostCode.getText());
-		
-		
-		i = dateSecularity.getDate().compareTo(new Date()); 
-		if(i>0){
-			JOptionPane.showMessageDialog(null, "Data œwiêceñ jest b³edna \n" +
-					"Taki dzien jeszcze nie nast¹pi³");
-			priest.setData("ERR");
-			return priest;
-		} else priest.setSecularityDate((!dateSecularity.isEmpty())?dateSecularity.getDate():null);
-		
-		if(dateBeginWork.getDate().compareTo(dateSecularity.getDate())<0){
-			JOptionPane.showMessageDialog(null, "Data przybycia jest przed dat¹ œwiêceñ");
-			priest.setData("ERR");
-			return priest;
-		} else priest.setArrivalDate((!dateBeginWork.isEmpty())?dateBeginWork.getDate():null);
-		priest.setPossition((String)comboPosition.getSelectedItem());
-		
+
+		priest.getAdress().setPostcode(textPostCode.getText());
+
+		priest.setSecularityDate((!dateSecularity.isEmpty()) ? dateSecularity
+				.getDate() : null);
+
+		priest.setArrivalDate((!dateBeginWork.isEmpty()) ? dateBeginWork
+				.getDate() : null);
+		priest.setPossition((String) comboPosition.getSelectedItem());
+
 		priest.setData("");
 		return priest;
 	}
-	
-	public boolean isOk(){
+
+	public boolean isOk() {
 		return isOk;
 	}
-	public boolean isDane(){
+
+	public boolean isDane() {
 		return isDane;
 	}
-	public boolean isAdres(){
+
+	public boolean isAdres() {
 		return isAdres;
 	}
-	public boolean isInne(){
+
+	public boolean isInne() {
 		return isInne;
 	}
-	public boolean isCansel(){
+
+	public boolean isCansel() {
 		return isCansel;
 	}
 
@@ -468,27 +461,30 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		Object z = arg0.getSource();
 		isOk = false;
 		isCansel = false;
-		isDane=false;
-		isInne=false;
-		isAdres=false;
-		if(z == btnCansel){
+		isDane = false;
+		isInne = false;
+		isAdres = false;
+		if (z == btnCansel) {
 			isCansel = true;
 			setVisible(false);
-		}else if(z == btnReset){
+		} else if (z == btnReset) {
 			resetPriestData();
-		}else if(z == btnInne){
-			if(this.getPriestEdited().getData().equals("ERR")) return;
+		} else if (z == btnInne) {
+			if (this.getPriestEdited().getData().equals("ERR"))
+				return;
 			isInne = true;
 			setVisible(false);
-		}else if(z == btnAdres){
-			if(this.getPriestEdited().getData().equals("ERR")) return;
+		} else if (z == btnAdres) {
+			if (this.getPriestEdited().getData().equals("ERR"))
+				return;
 			isAdres = true;
 			setVisible(false);
-		}else if(z == btnDane){
-			if(this.getPriestEdited().getData().equals("ERR")) return;
+		} else if (z == btnDane) {
+			if (this.getPriestEdited().getData().equals("ERR"))
+				return;
 			isDane = true;
 			setVisible(false);
 		}
-		
+
 	}
 }

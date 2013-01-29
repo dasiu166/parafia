@@ -153,7 +153,7 @@ public class Serwer extends Thread {
 				Socket socket = serwerSocket.accept(); // oczekiwanie na nadejscie polaczenia
 				
 				try {
-				
+					serwerConnList.add(socket);
 				//LOG
 				Serwer.saveLog("Nowy watek");
 				//LOG_END

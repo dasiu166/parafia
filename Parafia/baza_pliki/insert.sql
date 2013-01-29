@@ -64,24 +64,24 @@ INSERT INTO Course VALUES(seq_course.nextval,to_date('03/14/1959','mm/dd/yyyy'),
 
 
 ------------Userr------------
-INSERT INTO Userr VALUES(seq_userr.nextval,'ania','an11',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'ania1','an111',2,22);
 INSERT INTO Userr VALUES(seq_userr.nextval,'krzys','krz22',2,22);
-INSERT INTO Userr VALUES(seq_userr.nextval,'mario','ma33',2,22);
-INSERT INTO Userr VALUES(seq_userr.nextval,'tadek','ta44',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'mario','ma333',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'tadek','ta444',2,22);
 --ksiadz
 INSERT INTO Userr VALUES(seq_userr.nextval,'pop_master','pop55',4,44);
-INSERT INTO Userr VALUES(seq_userr.nextval,'pop2','pop66',3,33);
-INSERT INTO Userr VALUES(seq_userr.nextval,'pop3','pop77',3,33);
+INSERT INTO Userr VALUES(seq_userr.nextval,'pop22','pop66',3,33);
+INSERT INTO Userr VALUES(seq_userr.nextval,'pop33','pop77',3,33);
 --/ksiadz
 
 INSERT INTO Userr VALUES(seq_userr.nextval,'malgos','mal88',2,22);
 INSERT INTO Userr VALUES(seq_userr.nextval,'marek','mar99',2,22);
 INSERT INTO Userr VALUES(seq_userr.nextval,'julia','jul10',2,22);
-INSERT INTO Userr VALUES(seq_userr.nextval,'stas','sta11',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'stas1','sta11',2,22);
 INSERT INTO Userr VALUES(seq_userr.nextval,'kacper','kac12',2,22);
 INSERT INTO Userr VALUES(seq_userr.nextval,'michal','mich13',2,22);
 INSERT INTO Userr VALUES(seq_userr.nextval,'szymon','szym14',2,22);
-INSERT INTO Userr VALUES(seq_userr.nextval,'maja','maj15',2,22);
+INSERT INTO Userr VALUES(seq_userr.nextval,'maja1','maj15',2,22);
 
 
 
@@ -130,10 +130,15 @@ INSERT INTO Priest VALUES('69010566803',6,5,'Jan','Wojciechowski','Wikary',to_da
 INSERT INTO Priest VALUES('79020554812',7,5,'Wojciech','Drozdowicz','Wikary',to_date('04/05/2008','mm/dd/yyyy'),to_date('10/24/2001','mm/dd/yyyy'));
 
 ------------Orderr------------
-INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla mojego syna','NEW',to_date('07/15/2012','mm/dd/yyyy'),to_date('07/15/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Msza za zmarlych','NEW',to_date('12/20/2012','mm/dd/yyyy'),to_date('12/20/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'59040665847','91031254875','Gregorianka w intencji babci i dziadka','NEW',to_date('12/21/2012','mm/dd/yyyy'),to_date('12/21/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla trzech córek','NEW',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla mojego syna','Nowy',to_date('07/15/2012 10:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Msza za zmarlych','Nowy',to_date('12/20/2012 12:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/20/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'59040665847','91031254875','Gregorianka w intencji babci i dziadka','Nowy',to_date('12/21/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/21/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla trzech córek','Nowy',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
+
+INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'79020554812','11031254796','Chrzest dla córki - wybrane imiê Magdalena','Nowy',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Msza za œw. pamiêcie Jacka Dorote Trzaskalskich','Nowy',to_date('12/20/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/20/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'79020554812','91031254875','Gregorianka w intencji rodziców','Nowy',to_date('12/21/2012 16:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/21/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla syna - Stanis³aw','Nowy',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
 
 
 ------------Actuals-----------

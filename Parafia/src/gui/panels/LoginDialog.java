@@ -78,39 +78,6 @@ public class LoginDialog extends JDialog implements ActionListener{
 		bCansel.setBounds(162, 114, 97, 28);
 		bCansel.setActionCommand("Cancel");
 		getContentPane().add(bCansel);
-		
-		JButton btnParishioner = new JButton("Parishioner");
-		btnParishioner.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setLoginData("ania", "an11");
-				okData = true;
-				setVisible(false);
-			}
-		});
-		btnParishioner.setBounds(10, 158, 89, 23);
-		getContentPane().add(btnParishioner);
-		
-		JButton btnWorker = new JButton("Worker");
-		btnWorker.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setLoginData("pop2", "pop66");
-				okData = true;
-				setVisible(false);
-			}
-		});
-		btnWorker.setBounds(109, 158, 76, 23);
-		getContentPane().add(btnWorker);
-		
-		JButton btnGood = new JButton("Good");
-		btnGood.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setLoginData("pop_master", "pop55");
-				okData = true;
-				setVisible(false);
-			}
-		});
-		btnGood.setBounds(195, 158, 89, 23);
-		getContentPane().add(btnGood);
 		bCansel.addActionListener(this);
 	}
 
