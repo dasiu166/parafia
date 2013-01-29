@@ -39,3 +39,49 @@
 2013-01-29 15:23:09: SERWER -> Nowy watek
 2013-01-29 15:23:09: SERWER -> Zamkniecie serwera
 2013-01-29 15:23:09: SERWER -> Port zajety
+2013-01-29 17:35:47: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 17:35:47: SERWER -> Polaczono z baza danych
+2013-01-29 17:35:47: SERWER -> Nowy watek
+2013-01-29 17:35:47: SERWER -> Nowy watek
+2013-01-29 18:49:35: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 18:49:35: SERWER -> Polaczono z baza danych
+2013-01-29 18:49:35: SERWER -> Nowy watek
+2013-01-29 19:02:13: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 19:02:13: SERWER -> Polaczono z baza danych
+2013-01-29 19:02:13: SERWER -> Nowy watek
+2013-01-29 19:23:26: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 19:23:26: SERWER -> Polaczono z baza danych
+2013-01-29 19:23:26: SERWER -> Nowy watek
+2013-01-29 19:24:51: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 19:24:51: SERWER -> Polaczono z baza danych
+2013-01-29 19:24:51: SERWER -> Nowy watek
+2013-01-29 19:24:51: SERWER -> Nowy watek
+2013-01-29 19:24:51: SERWER -> Nowy watek
+2013-01-29 19:24:51: SERWER -> Nowy watek
+2013-01-29 19:40:27: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 19:40:27: SERWER -> Polaczono z baza danych
+2013-01-29 19:40:27: SERWER -> Nowy watek
+2013-01-29 19:40:27: SERWER -> Zamkniecie serwera
+2013-01-29 19:40:27: SERWER -> Port zajety
+2013-01-29 19:48:48: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 19:48:48: SERWER -> Polaczono z baza danych
+2013-01-29 19:48:48: SERWER -> Nowy watek
+2013-01-29 20:05:19: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 20:05:19: SERWER -> Polaczono z baza danych
+2013-01-29 20:05:19: SERWER -> Nowy watek
+2013-01-29 20:05:19: SERWER -> Nowy watek
+2013-01-29 20:05:19: SERWER -> Nowy watek
+2013-01-29 20:05:19: SERWER -> Nowy watek
+2013-01-29 20:05:19: SERWER -> Nowy watek
+2013-01-29 20:46:44: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 20:46:44: SERWER -> Polaczono z baza danych
+2013-01-29 20:46:44: SERWER -> Nowy watek
+2013-01-29 20:46:44: SERWER -> Nowy watek
+2013-01-29 20:46:44: SERWER -> Zamkniecie serwera
+2013-01-29 20:46:44: SERWER -> Port zajety
+2013-01-29 21:00:07: SERWER -> Serwer uruchomiony - Port: 2000
+2013-01-29 21:00:07: SERWER -> Polaczono z baza danych
+2013-01-29 21:00:07: SERWER -> Nowy watek
+2013-01-29 21:00:07: SERWER -> Nowy watek
+2013-01-29 21:00:07: SERWER -> Zamkniecie serwera
+2013-01-29 21:00:07: SERWER -> Port zajety

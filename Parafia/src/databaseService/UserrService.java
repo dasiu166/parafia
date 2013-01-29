@@ -92,7 +92,7 @@ public class UserrService extends ServicePart  {
 					//koniec znalezienia usera 
 				} else {
 					//##BLAD LOGOWANIA
-					((User) wiadomosc).setData("Nie ma takiego uzytkownika");
+					((User) wiadomosc).setData("Zly login/haslo");
 					 ((User) wiadomosc).setQuery("ERR");
 					 s.sendObject(wiadomosc);
 					 //LOG------------------------------
@@ -175,7 +175,7 @@ public class UserrService extends ServicePart  {
 				 
 				 } else {
 					 ((User) wiadomosc).setQuery("ERR");
-					 ((User) wiadomosc).setData("Uzytkownik juz istnieje");
+					 ((User) wiadomosc).setData("Taki uzytkownik juz jest (Pesel lub login ju¿ istniej¹)");
 					 System.out.println("Taki uzytkownik juz jest");
 				 } 
 				 

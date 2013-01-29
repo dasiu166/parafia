@@ -57,8 +57,24 @@ public class PriestService extends ServicePart {
 					 if(!tmp[0].equals("ERR")){
 						 Priest tmppr = new Priest();
 						 tmppr.setPesel(tmp[0]);
+						 
 						 tmppr.setName(tmp[3]);
 						 tmppr.setSurName(tmp[4]);
+						 tmppr.setPossition(tmp[5]);
+						 tmppr.setArrivalDate(Pomoc.podajDate(tmp[6].substring(0,10)));
+						 tmppr.setSecularityDate(Pomoc.podajDate(tmp[7].substring(0,10)));
+						 
+						 dbReturn1 = db.execSelectQuery("Select * from Adress where id_adress="+tmp[2]);
+						 String tmpad[] = dbReturn1.getFirst();
+						 Adress a = new Adress();
+						 a.setId(Integer.parseInt(tmpad[0]));
+						 a.setCity(tmpad[1]);
+						 a.setStreet(tmpad[2]);
+						 a.setHouseNumb(tmp[3]);
+						 a.setPostcode(tmpad[4]);
+						 
+						 tmppr.setAdress(a);
+						 
 						 lpr.add(tmppr);
 					 } else {
 						 Priest tmppr = new Priest();
@@ -119,7 +135,7 @@ public class PriestService extends ServicePart {
 
 			if (dbReturnInt == 0) {
 				((Priest) wiadomosc).setQuery("ERR");
-				((Priest) wiadomosc).setData("Taki pesel juz jest");
+				((Priest) wiadomosc).setData("Taki uzytkownik juz jest (Pesel lub login ju¿ istniej¹)");
 				System.out.println("UZYCIE KOPII=======" + db.useSavePoint());
 			
 			} else {

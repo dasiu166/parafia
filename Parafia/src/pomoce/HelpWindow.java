@@ -66,7 +66,7 @@ public void actionPerformed(ActionEvent e) {
             tempURL = editorpane.getPage();
             editorpane.setPage(helpURL);
         }
-        if (strAction == "Close") {
+        if (strAction == "Zamknij") {
          // more portable if delegated
            processWindowEvent(new WindowEvent(this,
             WindowEvent.WINDOW_CLOSING));

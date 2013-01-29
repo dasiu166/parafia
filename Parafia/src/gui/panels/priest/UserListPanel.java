@@ -529,12 +529,31 @@ public class UserListPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object z = e.getSource();
 		boolean tryCatch=true;
+		
+		
 		if(z == btnApply){
 			
 			String pesel = getPesel();
 			
-			if(pesel.length()!=11){
+			if((pesel.isEmpty())||(pesel.length()==0)){
+				try{
+				this.resetUserListPanel();
+				userList = events.pobierzWszystkich();
+				}catch(ClassNotFoundException eee){
+					
+				}catch(IOException eee){
+					
+				}
+				
+				listUsers(false);
+				text_Pesel.setText("");
+				return;
+				
+			}
+			
+			if((pesel.length()>0)&&(pesel.length()<11)){
 				JOptionPane.showMessageDialog(null, "Nieprawidlowy pesel");
+				return;
 			}
 			
 			if(pesel.contains(".")){
@@ -758,7 +777,9 @@ class ObserwatorStanSortowania implements Obserwowany
     		if(obserwator.getStan() == StanSortowania.IMG_UP){
 		    	for(int j=0;j<userArray.length-1;j++)
 			    	for(int i=1; i<userArray.length;i++){
-			    		if(userArray[i-1].getRestriction() < userArray[i].getRestriction()){
+			    		if(
+			    			userArray[i-1] instanceof Priest) {
+			    			//userArray[i-1].getRestriction() < userArray[i].getRestriction()){
 			    			tmp = userArray[i-1];
 			    			userArray[i-1] = userArray[i];
 			    			userArray[i] = tmp;
@@ -767,7 +788,8 @@ class ObserwatorStanSortowania implements Obserwowany
     		} else {
 		    	for(int j=0;j<userArray.length-1;j++)
 			    	for(int i=1; i<userArray.length;i++){
-			    		if(userArray[i-1].getRestriction() > userArray[i].getRestriction()){
+			    		if(userArray[i-1] instanceof Parishioner) {
+			    			//userArray[i-1].getRestriction() > userArray[i].getRestriction()){
 			    			tmp = userArray[i-1];
 			    			userArray[i-1] = userArray[i];
 			    			userArray[i] = tmp;

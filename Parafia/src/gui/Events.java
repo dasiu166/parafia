@@ -359,6 +359,53 @@ public class Events {
 
 		return personList;
 	}
+	
+	public LinkedList<Person> pobierzWszystkich()throws IOException,
+	ClassNotFoundException{
+		
+		LinkedList<Person> personList = new LinkedList<Person>();
+		Priest pr = new Priest();
+		pr.setKindQuery(KindQuery.SEL_DBASE);
+		
+		pr.setQuery("Select * from priest");
+
+		if (!k.sendObject(pr)) {
+			this.connectionError();
+		}
+		k.setNullPackage();
+		k.reciveObject();
+		
+		LinkedList<Person> p = (LinkedList<Person>)k.getPackage();
+		personList.addAll(p);
+		
+		Parishioner par = new Parishioner();
+		
+		par.setKindQuery(KindQuery.SEL_DBASE);
+		par.setQuery("Select * from parishioner");
+		System.out.println(par.getQuery());
+		if (!k.sendObject(par)) {
+			this.connectionError();
+		}
+		k.setNullPackage();
+		k.reciveObject();
+		
+		LinkedList<Person> pa = (LinkedList<Person>)k.getPackage();
+		Iterator<Person> it = pa.iterator();
+		while(it.hasNext()){
+			Iterator<Person> pl = personList.iterator();
+			Person para = it.next();
+			boolean is=false;	
+			while(pl.hasNext()){
+			
+				if(pl.next().getPesel().equals(para.getPesel())){
+					is=true;
+				}
+			}
+			if(!is) personList.add(para);
+		}
+		
+	return personList;
+	}
 
 	// ####################### OPERACJE NA DANYCH
 	// ################################

@@ -274,7 +274,7 @@ public class CardLayoutExp extends JFrame {
 		menuBar.add(menuLookFeel);
 
 		for (int i = 0; i < lnfs.length; i++) {
-			if (!lnfs[i].getName().equals("CDE/Motif")) {
+			if ((!lnfs[i].getName().equals("CDE/Motif"))&& (!lnfs[i].getName().equals("Nimbus")) ) {
 				JRadioButtonMenuItem rbmi = new JRadioButtonMenuItem(
 						lnfs[i].getName());
 				menuLookFeel.add(rbmi);
@@ -533,7 +533,7 @@ public class CardLayoutExp extends JFrame {
 		//JOptionPane.showMessageDialog(null, events.getRestriction());
 		mnDaneAdd.add(mntmAddnewpriest);
 		
-		JMenuItem mntmListaUrzytkownikw = new JMenuItem("Lista Urzytkownik\u00F3w");
+		JMenuItem mntmListaUrzytkownikw = new JMenuItem("Lista U\u017Cytkownik\u00F3w");
 		mntmListaUrzytkownikw.setIcon(new ImageIcon(CardLayoutExp.class.getResource("/icons/contact-list-icon.png")));
 		mntmListaUrzytkownikw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -573,7 +573,7 @@ public class CardLayoutExp extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					//JOptionPane.showMessageDialog(null, "Projekt z In¿ynierii Programowania\nProwadz¹cy:\n       prof. zw. dr hab. in¿. Krzysztof Sapiecha\nZespó³:\n       Mariusz Charczuk\n       Pawe³ Dziarmaga\n       Grzegorz Chrab¹szcz\n       Ewiak Piotr", "O Programie",JOptionPane.PLAIN_MESSAGE);
 					URL index = ClassLoader.getSystemResource("Help/index.html");
-				    new HelpWindow("Test", index);
+				    new HelpWindow("Pomoc programu Parvus Templum ", index);
 				}
 			});
 			//mnPomocOProgramie.setAccelerator(KeyStroke.getKeyStroke("F1"));

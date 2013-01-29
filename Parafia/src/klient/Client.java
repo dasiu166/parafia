@@ -144,17 +144,19 @@ public class Client implements KindQuery, KindRange, KindRestriction {
 		
 		Events ev = Events.getInstance();
 		
+		System.out.println("Liczba zarejestrowany= "+ev.pobierzWszystkich().size());
+		
 		/*Parishioner p = new Parishioner();
 		p.setPesel("11031254796");
 		p.setName("NowaAnia");
 		p.setSurName("NowaCiosk");
 		ev.updateParishioner(p);*/
 		
-		Priest pr = new Priest();
+		/*Priest pr = new Priest();
 		pr.setPesel("69010566803");
 		pr.setName("NowyJan");
 		pr.setSurName("NoweNazwisko");
-		ev.updatePriest(pr);
+		ev.updatePriest(pr);*/
 		
 		/*Adress a = new Adress();
 		a.setId(1);

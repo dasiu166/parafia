@@ -104,8 +104,8 @@ INSERT INTO Event VALUES(5,'Gregorianka','Trzydzieœci mszy œwiêtych odprawianych
 
 ------------Parishioner------------
 INSERT INTO Parishioner VALUES('11031254796',2,1,1,'Anna','Ciosk');
-INSERT INTO Parishioner VALUES('08031223846',3,2,2,'Krzysztof','Kowalski');
-INSERT INTO Parishioner VALUES('00031268745',4,3,3,'Mariusz','Piotrowski');
+INSERT INTO Parishioner VALUES('18031223846',3,2,2,'Krzysztof','Kowalski');
+INSERT INTO Parishioner VALUES('10031268745',4,3,3,'Mariusz','Piotrowski');
 INSERT INTO Parishioner VALUES('91031254875',5,4,4,'Tadeusz','Maliniak');
 
 ---PR--
@@ -131,12 +131,12 @@ INSERT INTO Priest VALUES('79020554812',7,5,'Wojciech','Drozdowicz','Wikary',to_
 
 ------------Orderr------------
 INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla mojego syna','Nowy',to_date('07/15/2012 10:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Msza za zmarlych','Nowy',to_date('12/20/2012 12:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/20/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','10031268745','Msza za zmarlych','Nowy',to_date('12/20/2012 12:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/20/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'59040665847','91031254875','Gregorianka w intencji babci i dziadka','Nowy',to_date('12/21/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/21/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla trzech córek','Nowy',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
 
 INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'79020554812','11031254796','Chrzest dla córki - wybrane imiê Magdalena','Nowy',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
-INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','00031268745','Msza za œw. pamiêcie Jacka Dorote Trzaskalskich','Nowy',to_date('12/20/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/20/2012','mm/dd/yyyy'));
+INSERT INTO Orderr VALUES (seq_orderr.nextval,3,'69010566803','10031268745','Msza za œw. pamiêcie Jacka Dorote Trzaskalskich','Nowy',to_date('12/20/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/20/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,5,'79020554812','91031254875','Gregorianka w intencji rodziców','Nowy',to_date('12/21/2012 16:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('12/21/2012','mm/dd/yyyy'));
 INSERT INTO Orderr VALUES (seq_orderr.nextval,1,'59040665847','11031254796','Chrzest dla syna - Stanis³aw','Nowy',to_date('07/15/2012 08:00:00','mm/dd/yyyy HH24:MI:SS'),to_date('07/15/2012','mm/dd/yyyy'));
 

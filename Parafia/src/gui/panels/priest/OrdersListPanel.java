@@ -68,7 +68,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	JPanel panel_1 = new JPanel();
 	//
 	
-	
+	public static boolean who=false;
 	private static final long serialVersionUID = 1L;
 	private LoginDialog dialogLogowania;
 	private JFrame owner;
@@ -416,7 +416,8 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 	}
 	
 	public void changeVisibility(){
-		if(events.getRestriction()>KindRestriction.LOGED_R) dateTo.setVisible(false);
+		if(events.getRestriction()>KindRestriction.LOGED_R) 
+			dateTo.setVisible(false);
 
 	}
 	
@@ -687,11 +688,13 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 				
 				
 				if(events.getRestriction()==KindRestriction.LOGED_R){
+					who=true;
 				orderList = events.pobierzZamowieniaParafianina(); 
 				comboPriest.setVisible(false);
 				lblPriest_.setVisible(false);
 				lblFrom_.setText("Do");
 				}else {
+					who=false;
 					comboPriest.setVisible(true);
 					lblPriest_.setVisible(true);
 				orderList = events.pobierzZamowieniaKsiedza(KindRestriction.WORKS_R, 
@@ -704,7 +707,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 			}
 			
 			if(role>0){ 
-				
+				who=true;
 				if(events.getRestriction()==KindRestriction.LOGED_R){
 					comboPriest.setVisible(false);
 					lblPriest_.setVisible(false);
@@ -717,7 +720,7 @@ public class OrdersListPanel extends JPanel implements ActionListener {
 					
 					
 					}else {
-						
+						who=false;
 						comboPriest.setVisible(true);
 						lblPriest_.setVisible(true);
 						lblFrom_.setText("Od");
@@ -1032,19 +1035,38 @@ class ObserwatorStanuSortowania implements Obserwowany
     		if(obserwator.getStan() == StanuSortowania.IMG_UP){
 		    	for(int j=0;j<orderArray.length-1;j++)
 			    	for(int i=1; i<orderArray.length;i++){
+			    		
+			    		if(OrdersListPanel.who==false){
 			    		if( orderArray[i-1].getSender().getSurName().compareToIgnoreCase(orderArray[i].getSender().getSurName()) < 0){
 			    			tmp = orderArray[i-1];
 			    			orderArray[i-1] = orderArray[i];
 			    			orderArray[i] = tmp;
 			    		}
+			    		} else {
+			    			if( orderArray[i-1].getExecutor().getSurName().compareToIgnoreCase(orderArray[i].getExecutor().getSurName()) < 0){
+				    			tmp = orderArray[i-1];
+				    			orderArray[i-1] = orderArray[i];
+				    			orderArray[i] = tmp;
+				    		}	
+			    		} 
 			    	}
     		} else {
 		    	for(int j=0;j<orderArray.length-1;j++)
 			    	for(int i=1; i<orderArray.length;i++){
+			    		if(OrdersListPanel.who==false){
 			    		if(orderArray[i-1].getSender().getSurName().compareToIgnoreCase(orderArray[i].getSender().getSurName()) > 0){
 			    			tmp = orderArray[i-1];
 			    			orderArray[i-1] = orderArray[i];
 			    			orderArray[i] = tmp;
+			    		}
+			    		} else {
+			    			
+			    			if(orderArray[i-1].getExecutor().getSurName().compareToIgnoreCase(orderArray[i].getExecutor().getSurName()) > 0){
+				    			tmp = orderArray[i-1];
+				    			orderArray[i-1] = orderArray[i];
+				    			orderArray[i] = tmp;
+				    		}
+			    			
 			    		}
 			    	}
     		}
