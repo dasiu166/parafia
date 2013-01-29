@@ -205,7 +205,7 @@ public class UserrService extends ServicePart  {
 				 dbReturn = db.execSelectQuery("Select * from Userr where login='"+
 						 ((User) wiadomosc).getData()+"'");
 				 
-				 if(!dbReturn.getFirst().equals("ERR")){
+				 if(!dbReturn.getFirst()[0].equals("ERR")){
 					 ((User) wiadomosc).setQuery("ERR");
 					 ((User) wiadomosc).setData("Login juz zajety");
 					 s.sendObject(wiadomosc);

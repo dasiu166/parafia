@@ -353,3 +353,40 @@
 2013-01-29 21:05:52: Watek:Thread-6 -> Zalogowano
 2013-01-29 21:05:52: Watek:Thread-6 -> Wylogowano
 2013-01-29 21:05:52: Watek:Thread-6 -> Klient sie rozlaczyl
+2013-01-29 21:48:06: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 21:48:06: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 21:48:06: Watek:Thread-5 -> Proba logowania
+2013-01-29 21:48:06: Watek:Thread-5 -> Zalogowano
+2013-01-29 21:48:06: Watek:Thread-5 -> Login zajety
+2013-01-29 21:48:06: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 21:53:17: Watek:Thread-6 -> Klient sie podlaczyl
+2013-01-29 21:53:17: Watek:Thread-6 -> Pobranie listy aktualnosci
+2013-01-29 21:54:19: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 21:54:19: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 21:54:19: Watek:Thread-5 -> Proba logowania
+2013-01-29 21:54:19: Watek:Thread-5 -> Zalogowano
+2013-01-29 21:54:19: Watek:Thread-5 -> Login zajety
+2013-01-29 21:54:19: Watek:Thread-5 -> Login zajety
+2013-01-29 21:54:19: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 22:02:33: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 22:02:33: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 22:02:33: Watek:Thread-5 -> Proba logowania
+2013-01-29 22:02:33: Watek:Thread-5 -> Zalogowano
+2013-01-29 22:02:33: Watek:Thread-5 -> Login zajety
+2013-01-29 22:05:25: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 22:05:25: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 22:05:25: Watek:Thread-5 -> Proba logowania
+2013-01-29 22:05:25: Watek:Thread-5 -> Blad logowania
+2013-01-29 22:05:25: Watek:Thread-5 -> Proba logowania
+2013-01-29 22:05:25: Watek:Thread-5 -> Zalogowano
+2013-01-29 22:05:25: Watek:Thread-5 -> Zmiana w uzytkowniku w bazie
+2013-01-29 22:05:25: Watek:Thread-5 -> Zmiana w uzytkowniku w bazie
+2013-01-29 22:05:25: Watek:Thread-5 -> Wylogowano
+2013-01-29 22:05:25: Watek:Thread-5 -> Proba logowania
+2013-01-29 22:05:25: Watek:Thread-5 -> Blad logowania
+2013-01-29 22:05:25: Watek:Thread-5 -> Proba logowania
+2013-01-29 22:05:25: Watek:Thread-5 -> Zalogowano
+2013-01-29 22:05:25: Watek:Thread-5 -> Zmiana w uzytkowniku w bazie
+2013-01-29 22:05:25: Watek:Thread-5 -> Wylogowano
+2013-01-29 22:05:25: Watek:Thread-5 -> Proba logowania
+2013-01-29 22:05:25: Watek:Thread-5 -> Zalogowano

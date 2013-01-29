@@ -760,7 +760,7 @@ public class Events {
 		u.setData(login);
 		}
 		
-		System.out.println(u.getQuery());
+		System.out.println("events   --  "+u.getQuery());
 
 		k.setNullPackage();
 		if (!k.sendObject(u)) {
