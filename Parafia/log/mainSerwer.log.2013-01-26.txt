@@ -1,4 +1,0 @@
-2013-01-26 00:58:49: SERWER -> Serwer uruchomiony - Port: 2000
-2013-01-26 00:58:49: SERWER -> Polaczono z baza danych
-2013-01-26 00:58:49: SERWER -> Nowy watek
-2013-01-26 00:58:49: SERWER -> Nowy watek

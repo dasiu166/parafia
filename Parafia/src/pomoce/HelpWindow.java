@@ -79,13 +79,12 @@ public void actionPerformed(ActionEvent e) {
 : * add buttons at the south
   */
  private void addButtons() {
-     JButton btncontents = new JButton("Contents");
-     btncontents.addActionListener(this);
-     JButton btnclose = new JButton("Close");
+     
+     JButton btnclose = new JButton("Zamknij");
      btnclose.addActionListener(this);
      //put into JPanel
      JPanel panebuttons = new JPanel();
-     panebuttons.add(btncontents);
+    
      panebuttons.add(btnclose);
      //add panel south
      getContentPane().add(panebuttons, BorderLayout.SOUTH);
@@ -102,7 +101,7 @@ public void actionPerformed(ActionEvent e) {
 }
 public static void main(String [] args){
     URL index = ClassLoader.getSystemResource("Help/index.html");
-    //URL index  = ClassLoader.class.getResource("index.html");
+    //URL index  = ClassLoader.class.getResource("Help/index.html");
     new HelpWindow("Test", index);
 }
 //end HelpWindow class

@@ -40,6 +40,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
+import com.itextpdf.text.DocumentException;
+
 import net.miginfocom.swing.MigLayout;
 import obsluga.Parishioner;
 import obsluga.Person;
@@ -369,6 +371,7 @@ public class UserListPanel extends JPanel implements ActionListener{
 						editParishionerDialog.setVisible(true);
 						
 						if(editParishionerDialog.isOk()){
+							
 							Parishioner parishioner = editParishionerDialog.getParishionerEdited();
 							JOptionPane.showMessageDialog(null, "DOK");
 
@@ -378,6 +381,7 @@ public class UserListPanel extends JPanel implements ActionListener{
 
 							Parishioner parishioner = editParishionerDialog.getParishionerEdited();
 							
+							//if(parishioner.getData().equals("ERR")) return;
 							try{
 							events.updateParishioner(parishioner);
 							} catch(ClassNotFoundException eee){
@@ -572,7 +576,13 @@ public class UserListPanel extends JPanel implements ActionListener{
 			}
 			
 			PdfCreator pdf = new PdfCreator();
-			//pdf.createPersonDataPdf(userList, Pomoc.saveFileWindow());
+			try{
+			pdf.createPersonDataPdf(userList, Pomoc.saveFileWindow());
+			}catch(IOException ee){
+				
+			}catch(DocumentException ee){
+				
+			}
 		}
 		
 		if(z==btnDodajDoListy){
@@ -606,6 +616,9 @@ public class UserListPanel extends JPanel implements ActionListener{
 				//userList = events.wyszukajPesel(pesel);
 				Person u;
 				try{
+				if(userList==null){
+					userList = new LinkedList<Person>();
+				}	
 				u = events.wyszukajPesel(pesel).getFirst();
 				}catch (NoSuchElementException ee){
 					JOptionPane.showMessageDialog(null, "Brak wynikow");
@@ -613,8 +626,10 @@ public class UserListPanel extends JPanel implements ActionListener{
 					return;
 				}
 				
-				if(!u.getQuery().equals("ERR"))
-				this.addUser(u); else{
+				if(!u.getQuery().equals("ERR")){
+				this.addUser(u); 
+					userList.add(u);
+				}else{
 					JOptionPane.showMessageDialog(null, "Brak wynikow");
 					return;
 				}

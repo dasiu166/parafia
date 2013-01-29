@@ -1,0 +1,157 @@
+2013-01-29 00:23:06: Watek:Thread-4 -> Klient sie podlaczyl
+2013-01-29 00:23:06: Watek:Thread-4 -> Pobranie listy aktualnosci
+2013-01-29 00:23:06: Watek:Thread-4 -> Proba logowania
+2013-01-29 00:23:06: Watek:Thread-4 -> Zalogowano
+2013-01-29 00:23:06: Watek:Thread-4 -> Pobranie listy aktualnosci
+2013-01-29 00:23:06: Watek:Thread-4 -> Klient sie rozlaczyl
+2013-01-29 00:28:46: Watek:Thread-4 -> Klient sie podlaczyl
+2013-01-29 00:28:46: Watek:Thread-4 -> Pobranie listy aktualnosci
+2013-01-29 00:28:46: Watek:Thread-4 -> Proba logowania
+2013-01-29 00:28:46: Watek:Thread-4 -> Zalogowano
+2013-01-29 00:28:46: Watek:Thread-4 -> Klient sie rozlaczyl
+2013-01-29 00:46:43: Watek:Thread-7 -> Klient sie podlaczyl
+2013-01-29 00:46:43: Watek:Thread-7 -> Pobranie listy aktualnosci
+2013-01-29 00:46:43: Watek:Thread-7 -> Klient sie rozlaczyl
+2013-01-29 00:50:56: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-29 00:50:56: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-29 00:50:56: Watek:Thread-1 -> Klient sie rozlaczyl
+2013-01-29 00:59:02: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 00:59:02: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 00:59:02: Watek:Thread-5 -> Proba logowania
+2013-01-29 00:59:02: Watek:Thread-5 -> Zalogowano
+2013-01-29 00:59:02: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 01:00:53: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-29 01:00:53: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-29 01:00:53: Watek:Thread-1 -> Klient sie rozlaczyl
+2013-01-29 01:01:58: Watek:Thread-1 -> Klient sie podlaczyl
+2013-01-29 01:01:58: Watek:Thread-1 -> Pobranie listy aktualnosci
+2013-01-29 01:34:38: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 01:34:38: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 01:34:38: Watek:Thread-5 -> Proba logowania
+2013-01-29 01:34:38: Watek:Thread-5 -> Zalogowano
+2013-01-29 01:34:38: Watek:Thread-5 -> Wylogowano
+2013-01-29 01:34:38: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 01:49:35: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 01:49:35: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 01:49:35: Watek:Thread-5 -> Proba logowania
+2013-01-29 01:49:35: Watek:Thread-5 -> Zalogowano
+2013-01-29 01:49:35: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 01:55:35: Watek:Thread-7 -> Klient sie podlaczyl
+2013-01-29 01:55:35: Watek:Thread-7 -> Pobranie listy aktualnosci
+2013-01-29 01:55:35: Watek:Thread-7 -> Proba logowania
+2013-01-29 01:55:35: Watek:Thread-7 -> Zalogowano
+2013-01-29 01:55:35: Watek:Thread-7 -> Klient sie rozlaczyl
+2013-01-29 02:02:31: Watek:Thread-9 -> Klient sie podlaczyl
+2013-01-29 02:02:31: Watek:Thread-9 -> Pobranie listy aktualnosci
+2013-01-29 02:02:31: Watek:Thread-9 -> Proba logowania
+2013-01-29 02:02:31: Watek:Thread-9 -> Zalogowano
+2013-01-29 02:02:31: Watek:Thread-9 -> Klient sie rozlaczyl
+2013-01-29 02:07:36: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:07:36: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:07:36: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 02:12:29: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:12:29: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:15:54: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:15:54: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:15:54: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 02:17:48: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:17:48: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:17:48: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 02:23:27: Watek:Thread-6 -> Klient sie podlaczyl
+2013-01-29 02:23:27: Watek:Thread-6 -> Pobranie listy aktualnosci
+2013-01-29 02:23:27: Watek:Thread-6 -> Klient sie rozlaczyl
+2013-01-29 02:28:11: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:28:11: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:28:11: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 02:29:35: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:29:35: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:29:35: Watek:Thread-5 -> Proba logowania
+2013-01-29 02:29:35: Watek:Thread-5 -> Zalogowano
+2013-01-29 02:29:35: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 02:34:26: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:34:26: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:34:35: Watek:Thread-6 -> Klient sie podlaczyl
+2013-01-29 02:34:35: Watek:Thread-6 -> Pobranie listy aktualnosci
+2013-01-29 02:34:43: Watek:Thread-7 -> Klient sie podlaczyl
+2013-01-29 02:34:43: Watek:Thread-7 -> Pobranie listy aktualnosci
+2013-01-29 02:36:44: Watek:Thread-7 -> Klient sie podlaczyl
+2013-01-29 02:36:44: Watek:Thread-7 -> Pobranie listy aktualnosci
+2013-01-29 02:36:52: Watek:Thread-8 -> Klient sie podlaczyl
+2013-01-29 02:36:52: Watek:Thread-8 -> Pobranie listy aktualnosci
+2013-01-29 02:36:52: Watek:Thread-8 -> Proba logowania
+2013-01-29 02:36:52: Watek:Thread-8 -> Zalogowano
+2013-01-29 02:36:52: Watek:Thread-8 -> Wylogowano
+2013-01-29 02:36:52: Watek:Thread-8 -> Klient sie rozlaczyl
+2013-01-29 02:36:44: Watek:Thread-7 -> Klient sie rozlaczyl
+2013-01-29 02:39:04: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 02:39:04: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 02:39:04: Watek:Thread-5 -> Proba logowania
+2013-01-29 02:39:04: Watek:Thread-5 -> Zalogowano
+2013-01-29 02:39:04: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 02:43:04: Watek:Thread-6 -> Klient sie podlaczyl
+2013-01-29 02:43:04: Watek:Thread-6 -> Pobranie listy aktualnosci
+2013-01-29 02:43:04: Watek:Thread-6 -> Proba logowania
+2013-01-29 02:43:04: Watek:Thread-6 -> Zalogowano
+2013-01-29 02:43:04: Watek:Thread-6 -> Klient sie rozlaczyl
+2013-01-29 02:47:09: Watek:Thread-7 -> Klient sie podlaczyl
+2013-01-29 02:47:09: Watek:Thread-7 -> Pobranie listy aktualnosci
+2013-01-29 02:47:09: Watek:Thread-7 -> Proba logowania
+2013-01-29 02:47:09: Watek:Thread-7 -> Zalogowano
+2013-01-29 02:47:09: Watek:Thread-7 -> Klient sie rozlaczyl
+2013-01-29 02:50:03: Watek:Thread-8 -> Klient sie podlaczyl
+2013-01-29 02:50:03: Watek:Thread-8 -> Pobranie listy aktualnosci
+2013-01-29 02:50:03: Watek:Thread-8 -> Proba logowania
+2013-01-29 02:50:03: Watek:Thread-8 -> Zalogowano
+2013-01-29 02:50:03: Watek:Thread-8 -> Klient sie rozlaczyl
+2013-01-29 02:52:56: Watek:Thread-9 -> Klient sie podlaczyl
+2013-01-29 02:52:56: Watek:Thread-9 -> Pobranie listy aktualnosci
+2013-01-29 02:52:56: Watek:Thread-9 -> Proba logowania
+2013-01-29 02:52:56: Watek:Thread-9 -> Zalogowano
+2013-01-29 02:52:56: Watek:Thread-9 -> Klient sie rozlaczyl
+2013-01-29 02:56:29: Watek:Thread-10 -> Klient sie podlaczyl
+2013-01-29 02:56:29: Watek:Thread-10 -> Pobranie listy aktualnosci
+2013-01-29 02:56:29: Watek:Thread-10 -> Proba logowania
+2013-01-29 02:56:29: Watek:Thread-10 -> Zalogowano
+2013-01-29 02:56:29: Watek:Thread-10 -> Klient sie rozlaczyl
+2013-01-29 03:08:35: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 03:08:35: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 03:08:35: Watek:Thread-5 -> Proba logowania
+2013-01-29 03:08:35: Watek:Thread-5 -> Zalogowano
+2013-01-29 03:08:35: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 03:13:41: Watek:Thread-6 -> Klient sie podlaczyl
+2013-01-29 03:13:41: Watek:Thread-6 -> Pobranie listy aktualnosci
+2013-01-29 03:13:41: Watek:Thread-6 -> Proba logowania
+2013-01-29 03:13:41: Watek:Thread-6 -> Zalogowano
+2013-01-29 03:13:41: Watek:Thread-6 -> Parafianin uaktualniony
+2013-01-29 03:13:41: Watek:Thread-6 -> Klient sie rozlaczyl
+2013-01-29 03:26:24: Watek:Thread-7 -> Klient sie podlaczyl
+2013-01-29 03:26:24: Watek:Thread-7 -> Pobranie listy aktualnosci
+2013-01-29 03:26:24: Watek:Thread-7 -> Proba logowania
+2013-01-29 03:26:24: Watek:Thread-7 -> Zalogowano
+2013-01-29 03:26:24: Watek:Thread-7 -> Parafianin uaktualniony
+2013-01-29 03:26:24: Watek:Thread-7 -> Klient sie rozlaczyl
+2013-01-29 03:46:52: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 03:46:52: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 03:46:52: Watek:Thread-5 -> Klient sie rozlaczyl
+2013-01-29 03:48:29: Watek:Thread-6 -> Klient sie podlaczyl
+2013-01-29 03:48:29: Watek:Thread-6 -> Pobranie listy aktualnosci
+2013-01-29 03:48:29: Watek:Thread-6 -> Klient sie rozlaczyl
+2013-01-29 03:49:50: Watek:Thread-7 -> Klient sie podlaczyl
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie listy aktualnosci
+2013-01-29 03:49:50: Watek:Thread-7 -> Proba logowania
+2013-01-29 03:49:50: Watek:Thread-7 -> Zalogowano
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Pobranie zamowien
+2013-01-29 03:49:50: Watek:Thread-7 -> Klient sie rozlaczyl
+2013-01-29 03:57:13: Watek:Thread-5 -> Klient sie podlaczyl
+2013-01-29 03:57:13: Watek:Thread-5 -> Pobranie listy aktualnosci
+2013-01-29 03:57:13: Watek:Thread-5 -> Klient sie rozlaczyl

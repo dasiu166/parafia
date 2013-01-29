@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -359,17 +360,90 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 	}
 	
 	public Priest getPriestEdited(){
-		priest.setName(textName.getText());
-		priest.setSurName(textSurname.getText());
-		priest.setPesel(textPesel.getText());
+		boolean tryCatch=true;
+		int i=0;
+		if(textName.getText().length()<3){
+			JOptionPane.showMessageDialog(null, "Za krótkie imiê (min 3 znaki)");
+			priest.setData("ERR");
+			return priest;
+		} else priest.setName(textName.getText());
+		
+		if(textSurname.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Za krótkie nazwisko (min 2 znaki)");
+			priest.setData("ERR");
+			return priest;
+		} else priest.setSurName(textSurname.getText());
+		
+		
+		if((textPesel.getText().length()<11)||(textPesel.getText().length()>11)){
+		    JOptionPane.showMessageDialog(null, "Pesel musi mieæ 11 liczb");
+		    priest.setData("ERR");
+			return priest;
+		}else 
+		if(textPesel.getText().contains(".")){
+			JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+			priest.setData("ERR");
+			return priest;
+		} else {
+			try{
+				Double.parseDouble(textPesel.getText());
+				
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+			    //return false;
+				tryCatch=false;
+				priest.setData("ERR");
+				return priest;
+			}
+		}
+		
+		if(!tryCatch) {
+			priest.setData("ERR");
+			return priest;
+		} else priest.setPesel(textPesel.getText());
+		
+		
 		if(priest.getAdress() == null) priest.setAdress(new Adress());
-		priest.getAdress().setCity(textCity.getText());
-		priest.getAdress().setStreet(textStreet.getText());
+		
+		
+		if(textCity.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa miasta jest za krótka (min 2 znaki)");
+			priest.setData("ERR");
+			return priest;
+		} else priest.getAdress().setCity(textCity.getText());
+		
+		
+		if(textStreet.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa ulicy jest za krótka (min 2 znaki)");
+			priest.setData("ERR");
+			return priest;
+		}else priest.getAdress().setStreet(textStreet.getText());
+		
 		priest.getAdress().setHouseNumb(textHomeNr.getText());
-		priest.getAdress().setPostcode(textPostCode.getText());
-		priest.setSecularityDate((!dateSecularity.isEmpty())?dateSecularity.getDate():null);
-		priest.setArrivalDate((!dateBeginWork.isEmpty())?dateBeginWork.getDate():null);
+		
+		if(textPostCode.getText().length()<6){
+			JOptionPane.showMessageDialog(null, "Kod pocztowy jest za krótki (min 6 znaki)");
+			priest.setData("ERR");
+			return priest;
+		}else priest.getAdress().setPostcode(textPostCode.getText());
+		
+		
+		i = dateSecularity.getDate().compareTo(new Date()); 
+		if(i>0){
+			JOptionPane.showMessageDialog(null, "Data œwiêceñ jest b³edna \n" +
+					"Taki dzien jeszcze nie nast¹pi³");
+			priest.setData("ERR");
+			return priest;
+		} else priest.setSecularityDate((!dateSecularity.isEmpty())?dateSecularity.getDate():null);
+		
+		if(dateBeginWork.getDate().compareTo(dateSecularity.getDate())<0){
+			JOptionPane.showMessageDialog(null, "Data przybycia jest przed dat¹ œwiêceñ");
+			priest.setData("ERR");
+			return priest;
+		} else priest.setArrivalDate((!dateBeginWork.isEmpty())?dateBeginWork.getDate():null);
 		priest.setPossition((String)comboPosition.getSelectedItem());
+		
+		priest.setData("");
 		return priest;
 	}
 	
@@ -403,12 +477,15 @@ public class EditPriestDialog extends JDialog implements ActionListener{
 		}else if(z == btnReset){
 			resetPriestData();
 		}else if(z == btnInne){
+			if(this.getPriestEdited().getData().equals("ERR")) return;
 			isInne = true;
 			setVisible(false);
 		}else if(z == btnAdres){
+			if(this.getPriestEdited().getData().equals("ERR")) return;
 			isAdres = true;
 			setVisible(false);
 		}else if(z == btnDane){
+			if(this.getPriestEdited().getData().equals("ERR")) return;
 			isDane = true;
 			setVisible(false);
 		}

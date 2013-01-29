@@ -402,23 +402,132 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 	}
 	
 	public Parishioner getParishionerEdited(){
-		parishioner.setName(textName.getText());
-		parishioner.setSurName(textSurname.getText());
-		parishioner.setPesel(textPesel.getText());
+		boolean tryCatch=true;
+		
+		if(textName.getText().length()<3){
+			JOptionPane.showMessageDialog(null, "Za krótkie imie (min 3 znaki)");
+			parishioner.setData("ERR");
+			return parishioner;
+		} else parishioner.setName(textName.getText());
+		
+		
+		if(textSurname.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Za krótkie nazwisko (min 2 znaki)");
+			parishioner.setData("ERR");
+			return parishioner;
+		}else parishioner.setSurName(textSurname.getText());
+		
+		
+		if((textPesel.getText().length()<11)||(textPesel.getText().length()>11)){
+		    JOptionPane.showMessageDialog(null, "Pesel musi mieæ 11 liczb");
+		    parishioner.setData("ERR");
+		    return parishioner;
+		}else 
+		if(textPesel.getText().contains(".")){
+			JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+			parishioner.setData("ERR");
+			return parishioner;
+		} else {
+			try{
+				Double.parseDouble(textPesel.getText());
+				
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Pesel mo¿e zawieraæ tylko liczby");
+			    //return false;
+				tryCatch=false;
+				parishioner.setData("ERR");
+				return parishioner;
+			}
+		}
+		
+		if(!tryCatch) {
+		parishioner.setData("ERR"); 
+		return parishioner;
+		}else parishioner.setPesel(textPesel.getText());
+		
+		
+		
+		
 		if(parishioner.getAdress() == null) parishioner.setAdress(new Adress());
 		
-		parishioner.getAdress().setCity(textCity.getText());
-		parishioner.getAdress().setStreet(textStreet.getText());
+		if(textCity.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa miasta jest za krótka (min 2 znaki)");
+			parishioner.setData("ERR"); 
+			return parishioner;
+		} else parishioner.getAdress().setCity(textCity.getText());
+		
+		
+		if(textStreet.getText().length()<2){
+			JOptionPane.showMessageDialog(null, "Nazwa ulicy jest za krótka (min 2 znaki)");
+			parishioner.setData("ERR"); 
+			return parishioner;
+		}else parishioner.getAdress().setStreet(textStreet.getText());
+		
+		
 		parishioner.getAdress().setHouseNumb(textHomeNr.getText());
-		parishioner.getAdress().setPostcode(textPostCode.getText());
+		
+		if(textPostCode.getText().length()<6){
+			JOptionPane.showMessageDialog(null, "Kod pocztowy jest za krótki (min 6 znaki)");
+			parishioner.setData("ERR"); 
+		}else parishioner.getAdress().setPostcode(textPostCode.getText());
 		
 		if(parishioner.getCourse() == null) parishioner.setCourse(new Course());
-		parishioner.getCourse().setBirthday((!dateBirthday.isEmpty())?dateBirthday.getDate():null);
-		parishioner.getCourse().setBaptism((!dateBaptism.isEmpty())?dateBaptism.getDate():null);
-		parishioner.getCourse().setCommunion((!dateCommunion.isEmpty())?dateCommunion.getDate():null);
-		parishioner.getCourse().setConfirmation((!dateConfirmation.isEmpty())?dateConfirmation.getDate():null);
-		parishioner.getCourse().setMarriage((!dateMarriage.isEmpty())?dateMarriage.getDate():null);
-		parishioner.getCourse().setDeath((!dateDeath.isEmpty())?dateDeath.getDate():null);
+		int i=0;
+		
+		if(dateBirthday.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Podaj datê urodzenia");
+			parishioner.setData("ERR");
+			return parishioner;
+		} else  i = dateBirthday.getDate().compareTo(new Date()); 
+		if(i>0){
+			JOptionPane.showMessageDialog(null, "Data urodzenie jest b³edna \n" +
+					"Taki dzien jeszcze nie nast¹pi³");
+			parishioner.setData("ERR");
+			return parishioner;
+		} else parishioner.getCourse().setBirthday((!dateBirthday.isEmpty())?dateBirthday.getDate():null);
+		
+		
+		
+		
+		
+			if(dateBaptism.getDate().compareTo(dateBirthday.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data chrztu jest przed dat¹ urodzenia");
+				parishioner.setData("ERR");
+				return parishioner;
+			} else parishioner.getCourse().setBaptism((!dateBaptism.isEmpty())?dateBaptism.getDate():null);
+		
+		
+		
+		
+			if(dateCommunion.getDate().compareTo(dateBaptism.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data komunii œw. jest przed dat¹ chrztu");
+				parishioner.setData("ERR");
+				return parishioner;
+			} else parishioner.getCourse().setCommunion((!dateCommunion.isEmpty())?dateCommunion.getDate():null);
+		
+		
+			if(dateConfirmation.getDate().compareTo(dateCommunion.getDate())<0){
+				JOptionPane.showMessageDialog(null, "Data bierzmowania jest przed dat¹ komunii œw.");
+				parishioner.setData("ERR");
+				return parishioner;
+			} else parishioner.getCourse().setConfirmation((!dateConfirmation.isEmpty())?dateConfirmation.getDate():null);
+		
+		
+				if(dateMarriage.getDate().compareTo(dateConfirmation.getDate())<0){
+					JOptionPane.showMessageDialog(null, "Data œlubu jest przed dat¹ bierzmowania");
+					parishioner.setData("ERR");
+					return parishioner;
+				} else parishioner.getCourse().setMarriage((!dateMarriage.isEmpty())?dateMarriage.getDate():null);
+		
+					if(dateDeath.getDate().compareTo(dateBirthday.getDate())<0){
+						JOptionPane.showMessageDialog(null, "Data œmierci jest przed dat¹ urodzenia");
+						parishioner.setData("ERR");
+						return parishioner;
+			   } else parishioner.getCourse().setDeath((!dateDeath.isEmpty())?dateDeath.getDate():null);
+		
+		
+		
+		parishioner.setData("");
 		return parishioner;
 	}
 	
@@ -453,12 +562,15 @@ public class EditParishionerDialog extends JDialog implements ActionListener{
 		}else if(z == btnReset){
 			resetParishionerData();
 		}else if(z == btnDane){
+			if(this.getParishionerEdited().getData().equals("ERR")) return;
 			isDane = true;
 			setVisible(false);
 		}else if(z == btnAdres){
+			if(this.getParishionerEdited().getData().equals("ERR")) return;
 			isAdres = true;
 			setVisible(false);
 		}else if(z == btnDaty){
+			if(this.getParishionerEdited().getData().equals("ERR")) return;
 			isDaty = true;
 			setVisible(false);
 		}

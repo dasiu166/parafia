@@ -121,7 +121,10 @@ public class Events {
 		int i = 0;
 		act.setKindQuery(KindQuery.SEL_DBASE);
 		act.setQuery("Select * from actuals order by add_date desc");
-		k.sendObject(act);
+		if(!k.sendObject(act)){
+			this.connectionError();
+			
+		}
 		k.reciveObject();
 
 		LinkedList<Actuals> actL = new LinkedList<Actuals>();
@@ -183,7 +186,6 @@ public class Events {
 		a.setQuery("DELETE FROM actuals where id_actuals=" + a.getId());
 
 		if (!k.sendObject(a)) {
-			this.connectionError();
 			return;
 		}
 
@@ -288,30 +290,7 @@ public class Events {
 	 *         urzytkownika bez uprawniem
 	 */
 
-	/*
-	 * public boolean wyloguj() { boolean bigErr; int restriction =
-	 * getRestriction();
-	 * 
-	 * if (restriction == KindRestriction.LOGED_R) {
-	 * p.setKindQuery(KindQuery.TRY_LOGOUT); try { if (!k.sendObject(p))
-	 * //return false; this.connectionError(); } catch (IOException e) {
-	 * e.printStackTrace(); } try { if (!k.reciveObject()) return false; } catch
-	 * (ClassNotFoundException e) { e.printStackTrace(); } catch (IOException e)
-	 * { e.printStackTrace(); }
-	 * 
-	 * p = (Parishioner) k.getPackage(); p = new Parishioner();
-	 * u.setRestriction(KindRestriction.GUEST_R); } else {
-	 * priest.setKindQuery(KindQuery.TRY_LOGOUT); try { if
-	 * (!k.sendObject(priest)) return false; } catch (IOException e) {
-	 * e.printStackTrace(); } try { if (!k.reciveObject()) return false; } catch
-	 * (ClassNotFoundException e) { e.printStackTrace(); } catch (IOException e)
-	 * { e.printStackTrace(); }
-	 * 
-	 * priest = (Priest) k.getPackage(); priest = new Priest();
-	 * u.setRestriction(KindRestriction.GUEST_R);
-	 * 
-	 * } logged = false; return true; }
-	 */
+	
 
 	public boolean wyloguj() {
 		boolean bigErr;
@@ -405,9 +384,9 @@ public class Events {
 			priest.setKindQuery(KindQuery.SEL_DBASE);
 			priest.setQuery("Select * from priest where pesel="
 					+ priest.getPesel());
-			JOptionPane.showMessageDialog(null,
+			/*JOptionPane.showMessageDialog(null,
 					"Select * from priest where pesel=\"" + priest.getPesel()
-							+ "\"");
+							+ "\"");*/
 			if (!k.sendObject(priest)) {
 				this.connectionError();
 			}
@@ -423,8 +402,10 @@ public class Events {
 		np.setQuery("Select * from Priest");
 
 		// System.out.println("TEST TEST TEST "+np.getQuery().contains("where"));
-
-		k.sendObject(np);
+		if(!k.sendObject(np)){
+			this.connectionError();
+			return;
+		}
 		k.reciveObject();
 		lp = (LinkedList<Priest>) k.getPackage();
 		k.setPriestList(lp);

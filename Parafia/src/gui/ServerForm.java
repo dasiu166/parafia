@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -28,9 +29,13 @@ public class ServerForm extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JButton btnStart;
-	private JTextPane textPane;
 	private boolean isStarted = false;
 	private LinkedList<String> logList = new LinkedList<String>();
+	private Serwer serwer = new Serwer();
+	private JButton btnDane;
+	private JLabel lblSerwerStatus;
+	private JLabel lblClientsNumb;
+	private JLabel lblLogged;
 
 
 	/**
@@ -38,7 +43,7 @@ public class ServerForm extends JFrame implements ActionListener{
 	 */
 	public ServerForm() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 500, 431);
+		setBounds(100, 100, 500, 134);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -46,35 +51,50 @@ public class ServerForm extends JFrame implements ActionListener{
 		btnStart = new JButton("Start");
 		btnStart.addActionListener(this);
 		
-		JLabel lblLog = new JLabel("Log:");
+		lblSerwerStatus = new JLabel("Serwer wy\u0142aczony");
 		
-		textPane = new JTextPane();
+		btnDane = new JButton("Refresh");
+		btnDane.addActionListener(this);
 		
+		lblClientsNumb = new JLabel("Liczba klient\u00F3w");
 		
-		textPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		lblLogged = new JLabel("W tym zalogowanych");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-						.addComponent(lblLog)
-						.addComponent(btnStart))
-					.addContainerGap())
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(btnStart)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblSerwerStatus)
+							.addPreferredGap(ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+							.addComponent(btnDane)
+							.addContainerGap())
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblLogged)
+								.addComponent(lblClientsNumb))
+							.addGap(81))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(6)
-					.addComponent(btnStart)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnStart)
+						.addComponent(lblSerwerStatus)
+						.addComponent(btnDane))
+					.addGap(18)
+					.addComponent(lblClientsNumb)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblLog)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(lblLogged)
+					.addContainerGap(313, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		
 	}
 	
 	public boolean isStarted(){
@@ -92,7 +112,12 @@ public class ServerForm extends JFrame implements ActionListener{
 		return true;
 	}
 	
-	public void loadLogList(){
+	public void clean(){
+		serwer.stopSerwer();
+		serwer.clean();
+	}
+	
+	/*public void loadLogList(){
 		textPane.setText("");
 		String text = "";
 		ListIterator<String> iterator = logList.listIterator();
@@ -103,7 +128,7 @@ public class ServerForm extends JFrame implements ActionListener{
 	public void addLog(String log){
 		logList.add(log);
 		textPane.setText(textPane.getText()+log+"\n");
-	}
+	}*/
 	
 	
 
@@ -112,14 +137,38 @@ public class ServerForm extends JFrame implements ActionListener{
 		Object z = e.getSource();
 		
 		if(z == btnStart){
-			if(isStarted()){
-				if(stopServer())
-					btnStart.setText("start");
+			if(!isStarted()){
+				//serwer=new Serwer();
+				//if(stopServer())
+					startServer();
+					
+					serwer = new Serwer();
+					if(serwer.prepare()){
+						serwer.startSerwer();
+						serwer.start();
+						btnStart.setText("STOP");
+						lblSerwerStatus.setText("Serwer WLACZONY");
+						//lblSerwerStatus.setFont(new Font("Tahoma", Font.BOLD, 14));
+					}
+					this.repaint();
 			} else {
-				if(startServer())
-					btnStart.setText("stop");
+				if(isStarted())
+					stopServer();
+					btnStart.setText("START");
+					serwer.stopSerwer();
+					serwer.clean();
+					//btnStart.setText("stop");
+					lblSerwerStatus.setText("Serwer WYLACZONY");
+					//lblSerwerStatus.setFont(new Font("Arial", Font.BOLD, 12));
+					
+					//JOptionPane.showMessageDialog(null, serwer.getSerwerStatus());
+					//System.out.println("Alive "+serwer.isAlive());
+					
 			}
 			
+		}if(z==btnDane){
+			lblClientsNumb.setText("Liczba klientów: "+serwer.getNumberClients());
+			lblLogged.setText("W tym zalogowanych: "+serwer.getLoginListSize());
 		}
 		
 	}
@@ -132,10 +181,12 @@ public class ServerForm extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					final ServerForm frame = new ServerForm();
 					WindowListener l = new WindowAdapter() {
 						public void windowClosing(WindowEvent e) {
 							if(frame.isStarted())
+								//frame.clean();
 								if(!frame.stopServer()){
 									int odt = JOptionPane.showConfirmDialog(null, "B³¹d w zatrzymywaniu pracy servera!\nCzy zignorowaæ b³¹d i zamkn¹æ Aplikacje?","Server stop error",JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
 									if(odt == JOptionPane.NO_OPTION){

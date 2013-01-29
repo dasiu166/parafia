@@ -12,7 +12,11 @@ import java.util.LinkedList;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import obsluga.Course;
 import obsluga.Order;
+import obsluga.Person;
+import obsluga.Priest;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,7 +54,84 @@ public class PdfCreator {
 		eventList2 = val;
 	}
 	
-	
+	public void createPersonDataPdf(LinkedList<Person> pctl, String path)
+			throws DocumentException, IOException{
+		
+		Document document = new Document();
+
+		if (!path.substring(path.length() - 4).equals(".pdf"))
+			path = path + ".pdf";
+		PdfWriter.getInstance(document, new FileOutputStream(path));
+
+		document.open();
+		Iterator<Person> iterator = pctl.iterator();
+		
+		Paragraph paragraph2 = new Paragraph(" DANE OSOBOWE\n\n",
+				new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD));
+
+		paragraph2.setAlignment(Element.ALIGN_CENTER);
+		
+		document.add(paragraph2); 
+		PdfPTable table = new PdfPTable(1); // Code 1
+		
+		
+		
+		PdfPCell odstep = new PdfPCell(new Paragraph("  "));
+		//odstep.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		odstep.setBorderWidth(1f);
+		
+        table.setSpacingAfter(10); 
+        table.setSpacingBefore(10);
+        Font myFont = new Font(Font.FontFamily.HELVETICA, 15, Font.NORMAL);
+        Font myFont2 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+        
+        while(iterator.hasNext()){
+        	Person s = iterator.next();
+        	PdfPCell cell = new PdfPCell();
+        	PdfPCell cell2 = new PdfPCell();
+        	String text = "";
+			DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+			
+			text = "DANE -- "+s.getName()+" "+s.getSurName()+"        PESEL  "+s.getPesel()+"\n" +
+					"\n ADRES -- " +
+					s.getAdress().getCity()+"   ul. "+s.getAdress().getStreet()+"  "+
+					s.getAdress().getHouse()+"\n\n";
+			
+			if(s instanceof Parishioner){
+				Course c = ((Parishioner) s).getCourse();
+				                           text=text+" Data urodzenia:   ---    "+c.getBirthDay().toLocaleString().substring(0, 10);
+				if(c.getBaptism()!=null) text=text+"\n Chrzest:          ---    "+c.getBaptism().toLocaleString().substring(0,10);
+			  if(c.getCommunion()!=null) text=text+"\n Komunia œw:       ---    "+c.getCommunion().toLocaleString().substring(0,10);
+		   if(c.getConfirmation()!=null) text=text+"\n Bierzmowanie:     ---    "+c.getConfirmation().toLocaleString().substring(0,10);
+		       if(c.getMarriage()!=null) text=text+"\n Slub:             ---    "+c.getMarriage().toLocaleString().substring(0,10);
+				  if(c.getDeath()!=null) text=text+"\n Smierc:           ---    "+c.getDeath().toLocaleString().substring(0,10);
+
+			
+			
+			}
+			
+			if(s instanceof Priest){
+				if(((Priest) s).getArrivalDate()!=null) text=text+"\n   Przybycie:   ---    "+((Priest) s).getArrivalDate().toLocaleString().substring(0,10);
+			 if(((Priest) s).getSecularityDate()!=null) text=text+"\n   Swiecenia:   ---    "+((Priest) s).getSecularityDate().toLocaleString().substring(0,10);
+
+			}
+			text=text+"\n_";
+            cell.setPhrase(new Phrase(text,myFont2));
+
+			 table.addCell(cell);
+			 table.addCell(odstep);
+			
+        	
+        	
+        	
+        }
+        document.add(table);
+
+        document.close();
+        
+		
+		
+	}
 
 	public  boolean createActualsPdf( LinkedList<Actuals> actL, String path)
 

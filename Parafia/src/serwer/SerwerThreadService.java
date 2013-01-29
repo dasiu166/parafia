@@ -106,6 +106,7 @@ public class SerwerThreadService extends Thread implements KindQuery , KindRange
 	}
 	
 	public void run() {
+		boolean go=true;
 		try {
 			System.out.println("Klient sie podlaczyl");
 			
@@ -113,7 +114,7 @@ public class SerwerThreadService extends Thread implements KindQuery , KindRange
 			this.saveLog("Klient sie podlaczyl");
 			//LOG_END
 			
-			while (true) {// glowna petla watka
+			while (go) {// glowna petla watka
 				//this.setNullPackage();
 			 //wiadomosc = przychodzace.readObject();
 			 this.reciveObject();
@@ -134,12 +135,14 @@ public class SerwerThreadService extends Thread implements KindQuery , KindRange
 			System.out.println("Klient sie --odlaczyl "+db.useSavePoint());
 			this.saveLog("Klient sie rozlaczyl");
 			Serwer.removeLoginFromList(myLogin);
+			Serwer.removeClient();
+			go=false;
 		} finally {
 			
 			try {
 				
 				socket.close(); // zamkniecie polaczenia
-			
+				//Serwer.removeClient();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
